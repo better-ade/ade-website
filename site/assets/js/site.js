@@ -1,9 +1,10 @@
-// ADE website: mobile nav, light/dark toggle, platform-aware shortcuts,
-// copy buttons, reveal-on-scroll, and the latest release version and download links.
+// ADE website: mobile nav, light/dark toggle, copy buttons, reveal-on-scroll, and the ADE app's
+// latest release version and download links (the app page).
 (function () {
   "use strict";
 
-  var REPO = "alvin-reyes/better-agentic-ide";
+  // The ADE app (the desktop terminal): its releases fill the app page's download links.
+  var REPO = "better-ade/ade-terminal";
   var isMac = /Mac|iPhone|iPad/i.test(navigator.platform || navigator.userAgent);
 
   // --- Mobile nav ---------------------------------------------------------
@@ -74,7 +75,7 @@
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce || !("IntersectionObserver" in window)) return;
     var sel = [
-      ".section-head", ".feat-card", ".new-strip", ".price-card", ".training", ".faq", ".cta-band",
+      ".section-head", ".feat-card", ".orx-card", ".hl", ".new-strip", ".price-card", ".training", ".faq", ".cta-band",
       // The composition section joins the same mechanism rather than adding a
       // second one, so reduced-motion and the no-JS fallback keep holding.
       ".compose", ".flow li", ".org-node", ".org-tier"
@@ -191,7 +192,7 @@
     (function () {
       var rows = document.querySelectorAll("[data-repo-stats]");
       if (!rows.length) return;
-      fetch("https://api.github.com/repos/alvin-reyes/better-agentic-ide")
+      fetch("https://api.github.com/repos/better-ade/ade-cli")
         .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
         .then(function (d) {
           var fmt = function (v) {
@@ -209,18 +210,18 @@
         .catch(function () { /* leave them hidden */ });
     })();
 
-  // The downloads grid is filled by assets/js/site.js, which already fetches the
-    // release for the version label and the data-download links. This only wires
-    // the copy button, which is specific to this page.
+  // Copy buttons: data-copy names the id of the element whose text is copied.
     (function () {
-      var copy = document.getElementById("copy-install");
-      var cmd = document.getElementById("install-cmd");
-      if (!copy || !cmd || !navigator.clipboard) return;
-      copy.addEventListener("click", function () {
-        navigator.clipboard.writeText(cmd.textContent.trim()).then(function () {
-          var was = copy.textContent;
-          copy.textContent = "Copied";
-          setTimeout(function () { copy.textContent = was; }, 1600);
+      if (!navigator.clipboard) return;
+      document.querySelectorAll("[data-copy]").forEach(function (btn) {
+        var src = document.getElementById(btn.getAttribute("data-copy"));
+        if (!src) return;
+        btn.addEventListener("click", function () {
+          navigator.clipboard.writeText(src.textContent.trim()).then(function () {
+            var was = btn.textContent;
+            btn.textContent = "Copied";
+            setTimeout(function () { btn.textContent = was; }, 1600);
+          });
         });
       });
     })();
