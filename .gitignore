@@ -1,0 +1,10 @@
+node_modules/
+_site/
+.jekyll-cache/
+.bundle/
+vendor/
+# A checkout of better-ade/ade-terminal, made by CI (see README).
+ade-terminal/
+# Copied from ade-terminal at build time (scripts/fetch-installers.sh).
+site/install.sh
+site/install.ps1

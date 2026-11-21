@@ -1,0 +1,14 @@
+{
+  "name": "ade-website",
+  "private": true,
+  "type": "module",
+  "description": "ADE's public website (ade.ardata.tech) and the tests that hold it to ADE's code.",
+  "scripts": {
+    "test": "vitest run",
+    "build": "bundle exec jekyll build -s site -d _site"
+  },
+  "devDependencies": {
+    "jsdom": "25.0.1",
+    "vitest": "2.1.9"
+  }
+}
