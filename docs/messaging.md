@@ -33,7 +33,7 @@ Alternates:
 | **A team, not a chatbot** | 4 core roles plus specialists from ade-agent-registry. An orchestrator that dispatches tickets. Reviewers on a different model. |
 | **It remembers** | The brain indexes decisions, the journal and project context. Crash recovery. |
 | **You stay in control** | High-risk work waits for your approval. Secrets never reach agents. Each customer kept separate. |
-| **Works where you are** | `ade ui` tabs in any terminal, the desktop app, Telegram, Remote Control. |
+| **Works where you are** | `ade ui` tabs and the file viewer in any terminal, the desktop app, Telegram, Remote Control, your tracker (ClickUp, Jira, Linear; every change asks first), a Mac or an Ubuntu server. |
 
 ## Audience messages
 

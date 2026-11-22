@@ -17,8 +17,10 @@ The public website for ADE, served at https://ade.ardata.tech. ADE itself lives 
     sitemap is complete; `/install.sh` and `/install.ps1` are built; no pricing, no AI
     attribution, no GitHub link outside the better-ade organisation.
   - `siteTruth`: holds the pages to `main` of the repos they describe. Every `ade`
-    command and hub `bin/` script named exists; role, specialist and version numbers
-    match; each repo's verification command matches its CI; and anything not merged
+    command and hub `bin/` script named exists, and each `ade` command is in `ade help`;
+    every `ade ui` key and `ade-secrets` command named exists; the connectors named are
+    ade-skills plugins that ask before a change; role, specialist and version numbers
+    (`site/_data/releases.yml`) match; each repo's verification command matches its CI; and anything not merged
     yet carries a **Coming** label (the `NOT_MERGED` list).
   - `siteCsp`, `siteThemeContrast`, `fetchInstallers`: the content security policy on
     every page, the light/dark contrast rule, and the installer copy script.
@@ -34,9 +36,9 @@ The public website for ADE, served at https://ade.ardata.tech. ADE itself lives 
 ## Verification command
 
 Needs Node 22, Ruby 3.3 with Bundler, and checkouts of ade-cli, ade-brain, ade-method,
-ade-agent-registry and ade-skills at `main`: in `./repos/<name>` (what CI makes), in
-`../<name>`, or at the paths in `ADE_CLI_DIR`, `ADE_BRAIN_DIR`, `ADE_METHOD_DIR`,
-`ADE_REGISTRY_DIR` and `ADE_SKILLS_DIR`. The site is built before the tests, because
+ade-agent-registry, ade-skills and ade-secrets at `main`: in `./repos/<name>` (what CI
+makes), in `../<name>`, or at the paths in `ADE_CLI_DIR`, `ADE_BRAIN_DIR`, `ADE_METHOD_DIR`,
+`ADE_REGISTRY_DIR`, `ADE_SKILLS_DIR` and `ADE_SECRETS_DIR`. The site is built before the tests, because
 most tests read the built pages. Each line must exit 0:
 
 ```
