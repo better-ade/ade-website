@@ -32,8 +32,9 @@ programs.
   `hub.conf`.
 - **A stored key enables nothing.** A provider runs only when the hub allows it (`HUB_PROVIDERS_ALLOWED`), and a
   provider marked for your own work only is refused in a customer's hub.
-- **Claude Code sessions never get the key.** Claude Code fetches a provider's key itself, through its key helper, so
-  it is never in a session's environment. Delegated read-only agents run with a cleared environment.
+- **The key is never in a session's environment.** Claude Code fetches a provider's key itself, through its key
+  helper. That one key is what Claude Code runs on, so Claude Code and what it runs can ask the helper for it; no
+  other key in the store can be read that way. Delegated read-only agents run with a cleared environment.
 - **The Gemini CLI is the exception:** it takes a key only from its environment, so with a Gemini API key the hub
   passes it there, and turns on the CLI's own redaction of that variable. Signing in with a Google account stores no
   key.

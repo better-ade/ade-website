@@ -79,6 +79,6 @@ Every session starts from what is live, open and waiting:
   committed, and a chunk that looks like a secret is never indexed.
 - **At session end** the hub journals the session's commits, commits the folder's hub files, refreshes the brain and
   syncs. Sync refuses to run without a gitleaks scan.
-- **Crash recovery**: `bin/recover` runs at login, each time the orchestrator starts and on every monitor run. It
-  removes stale locks, repairs a torn event log, marks a dead agent's ticket blocked and tells you what that agent left
+- **Crash recovery**: `bin/recover` runs each time the orchestrator starts, at login on macOS, and on every monitor
+  run for agents that died. It removes stale locks, repairs a torn event log, marks a dead agent's ticket blocked and tells you what that agent left
   and how to resume it. It never commits, resets or checks out anything. `bin/recover --check` changes nothing.
