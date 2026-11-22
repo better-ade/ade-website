@@ -2,16 +2,16 @@
 layout: guide
 title: Get started
 permalink: /get-started/
-description: Install the ade command, run ade setup, and open everything in one window with ade ui. Each step says what works today and what is Coming.
-lead: Three commands. Install <code>ade</code>, run <code>ade setup</code>, open <code>ade ui</code>. Each step says what works today and what is Coming.
+description: Install the ade command, run ade setup, and open everything in one window with ade ui. On macOS or Linux, from the release the installer names.
+lead: Three commands. Install <code>ade</code>, run <code>ade setup</code>, open <code>ade ui</code>.
 ---
 
 ## What you need
 
-- **macOS** for the hub: its keys live in the macOS Keychain and its services in launchd. The `ade` command itself
-  runs on macOS and Linux. The hub on Linux: <span class="coming">Coming</span>
+- **macOS or Linux.** On macOS the hub keeps its keys in the Keychain and its services in launchd; on Linux (Ubuntu,
+  or a server) in `pass` or a private file, and in systemd user units.
 - `git`, Bash and `python3`. `gh` if the hub should be a private GitHub repo (or make a local one with `--no-github`).
-  `tmux` for `ade ui`.
+  `tmux` for `ade ui`. `ade setup --tools` installs what is missing with Homebrew or apt, after one yes.
 - Claude Code, signed in with your Claude account (Pro, Max, Team or Enterprise). `ade setup` offers to install it.
 
 ## 1. Install the ade command
@@ -23,15 +23,12 @@ curl -fsSL https://raw.githubusercontent.com/better-ade/ade-cli/main/install.sh 
 It writes `~/.local/bin/ade` and tells you when that folder is not on your `PATH`. It installs the tagged release that
 ade-cli's `main` names, never `main` itself, and a failed download keeps the `ade` you had.
 
-> Today that release is **v0.1.0**: the hub commands (`ade work`, `ade status`, `ade dispatch`, `ade keys`, ...) and
-> the project commands (`ade init`, `ade agent`, `ade skills add`). `ade setup`, `ade ui`, `ade hub new` and
-> `ade claude` are merged on `main` but not in a release yet. Until the next release, install from a checkout:
+> Today that release is **v{{ site.data.releases.ade_cli }}**, and it holds every `ade` command on this site not marked Coming; its
+> [changelog]({{ site.cli_repo }}/blob/main/CHANGELOG.md) lists what each release added.
 
-```
-git clone https://github.com/better-ade/ade-cli && cd ade-cli && ./install.sh
-```
-
-Re-run `./install.sh` after a `git pull` to upgrade. `ade version` says what you have; `ade help` lists every command.
+`ade update` upgrades `ade`, the hub, its plugins and Claude Code, and `ade update --rollback` brings back the `ade` you
+had. Patch and minor releases of `ade` install themselves; `ADE_NO_AUTO_UPDATE=1` only announces them. `ade version`
+says what you have; `ade help` lists every command.
 
 ## 2. Run ade setup
 
@@ -44,9 +41,7 @@ One command from nothing to a working hub, and it asks before every step. It ins
 *focus* providers, signs each in and live-tests it, offers Telegram, and ends in a guided session with the
 orchestrator. [What each step does]({{ '/guide/setup/' | relative_url }}).
 
-> **The live tests:** <span class="coming">Coming</span>. They run through the hub's live-test entry point, which is
-> not merged in ade-brain yet, so today a full `ade setup` stops at the first live test. What works today is
-> `ade setup --check` (it reads only), `ade setup --telegram`, and the same steps by hand:
+`ade setup --check` reads only and says what is missing. The same steps by hand:
 
 ```
 ade hub new my-hub     # a private GitHub repo (--no-github: a local one)
@@ -66,8 +61,8 @@ One tmux window on `ade`'s own tmux server, so your own tmux setup is never touc
 <kbd>prefix</kbd> <kbd>f</kbd> shows the fleet sidebar, <kbd>prefix</kbd> <kbd>?</kbd> lists the keys and
 <kbd>prefix</kbd> <kbd>d</kbd> detaches while the agents keep running. [More on ade ui]({{ '/guide/ui/' | relative_url }}).
 
-> **A tab per focus agent:** <span class="coming">Coming</span>, with the unread counts and the ticket lists.
-> They need hub pieces that are not merged yet. Today `ade work` opens a focus agent in its own Terminal window.
+While `ade ui` runs, `ade work` opens each focus agent in a tab of its own, with its unread count.
+<kbd>prefix</kbd> <kbd>e</kbd> opens the file viewer.
 
 ## Then
 

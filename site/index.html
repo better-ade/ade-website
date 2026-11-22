@@ -21,11 +21,17 @@ description: For software teams and product managers who want AI to ship real wo
       <div class="window">
         <div class="window-inner">
           <div class="shot-bar"><i></i><i></i><i></i><span>ade-cli &middot; the verification command</span></div>
-          <pre class="term" aria-label="Terminal output of bash tests/run.sh in ade-cli: eight test suites, each ok, then exit status 0"><code><span class="term-dim">$</span> bash tests/run.sh; echo $?
+          <pre class="term" aria-label="Terminal output of bash tests/run.sh in ade-cli: thirteen test suites, each ok, then exit status 0"><code><span class="term-dim">$</span> bash tests/run.sh; echo $?
+<span class="term-dim">bash 5.3.20(1)-release (/opt/homebrew/bin/bash)</span>
 <span class="term-ok">ok</span>    test_ade.sh
 <span class="term-ok">ok</span>    test_claude.sh
+<span class="term-ok">ok</span>    test_clean.sh
+<span class="term-ok">ok</span>    test_files.sh
+<span class="term-ok">ok</span>    test_hostile.sh
 <span class="term-ok">ok</span>    test_hub.sh
 <span class="term-ok">ok</span>    test_orchestrator.sh
+<span class="term-ok">ok</span>    test_releases.sh
+<span class="term-ok">ok</span>    test_restore.sh
 <span class="term-ok">ok</span>    test_setup.sh
 <span class="term-ok">ok</span>    test_skills.sh
 <span class="term-ok">ok</span>    test_ui.sh
@@ -33,7 +39,7 @@ description: For software teams and product managers who want AI to ship real wo
 0</code></pre>
         </div>
       </div>
-      <figcaption class="term-caption">Real output: the <code>ade</code> command&rsquo;s own verification command, on <code>main</code> at 6766df0, run 2026-11-21. Each repo behind ADE has one, and CI runs it on every pull request.</figcaption>
+      <figcaption class="term-caption">Real output: the <code>ade</code> command&rsquo;s own verification command, on <code>main</code> at 5daf9ba, run 2026-11-22. Each repo behind ADE has one, and CI runs it on every pull request.</figcaption>
     </figure>
   </div>
 </section>
@@ -92,7 +98,7 @@ description: For software teams and product managers who want AI to ship real wo
         <ul class="checks">
           <li><strong>The brain</strong> indexes the journal, each folder&rsquo;s state and each project&rsquo;s context and decision records, locally.</li>
           <li>Hooks read that state back at session start and on every prompt, so each session knows what the others did.</li>
-          <li>Crash recovery: when a part dies, the hub comes back on its own and says what it recovered. <span class="coming">Coming</span></li>
+          <li><strong>Crash recovery:</strong> after a crash or a restart, <code>bin/recover</code> clears stale locks, repairs the event log, marks a dead agent&rsquo;s ticket blocked and says how to resume it. Each repair is a line in the journal.</li>
         </ul>
       </article>
       <article class="orx-card">
@@ -100,7 +106,8 @@ description: For software teams and product managers who want AI to ship real wo
         <p>Agents do the work; the decisions that matter stay yours.</p>
         <ul class="checks">
           <li><strong>High-risk work waits</strong> for your approval, typed at your own terminal.</li>
-          <li><strong>Secrets stay out of agents&rsquo; reach:</strong> a key goes from a hidden prompt to the macOS Keychain, never into an agent&rsquo;s environment, an argument or a log.</li>
+          <li><strong>Secrets stay out of agents&rsquo; reach:</strong> a key goes from a hidden prompt to the hub&rsquo;s key store (the macOS Keychain; on Linux, pass or a private file), never into an argument, a log or a Claude Code session&rsquo;s environment.</li>
+          <li><strong>ade-secrets</strong>, a local key store and terminal vault (<code>ade-secrets vault</code>), refuses to run inside an agent session.</li>
           <li><strong>Each customer kept separate:</strong> one hub per customer, with its own allowed models.</li>
         </ul>
       </article>
@@ -108,10 +115,12 @@ description: For software teams and product managers who want AI to ship real wo
         <h3>Works where you are</h3>
         <p>The same team in your terminal, on your phone and in the app.</p>
         <ul class="checks">
-          <li><strong><code>ade ui</code></strong>: the orchestrator and the fleet in one tmux window, in any terminal. A tab per focus agent: <span class="coming">Coming</span></li>
+          <li><strong><code>ade ui</code></strong>: the orchestrator and the fleet in one tmux window, in any terminal, with a tab per focus agent. <code>ade files</code> and <code>ade view</code> show the hub&rsquo;s files and code, read-only.</li>
           <li><strong>Telegram</strong>: message your orchestrator from your phone, paired to you alone.</li>
+          <li data-truth="plugins"><strong>Your tracker</strong>: ClickUp, Jira and Linear through the <code>clickup</code>, <code>jira</code> and <code>linear</code> plugins. Every change asks first.</li>
           <li><strong>Remote Control</strong>: the orchestrator and every focus session start with Claude Code&rsquo;s Remote Control on, named after the hub or the folder.</li>
           <li><strong>The desktop app</strong>: frozen, still downloadable.</li>
+          <li><strong>A Mac or an Ubuntu server</strong>: the hub runs on both. On a server, <code>bin/server install</code> checks SSH, the firewall and upgrades first and opens no public port.</li>
         </ul>
       </article>
       <article class="orx-card orx-card--check">
@@ -234,7 +243,7 @@ description: For software teams and product managers who want AI to ship real wo
         <span class="feat-eyebrow">Product managers</span>
         <h3>Write what you want in plain words.</h3>
         <p>Watch it get built from Telegram and approve what matters, without reading code.</p>
-        <p class="proof">The method has a section for people who don&rsquo;t write code: ask in plain words, and the orchestrator writes the ticket and tells you when it is Done. Messaging it from Telegram works today; approvals as Telegram buttons: <span class="coming">Coming</span></p>
+        <p class="proof">The method has a section for people who don&rsquo;t write code: ask in plain words, and the orchestrator writes the ticket and tells you when it is Done. From Telegram you ask for status, answer what it asks you to approve, and message a running focus agent.</p>
       </article>
       <article class="orx-card audience">
         <span class="feat-eyebrow">Forward deployed engineers and consultancies</span>
@@ -272,7 +281,7 @@ description: For software teams and product managers who want AI to ship real wo
       <article class="orx-card">
         <span class="feat-eyebrow">DIY scripts</span>
         <h3>Already built and tested.</h3>
-        <p>The method and the guardrails are built and covered by tests. Crash recovery: <span class="coming">Coming</span></p>
+        <p>The method, the guardrails and crash recovery are built and covered by tests.</p>
       </article>
     </div>
   </div>
@@ -287,19 +296,19 @@ description: For software teams and product managers who want AI to ship real wo
     <div class="faq">
       <details>
         <summary>Is it safe to let agents do this?</summary>
-        <p><b>Approvals:</b> high-risk tickets wait until you approve them at your own terminal, typing the ticket&rsquo;s reference back. <b>Owner-only actions:</b> nothing is sent to a customer, changed in an account or run on a live system without your yes, and ADE refuses to start Claude Code with its permission checks skipped. <b>Secrets:</b> keys go from a hidden prompt to the macOS Keychain and never into an agent&rsquo;s environment, an argument or a log. <b>Isolation:</b> one hub per customer; a provider you keep for your own work is refused in a customer&rsquo;s hub.</p>
+        <p><b>Approvals:</b> high-risk tickets wait until you approve them at your own terminal, typing the ticket&rsquo;s reference back. <b>Owner-only actions:</b> nothing is sent to a customer, changed in an account or run on a live system without your yes, and ADE refuses to start Claude Code with its permission checks skipped. <b>Secrets:</b> keys go from a hidden prompt to the hub&rsquo;s key store and never into an argument, a log or a Claude Code session&rsquo;s environment. <b>Isolation:</b> one hub per customer; a provider you keep for your own work is refused in a customer&rsquo;s hub.</p>
       </details>
       <details>
         <summary>Will I be locked in?</summary>
-        <p><b>Open source:</b> every repo is on GitHub under the MIT license. <b>Any model:</b> agents run through Claude Code, on Anthropic&rsquo;s models or DeepSeek today, and each role can be pointed at another model; Gemini, GLM and Muse <span class="coming">Coming</span>. <b>Your own account:</b> your Claude login or your own API key, on your own machine.</p>
+        <p><b>Open source:</b> every repo is on GitHub under the MIT license. <b>Any model:</b> agents run through Claude Code, on Anthropic&rsquo;s models or DeepSeek, focus agents and builders can run in the Gemini CLI, and each role can be pointed at another model; GLM and Muse <span class="coming">Coming</span>. <b>Your own account:</b> your Claude login or your own API key, on your own machine.</p>
       </details>
       <details>
         <summary>Isn&rsquo;t this just prompts?</summary>
-        <p>It&rsquo;s a tested system, verified by its own test suites. Each repo has a verification command that CI runs on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain and ade-skills, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every script in the hub has a test. The output at the top of this page is one of them.</p>
+        <p>It&rsquo;s a tested system, verified by its own test suites. Each repo has a verification command that CI runs on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain, ade-skills and ade-secrets, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every script in the hub has a test. The output at the top of this page is one of them.</p>
       </details>
       <details>
         <summary>What is Coming, and not here yet?</summary>
-        <p>Marked <span class="coming">Coming</span> wherever it appears: crash recovery, a tab per focus agent in <code>ade ui</code>, the hub&rsquo;s side of <code>ade setup</code>&rsquo;s live tests, Telegram approvals and talking to focus agents, the ade-secrets vault, restoring connections, self-update for <code>ade</code>, a file viewer, server mode on Linux and the Gemini engine.</p>
+        <p>Marked <span class="coming">Coming</span> wherever it appears: the GLM and Muse providers, Gemini in <code>ade setup</code>&rsquo;s live test, an Anthropic API key or DeepSeek for the orchestrator, and ade-secrets inside <code>ade</code> (<code>ade key</code>, <code>ade vault</code>).</p>
       </details>
     </div>
   </div>

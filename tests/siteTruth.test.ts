@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { REPOS, builtPages, isRedirect, parse, readBuilt, readRepo } from "./paths";
+import { REPOS, builtPages, isRedirect, parse, readBuilt, readRepo, readSite } from "./paths";
 
 /**
  * The truth rule (docs/messaging.md): every claim matches what is merged on `main` today, and anything not merged
@@ -13,10 +13,13 @@ const PAGES = builtPages()
   .filter((p) => !isRedirect(p.doc));
 const page = (path: string) => PAGES.find((p) => p.path === path)!.doc;
 
-/** True when the element, or the list item, table row, paragraph or quote around it, carries a Coming label. */
+/**
+ * True when the element, or the list item, table row, paragraph, quote or card around it, carries a Coming label.
+ * A layout's own article (`.prose`, the whole page body) is not a card: one label on a page must not cover the rest.
+ */
 function labelledComing(el: Element): boolean {
   if (el.querySelector(".coming") || el.classList.contains("coming")) return true;
-  const around = el.parentElement?.closest("li, tr, p, blockquote, article");
+  const around = el.parentElement?.closest("li, tr, p, blockquote, article:not(.prose)");
   return !!around && !!around.querySelector(".coming");
 }
 
@@ -26,6 +29,22 @@ function adeCommands(): Set<string> {
   const table = src.slice(src.lastIndexOf('case "$cmd" in'));
   const out = new Set<string>();
   for (const m of table.matchAll(/^\s+([a-z|"-]+)\)/gm)) for (const c of m[1].split("|")) if (/^[a-z][a-z-]*$/.test(c)) out.add(c);
+  return out;
+}
+
+/** The commands `ade help` lists (the usage heredoc): the first word of each indented line. */
+function adeHelp(): Set<string> {
+  const src = readRepo("cli", "ade");
+  const help = src.slice(src.indexOf("usage() {"), src.indexOf("\nHELP\n", src.indexOf("usage() {")));
+  return new Set([...help.matchAll(/^  ([a-z][a-z-]*)\s/gm)].map((m) => m[1]));
+}
+
+/** The subcommands ade-secrets dispatches (the last `case "$cmd" in` of bin/ade-secrets). */
+function secretsCommands(): Set<string> {
+  const src = readRepo("secrets", "bin/ade-secrets");
+  const table = src.slice(src.lastIndexOf('case "$cmd" in'));
+  const out = new Set<string>();
+  for (const m of table.matchAll(/^\s+([a-z|-]+)\)/gm)) for (const c of m[1].split("|")) if (/^[a-z]+$/.test(c)) out.add(c);
   return out;
 }
 
@@ -42,6 +61,59 @@ describe("commands and scripts the pages name exist on main", () => {
       }
     }
     expect(wrong).toEqual([]);
+  });
+
+  it("every `ade <command>` not labelled Coming is one `ade help` lists", () => {
+    const help = adeHelp();
+    expect(help.has("files") && help.has("update") && help.has("setup")).toBe(true);
+    const wrong: string[] = [];
+    for (const { path, el } of codes) {
+      for (const m of (el.textContent ?? "").matchAll(/(?:^|[\s;(])ade ([a-z][a-z-]*)/gm)) {
+        if (!help.has(m[1]) && !labelledComing(el)) wrong.push(`${path}: ade ${m[1]}`);
+      }
+    }
+    expect(wrong).toEqual([]);
+  });
+
+  it("every `ade-secrets <command>` is one bin/ade-secrets dispatches", () => {
+    const real = secretsCommands();
+    expect(real.has("vault") && real.has("set")).toBe(true);
+    const named: string[] = [];
+    const wrong: string[] = [];
+    for (const { path, el } of codes) {
+      for (const m of (el.textContent ?? "").matchAll(/(?:^|[\s;(])ade-secrets ([a-z]+)/gm)) {
+        named.push(m[1]);
+        if (!real.has(m[1]) && !labelledComing(el)) wrong.push(`${path}: ade-secrets ${m[1]}`);
+      }
+    }
+    expect(named.length).toBeGreaterThan(0);
+    expect(wrong).toEqual([]);
+  });
+
+  it("every `prefix <key>` on the ade ui page is in ade ui's own key list (UI_KEYS, shown by prefix ?)", () => {
+    const src = readRepo("cli", "ade");
+    const list = /^UI_KEYS="([^"]*)"/m.exec(src)![1];
+    const bound = new Set([...list.matchAll(/^\s*prefix (\S+)\s/gm)].map((m) => m[1]));
+    expect(bound.has("e") && bound.has("l")).toBe(true);
+    const named: string[] = [];
+    for (const row of page("guide/ui/index.html").querySelectorAll("tr")) {
+      const kbd = [...row.querySelectorAll("td:first-child kbd")].map((k) => k.textContent ?? "");
+      if (kbd[0] !== "prefix" || kbd.length !== 2 || !/^[a-z?]$/.test(kbd[1]) || labelledComing(row)) continue;
+      named.push(kbd[1]);
+    }
+    expect(named).toEqual(expect.arrayContaining(["a", "t", "e", "l"]));
+    for (const k of named) expect(bound.has(k), `prefix ${k}`).toBe(true);
+  });
+
+  it("the connectors named are ade-skills plugins, and each asks before every change", () => {
+    const plugins: { name: string; description: string }[] = JSON.parse(readRepo("skills", ".claude-plugin/marketplace.json")).plugins;
+    const named = PAGES.flatMap(({ doc }) => [...doc.querySelectorAll('[data-truth="plugins"] code')].map((c) => c.textContent ?? ""));
+    expect(named).toEqual(expect.arrayContaining(["clickup", "jira", "linear"]));
+    for (const n of named) {
+      const p = plugins.find((x) => x.name === n);
+      expect(p, n).toBeTruthy();
+      expect(p!.description, n).toMatch(/every change through this server asks/);
+    }
   });
 
   it("every `bin/<script>` is a script in ade-brain's bin/", () => {
@@ -83,6 +155,15 @@ describe("numbers and versions", () => {
     for (const r of roles) expect(text, r.name).toContain(r.name.replace(/-/g, " "));
   });
 
+  it("the release numbers the pages show (site/_data/releases.yml) are each repo's VERSION on main", () => {
+    const data = Object.fromEntries(
+      [...readSite("_data/releases.yml").matchAll(/^([a-z_]+):\s*(\S+)\s*$/gm)].map((m) => [m[1], m[2]]),
+    );
+    const repos = { ade_cli: "cli", ade_brain: "brain", ade_skills: "skills", ade_secrets: "secrets" } as const;
+    expect(Object.keys(data).sort()).toEqual(Object.keys(repos).sort());
+    for (const [k, repo] of Object.entries(repos)) expect(data[k], k).toBe(readRepo(repo, "VERSION").trim());
+  });
+
   it("Get started names the release the one-line installer installs today (ade-cli's VERSION on main)", () => {
     const version = readRepo("cli", "VERSION").trim();
     expect(page("get-started/index.html").body.textContent).toContain(`v${version}`);
@@ -90,7 +171,7 @@ describe("numbers and versions", () => {
 
   it("the Repos page gives each repo the verification command its CI runs", () => {
     const rows = [...page("repos/index.html").querySelectorAll("tbody tr")];
-    const dirs = { "ade-cli": "cli", "ade-brain": "brain", "ade-method": "method", "ade-agent-registry": "registry", "ade-skills": "skills" } as const;
+    const dirs = { "ade-cli": "cli", "ade-brain": "brain", "ade-method": "method", "ade-agent-registry": "registry", "ade-skills": "skills", "ade-secrets": "secrets" } as const;
     for (const [name, key] of Object.entries(dirs)) {
       const ci = readRepo(key, ".github/workflows/ci.yml");
       const command = /command:\s*"([^"]+)"/.exec(ci)![1];
@@ -113,16 +194,11 @@ describe("numbers and versions", () => {
  * merged, take it off this list and drop its labels in the same change.
  */
 const NOT_MERGED: [string, RegExp][] = [
-  ["crash recovery (ade-brain R1)", /crash recovery/i],
-  ["the ade-secrets vault, ade key, ade vault (ade-secrets S1, S2; ade-cli A13, A14)", /\bvault\b|ade-secrets|\bade key\b/i],
-  ["restoring connections (ade-cli A10)", /restor(e|ing) connections|ade restore/i],
-  ["self-update (ade-cli A11, A12)", /self-update|ade update|auto-update/i],
-  ["the file viewer (ade-cli A15)", /file viewer/i],
-  ["server mode (ade-brain V2)", /server mode/i],
-  ["Gemini, GLM and Muse providers (ade-brain E1, providers)", /\b(Gemini|GLM|Muse)\b/],
-  ["a tab per focus agent in ade ui (ade-brain V1)", /tab per focus agent/i],
-  ["Telegram approvals and talking to focus agents (ade-brain C7)", /buttons|talking to focus agents/i],
-  ["the hub on Linux (ade-brain V1)", /hub on Linux/i],
+  ["the GLM and Muse providers", /\b(GLM|Muse)\b/i],
+  ["ade key and ade vault inside ade, and the hub's keys on ade-secrets (ade-cli A13, A14; ade-brain H2)", /\bade (key|vault)\b|keys` on ade-secrets/i],
+  ["the Gemini CLI in ade setup's live test", /live test[^.|]*Gemini|Gemini[^.|]*live test/i],
+  ["an Anthropic API key or DeepSeek for the orchestrator", /(API key|DeepSeek) for the orchestrator|API key kept in the hub/i],
+  ["connectors beyond ClickUp, Jira and Linear, and ade connect (ade-skills K1b to K7; ade-cli A16)", /\b(GitHub|Gmail|Slack|Outlook|Teams|Discord) connector|\bade connect\b/i],
 ];
 
 describe("not merged yet is labelled Coming", () => {

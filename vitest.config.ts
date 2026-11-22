@@ -12,6 +12,7 @@ const REPOS: Record<string, { name: string; marker: string }> = {
   ADE_METHOD_DIR: { name: "ade-method", marker: "ade.json" },
   ADE_REGISTRY_DIR: { name: "ade-agent-registry", marker: "registry.json" },
   ADE_SKILLS_DIR: { name: "ade-skills", marker: ".claude-plugin/marketplace.json" },
+  ADE_SECRETS_DIR: { name: "ade-secrets", marker: "bin/ade-secrets" },
 };
 
 function find(env: string): string {

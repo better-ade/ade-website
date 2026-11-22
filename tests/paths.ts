@@ -19,6 +19,7 @@ export const REPOS = {
   method: process.env.ADE_METHOD_DIR!,
   registry: process.env.ADE_REGISTRY_DIR!,
   skills: process.env.ADE_SKILLS_DIR!,
+  secrets: process.env.ADE_SECRETS_DIR!,
 };
 export const readRepo = (repo: keyof typeof REPOS, path: string) => readFileSync(resolve(REPOS[repo], path), "utf8");
 

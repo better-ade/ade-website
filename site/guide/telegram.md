@@ -1,6 +1,6 @@
 ---
 title: Telegram
-description: Reach your orchestrator from Telegram. One-time setup, how it stays locked to you, keeping it running, and what is Coming.
+description: Reach your orchestrator from Telegram. One-time setup, approvals, talking to focus agents, how it stays locked to you, and keeping it running.
 lead: Message your orchestrator from your phone. It is paired to you alone, and it never skips a permission check.
 ---
 
@@ -17,7 +17,18 @@ ade orchestrator logs my-hub -n 50
 ade orchestrator stop my-hub
 ```
 
-`ade setup --telegram` stores the bot token and prints the steps below.
+`ade setup --telegram` stores the bot token and prints the steps below. `ade setup --test telegram` sends one message
+and waits for your reply, to check the channel end to end.
+
+## From your phone
+
+- **Replies fit Telegram:** short, formatted, and a status card (`bin/chat status --card`): the orchestrator, then one
+  line per agent, busy, idle or blocked, with its folder, role and ticket.
+- **Approvals:** when the orchestrator asks you to approve something, you reply 1 to approve or 2 to deny, with the
+  ask's reference, and your answer is a line in the journal. Claude Code's permission prompts come with Allow and Deny
+  buttons.
+- **Talking to focus agents:** `/agents` lists the running ones; `/to <agent> <text>` passes your message to one.
+- **The agents' news:** when a focus agent goes idle, ends or leaves a note, the orchestrator forwards it to you.
 
 ## One-time setup
 
@@ -32,23 +43,17 @@ ade orchestrator stop my-hub
 
 ## Locked to you
 
-- **Allowlist, no groups.** Started without a terminal (by launchd), the orchestrator refuses to run unless the channel
+- **Allowlist, no groups.** Started without a terminal (by launchd or systemd), the orchestrator refuses to run unless the channel
   is locked to an allowlist with no groups.
 - **Every permission prompt goes to you.** The orchestrator runs in manual permission mode by default, and a setting or
   argument that would skip permissions stops it from starting.
-- **The token stays out of the session.** At each start it goes from the Keychain into a short-lived private file for
+- **The token stays out of the session.** At each start it goes from the key store into a short-lived private file for
   the plugin, deleted once read and within 60 seconds. It is never in the session's environment, an argument or the
   log.
 - **Remote Control** is on, named after the orchestrator, so the same session is open in the Claude app too.
 
 ## Keep it running
 
-Set `HUB_CHAT=telegram` in `hub.conf` and run `bin/schedule install` in the hub: launchd keeps the orchestrator
-running and restarts it. `ade chat status` shows whether it is running, since when, and the channel's policy.
-
-## Coming
-
-- Replies formatted for Telegram, with a status card. <span class="coming">Coming</span>
-- Approvals as buttons in Telegram. <span class="coming">Coming</span>
-- Talking to focus agents from Telegram (`/to <agent>`, `/agents`). <span class="coming">Coming</span>
-- `ade setup --test telegram`, a live test of the channel. <span class="coming">Coming</span>
+Set `HUB_CHAT=telegram` in `hub.conf` and run `bin/schedule install` in the hub: launchd on macOS, or a systemd user
+unit on Linux, keeps the orchestrator running and restarts it. After a crash it says so in the chat, with how many
+agents are running and waiting. `ade chat status` shows whether it is running, since when, and the channel's policy.

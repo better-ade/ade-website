@@ -19,6 +19,7 @@ lead: ADE is a handful of small repos, each with its own verification command. A
 - **ade-brain** is the template every hub is made from, one hub per customer or team.
 - **ade-method**, **ade-agent-registry** and **ade-skills** are what a project loads: the rules and core roles always,
   a specialist or a plugin only when a task needs one.
+- **ade-secrets** is a command of its own, `ade-secrets`, for the keys you keep on your machine. See [Keys]({{ '/guide/keys/' | relative_url }}).
 - **.github** holds the shared CI the repos call: every pull request and every push to `main` runs the repo's verification command
   and a gitleaks scan, and a release is cut when `VERSION` changes on `main`.
 
