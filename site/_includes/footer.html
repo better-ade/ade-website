@@ -5,28 +5,28 @@
         <img src="{{ '/assets/img/logo.svg' | relative_url }}" alt="" width="28" height="28">
         <span>ADE</span>
       </a>
-      <p>Agentic Development Environment. The terminal for building products with AI.</p>
+      <p>Your AI delivery team. Verified, not vibed.</p>
     </div>
     <div class="footer-cols">
       <div>
-        <h3>Product</h3>
-        <a href="{{ '/#features' | relative_url }}">Features</a>
-        <a href="https://github.com/alvin-reyes/better-agentic-ide">Source</a>
-        <a href="https://github.com/alvin-reyes/better-agentic-ide/blob/main/LICENSE">MIT License</a>
-        <a href="{{ site.repo }}/releases/latest">Download</a>
+        <h3>ADE</h3>
+        <a href="{{ '/#how-it-works' | relative_url }}">How it works</a>
+        <a href="{{ '/#who' | relative_url }}">Who it&rsquo;s for</a>
+        <a href="{{ '/#faq' | relative_url }}">Questions</a>
+        <a href="{{ '/app/' | relative_url }}">The ADE app</a>
       </div>
       <div>
         <h3>Guide</h3>
-        <a href="{{ '/guide/' | relative_url }}">Getting started</a>
-        <a href="{{ '/guide/shortcuts/' | relative_url }}">Keyboard shortcuts</a>
-        <a href="{{ '/guide/troubleshooting/' | relative_url }}">Troubleshooting</a>
+        {% for item in site.data.guide %}<a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+        {% endfor %}
       </div>
       <div>
-        <h3>Learn</h3>
-        <a href="{{ '/#built-with' | relative_url }}">Used on real work</a>
-        <a href="{{ '/#faq' | relative_url }}">FAQ</a>
+        <h3>Source</h3>
+        <a href="{{ '/repos/' | relative_url }}">Repos</a>
+        <a href="{{ site.org_url }}">GitHub</a>
+        <a href="{{ site.cli_repo }}/blob/main/LICENSE">MIT License</a>
       </div>
     </div>
   </div>
-  <div class="wrap"><div class="footer-note"><span>© 2025–2026 Alvin Reyes</span><span>Free and open source · MIT licensed</span></div></div>
+  <div class="wrap"><div class="footer-note"><span>ADE &middot; open source, MIT licensed</span><span>What is not merged yet is marked <span class="coming">Coming</span></span></div></div>
 </footer>

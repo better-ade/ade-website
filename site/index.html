@@ -1,681 +1,305 @@
 ---
 layout: default
 body_class: home
-description: ADE is a desktop terminal where your coding agents work as a team of 19 roles (architect, developer, QA and more) under a methodology with a gate that decides when the work is done. It runs Claude Code, Codex and local models.
+description: For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns tickets into verified, reviewed changes, unlike general AI assistants that leave you to check everything they do.
 ---
 {% assign img = '/assets/img/' | relative_url %}
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
       <div class="hero-mark"><img src="{{ img }}logo.svg" width="76" height="76" alt=""></div>
-      <a class="pill" href="#new"><b data-latest-version>v0.22.0</b><span>Code viewer, and more →</span></a>
-      <p class="hero-kicker">Verified, not vibed &middot; for Claude Code developers and architects</p>
-      <h1>A team of agents. <span class="grad-text">One gate for&nbsp;Done.</span></h1>
-      <p class="sub">Your coding agents as BMAD&nbsp;v6 roles. They plan, a reviewer tries to break the plan, developers build in parallel git worktrees, and one verification command decides Done.</p>
+      <p class="hero-kicker">Your AI delivery team &middot; Done means tested</p>
+      <h1>Verified, <span class="grad-text">not&nbsp;vibed.</span></h1>
+      <p class="sub">For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns tickets into verified, reviewed changes, unlike general AI assistants that leave you to check everything they do.</p>
       <div class="hero-cta">
-        <a class="btn btn-ghost" href="{{ site.repo }}">View the source</a>
-        <a class="btn btn-primary" href="#downloads" data-download="auto">
-          <svg width="17" height="17" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0l-4-4m4 4l4-4M4 16h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Download free <span class="ver" data-latest-version></span>
-        </a>
+        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn-ghost" href="#how-it-works">How it works</a>
       </div>
-      <ul class="repo-stats repo-stats--hero" data-repo-stats hidden>
-        <li>
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4 4.4.6-3.2 3.1.8 4.3L8 11.5l-3.9 2 .8-4.3L1.7 6.1l4.4-.6z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
-          <b data-stat="stars">&mdash;</b> <span>stars</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v3a2 2 0 002 2h2a2 2 0 002-2v-3M8 8.5v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="5" cy="2.8" r="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="11" cy="2.8" r="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="13.2" r="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-          <b data-stat="forks">&mdash;</b> <span>forks</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.3 8S3.8 3.4 8 3.4 14.7 8 14.7 8 12.2 12.6 8 12.6 1.3 8 1.3 8z" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-          <b data-stat="watchers">&mdash;</b> <span>watching</span>
-        </li>
-      </ul>
-      <ul class="creds" aria-label="Credentials">
-        <li>
-          <a class="cred cred--partner" href="https://www.anthropic.com/news/claude-partner-network"
-             target="_blank" rel="noopener"
-             aria-label="Anthropic Partner and Claude Partner Network member">
-            <img class="cred-mark" src="{{ img }}anthropic-logo.png" alt="" width="256" height="256">
-            <span class="cred-label">Anthropic</span>
-            <span class="cred-value">Partner</span>
-          </a>
-        </li>
-      </ul>
-      <p class="hero-meta"><span>macOS · Linux · Windows not yet built</span> <code>curl -fsSL https://ade.ardata.tech/install.sh | bash</code></p>
+      <p class="hero-meta"><span>Open source &middot; MIT</span> <code>{{ site.cli_install }}</code></p>
     </div>
-    <figure class="hero-visual">
+    <figure class="hero-visual hero-visual--term">
       <div class="window">
         <div class="window-inner">
-          <div class="shot-bar"><i></i><i></i><i></i><span>ADE: acme-api</span></div>
-          <img src="{{ img }}hero.webp" width="1440" height="900" fetchpriority="high" alt="ADE with two terminal panes running git log and the test suite, a rendered markdown plan in the preview panel, and a prompt drafted in the scratchpad">
+          <div class="shot-bar"><i></i><i></i><i></i><span>ade-cli &middot; the verification command</span></div>
+          <pre class="term" aria-label="Terminal output of bash tests/run.sh in ade-cli: eight test suites, each ok, then exit status 0"><code><span class="term-dim">$</span> bash tests/run.sh; echo $?
+<span class="term-ok">ok</span>    test_ade.sh
+<span class="term-ok">ok</span>    test_claude.sh
+<span class="term-ok">ok</span>    test_hub.sh
+<span class="term-ok">ok</span>    test_orchestrator.sh
+<span class="term-ok">ok</span>    test_setup.sh
+<span class="term-ok">ok</span>    test_skills.sh
+<span class="term-ok">ok</span>    test_ui.sh
+<span class="term-ok">ok</span>    test_update.sh
+0</code></pre>
         </div>
       </div>
+      <figcaption class="term-caption">Real output: the <code>ade</code> command&rsquo;s own verification command, on <code>main</code> at 6766df0, run 2026-11-21. Each repo behind ADE has one, and CI runs it on every pull request.</figcaption>
     </figure>
   </div>
 </section>
 
-<section class="section orx" id="orchestration">
+<section class="section tint" id="why">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Orchestration</span>
-      <h2>A team of agents, one plan.</h2>
-      <p>BMAD v6 decides who does what, one command decides Done, and the agent hub remembers it all.</p>
+      <span class="kicker">Why ADE</span>
+      <h2>Speed was never the hard part. <span class="grad-text">Trust is.</span></h2>
+    </div>
+    <div class="feat-grid">
+      <article class="feat-card text">
+        <span class="feat-eyebrow">The problem</span>
+        <h3>Agents write code fast. Nobody trusts what they ship.</h3>
+        <p>Teams spend their time checking, untangling and redoing agent work. Every session starts from zero, and the agent grades its own homework.</p>
+      </article>
+      <article class="feat-card text">
+        <span class="feat-eyebrow">The promise</span>
+        <h3>A delivery team that works like a good engineering team.</h3>
+        <p>ADE plans, builds and reviews, it remembers, and nothing counts as done until the tests say so.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pillars">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">What you get</span>
+      <h2>Five promises, each with its proof.</h2>
+      <p>Every line below names the piece that does it, so you can check it in the source.</p>
+    </div>
+    <div class="orx-cards pillars">
+      <article class="orx-card">
+        <h3>Verified</h3>
+        <p>Nothing counts as done until the tests say so.</p>
+        <ul class="checks">
+          <li>The <strong>verification command</strong>, agreed in the plan, gates Done. Green is Done; red is not.</li>
+          <li><strong>No agent approves its own work.</strong> The reviewer, never the builder, runs the command and records its real output.</li>
+          <li><strong>Review scales with risk:</strong> low gets the command only, medium one quick pass, high a thorough review plus one adversarial pass.</li>
+        </ul>
+      </article>
+      <article class="orx-card">
+        <h3>A team, not a chatbot</h3>
+        <p>Roles with owners and boundaries, not one assistant doing everything.</p>
+        <ul class="checks">
+          <li><strong>4 core roles</strong> from ade-method: product, architect, developer, reviewer.</li>
+          <li><strong>10 specialists</strong> from ade-agent-registry, loaded only when a task needs one.</li>
+          <li>An <strong>orchestrator</strong> that dispatches tickets to focus builders: <code>ade dispatch</code>.</li>
+          <li><strong>Reviewers on a different model:</strong> by default the builder runs on Opus, the reviewer role on Sonnet.</li>
+        </ul>
+      </article>
+      <article class="orx-card">
+        <h3>It remembers</h3>
+        <p>Every session starts from what is live, open and waiting.</p>
+        <ul class="checks">
+          <li><strong>The brain</strong> indexes the journal, each folder&rsquo;s state and each project&rsquo;s context and decision records, locally.</li>
+          <li>Hooks read that state back at session start and on every prompt, so each session knows what the others did.</li>
+          <li>Crash recovery: when a part dies, the hub comes back on its own and says what it recovered. <span class="coming">Coming</span></li>
+        </ul>
+      </article>
+      <article class="orx-card">
+        <h3>You stay in control</h3>
+        <p>Agents do the work; the decisions that matter stay yours.</p>
+        <ul class="checks">
+          <li><strong>High-risk work waits</strong> for your approval, typed at your own terminal.</li>
+          <li><strong>Secrets stay out of agents&rsquo; reach:</strong> a key goes from a hidden prompt to the macOS Keychain, never into an agent&rsquo;s environment, an argument or a log.</li>
+          <li><strong>Each customer kept separate:</strong> one hub per customer, with its own allowed models.</li>
+        </ul>
+      </article>
+      <article class="orx-card">
+        <h3>Works where you are</h3>
+        <p>The same team in your terminal, on your phone and in the app.</p>
+        <ul class="checks">
+          <li><strong><code>ade ui</code></strong>: the orchestrator and the fleet in one tmux window, in any terminal. A tab per focus agent: <span class="coming">Coming</span></li>
+          <li><strong>Telegram</strong>: message your orchestrator from your phone, paired to you alone.</li>
+          <li><strong>Remote Control</strong>: the orchestrator and every focus session start with Claude Code&rsquo;s Remote Control on, named after the hub or the folder.</li>
+          <li><strong>The desktop app</strong>: frozen, still downloadable.</li>
+        </ul>
+      </article>
+      <article class="orx-card orx-card--check">
+        <h3>Check it yourself</h3>
+        <p>Every repo behind these lines is open source, with the verification command it is held to.</p>
+        <a class="more" href="{{ '/repos/' | relative_url }}">The repos <span aria-hidden="true">&rarr;</span></a>
+        <a class="more" href="{{ '/guide/' | relative_url }}">How ADE works <span aria-hidden="true">&rarr;</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="how-it-works">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">How it works</span>
+      <h2>Ticket, build, review, verified, done.</h2>
+      <p>The whole loop, not just the code. Red at any gate goes back to the builder.</p>
     </div>
 
-    <figure class="hl" id="coming-next">
-      <!-- Wide layout (tablet and up). Colours come from the page tokens, so both themes follow. -->
-      <svg class="hl-svg hl-svg--wide" viewBox="0 0 1000 300" role="img" aria-labelledby="hl-w-title hl-w-desc">
-        <title id="hl-w-title">How ADE fits together</title>
-        <desc id="hl-w-desc">You approve the plan in ADE, the terminal with a stage board. ADE runs BMAD v6 agents that plan, build and verify, and opens an agent hub for each client. The hub opens a focus terminal per folder; their notes go into a local brain and the hub is pushed after a scan, and the agents search that brain. Other providers (DeepSeek, GLM, Meta Muse) are coming next and not shipped yet.</desc>
+    <figure class="hl loop">
+      <svg class="hl-svg hl-svg--wide" viewBox="0 0 1000 250" role="img" aria-labelledby="loop-w-title loop-w-desc">
+        <title id="loop-w-title">How a ticket becomes Done</title>
+        <desc id="loop-w-desc">A ticket with a risk level goes to a builder, who works test-first. Review follows, scaled to the risk. Then the reviewer runs the verification command. Green is Done. A material flaw in review, or a red verification command, sends the work back to the builder.</desc>
         <defs>
-          <linearGradient id="hl-w-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" class="hl-stop1"/><stop offset="1" class="hl-stop2"/></linearGradient>
-          <marker id="hl-w-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="hl-arrow" d="M0 0L8 4L0 8z"/></marker>
+          <linearGradient id="loop-w-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" class="hl-stop1"/><stop offset="1" class="hl-stop2"/></linearGradient>
+          <marker id="loop-w-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="hl-arrow" d="M0 0L8 4L0 8z"/></marker>
         </defs>
         <g class="hl-edges">
-          <path class="hl-edge" d="M170 66H240" marker-end="url(#hl-w-arrow)"/>
-          <path class="hl-edge" d="M460 66H520" marker-end="url(#hl-w-arrow)"/>
-          <path class="hl-edge" d="M350 102V200" marker-end="url(#hl-w-arrow)"/>
-          <path class="hl-edge" d="M460 236H520" marker-end="url(#hl-w-arrow)"/>
-          <path class="hl-edge" d="M740 236H800" marker-end="url(#hl-w-arrow)"/>
-          <path class="hl-edge" d="M890 200C890 150 630 155 630 102" marker-end="url(#hl-w-arrow)"/>
-          <path class="hl-edge hl-edge--next" d="M740 66H800" marker-end="url(#hl-w-arrow)"/>
+          <path class="hl-edge" d="M180 66H230" marker-end="url(#loop-w-arrow)"/>
+          <path class="hl-edge" d="M390 66H440" marker-end="url(#loop-w-arrow)"/>
+          <path class="hl-edge" d="M600 66H650" marker-end="url(#loop-w-arrow)"/>
+          <path class="hl-edge" d="M810 66H860" marker-end="url(#loop-w-arrow)"/>
+          <path class="hl-edge hl-edge--next" d="M520 102C520 160 310 160 310 106" marker-end="url(#loop-w-arrow)"/>
+          <path class="hl-edge hl-edge--next" d="M730 102C730 220 310 220 310 106" marker-end="url(#loop-w-arrow)"/>
         </g>
-        <g class="hl-pulses" stroke="url(#hl-w-g)">
-          <path class="hl-pulse hl-p1" pathLength="100" d="M170 66H240"/>
-          <path class="hl-pulse hl-p2" pathLength="100" d="M460 66H520"/>
-          <path class="hl-pulse hl-p2" pathLength="100" d="M350 102V200"/>
-          <path class="hl-pulse hl-p3" pathLength="100" d="M460 236H520"/>
-          <path class="hl-pulse hl-p4" pathLength="100" d="M740 236H800"/>
-          <path class="hl-pulse hl-p5" pathLength="100" d="M890 200C890 150 630 155 630 102"/>
+        <g class="hl-pulses" stroke="url(#loop-w-g)">
+          <path class="hl-pulse hl-p1" pathLength="100" d="M180 66H230"/>
+          <path class="hl-pulse hl-p2" pathLength="100" d="M390 66H440"/>
+          <path class="hl-pulse hl-p3" pathLength="100" d="M600 66H650"/>
+          <path class="hl-pulse hl-p4" pathLength="100" d="M810 66H860"/>
         </g>
-        <g class="hl-node hl-node--you"><rect class="hl-box" x="20" y="30" width="150" height="72" rx="12"/><g class="hl-lit hl-l0"><rect class="hl-glow" x="20" y="30" width="150" height="72" rx="12" fill="url(#hl-w-g)"/><rect class="hl-ring" x="20" y="30" width="150" height="72" rx="12" stroke="url(#hl-w-g)"/></g><text class="hl-t" x="95" y="61">You</text><text class="hl-s" x="95" y="82">approve the plan</text></g>
-        <g class="hl-node hl-node--ade"><rect class="hl-box" x="240" y="30" width="220" height="72" rx="12"/><g class="hl-lit hl-l1"><rect class="hl-glow" x="240" y="30" width="220" height="72" rx="12" fill="url(#hl-w-g)"/><rect class="hl-ring" x="240" y="30" width="220" height="72" rx="12" stroke="url(#hl-w-g)"/></g><text class="hl-t" x="350" y="61">ADE</text><text class="hl-s" x="350" y="82">terminal + stage board</text></g>
-        <g class="hl-node"><rect class="hl-box" x="520" y="30" width="220" height="72" rx="12"/><g class="hl-lit hl-l2 hl-lit--twice"><rect class="hl-glow" x="520" y="30" width="220" height="72" rx="12" fill="url(#hl-w-g)"/><rect class="hl-ring" x="520" y="30" width="220" height="72" rx="12" stroke="url(#hl-w-g)"/></g><text class="hl-t" x="630" y="61">BMAD v6 agents</text><text class="hl-s" x="630" y="82">plan · build · verify</text></g>
-        <g class="hl-node hl-node--next"><rect class="hl-box" x="800" y="30" width="180" height="72" rx="12"/><text class="hl-t" x="890" y="61">Other providers</text><text class="hl-s" x="890" y="82">coming next · not shipped</text></g>
-        <g class="hl-node"><rect class="hl-box" x="240" y="200" width="220" height="72" rx="12"/><g class="hl-lit hl-l2"><rect class="hl-glow" x="240" y="200" width="220" height="72" rx="12" fill="url(#hl-w-g)"/><rect class="hl-ring" x="240" y="200" width="220" height="72" rx="12" stroke="url(#hl-w-g)"/></g><text class="hl-t" x="350" y="231">Agent hub</text><text class="hl-s" x="350" y="252">one per client</text></g>
-        <g class="hl-node"><rect class="hl-box" x="520" y="200" width="220" height="72" rx="12"/><g class="hl-lit hl-l3"><rect class="hl-glow" x="520" y="200" width="220" height="72" rx="12" fill="url(#hl-w-g)"/><rect class="hl-ring" x="520" y="200" width="220" height="72" rx="12" stroke="url(#hl-w-g)"/></g><text class="hl-t" x="630" y="231">Focus terminals</text><text class="hl-s" x="630" y="252">one per folder</text></g>
-        <g class="hl-node"><rect class="hl-box" x="800" y="200" width="180" height="72" rx="12"/><g class="hl-lit hl-l4"><rect class="hl-glow" x="800" y="200" width="180" height="72" rx="12" fill="url(#hl-w-g)"/><rect class="hl-ring" x="800" y="200" width="180" height="72" rx="12" stroke="url(#hl-w-g)"/></g><text class="hl-t" x="890" y="231">Brain &amp; sync</text><text class="hl-s" x="890" y="252">local · scanned</text></g>
+        <g class="hl-node hl-node--you"><rect class="hl-box" x="20" y="30" width="160" height="72" rx="12"/><g class="hl-lit hl-l0"><rect class="hl-glow" x="20" y="30" width="160" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="20" y="30" width="160" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="100" y="61">Ticket</text><text class="hl-s" x="100" y="82">story + risk level</text></g>
+        <g class="hl-node"><rect class="hl-box" x="230" y="30" width="160" height="72" rx="12"/><g class="hl-lit hl-l1"><rect class="hl-glow" x="230" y="30" width="160" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="230" y="30" width="160" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="310" y="61">Build</text><text class="hl-s" x="310" y="82">test-first</text></g>
+        <g class="hl-node"><rect class="hl-box" x="440" y="30" width="160" height="72" rx="12"/><g class="hl-lit hl-l2"><rect class="hl-glow" x="440" y="30" width="160" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="440" y="30" width="160" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="520" y="61">Review</text><text class="hl-s" x="520" y="82">scaled to risk</text></g>
+        <g class="hl-node"><rect class="hl-box" x="650" y="30" width="160" height="72" rx="12"/><g class="hl-lit hl-l3"><rect class="hl-glow" x="650" y="30" width="160" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="650" y="30" width="160" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="730" y="61">Verified</text><text class="hl-s" x="730" y="82">the command passes</text></g>
+        <g class="hl-node hl-node--ade"><rect class="hl-box" x="860" y="30" width="120" height="72" rx="12"/><g class="hl-lit hl-l4"><rect class="hl-glow" x="860" y="30" width="120" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="860" y="30" width="120" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="920" y="61">Done</text><text class="hl-s" x="920" y="82">journaled</text></g>
+        <text class="hl-s" x="612" y="146">material flaw</text>
+        <text class="hl-s" x="520" y="214">red: back to the builder</text>
       </svg>
-      <!-- Tall layout (phone): the same nodes, stacked. -->
-      <svg class="hl-svg hl-svg--tall" viewBox="0 0 360 560" role="img" aria-labelledby="hl-t-title hl-t-desc">
-        <title id="hl-t-title">How ADE fits together</title>
-        <desc id="hl-t-desc">You approve the plan in ADE, the terminal with a stage board. ADE runs BMAD v6 agents that plan, build and verify, and opens an agent hub for each client. The hub opens a focus terminal per folder; their notes go into a local brain and the hub is pushed after a scan, and the agents search that brain. Other providers (DeepSeek, GLM, Meta Muse) are coming next and not shipped yet.</desc>
+      <svg class="hl-svg hl-svg--tall" viewBox="0 0 360 530" role="img" aria-labelledby="loop-t-title loop-t-desc">
+        <title id="loop-t-title">How a ticket becomes Done</title>
+        <desc id="loop-t-desc">A ticket with a risk level goes to a builder, who works test-first. Review follows, scaled to the risk. Then the reviewer runs the verification command. Green is Done. A material flaw in review, or a red verification command, sends the work back to the builder.</desc>
         <defs>
-          <linearGradient id="hl-t-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="560"><stop offset="0" class="hl-stop1"/><stop offset="1" class="hl-stop2"/></linearGradient>
-          <marker id="hl-t-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="hl-arrow" d="M0 0L8 4L0 8z"/></marker>
+          <linearGradient id="loop-t-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="530"><stop offset="0" class="hl-stop1"/><stop offset="1" class="hl-stop2"/></linearGradient>
+          <marker id="loop-t-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="hl-arrow" d="M0 0L8 4L0 8z"/></marker>
         </defs>
         <g class="hl-edges">
-          <path class="hl-edge" d="M180 74V110" marker-end="url(#hl-t-arrow)"/>
-          <path class="hl-edge" d="M130 174C130 207 80 207 80 240" marker-end="url(#hl-t-arrow)"/>
-          <path class="hl-edge" d="M230 174C230 207 280 207 280 240" marker-end="url(#hl-t-arrow)"/>
-          <path class="hl-edge" d="M280 304V380" marker-end="url(#hl-t-arrow)"/>
-          <path class="hl-edge" d="M200 412H160" marker-end="url(#hl-t-arrow)"/>
-          <path class="hl-edge" d="M80 380V304" marker-end="url(#hl-t-arrow)"/>
+          <path class="hl-edge" d="M180 74V120" marker-end="url(#loop-t-arrow)"/>
+          <path class="hl-edge" d="M180 184V230" marker-end="url(#loop-t-arrow)"/>
+          <path class="hl-edge" d="M180 294V340" marker-end="url(#loop-t-arrow)"/>
+          <path class="hl-edge" d="M180 404V450" marker-end="url(#loop-t-arrow)"/>
+          <path class="hl-edge hl-edge--next" d="M60 262C22 262 22 152 56 152" marker-end="url(#loop-t-arrow)"/>
+          <path class="hl-edge hl-edge--next" d="M300 372C340 372 340 152 304 152" marker-end="url(#loop-t-arrow)"/>
         </g>
-        <g class="hl-pulses" stroke="url(#hl-t-g)">
-          <path class="hl-pulse hl-p1" pathLength="100" d="M180 74V110"/>
-          <path class="hl-pulse hl-p2" pathLength="100" d="M130 174C130 207 80 207 80 240"/>
-          <path class="hl-pulse hl-p2" pathLength="100" d="M230 174C230 207 280 207 280 240"/>
-          <path class="hl-pulse hl-p3" pathLength="100" d="M280 304V380"/>
-          <path class="hl-pulse hl-p4" pathLength="100" d="M200 412H160"/>
-          <path class="hl-pulse hl-p5" pathLength="100" d="M80 380V304"/>
+        <g class="hl-pulses" stroke="url(#loop-t-g)">
+          <path class="hl-pulse hl-p1" pathLength="100" d="M180 74V120"/>
+          <path class="hl-pulse hl-p2" pathLength="100" d="M180 184V230"/>
+          <path class="hl-pulse hl-p3" pathLength="100" d="M180 294V340"/>
+          <path class="hl-pulse hl-p4" pathLength="100" d="M180 404V450"/>
         </g>
-        <g class="hl-node hl-node--you"><rect class="hl-box" x="105" y="10" width="150" height="64" rx="12"/><g class="hl-lit hl-l0"><rect class="hl-glow" x="105" y="10" width="150" height="64" rx="12" fill="url(#hl-t-g)"/><rect class="hl-ring" x="105" y="10" width="150" height="64" rx="12" stroke="url(#hl-t-g)"/></g><text class="hl-t" x="180" y="38">You</text><text class="hl-s" x="180" y="57">approve the plan</text></g>
-        <g class="hl-node hl-node--ade"><rect class="hl-box" x="60" y="110" width="240" height="64" rx="12"/><g class="hl-lit hl-l1"><rect class="hl-glow" x="60" y="110" width="240" height="64" rx="12" fill="url(#hl-t-g)"/><rect class="hl-ring" x="60" y="110" width="240" height="64" rx="12" stroke="url(#hl-t-g)"/></g><text class="hl-t" x="180" y="138">ADE</text><text class="hl-s" x="180" y="157">terminal + stage board</text></g>
-        <g class="hl-node"><rect class="hl-box" x="0" y="240" width="160" height="64" rx="12"/><g class="hl-lit hl-l2 hl-lit--twice"><rect class="hl-glow" x="0" y="240" width="160" height="64" rx="12" fill="url(#hl-t-g)"/><rect class="hl-ring" x="0" y="240" width="160" height="64" rx="12" stroke="url(#hl-t-g)"/></g><text class="hl-t" x="80" y="268">BMAD v6 agents</text><text class="hl-s" x="80" y="287">plan · build · verify</text></g>
-        <g class="hl-node"><rect class="hl-box" x="200" y="240" width="160" height="64" rx="12"/><g class="hl-lit hl-l2"><rect class="hl-glow" x="200" y="240" width="160" height="64" rx="12" fill="url(#hl-t-g)"/><rect class="hl-ring" x="200" y="240" width="160" height="64" rx="12" stroke="url(#hl-t-g)"/></g><text class="hl-t" x="280" y="268">Agent hub</text><text class="hl-s" x="280" y="287">one per client</text></g>
-        <g class="hl-node"><rect class="hl-box" x="0" y="380" width="160" height="64" rx="12"/><g class="hl-lit hl-l4"><rect class="hl-glow" x="0" y="380" width="160" height="64" rx="12" fill="url(#hl-t-g)"/><rect class="hl-ring" x="0" y="380" width="160" height="64" rx="12" stroke="url(#hl-t-g)"/></g><text class="hl-t" x="80" y="408">Brain &amp; sync</text><text class="hl-s" x="80" y="427">local · scanned</text></g>
-        <g class="hl-node"><rect class="hl-box" x="200" y="380" width="160" height="64" rx="12"/><g class="hl-lit hl-l3"><rect class="hl-glow" x="200" y="380" width="160" height="64" rx="12" fill="url(#hl-t-g)"/><rect class="hl-ring" x="200" y="380" width="160" height="64" rx="12" stroke="url(#hl-t-g)"/></g><text class="hl-t" x="280" y="408">Focus terminals</text><text class="hl-s" x="280" y="427">one per folder</text></g>
-        <g class="hl-node hl-node--next"><rect class="hl-box" x="60" y="486" width="240" height="64" rx="12"/><text class="hl-t" x="180" y="514">Other providers</text><text class="hl-s" x="180" y="533">coming next · not shipped</text></g>
+        <g class="hl-node hl-node--you"><rect class="hl-box" x="60" y="10" width="240" height="64" rx="12"/><g class="hl-lit hl-l0"><rect class="hl-glow" x="60" y="10" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="10" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="38">Ticket</text><text class="hl-s" x="180" y="57">story + risk level</text></g>
+        <g class="hl-node"><rect class="hl-box" x="60" y="120" width="240" height="64" rx="12"/><g class="hl-lit hl-l1"><rect class="hl-glow" x="60" y="120" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="120" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="148">Build</text><text class="hl-s" x="180" y="167">test-first</text></g>
+        <g class="hl-node"><rect class="hl-box" x="60" y="230" width="240" height="64" rx="12"/><g class="hl-lit hl-l2"><rect class="hl-glow" x="60" y="230" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="230" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="258">Review</text><text class="hl-s" x="180" y="277">scaled to risk</text></g>
+        <g class="hl-node"><rect class="hl-box" x="60" y="340" width="240" height="64" rx="12"/><g class="hl-lit hl-l3"><rect class="hl-glow" x="60" y="340" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="340" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="368">Verified</text><text class="hl-s" x="180" y="387">the command passes</text></g>
+        <g class="hl-node hl-node--ade"><rect class="hl-box" x="60" y="450" width="240" height="64" rx="12"/><g class="hl-lit hl-l4"><rect class="hl-glow" x="60" y="450" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="450" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="478">Done</text><text class="hl-s" x="180" y="497">journaled</text></g>
       </svg>
-      <figcaption>You approve. Agents work. The hub remembers.</figcaption>
+      <figcaption>Dashed: a material flaw in review, or a red verification command, sends the work back to the builder.</figcaption>
     </figure>
-  </div>
-</section>
 
-<section class="section hub-tour" id="agent-hub">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Agent hub</span>
-      <h2>A hub that remembers each client&rsquo;s work.</h2>
-      <p>One private repo per client holds its context, state and history. The client&rsquo;s code stays in its own repos.</p>
-    </div>
-    <div class="orx-cards hub-cards">
-      <article class="orx-card">
-        <h3>Thirteen personas</h3>
-        <p>From staff engineer to fractional CTO; <code>bin/init</code> writes the hub for one client.</p>
-      </article>
-      <article class="orx-card">
-        <h3>Focus terminals</h3>
-        <p><code>bin/work &lt;folder&gt;</code> opens that checkout with its named agent, hooks and model (<code>--model</code>, <code>--agent-model</code>).</p>
-      </article>
-      <article class="orx-card">
-        <h3>State, memory, journal</h3>
-        <p><code>STATE.md</code>, <code>memory/</code> and a shared journal; hooks show each terminal what the others changed.</p>
-      </article>
-      <article class="orx-card">
-        <h3>One brain for every agent</h3>
-        <p>A local SQLite brain (FTS5 plus Ollama vectors) that every agent searches before it asks; nothing leaves the Mac.</p>
-      </article>
-      <article class="orx-card">
-        <h3>Auto sync, scanned first</h3>
-        <p><code>bin/sync --auto</code> pushes every 30 minutes and at session end, gitleaks-scanned, never forced.</p>
-      </article>
-      <article class="orx-card">
-        <h3>Monitors and briefing</h3>
-        <p>Read-only monitors every 30 minutes and a weekday morning briefing on Haiku.</p>
-      </article>
-      <article class="orx-card">
-        <h3>Access and secrets</h3>
-        <p><code>bin/remote</code> for SSH, <code>bin/secret</code> for the Keychain, <code>bin/doctor</code> for what this Mac can reach.</p>
-      </article>
-      <article class="orx-card">
-        <h3>BMAD v6 inside</h3>
-        <p>BMAD v6 skills ship in the hub, under the ADE rules.</p>
-      </article>
-      <article class="orx-card">
-        <h3>The full guide</h3>
-        <p>Setup, the daily flow, the brain and troubleshooting.</p>
-        <a class="more" href="{{ '/agent-hub/' | relative_url }}">Read the agent hub guide <span aria-hidden="true">&rarr;</span></a>
-        <a class="more" href="{{ '/training/#hub' | relative_url }}">Or take the 15-minute training <span aria-hidden="true">&rarr;</span></a>
-      </article>
-    </div>
-  </div>
-</section>
-
-
-<section class="section" id="features">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Features</span>
-      <h2>AI agents and blockchain tooling, in one window.</h2>
-      <p>Orchestration, cost tracking and a contract toolchain that never touches private keys.</p>
-    </div>
-
-    <div class="pillar" id="ai-agents">
-      <div class="pillar-head">
-        <span class="pillar-num">01</span>
-        <div>
-          <h2>The terminal</h2>
-          <p>Any CLI agent, side by side, with cost and context per session.</p>
-        </div>
-      </div>
-
-      <div class="feat-grid">
-        <article class="feat-card wide">
-          <div class="feat-media tree" aria-hidden="true"><pre><span class="c"># added once, only files that are missing</span>
-CLAUDE.md            <span class="c"># loads .ade/rules.md</span>
-llms.txt
-.ade/rules.md        <span class="c"># Plan → Approve → Shard → Build → Verify</span>
-.ade/context/        <span class="c"># shared contracts + decisions (ADRs)</span>
-.ade/session.md      <span class="c"># session journal</span>
-.ade/gates/          <span class="c"># verification gates, one per ticket</span>
-.claude/skills/      <span class="c"># BMAD v6 skills</span>
-_bmad/               <span class="c"># BMAD config and its Node runtime</span>
-_bmad-output/        <span class="c"># tickets and planning documents</span>
-.claude/agents/
-  <span data-agent-color="purple">product-manager.md</span>  <span data-agent-color="blue">architect.md</span>  <span data-agent-color="pink">designer.md</span>
-  <span data-agent-color="cyan">scrum-master.md</span>  <span data-agent-color="green">developer.md</span>  <span data-agent-color="yellow">qa.md</span>
-  <span data-agent-color="orange">devops.md</span>  <span data-agent-color="red">adversarial-reviewer.md</span>
-  <span class="h">+ agents for your stack</span></pre></div>
-          <div class="feat-text">
-            <h3>Every project, set up for agents</h3>
-            <p>BMAD v6 or v4, the ADE methodology, eight core agents and agents for your stack.</p>
-            <p>On v6, <code>CLAUDE.md</code> tells the project&rsquo;s agents to use the v6 skills. A <code>CLAUDE.md</code> you already have is never replaced.</p>
-
-            <a class="more" href="{{ '/guide/project-setup/' | relative_url }}">How project setup works <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
-        <article class="feat-card text">
-          <h3>Claude Code, first class</h3>
-          <p>Sub-agents, a <code>CLAUDE.md</code> constitution, real spend from its transcripts, a plugin with 7 agents and 13 skills, and a tab dot when an agent needs you.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media feat-media--live">
-            <div class="fleetx" role="img" aria-label="The fleet view, each lane colored by its role: a developer agent with Explore, Plan and adversarial-reviewer sub-agents beneath it, then a qa agent and an Explore sub-agent beneath it, both still running, with a live count and spend for the project.">
-              <div class="fleetx-head">
-                <b>acme-api</b>
-                <span class="fleetx-path">~/code/acme-api</span>
-                <span class="fleetx-run"><i></i> 2 running</span>
-                <span class="fleetx-cost">$2.75</span>
-              </div>
-              <ul class="fleetx-lanes">
-                <li class="fleetx-lane" data-agent-color="green">
-                  <span class="fleetx-name">developer</span>
-                  <span class="fleetx-track"><i class="fleetx-bar"></i></span>
-                </li>
-                <li class="fleetx-lane fleetx-lane--sub" data-agent-color="none">
-                  <span class="fleetx-name">&#8627; Explore</span>
-                  <span class="fleetx-track"><i class="fleetx-bar"></i></span>
-                </li>
-                <li class="fleetx-lane fleetx-lane--sub" data-agent-color="none">
-                  <span class="fleetx-name">&#8627; Plan</span>
-                  <span class="fleetx-track"><i class="fleetx-bar"></i></span>
-                </li>
-                <li class="fleetx-lane fleetx-lane--sub" data-agent-color="red">
-                  <span class="fleetx-name">&#8627; adversarial-reviewer</span>
-                  <span class="fleetx-track"><i class="fleetx-bar"></i></span>
-                </li>
-                <li class="fleetx-lane is-running" data-agent-color="yellow">
-                  <span class="fleetx-name">qa</span>
-                  <span class="fleetx-track"><i class="fleetx-bar"></i></span>
-                </li>
-                <li class="fleetx-lane fleetx-lane--sub is-running" data-agent-color="none">
-                  <span class="fleetx-name">&#8627; Explore</span>
-                  <span class="fleetx-track"><i class="fleetx-bar"></i></span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <h3>Every agent on one fleet view</h3>
-          <p>Every agent and sub-agent on one live timeline, with its real cost.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media"><img src="{{ img }}agents.webp" width="1440" height="812" loading="lazy" alt="The agent picker listing API Builder, Database Engineer, Auth Architect and other agent profiles"></div>
-          <h3>66 agents, one keystroke away</h3>
-          <p>47 role-and-domain profiles and 19 standalone roles.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media bottom"><img src="{{ img }}scratchpad.webp" width="1440" height="430" loading="lazy" alt="The scratchpad under the terminals with a drafted prompt and Send to Terminal"></div>
-          <h3>A scratchpad for prompts</h3>
-          <p>Draft, chain and reuse prompts. Drafts survive crashes.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media"><img src="{{ img }}tokens.webp" width="980" height="720" loading="lazy" alt="Tokens panel: spend, savings from caching, cache hit rate, sessions with context meters and usage by model"></div>
-          <h3>Cost and context per session</h3>
-          <p>Spend, cache savings and context use, with one-click fixes.</p>
-        </article>
-      </div>
-    </div>
-
-    <div class="pillar" id="method">
-      <div class="pillar-head">
-        <span class="pillar-num">02</span>
-        <div>
-          <h2>A methodology that decides Done</h2>
-          <p>An agent saying it is finished is not evidence. Every project names who checks the work.</p>
-          <p><b>ADE sets the rules; BMAD supplies the workflows.</b></p>
-        </div>
-      </div>
-
-      <div class="feat-grid">
-        <article class="feat-card text feat-card--lead">
-          <span class="feat-eyebrow">The framework</span>
-          <h3>BMAD in every project, wired into the roles</h3>
-          <p>The pinned <a href="https://github.com/bmad-code-org/BMAD-METHOD">BMAD-METHOD</a> v6 goes into every project: 33 skills in <code>.claude/skills/</code>, config in <code>_bmad/</code>, tickets in <code>_bmad-output/</code>. ADE keeps its own QA gate in <code>.ade/gates/</code>, and nothing you have is overwritten.</p>
-          <p>BMAD v4 is still a choice. Switching either way is one dialog that lists every path first, archives the old version in <code>.ade/archive/</code> and puts everything back if a step fails.</p>
-        </article>
-        <article class="feat-card text">
-          <h3>Done is decided by a command</h3>
-          <p>A story is Done when the agreed verification command passes on its commit, output shown.</p>
-        </article>
-        <article class="feat-card text">
-          <h3>No agent certifies its own work</h3>
-          <p>The Developer writes the failing test first; QA judges and may not edit code or tests.</p>
-        </article>
-        <article class="feat-card text">
-          <h3>An adversarial reviewer that cannot patch</h3>
-          <p>A read-only allowlist, <code>Read, Grep, Glob, Bash</code>: it judges, it never patches.</p>
-        </article>
-        <article class="feat-card text">
-          <h3>What they learn stays in your repo</h3>
-          <p>A knowledge store per role and a shared context store, committed with the project.</p>
-        </article>
-      </div>
-    </div>
-
-          <div class="pillar" id="composition">
-        <div class="pillar-head">
-          <span class="pillar-num">03</span>
-          <div>
-            <h2>How an agent is composed</h2>
-            <p>A role fixes what an agent is accountable for; a domain narrows what it works on.</p>
-          </div>
-        </div>
-
-        <div class="compose">
-          <div class="compose-row">
-            <div class="compose-part">
-              <span class="compose-label">Role</span>
-              <b>19</b>
-              <p>What it owns, and what it must not touch.</p>
-            </div>
-            <span class="compose-op" aria-hidden="true">&times;</span>
-            <div class="compose-part">
-              <span class="compose-label">Domain</span>
-              <b>44</b>
-              <p>One focus, like Backend API or Solidity. It never widens what the agent may do.</p>
-            </div>
-            <span class="compose-op" aria-hidden="true">=</span>
-            <div class="compose-part compose-part--out">
-              <span class="compose-label">Agent</span>
-              <b>47</b>
-              <p>Named pairings: <b>Developer &times; Backend API</b> is the API Builder.</p>
-            </div>
-          </div>
-          <p class="compose-note">The role reaches the provider <b>verbatim</b>, with the domain appended as a Focus section, so its boundaries stay intact.</p>
-        </div>
-
-        <div class="section-head section-head--tight">
-          <span class="kicker">The team</span>
-          <h2>Nineteen roles, and you approve the plan</h2>
-        </div>
-
-        <div class="org">
-          <div class="org-top">
-            <div class="org-node org-node--you"><b>You</b><span>nothing ships without this</span></div>
-          </div>
-          <div class="org-stem" aria-hidden="true"></div>
-          <div class="org-tier">
-            <span class="org-tier-label">Delivery</span>
-            <div class="org-nodes">
-            <div class="org-node" data-role="analyst" data-agent-color="purple"><b>Analyst</b><span>reads the problem</span></div>
-            <div class="org-node" data-role="product-manager" data-agent-color="purple"><b>Product Manager</b><span>owns the PRD</span></div>
-            <div class="org-node" data-role="designer" data-agent-color="pink"><b>Designer</b><span>owns the UX spec</span></div>
-            <div class="org-node" data-role="architect" data-agent-color="blue"><b>Architect</b><span>names the verification command</span></div>
-            <div class="org-node" data-role="product-owner" data-agent-color="cyan"><b>Product Owner</b><span>accepts the work</span></div>
-            <div class="org-node" data-role="scrum-master" data-agent-color="cyan"><b>Scrum Master</b><span>shards the plan</span></div>
-            <div class="org-node" data-role="developer" data-agent-color="green"><b>Developer</b><span>writes the test first</span></div>
-            <div class="org-node" data-role="qa" data-agent-color="yellow"><b>QA</b><span>judges, cannot edit</span></div>
-            <div class="org-node" data-role="devops" data-agent-color="orange"><b>DevOps</b><span>owns the ops plan</span></div>
-            <div class="org-node" data-role="adversarial-reviewer" data-agent-color="red"><b>Adversarial Reviewer</b><span>read-only, defaults to block</span></div>
-            </div>
-          </div>
-          <div class="org-tier">
-            <span class="org-tier-label">Around it</span>
-            <div class="org-nodes">
-            <div class="org-node" data-role="security-engineer" data-agent-color="red"><b>Security Engineer</b><span>threat surface</span></div>
-            <div class="org-node" data-role="sre" data-agent-color="orange"><b>Site Reliability Engineer</b><span>runbooks</span></div>
-            <div class="org-node" data-role="release-manager" data-agent-color="orange"><b>Release Manager</b><span>what ships, when</span></div>
-            <div class="org-node" data-role="engineering-manager" data-agent-color="cyan"><b>Engineering Manager</b><span>load and sequencing</span></div>
-            <div class="org-node" data-role="support-engineer" data-agent-color="yellow"><b>Support Engineer</b><span>what users hit</span></div>
-            <div class="org-node" data-role="solutions-engineer" data-agent-color="blue"><b>Solutions Engineer</b><span>what buyers need</span></div>
-            </div>
-          </div>
-          <div class="org-tier">
-            <span class="org-tier-label">Advisory</span>
-            <div class="org-nodes">
-            <div class="org-node" data-role="brainstorming-architect" data-agent-color="blue"><b>Brainstorming Architect</b><span>shapes the idea</span></div>
-            <div class="org-node" data-role="technical-writer" data-agent-color="purple"><b>Technical Writer</b><span>owns the docs</span></div>
-            <div class="org-node" data-role="advisor" data-agent-color="purple"><b>Advisor</b><span>second opinion</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-head section-head--tight">
-          <span class="kicker">Execution</span>
-          <h2>Where each one acts</h2>
-          <p>The agent that builds a story never signs it off.</p>
-        </div>
-
-        <ol class="flow">
-          <li>
-            <span class="flow-step">Plan</span>
-            <p>PRD, architecture with the <b>one verification command</b>, UX spec and ops plan.</p>
-          </li>
-          <li>
-            <span class="flow-step">Approve</span>
-            <p>The adversarial reviewer attacks each artifact; then you approve.</p>
-          </li>
-          <li>
-            <span class="flow-step">Shard</span>
-            <p>The scrum master splits it into small, testable stories.</p>
-          </li>
-          <li>
-            <span class="flow-step">Build</span>
-            <p>Developers take one story each, test first, in parallel.</p>
-          </li>
-          <li>
-            <span class="flow-step">Verify</span>
-            <p>QA or you run the command. It passes, or it is not Done.</p>
-          </li>
-        </ol>
-      </div>
-
-<div class="pillar" id="blockchain">
-      <div class="pillar-head">
-        <span class="pillar-num">04</span>
-        <div>
-          <h2>Agentic workflow and blockchain engineering</h2>
-          <p>Architects for agents, RAG and LLMOps beside Foundry, Hardhat and Anchor. ADE never touches private keys.</p>
-        </div>
-      </div>
-
-      <div class="feat-grid">
-        <article class="feat-card">
-          <div class="feat-media"><img src="{{ img }}contracts-panel.webp" width="1440" height="900" loading="lazy" alt="The Contracts panel for a Foundry project with build, test, analyze and local chain actions"></div>
-          <h3>One shortcut for the whole toolchain</h3>
-          <p>Build, test, gas, coverage, Slither and a local chain.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media"><img src="{{ img }}bench-tests.webp" width="1440" height="615" loading="lazy" alt="Workbench tests view listing each test with gas, fuzz runs and Run and Traces buttons"></div>
-          <h3>A workbench for tests</h3>
-          <p>Gas, fuzz runs and counterexamples per test; deploy and call on Anvil.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media"><img src="{{ img }}bench-deploy.webp" width="1440" height="615" loading="lazy" alt="Workbench deploy and call view: a Vault on Anvil with decoded events and reverts"></div>
-          <h3>Reviewed deploys, readable ABIs</h3>
-          <p>Deploys are typed for you to review, never run. ABIs with selectors.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media"><img src="{{ img }}architects.webp" width="680" height="620" loading="lazy" alt="The Architects category in the agent picker: AI Agent, RAG and Knowledge, Workflow Automation, LLMOps, AI Automation Strategist and DeFi Protocol architects"></div>
-          <h3>Architects for agents and for chains</h3>
-          <p>AI agent, RAG and LLMOps beside DeFi and cross-chain, plus an AI&nbsp;&times;&nbsp;Web3 architect.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media"><img src="{{ img }}mcp.webp" width="1440" height="784" loading="lazy" alt="The MCP library listing GitHub, Sentry, Git, Filesystem and Memory servers with Install and Remove buttons"></div>
-          <h3>MCP servers, from a list</h3>
-          <p>GitHub, Playwright, Postgres, Context7 and more; keys go to the vault.</p>
-        </article>
-        <article class="feat-card">
-          <div class="feat-media"><img src="{{ img }}antislop.webp" width="1440" height="784" loading="lazy" alt="The anti-slop check listing findings: a TODO marker, debug output, a stub, an emoji heading and AI-sounding wording"></div>
-          <h3>Anti-slop, on the lines just written</h3>
-          <p>TODOs, debug leftovers, stubs and AI-sounding prose, flagged on the diff and in a Claude Code hook.</p>
-        </article>
-      </div>
-    </div>
-
-    <div class="new-strip" id="new">
-      <span class="badge">New</span>
-      <p><strong>v0.22.0:</strong> the <strong>code viewer</strong>: click <code>path:line</code> in a terminal to open that file at that line. <a href="{{ site.repo }}/releases/latest">Release notes</a>. Recently: <strong>sub-terminals</strong> (<kbd>&#8984;[</kbd> <kbd>&#8984;]</kbd>), a <strong>busy check</strong> before closing, the <strong>agent hub guide</strong>, <strong>BMAD v4/v6 switching</strong>, the <strong>stage board</strong>, <strong>Anti-slop</strong>, the <strong>MCP library</strong> and the <strong>Secrets vault</strong>.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="downloads">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Downloads</span>
-      <h2>Get ADE</h2>
-      <p>One command, or pick a build. The installer checks published checksums and needs no sudo.</p>
-    </div>
-
-    <div class="dl-install">
-      <code id="install-cmd">curl -fsSL https://ade.ardata.tech/install.sh | bash</code>
-      <button class="btn btn-ghost btn-small" id="copy-install" type="button">Copy</button>
-    </div>
-    <p class="dl-note" id="install-note">macOS and Linux. On Windows, see below.</p>
-
-    <ul class="dl-grid" id="dl-grid" hidden>
-      <li data-dl="mac-arm">
-        <b>macOS</b><span>Apple Silicon</span>
-        <a class="btn btn-ghost btn-small" href="{{ site.download_url }}">.dmg</a>
-        <em></em>
+    <ol class="flow">
+      <li>
+        <span class="flow-step">Ticket</span>
+        <p>A small story with acceptance criteria and a risk level. Write it yourself, or ask the orchestrator in plain words and it writes the ticket (<code>bmad-ticket</code>).</p>
       </li>
-      <li data-dl="mac-intel">
-        <b>macOS</b><span>Intel</span>
-        <a class="btn btn-ghost btn-small" href="{{ site.download_url }}">.dmg</a>
-        <em></em>
+      <li>
+        <span class="flow-step">Build</span>
+        <p><code>ade dispatch</code> starts a focus builder for ready tickets, as many at once as you allow, on the model you picked. It writes the failing test first, then the code.</p>
       </li>
-      <li data-dl="deb">
-        <b>Linux</b><span>Debian, Ubuntu</span>
-        <a class="btn btn-ghost btn-small" href="{{ site.download_url }}">.deb</a>
-        <em></em>
+      <li>
+        <span class="flow-step">Review</span>
+        <p>Scaled to risk. Anything touching secrets, sign-in, personal data, production or money is high risk, whatever its size, and gets the adversarial pass.</p>
       </li>
-      <li data-dl="appimage">
-        <b>Linux</b><span>AppImage, any distro</span>
-        <a class="btn btn-ghost btn-small" href="{{ site.download_url }}">.AppImage</a>
-        <em></em>
+      <li>
+        <span class="flow-step">Verified</span>
+        <p>The reviewer, never the builder, runs the verification command and records its real output.</p>
       </li>
-      <li data-dl="windows" class="dl-soon">
-        <b>Windows</b><span>Not built yet</span>
-        <a class="btn btn-ghost btn-small" href="{{ site.repo }}/issues/22">Track it</a>
-        <em>&mdash;</em>
+      <li>
+        <span class="flow-step">Done</span>
+        <p>Green is Done, and one dated line goes into the journal. Red goes back to the builder. There is no other path to Done.</p>
       </li>
-    </ul>
-
-    <p class="dl-note">
-      <span id="sums-note">Verify any download yourself against <a id="sums-link" href="{{ site.download_url }}">SHA256SUMS</a> on the release.</span>
-    </p>
+    </ol>
   </div>
 </section>
 
-<section class="section tint" id="open-source">
+<section class="section" id="who">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Free and open source</span>
-      <h2>Free, with no licence key, account or telemetry.</h2>
-      <p>MIT licensed: use it at work, fork it, ship your own build.</p>
-      <ul class="repo-stats" data-repo-stats hidden>
-        <li><b data-stat="stars">&mdash;</b> <span>stars</span></li>
-        <li><b data-stat="forks">&mdash;</b> <span>forks</span></li>
-        <li><b data-stat="watchers">&mdash;</b> <span>watching</span></li>
-      </ul>
+      <span class="kicker">Who it&rsquo;s for</span>
+      <h2>One delivery team, four ways in.</h2>
     </div>
-    <div class="pricing">
-      <article class="price-card featured">
-        <h3>The whole app</h3>
-        <p class="blurb">One tier, and it is free.</p>
-        <p class="price"><b>Free</b> <span>forever</span></p>
-        <ul class="checks">
-          <li>Fleet view, tokens panel, scratchpad, editor and the contract workbench</li>
-          <li>macOS (Apple Silicon and Intel) and Linux</li>
-          <li>Keys and secrets stay in your OS keychain</li>
-        </ul>
-        <a class="btn btn-primary" href="#downloads">Download ADE <span class="arrow" aria-hidden="true">→</span></a>
+    <div class="orx-cards orx-cards--two">
+      <article class="orx-card audience">
+        <span class="feat-eyebrow">Developers</span>
+        <h3>Hand off the ticket, keep the judgement.</h3>
+        <p>ADE builds test-first on the model you pick, reviews by risk, and you merge only what&rsquo;s green.</p>
+        <p class="proof"><code>ade work &lt;folder&gt; --role builder</code> opens a focus agent on that role&rsquo;s model; <code>ade roles</code> shows which model each role gets.</p>
       </article>
-      <article class="price-card">
-        <h3>The source</h3>
-        <p class="blurb">Read it, change it, lift what you want.</p>
-        <p class="price"><b>MIT</b> <span>licensed</span></p>
-        <ul class="checks">
-          <li>Tauri and Rust backend, React frontend</li>
-          <li>Build and run your own version</li>
-          <li>Issues and pull requests welcome</li>
-        </ul>
-        <a class="btn btn-ghost" href="{{ site.repo_url }}">View on GitHub</a>
+      <article class="orx-card audience">
+        <span class="feat-eyebrow">Product managers</span>
+        <h3>Write what you want in plain words.</h3>
+        <p>Watch it get built from Telegram and approve what matters, without reading code.</p>
+        <p class="proof">The method has a section for people who don&rsquo;t write code: ask in plain words, and the orchestrator writes the ticket and tells you when it is Done. Messaging it from Telegram works today; approvals as Telegram buttons: <span class="coming">Coming</span></p>
       </article>
-      <article class="price-card">
-        <h3>The agents</h3>
-        <p class="blurb">The nineteen role definitions live in their own repo.</p>
-        <p class="price"><b>Yours</b> <span>to fork</span></p>
-        <ul class="checks">
-          <li>Edit a role once, use it everywhere</li>
-          <li>Versioned, so a project can pin what it uses</li>
-        </ul>
-        <a class="btn btn-ghost" href="https://github.com/alvin-reyes/ade-setup">Browse ade-setup</a>
+      <article class="orx-card audience">
+        <span class="feat-eyebrow">Forward deployed engineers and consultancies</span>
+        <h3>One hub per customer.</h3>
+        <p>Their approved models only, their data stays put, every engagement document drafted.</p>
+        <p class="proof"><code>ade hub new</code> per customer; the hub runs only the providers it allows. The <code>forward-deployed</code> specialist and the <code>fde</code> plugin draft discovery, proposal, SOW, change request, design doc, status report and handover.</p>
+      </article>
+      <article class="orx-card audience">
+        <span class="feat-eyebrow">Support</span>
+        <h3>Reproduce, investigate, draft the reply.</h3>
+        <p>Nothing reaches a customer without your yes.</p>
+        <p class="proof">The <code>support</code> specialist reproduces, checks known issues, investigates read-only and drafts the reply. It asks before sending anything to a customer or changing their account.</p>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section" id="built-with">
+<section class="section tint" id="compare">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Used on real work</span>
-      <h2>The tool its author ships with</h2>
+      <span class="kicker">How it compares</span>
+      <h2>A delivery team for one thing: shipping verified work.</h2>
     </div>
-    <div class="training">
-      <div class="partner-mark partner-mark--dark">
-        <img src="{{ img }}ardata.png" alt="ardata" width="320" height="111" loading="lazy">
-      </div>
-      <div>
-        <span class="kicker">ardata.tech</span>
-        <h2>The tool behind ardata's projects</h2>
-        <p>ardata builds its client work in ADE.</p>
-      </div>
-      <a class="btn btn-primary" href="{{ site.ardata_url }}">Visit ardata.tech <span class="arrow" aria-hidden="true">→</span></a>
-    </div>
-    <div class="training">
-      <div class="partner-mark partner-mark--plain">
-        <img src="{{ img }}caiden-mark.svg" alt="CAIDen" width="108" height="108" loading="lazy">
-      </div>
-      <div>
-        <span class="kicker">caiden.tech</span>
-        <h2>The tool behind CAIDen</h2>
-        <p>Voice, SMS and chat agents; Booked, NarraLearn and the Healthway front desk were built in ADE.</p>
-      </div>
-      <a class="btn btn-ghost" href="https://caiden.tech">Visit caiden.tech <span class="arrow" aria-hidden="true">&rarr;</span></a>
-    </div>
-
-    <div class="training">
-      <div class="partner-mark partner-mark--plain">
-        <img src="{{ img }}ardata-academy.png" alt="ardata academy" width="320" height="320" loading="lazy">
-      </div>
-      <div>
-        <span class="kicker">ardata academy</span>
-        <h2>The tool behind ardata academy's AI training</h2>
-        <p>Learn the workflow in the course, then use it on real projects.</p>
-      </div>
-      <a class="btn btn-ghost" href="{{ site.aracademy_url }}">Explore the training <span class="arrow" aria-hidden="true">→</span></a>
+    <div class="orx-cards">
+      <article class="orx-card">
+        <span class="feat-eyebrow">General assistants</span>
+        <h3>OpenClaw, Hermes</h3>
+        <p>They&rsquo;re assistants for everything; ADE is a delivery team for one thing: shipping verified work.</p>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">Coding copilots and agents alone</span>
+        <h3>An agent writes code.</h3>
+        <p>ADE runs the whole loop: ticket &rarr; build &rarr; review &rarr; verified &rarr; done, with memory.</p>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">DIY scripts</span>
+        <h3>Already built and tested.</h3>
+        <p>The method and the guardrails are built and covered by tests. Crash recovery: <span class="coming">Coming</span></p>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="section" id="built-with-ade">
+<section class="section" id="faq">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Shipped with it</span>
-      <h2>Products built using ADE</h2>
-      <p>In production, built by the people who build ADE.</p>
-    </div>
-    <div class="built-grid">
-      {% for p in site.data.built_with %}
-      <a class="built-card" href="{{ p.url }}" target="_blank" rel="noopener">
-        <div class="built-shot"><img src="{{ img }}built/{{ p.slug }}.jpg" alt="{{ p.name }}" loading="lazy" width="760" height="400"></div>
-        <div class="built-body">
-          <h3>{{ p.name }} <span class="arrow" aria-hidden="true">&#8599;</span></h3>
-          <p>{{ p.blurb }}</p>
-        </div>
-      </a>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<section class="section tint" id="faq">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">FAQ</span>
+      <span class="kicker">Questions</span>
       <h2>Common questions</h2>
     </div>
     <div class="faq">
       <details>
-        <summary>Is it really free?</summary>
-        <p>Yes. <a href="{{ site.repo }}/releases/latest" data-download="auto">Download ADE</a>; nothing is locked.</p>
+        <summary>Is it safe to let agents do this?</summary>
+        <p><b>Approvals:</b> high-risk tickets wait until you approve them at your own terminal, typing the ticket&rsquo;s reference back. <b>Owner-only actions:</b> nothing is sent to a customer, changed in an account or run on a live system without your yes, and ADE refuses to start Claude Code with its permission checks skipped. <b>Secrets:</b> keys go from a hidden prompt to the macOS Keychain and never into an agent&rsquo;s environment, an argument or a log. <b>Isolation:</b> one hub per customer; a provider you keep for your own work is refused in a customer&rsquo;s hub.</p>
       </details>
       <details>
-        <summary>How does licensing work?</summary>
-        <p>There is nothing to license. ADE is <a href="{{ site.repo }}/blob/main/LICENSE">MIT licensed</a>: no licence keys, accounts or seats.</p>
+        <summary>Will I be locked in?</summary>
+        <p><b>Open source:</b> every repo is on GitHub under the MIT license. <b>Any model:</b> agents run through Claude Code, on Anthropic&rsquo;s models or DeepSeek today, and each role can be pointed at another model; Gemini, GLM and Muse <span class="coming">Coming</span>. <b>Your own account:</b> your Claude login or your own API key, on your own machine.</p>
       </details>
       <details>
-        <summary>Which agents does it support?</summary>
-        <p>Any CLI agent; ADE goes deepest with <b>Claude Code</b>. Codex and Ollama run beside it but show no cost, because they publish none.</p>
+        <summary>Isn&rsquo;t this just prompts?</summary>
+        <p>It&rsquo;s a tested system, verified by its own test suites. Each repo has a verification command that CI runs on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain and ade-skills, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every script in the hub has a test. The output at the top of this page is one of them.</p>
       </details>
       <details>
-        <summary>How many agents can run at once?</summary>
-        <p>As many as your machine and rate limits allow. We test ten.</p>
-      </details>
-      <details>
-        <summary>Does it store my keys?</summary>
-        <p>API keys stay in your OS keychain, never synced. ADE never handles private keys.</p>
-      </details>
-      <details>
-        <summary>Which platforms does it run on?</summary>
-        <p>macOS (<a href="{{ site.repo }}/releases/latest" data-download="mac-arm">Apple Silicon</a>, <a href="{{ site.repo }}/releases/latest" data-download="mac-intel">Intel</a>) and Linux (<a href="{{ site.repo }}/releases/latest" data-download="deb">.deb</a>, <a href="{{ site.repo }}/releases/latest" data-download="appimage">AppImage</a>), or the install command above. Windows is not built yet: <a href="{{ site.repo }}/issues/22">issue #22</a>.</p>
+        <summary>What is Coming, and not here yet?</summary>
+        <p>Marked <span class="coming">Coming</span> wherever it appears: crash recovery, a tab per focus agent in <code>ade ui</code>, the hub&rsquo;s side of <code>ade setup</code>&rsquo;s live tests, Telegram approvals and talking to focus agents, the ade-secrets vault, restoring connections, self-update for <code>ade</code>, a file viewer, server mode on Linux and the Gemini engine.</p>
       </details>
     </div>
   </div>
@@ -685,14 +309,12 @@ _bmad-output/        <span class="c"># tickets and planning documents</span>
   <div class="wrap">
     <div class="cta-band">
       <img src="{{ img }}logo.svg" width="60" height="60" alt="">
-      <h2>Build your next product in ADE</h2>
-      <p>Free and open source. Every feature, no account.</p>
+      <h2>Hand off the first ticket.</h2>
+      <p>Install the <code>ade</code> command, make a hub, open the orchestrator.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#downloads">Download ADE</a>
-        <a class="btn btn-ghost" href="{{ site.repo }}">View the source</a>
+        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
+        <a class="btn btn-ghost" href="{{ '/guide/' | relative_url }}">Read the guide</a>
       </div>
     </div>
   </div>
 </section>
-
-

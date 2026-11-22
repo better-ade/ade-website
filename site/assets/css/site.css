@@ -38,7 +38,7 @@
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --wrap: 1180px;
-  /* Agent colors, by role: held to src/data/agentColors.ts by scripts/agentColorsSite.test.ts */
+  /* Agent colors, by role: the ADE app's role colours (ADR 0007 in ade-terminal); no page uses them since the narrative rewrite */
   --agent-red: #cf222e;
   --agent-blue: #0969da;
   --agent-green: #1a7f37;
@@ -636,11 +636,9 @@ pre {
 .cta-section { padding-top: 40px; }
 .prose td code, .prose th code { overflow-wrap: normal; white-space: nowrap; }
 
-/* Partner marks in the "Used on real work" cards.
-   ardata's wordmark is near-white, so it needs a dark ground to read on the
-   light theme; the academy's app icon carries its own orange tile and reads on
-   either. Both sit in a fixed-height box so two differently-shaped marks line
-   up without stretching. */
+/* Partner marks: a logo in a fixed-height box, on a dark ground (--dark) or
+   none (--plain), so differently-shaped marks line up without stretching.
+   Unused since the narrative rewrite; kept as part of the design system. */
 .partner-mark {
   flex: none; display: grid; place-items: center;
   width: 108px; height: 108px; border-radius: 20px; overflow: hidden;
@@ -1100,3 +1098,62 @@ a.cred:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2p
 .fleetx-lanes > li:nth-child(4) { --start:44%; --w:22%; --d:1.35s; }
 .fleetx-lanes > li:nth-child(5) { --start:70%; --w:28%; --d:1.8s; }
 .fleetx-lanes > li:nth-child(6) { --start:76%; --w:18%; --d:2.25s; }
+
+/* ---------- The narrative pages (copy: docs/messaging.md) ---------- */
+
+/* "Coming": a claim about work that is not merged yet. tests/siteTruth.test.ts requires one beside every such claim. */
+.coming {
+  display: inline-block; margin-left: 4px; padding: 3px 7px 2px; border-radius: 999px; vertical-align: 1px;
+  font: 600 10.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap;
+  color: var(--violet); border: 1px solid color-mix(in srgb, var(--violet) 45%, transparent);
+  background: color-mix(in srgb, var(--violet) 8%, transparent);
+}
+
+/* The hero shows real terminal output rather than a screenshot. */
+.hero-visual--term { max-width: 720px; }
+.window-inner pre.term {
+  margin: 0; border: 0; border-radius: 0; box-shadow: none; padding: 20px 24px;
+  font: 13.5px/1.75 var(--mono); color: #e6e6ea; text-align: left; white-space: pre; overflow-x: auto;
+}
+.term-ok { color: #7ee2a8; }
+.term-dim { color: #8d8e96; }
+.term-caption { position: relative; z-index: 1; margin: 18px auto 0; max-width: 640px; text-align: center; color: var(--text-3); font-size: 13.5px; line-height: 1.6; }
+.term-caption code, .orx-card code, .feat-card .proof code {
+  font: .86em var(--mono); padding: 1px 5px; border-radius: 5px; background: var(--code-bg); border: 1px solid var(--line); color: var(--text);
+}
+
+/* Small labels over a card's heading. */
+.feat-eyebrow {
+  display: block; margin: 0 0 10px;
+  font: 600 10.5px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text);
+}
+
+/* The five pillars: a claim, then its proof. */
+.orx-card .checks { margin-top: 14px; gap: 9px; }
+.orx-card .checks li { font-size: 14px; line-height: 1.55; }
+.orx-cards--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.orx-card--check { display: flex; flex-direction: column; justify-content: center; background: var(--grad-soft), var(--panel); }
+.orx-card .more { display: block; margin-top: 8px; font-weight: 600; font-size: 15px; }
+.orx-card .proof { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--text-3); }
+.cta-band code { font: .9em var(--mono); color: #f5f5f6; }
+
+/* How it works: the loop diagram and its steps. */
+.loop + .flow { margin-top: 24px; }
+.flow li p code { font: .9em var(--mono); padding: 1px 5px; border-radius: 5px; background: var(--code-bg); border: 1px solid var(--line); color: var(--text); }
+
+/* Plain pages (Repos, the ADE app, moved pages). */
+.page-body { margin: 0 auto; padding: 56px 0 96px; }
+.page-body .lead code, .guide-body .lead code { font-size: .86em; }
+.prose .btn { text-decoration: none; }
+.prose .dl-grid { padding: 0; }
+.prose .dl-grid li { margin: 0; padding: 12px 16px; }
+.prose .dl-install code { background: none; border: 0; padding: 0; }
+.app-shot { margin: 0 0 8px; }
+.app-shot img { margin: 0; }
+
+@media (max-width: 900px) { .orx-cards--two { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+  .window-inner pre.term { font-size: 12px; padding: 16px; }
+  .page-body { padding: 28px 0 72px; }
+}
+.dl-note code { white-space: nowrap; overflow-wrap: normal; }

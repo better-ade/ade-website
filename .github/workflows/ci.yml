@@ -4,8 +4,9 @@ on:
   pull_request:
   push:
     branches: [main]
-  # ade-terminal can change what the site describes without a commit here; a
-  # daily run catches that drift.
+  # The repos the site describes can change on main without a commit here; a
+  # daily run catches that drift (a renamed command, a new release, a merged
+  # Coming item).
   schedule:
     - cron: "41 5 * * *"
   workflow_dispatch:
@@ -19,12 +20,18 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      # The tests hold the site to ADE's own code, so they read a checkout of it.
-      # ade-terminal is public: no token needed.
+      # The truth tests hold the pages to main of the repos they describe.
+      # All are public: no token needed.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: better-ade/ade-terminal
-          path: ade-terminal
+        with: { repository: better-ade/ade-cli, path: repos/ade-cli }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { repository: better-ade/ade-brain, path: repos/ade-brain }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { repository: better-ade/ade-method, path: repos/ade-method }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { repository: better-ade/ade-agent-registry, path: repos/ade-agent-registry }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { repository: better-ade/ade-skills, path: repos/ade-skills }
 
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -32,9 +39,6 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm test
-        env:
-          ADE_TERMINAL_DIR: ade-terminal
 
       - uses: ruby/setup-ruby@be3c7df29b3349ec6bcfc6b4792f1cf9f5237d18 # v1.343.0
         with:
@@ -46,10 +50,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      # Built before the tests: most of them check the built pages (links,
+      # titles, descriptions, the policy on every page, the installers).
       - name: Build the site
         run: bundle exec jekyll build -s site -d _site --strict_front_matter
         env:
           JEKYLL_ENV: production
+
+      - run: npm test
 
       - name: The installers are served from the site root
         run: |

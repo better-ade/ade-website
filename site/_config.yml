@@ -1,24 +1,22 @@
-# The Pages workflow (.github/workflows/pages.yml) builds this folder with Jekyll: the landing page (index.html)
-# and the user guide (guide/*.md) share the layouts in _layouts/.
+# The Pages workflow (.github/workflows/pages.yml) builds this folder with Jekyll. Copy comes from docs/messaging.md
+# at the repo root: change the story there first, then the pages.
 title: ADE
-tagline: The terminal for building products with AI
+tagline: Verified, not vibed.
 description: >-
-  ADE is a desktop terminal where your coding agents work as a team of 19 roles
-  under a methodology with a gate that decides when the work is done. It runs
-  Claude Code, Codex and local models.
+  For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns
+  tickets into verified, reviewed changes, unlike general AI assistants that leave you to check everything they do.
 url: https://ade.ardata.tech
 baseurl: ""
-# Installers are still published as GitHub Releases, so download links use this.
-repo: https://github.com/alvin-reyes/better-agentic-ide
 
-# Where the Download button points.
-download_url: https://github.com/alvin-reyes/better-agentic-ide/releases/latest
-repo_url: https://github.com/alvin-reyes/better-agentic-ide
-# The consultancy ADE is built for and used on.
-ardata_url: https://ardata.tech
-
-# The aracademy AI training that ADE is part of.
-aracademy_url: https://ardata.academy
+# The better-ade organisation and the repos the pages link to most.
+org_url: https://github.com/better-ade
+cli_repo: https://github.com/better-ade/ade-cli
+brain_repo: https://github.com/better-ade/ade-brain
+app_repo: https://github.com/better-ade/ade-terminal
+# The one-line installer for the ade command (ade-cli's install.sh, piped).
+cli_install: curl -fsSL https://raw.githubusercontent.com/better-ade/ade-cli/main/install.sh | bash
+# The desktop app's installers, copied into the site at build time (scripts/fetch-installers.sh).
+app_install: curl -fsSL https://ade.ardata.tech/install.sh | bash
 
 plugins:
   - jekyll-sitemap
@@ -36,7 +34,12 @@ defaults:
       path: guide
     values:
       layout: guide
-
+  # Old addresses (the app-era guide, the agent hub guide, the training) that now point at their new home.
+  - scope:
+      path: redirects
+    values:
+      layout: redirect
+      sitemap: false
 
 # Kept in the output as the old branch build had it. With an Actions deploy the
 # custom domain comes from the repository's Pages settings, not this file.

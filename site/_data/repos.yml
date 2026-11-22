@@ -1,0 +1,28 @@
+# The better-ade repos, as the Repos page lists them. tests/siteTruth.test.ts holds this list to the page.
+- name: ade-cli
+  what: "The `ade` command: hubs, focus agents, the method, specialists, skills, `ade setup` and `ade ui`."
+  verify: bash tests/run.sh
+- name: ade-method
+  what: "The method: the rules, the four core roles (product, architect, developer, reviewer) and ADE's BMAD v6 settings, copied into a project by `ade init`."
+  verify: node scripts/validate.mjs
+- name: ade-agent-registry
+  what: "Specialist agents (frontend, backend, devops, sysadmin, security reviewer, QA, analyst, monitor, support, forward deployed), loaded only when a task needs one."
+  verify: node scripts/validate.mjs
+- name: ade-skills
+  what: "A Claude Code plugin marketplace: git, browser, the `ade` commands, notes and `fde` engagement documents."
+  verify: bash tests/run.sh
+- name: ade-brain
+  what: "The hub template: the orchestrator, its `bin/` scripts, the brain, the journal and the hooks."
+  verify: bash tests/run.sh
+- name: ade-secrets
+  what: "A local-only key store and terminal vault that never runs inside an agent session."
+  coming: true
+- name: ade-terminal
+  what: "The ADE app: the desktop terminal ADE started as. Frozen, still downloadable."
+  link: /app/
+  link_label: The ADE app
+- name: ade-website
+  what: "This site."
+  verify: npm test
+- name: .github
+  what: "Shared CI and release workflows, and the commit and pull request templates every repo uses."

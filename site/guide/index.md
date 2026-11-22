@@ -1,80 +1,83 @@
 ---
-title: Getting started
-lead: Install ADE, open your first project and run an agent (or build and test a smart contract) in a few minutes.
-description: Install ADE on macOS or Linux and run your first AI coding agent.
+title: How ADE works
+description: The pieces of ADE and how they fit. A hub per customer or team, an orchestrator, focus agents on the models you pick, the method in each project, and a brain that remembers.
+lead: A hub holds the work's memory, an orchestrator runs the team, focus agents do the building, and the method decides when anything is Done.
 ---
 
-## Install
+## The pieces
 
-### macOS and Linux
+| Piece | What it is | Where it comes from |
+|---|---|---|
+| `ade` | One command for ADE in any terminal: hubs, agents, the method, specialists, skills | [ade-cli](https://github.com/better-ade/ade-cli) |
+| The hub | A private repo per customer or team that holds the context, state and history of the work | [ade-brain](https://github.com/better-ade/ade-brain), the template |
+| The method | The rules, the four core roles and the BMAD v6 settings a project follows | [ade-method](https://github.com/better-ade/ade-method) |
+| Specialists | Frontend, backend, devops, support and more, loaded only when a task needs one | [ade-agent-registry](https://github.com/better-ade/ade-agent-registry) |
+| Skills | Claude Code plugins: git, browser, notes, `fde` documents and the `ade` commands | [ade-skills](https://github.com/better-ade/ade-skills) |
 
-One command installs either:
+`ade` holds no state about your work. Inside a hub it runs the hub's own `bin/` scripts, so the hub stays the single
+source of truth. Inside a project it copies the method, specialists and skills from their repos at pinned versions.
+All of them are listed on [Repos]({{ '/repos/' | relative_url }}).
 
-```bash
-curl -fsSL https://ade.ardata.tech/install.sh | bash
-```
+## The hub
 
-It picks the build for your machine, checks it against the release's
-`SHA256SUMS` where the release publishes them, and installs to a
-user-writable location without calling sudo. Run it again to upgrade.
-`--dry-run` resolves and verifies the download, then stops before
-installing anything.
+A hub is one private repo, made from the ade-brain template with `ade hub new`, for one customer or one team. It holds
+Bash and Markdown: a folder per project (`projects/<name>`) or system (`ops/<name>`), each with its `STATE.md`, plus the
+journal and the hub's memory. The customer's code stays in its own repos; the hub records where each checkout lives.
 
-- **macOS**: copies the app to `/Applications` and clears the quarantine
-  flag, so the first launch isn't blocked. Set `ADE_PREFIX` to install
-  somewhere else.
-- **Linux**: puts the AppImage in `~/.local/bin`. `--dir PATH` changes
-  where, and `--deb` installs the `.deb` with dpkg instead. `--deb` is
-  the one path that needs root; the script says so before it asks.
+One hub per customer keeps customers apart: each has its own folders, keys, allowed models and history.
 
-Pass options after `-s --` when piping: `curl -fsSL … | bash -s -- --deb`.
+## The orchestrator
 
-Builds are not notarised by Apple yet. If you install the `.dmg` by hand
-and macOS says the app "is damaged", see
-[Troubleshooting]({{ '/guide/troubleshooting/' | relative_url }}#macos-says-the-app-is-damaged).
+`ade claude` opens Claude Code at the hub root as the orchestrator, the *everything agent*. It reads every folder's
+state, proposes the day's tasks, and on your go hands each one to the folder that owns it. It confirms the result in
+that folder's `STATE.md` and the journal, then reports in a few lines. You can also reach it from
+[Telegram]({{ '/guide/telegram/' | relative_url }}).
 
-Every build is also on the [download page]({{ '/#downloads' | relative_url }})
-and the [latest release]({{ site.repo }}/releases/latest): `aarch64` for
-Apple Silicon, `x64` for Intel Macs, `.deb` for Debian and Ubuntu, and a
-portable `.AppImage` for any distro.
+## Focus agents and roles
 
-### Windows
+`ade work <folder>` starts or resumes a focus agent: a Claude Code session in the folder's checkout, with that
+folder's hooks, in its own terminal. `ade status` lists the ones running. `--role` picks the model for the job:
 
-```powershell
-irm https://ade.ardata.tech/install.ps1 | iex
-```
+| Role | Default model, first choice first |
+|---|---|
+| `builder` | Opus |
+| `architect` | Opus |
+| `reviewer` | DeepSeek where the hub allows it, else Sonnet |
+| `routine` | Sonnet, then DeepSeek |
+| `triage` | Haiku, then DeepSeek |
 
-Windows builds are not published yet, so this reports that and stops. It is
-ready for when they are: see [issue #22](https://github.com/alvin-reyes/better-agentic-ide/issues/22).
+The builder and the reviewer run on different models by default. `ade roles` shows which model each role gets in your
+hub, and why an earlier choice was skipped; `HUB_ROLE_<ROLE>` in `hub.conf` changes a role's list.
 
-## Install an agent
+## The method in a project
 
-ADE works with any command-line agent. The agent picker has presets for:
+`ade init`, in any git repo, copies ade-method at a pinned version and never overwrites a file you have:
 
-- **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)**: `npm install -g @anthropic-ai/claude-code`
-- **Codex** and **Ollama** (local models)
+- `.ade/rules.md`, the rules: plan only as much as the change needs, build test-first, and the reviewer's run of the
+  verification command decides Done.
+- `.ade/agents/`: the four core roles, product, architect, developer and reviewer.
+- `.ade/context/`: the context store and decision records the agents read before inventing anything shared.
 
-The fleet view reads Claude Code's own transcripts, so Claude Code gets the most out of ADE.
+The **verification command** lives in the project's `docs/architecture.md`. You approve it; changing it later needs
+your approval again. Review scales with risk:
 
-## First launch
+| Risk | Typical change | Review |
+|---|---|---|
+| low | docs, config, a small change already covered by tests | none beyond the verification command |
+| medium | most features | one quick review, on the smaller model |
+| high | secrets, sign-in, access, personal data, production, money, locks | a thorough review plus one adversarial pass, at most one fix round |
 
-1. ADE opens with one terminal in your home folder and a short tour. Skip it or step through it; it won't show again.
-2. `cd` into a project. The file browser, the fleet view and the clickable file links all follow the terminal's current folder.
-3. Start an agent: type `claude`, or press {% include key.html mac="⌘⇧A" other="Ctrl+Alt+Shift+A" %} to open the agent picker and choose a profile.
-4. Open the scratchpad with {% include key.html mac="⌘J" other="Ctrl+Shift+J" %}, write your prompt, and send it with {% include key.html mac="⌘↵" other="Ctrl+Enter" %}.
-5. When the agent writes a file, click its path in the terminal to see it.
+## Memory
 
-The first time you open a project, ADE sets it up for agents: BMAD, the ADE methodology and a team of Claude Code sub-agents, adding only files that are missing. Opened from the New tab dialog, a project with neither BMAD on disk is asked which to use, v6 (the default) or v4; set up any other way, it gets v6. See [Project setup]({{ '/guide/project-setup/' | relative_url }}).
+Every session starts from what is live, open and waiting:
 
-> Shortcuts on this site follow your platform. Switch between macOS and Linux with the buttons in the sidebar.
-
-## Where to go next
-
-- [Project setup]({{ '/guide/project-setup/' | relative_url }}): BMAD, the methodology and agents in every project
-- [Agents & fleet]({{ '/guide/agents/' | relative_url }}): the agent picker and fleet view
-- [Smart contracts]({{ '/guide/contracts/' | relative_url }}): Foundry, Hardhat and Anchor tooling
-- [Tokens & cost]({{ '/guide/tokens/' | relative_url }}): what sessions cost and how to spend less
-- [Terminal]({{ '/guide/terminal/' | relative_url }}): tabs, panes, search and clickable files
-- [Scratchpad]({{ '/guide/scratchpad/' | relative_url }}): prompt chaining, history and voice
-- [Auto-save & sync]({{ '/guide/sync/' | relative_url }}): keep your setup on every machine
-- [Keyboard shortcuts]({{ '/guide/shortcuts/' | relative_url }}): the full list
+- **Hooks** read the folder's state and the hub rules back at session start, and on every prompt show what the other
+  sessions changed.
+- **The brain** (`bin/brain` in the hub) is a local search index over the hub's Markdown (each folder's `STATE.md`,
+  the journal, the hub's memory) and each project's `.ade/context` and `.ade/knowledge`, including its decision
+  records. Keyword search with SQLite, plus vector search when a local Ollama runs. It is rebuilt from the files, never
+  committed, and a chunk that looks like a secret is never indexed.
+- **At session end** the hub journals the session's commits, commits the folder's hub files, refreshes the brain and
+  syncs. Sync refuses to run without a gitleaks scan.
+- **Crash recovery**: when a part dies, the hub comes back on its own and says what it recovered.
+  <span class="coming">Coming</span>

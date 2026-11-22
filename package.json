@@ -2,7 +2,7 @@
   "name": "ade-website",
   "private": true,
   "type": "module",
-  "description": "ADE's public website (ade.ardata.tech) and the tests that hold it to ADE's code.",
+  "description": "ADE's public website (ade.ardata.tech) and the tests that hold it to the repos it describes.",
   "scripts": {
     "test": "vitest run",
     "build": "bundle exec jekyll build -s site -d _site"

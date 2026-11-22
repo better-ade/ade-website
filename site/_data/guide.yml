@@ -1,28 +1,15 @@
-- title: Getting started
+# The guide's pages, in reading order (the sidebar, the pager and the footer use this list).
+- title: Get started
+  url: /get-started/
+- title: How ADE works
   url: /guide/
-- title: Project setup
-  url: /guide/project-setup/
-- title: Terminal
-  url: /guide/terminal/
-- title: Scratchpad
-  url: /guide/scratchpad/
-- title: Files & preview
-  url: /guide/files/
-- title: Agents & fleet
-  url: /guide/agents/
-- title: Smart contracts
-  url: /guide/contracts/
-- title: MCP & secrets
-  url: /guide/integrations/
-- title: Anti-slop
-  url: /guide/anti-slop/
-- title: Tokens & cost
-  url: /guide/tokens/
-- title: Auto-save & sync
-  url: /guide/sync/
-- title: Keyboard shortcuts
-  url: /guide/shortcuts/
-- title: Settings
-  url: /guide/settings/
-- title: Troubleshooting
-  url: /guide/troubleshooting/
+- title: ade setup
+  url: /guide/setup/
+- title: ade ui
+  url: /guide/ui/
+- title: Tickets and dispatch
+  url: /guide/tickets/
+- title: Telegram
+  url: /guide/telegram/
+- title: Keys
+  url: /guide/keys/
