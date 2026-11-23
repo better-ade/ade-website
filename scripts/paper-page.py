@@ -12,8 +12,10 @@ never a guess:
 - each figure becomes a <figure> with the site's address for the image, its caption as the alt text and shown under
   it; figure 4 is indented into the list item it follows, so the numbered list it sits in keeps counting;
 - the references become a numbered list, each address a link; the citation numbers in the text stay plain text;
-- the numbers are labelled "as of 23 November 2026" (twice: the abstract and section 6);
-- three mentions of work that is not merged get the site's Coming label, which tests/siteTruth.test.ts requires.
+- the abstract's numbers are labelled "as of 23 November 2026" (section 6 says so itself);
+- mentions of work that is not merged and is next get the site's Coming label, and the last item of section 8 is
+  split as the site splits it: what is next (labelled Coming), and one "Later:" line for the rest, with no label.
+  tests/siteTruth.test.ts requires both.
 """
 import html
 import os
@@ -27,7 +29,7 @@ title: "Fast and verified: delivering software with a team of AI agents"
 kicker: Technical paper
 permalink: /paper/
 description: "The ADE technical paper: the method, the architecture, the security model, and what was learned building ADE with ADE. Work is Done only when a verification command passes, run by an agent that did not build it."
-lead: "The ADE team &middot; November 2026"
+lead: "The ADE team &middot; Conceived May 2025 &middot; This edition November 2026"
 ---
 
 <p class="paper-actions"><a class="btn btn-ghost btn-small" href="{{ '/assets/ade-whitepaper.pdf' | relative_url }}">Download PDF</a></p>
@@ -42,23 +44,30 @@ lead: "The ADE team &middot; November 2026"
 
 HEAD = """# Fast and verified: delivering software with a team of AI agents
 
-*The ADE team · November 2026*
+*The ADE team · Conceived May 2025 · This edition November 2026*
 
 """
 
 FIGURES = ["arch", "lifecycle", "dataflow", "keys"]
 
 CHANGES = [
-    ("138 pull requests merged across seven repositories in four days, with",
-     "138 pull requests merged across seven repositories in four days (as of 23 November 2026), with"),
-    ("over four days (20 to 23 November 2026):",
-     "over four days (20 to 23 November 2026). The numbers are as of 23 November 2026:"),
+    # ade-cli's 0.2.8 (ade shot and ade project) was released after the paper's table was made; the table shows the
+    # release on main, which tests/sitePaper.test.ts holds to the repo's VERSION.
+    ("| ade-cli | 56 | v0.2.7 |", "| ade-cli | 56 | v0.2.8 |"),
+    ("142 pull requests merged across eight repositories in four days; all 17",
+     "142 pull requests merged across eight repositories in four days (as of 23 November 2026); all 17"),
     ("Muse waiting on their\nlive test.",
      'Muse waiting on their\nlive test <span class="coming">Coming</span>.'),
     ("as buttons on the phone, Coming)",
      'as buttons on the phone <span class="coming">Coming</span>)'),
-    ("- **Coming:** approval buttons",
-     '- <span class="coming">Coming</span> Approval buttons'),
+    # Section 8's last item, as the site says it: what is next carries the Coming label; the rest is one "Later:" line.
+    ("- **Coming:** approval buttons and progress commands on Telegram for every focus agent; pairing without slash commands;\n"
+     "  per-hub keys (`ade key`, `ade vault`); `ade connect` for GitHub; ADE Computer in the cloud; Kimi and ChatGPT as\n"
+     "  services; a code-security plugin.",
+     '- <span class="coming">Coming</span> Approval buttons on Telegram for every focus agent; pairing without slash commands;\n'
+     "  `ade connect` for GitHub.\n"
+     "- {:.later}Later: progress commands on Telegram; per-hub keys (`ade key`, `ade vault`); ADE Computer in the cloud;\n"
+     "  Kimi and ChatGPT as services; a code-security plugin."),
 ]
 
 

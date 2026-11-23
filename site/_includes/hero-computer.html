@@ -1,12 +1,14 @@
 {% comment %}
-  The hero's drawing: a phone, and beside it an ADE Computer window of our own drawing with the agents at work around
-  its terminal. One inline SVG, moved by CSS keyframes in site.css (the "Hero: the ADE Computer" block); no script,
-  no image, no style attribute (the policy blocks them). It is drawn 392 units wide with no text under 10 units, so
-  it stays readable in the hero's right column. The phone (x 0 to 82) and the window (x 96 to 392) never touch.
+  The hero's drawing: two phones, and beside them an ADE Computer window of our own drawing with the agents at work
+  around its terminal. One inline SVG, moved by CSS keyframes in site.css (the "Hero: the ADE Computer" block); no
+  script, no image, no style attribute (the policy blocks them). It is drawn 392 units wide with no text under 10
+  units, so it stays readable in the hero's right column. The phones (x 0 to 82: "ADE on your phone", the read-only
+  web view, above; Telegram below) and the window (x 96 to 392) never touch. Telegram's own logo is the one mark of
+  another product here, unmodified, only to show the integration (docs/messaging.md).
   The five badges go once round the terminal in hand-off order, starting next to the phone. The words in it are
   copy: docs/messaging.md lists them, and tests/siteHero.test.ts holds the layout and the role names.
 {% endcomment %}
-{% capture hx_name %}A phone beside an ADE Computer window, with the agents at work around its terminal: a Telegram message reaches the Orchestrator, then Product, Architect, Developer and Reviewer; it is Done when the tests pass, and the reply returns to Telegram.{% endcapture %}
+{% capture hx_name %}Two phones beside an ADE Computer window, the agents at work around its terminal: a Telegram message reaches the Orchestrator, then Product, Architect, Developer and Reviewer; when the tests pass it is Done, on ADE&rsquo;s web view and in Telegram.{% endcapture %}
 <div class="hero-computer">
   <svg class="hx" viewBox="0 0 392 376" role="img" aria-label="{{ hx_name | strip }}">
     <title>{{ hx_name | strip }}</title>
@@ -20,7 +22,9 @@
       <symbol id="hx-i-developer" viewBox="0 0 24 24"><path d="M8.5 7 4 12l4.5 5M15.5 7 20 12l-4.5 5M13.5 5l-3 14"/></symbol>
       <symbol id="hx-i-reviewer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m8.2 12.3 2.6 2.6 5-5.4"/></symbol>
       <symbol id="hx-i-agent" viewBox="0 0 24 24"><path class="hx-face-line" d="M12 6.5V4"/><circle class="hx-face-dot" cx="12" cy="2.6" r="1.7"/><rect class="hx-face-head" x="3.5" y="6.5" width="17" height="13.5" rx="4.8"/><circle class="hx-face-dot" cx="8.7" cy="12.6" r="1.7"/><circle class="hx-face-dot" cx="15.3" cy="12.6" r="1.7"/><path class="hx-face-line" d="M10 16.3q2 1.2 4 0"/></symbol>
-      <symbol id="hx-i-chat" viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V17A2.5 2.5 0 0 1 4 14.5z"/><path d="M8.5 9h7M8.5 12.5h4"/></symbol>
+      <linearGradient id="hx-tg" x1=".5" x2=".5" y2="1"><stop stop-color="#2AABEE"/><stop offset="1" stop-color="#229ED9"/></linearGradient>
+      <symbol id="hx-i-telegram" viewBox="0 0 240 240"><circle cx="120" cy="120" r="120" fill="url(#hx-tg)"/><path fill="#fff" d="M54.3 118.8c35-15.2 58.3-25.3 70-30.2 33.3-13.9 40.3-16.3 44.8-16.4 1 0 3.2.2 4.7 1.4 1.2 1 1.5 2.3 1.7 3.3s.4 3.1.2 4.7c-1.8 19-9.6 65.1-13.6 86.3-1.7 9-5 12-8.2 12.3-7 .6-12.3-4.6-19-9-10.6-6.9-16.5-11.2-26.8-18-11.9-7.8-4.2-12.1 2.6-19.1 1.8-1.8 32.5-29.8 33.1-32.3.1-.3.1-1.5-.6-2.1-.7-.6-1.7-.4-2.5-.2-1.1.2-17.9 11.4-50.6 33.5-4.8 3.3-9.1 4.9-13 4.8-4.3-.1-12.5-2.4-18.7-4.4-7.5-2.4-13.5-3.7-13-7.9.3-2.2 3.3-4.4 8.9-6.7z"/></symbol>
+      <symbol id="hx-i-ade" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#f4f3ee"/><path d="M32 9 51.9 20.5v23L32 55 12.1 43.5v-23z" fill="none" stroke="#111" stroke-width="3.2" stroke-linejoin="round"/><circle cx="32" cy="9" r="4" fill="#111"/><circle cx="51.9" cy="43.5" r="4" fill="#111"/><circle cx="12.1" cy="43.5" r="4" fill="#ff5a1f"/><path d="m22 25 8 7-8 7" fill="none" stroke="#111" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="32.5" y="36" width="10" height="4.2" rx="2.1" fill="#ff5a1f"/></symbol>
       <symbol id="hx-i-code" viewBox="0 0 24 24"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></symbol>
       <symbol id="hx-i-term" viewBox="0 0 24 24"><path d="M6 8l4 4-4 4M12.5 16H18"/></symbol>
       <symbol id="hx-i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6.5" rx="6.5" ry="2.8"/><path d="M5.5 6.5v11c0 1.5 2.9 2.8 6.5 2.8s6.5-1.3 6.5-2.8v-11M5.5 12c0 1.5 2.9 2.8 6.5 2.8s6.5-1.3 6.5-2.8"/></symbol>
@@ -82,10 +86,22 @@
       <g class="hx-stamp"><rect class="hx-tag hx-tag--done" x="264" y="325" width="120" height="19" rx="9.5"/><text class="hx-t-done" x="324" y="338.2" font-size="10.5" font-weight="600" text-anchor="middle">tests pass ✓ Done</text></g>
     </g>
 
+    <g class="hx-web" font-size="10">
+      <rect class="hx-phone-body" x=".5" y="34.5" width="81" height="162" rx="13"/>
+      <path class="hx-phone-notch" d="M33 41h16M31 190h20"/>
+      <use href="#hx-i-ade" x="8" y="46" width="12" height="12"/>
+      <text class="hx-chat-name" x="24" y="56" font-size="10.5" font-weight="600">ADE</text>
+      <path class="hx-rule" d="M1 63.5h80"/>
+      <g class="hx-c1"><text x="9" y="77">Orchestrator</text><circle class="hx-web-dot" cx="12" cy="85.5" r="2.5"/><circle class="hx-glow hx-r1" cx="12" cy="85.5" r="2.5"/><text class="hx-t-3" x="19" y="89">busy</text></g>
+      <g class="hx-c4"><text x="9" y="105">Developer</text><circle class="hx-web-dot" cx="12" cy="113.5" r="2.5"/><circle class="hx-glow hx-r4" cx="12" cy="113.5" r="2.5"/><text class="hx-t-3" x="19" y="117">working</text></g>
+      <g class="hx-c5"><text x="9" y="133">Reviewer</text><circle class="hx-web-dot" cx="12" cy="141.5" r="2.5"/><circle class="hx-glow hx-r5" cx="12" cy="141.5" r="2.5"/><text class="hx-t-3" x="19" y="145">idle</text></g>
+      <path class="hx-rule" d="M9 153.5h64"/>
+      <g class="hx-live"><g class="hx-stamp"><text class="hx-t-done" x="9" y="167" font-weight="600">tests pass ✓</text><text class="hx-t-done" x="9" y="180" font-weight="600">Done</text></g></g>
+    </g>
     <g class="hx-phone hx-c1">
       <rect class="hx-phone-body" x=".5" y="204.5" width="81" height="137" rx="13"/>
       <path class="hx-phone-notch" d="M33 211h16M31 334h20"/>
-      <use class="hx-ico" href="#hx-i-chat" x="8" y="216" width="12" height="12"/>
+      <use href="#hx-i-telegram" x="8" y="216" width="12" height="12"/>
       <text class="hx-chat-name" x="24" y="226" font-size="10.5" font-weight="600">Telegram</text>
       <path class="hx-rule" d="M1 233.5h80"/>
       <g class="hx-live">
@@ -94,4 +110,5 @@
       </g>
     </g>
   </svg>
+  <p class="hero-caption">The services on the badges are an example mix. ADE on your phone is the read-only web view (<code>ade web --tailnet</code>) over your own Tailscale network.</p>
 </div>

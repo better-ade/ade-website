@@ -165,6 +165,26 @@ describe("the hero's ADE Computer, with the agents at work", () => {
     expect(near.indexOf(Math.min(...near))).toBe(0);
   });
 
+  it("draws a second phone, ADE on your phone: the read-only web view, apart from the window and the Telegram phone", () => {
+    const web = svg.querySelector(".hx-web")!;
+    const body = box(web.querySelector("rect.hx-phone-body")!);
+    expect(overlap(body, frame)).toBe(false);
+    expect(frame.x - (body.x + body.w)).toBeGreaterThanOrEqual(10);
+    expect(overlap(body, phone)).toBe(false);
+    expect(body.h).toBeGreaterThan(body.w * 1.6);
+    // ADE's own logo and the word, the agents and their states, in step with the loop (each one's colour class is the agent's).
+    expect(web.querySelector("use")!.getAttribute("href")).toBe("#hx-i-ade");
+    expect(web.querySelector(".hx-chat-name")!.textContent).toBe("ADE");
+    const names = [...web.querySelectorAll("g[class^='hx-c'] > text:first-child")].map((t) => t.textContent);
+    expect(names).toEqual(["Orchestrator", "Developer", "Reviewer"]);
+    expect(web.querySelector(".hx-stamp")!.textContent).toMatch(/tests pass.*Done/);
+    // Labelled as what it is: the read-only web view over your own Tailscale network, and the services as an example mix.
+    const caption = (svg.parentElement!.querySelector(".hero-caption")!.textContent ?? "").replace(/\s+/g, " ");
+    expect(caption).toMatch(/ADE on your phone is the read-only web view/);
+    expect(caption).toMatch(/Tailscale/);
+    expect(caption).toMatch(/example mix/);
+  });
+
   it("draws the hand-off lines between them, and a pulse for each hand-off", () => {
     const wire = svg.querySelector("path.hx-wire")!;
     expect(wire).not.toBeNull();
@@ -189,11 +209,22 @@ describe("the hero's ADE Computer, with the agents at work", () => {
     for (const r of svg.querySelectorAll("rect")) {
       if (!r.closest(".hx-phone") && !r.closest("defs")) expect(overlap(box(r), phone), r.getAttribute("class") ?? "").toBe(false);
     }
-    // The word and a plain chat icon of our own; none of Telegram's blues anywhere in the drawing or its rules.
+    // The word and Telegram's own logo, unmodified: the white paper plane in the blue circle, drawn once, as a symbol.
     expect(chat.querySelector(".hx-chat-name")!.textContent).toBe("Telegram");
-    expect(chat.querySelector("use")!.getAttribute("href")).toBe("#hx-i-chat");
+    expect(chat.querySelector("use")!.getAttribute("href")).toBe("#hx-i-telegram");
     expect(chat.querySelectorAll("use").length).toBe(1);
-    expect((svg.outerHTML + own).match(/#(0088cc|08c|229ed9|24a1de|2aabee|27a7e7|0af)\b/gi) ?? []).toEqual([]);
+    const logo = svg.querySelector("symbol#hx-i-telegram")!;
+    expect(logo.getAttribute("viewBox")).toBe("0 0 240 240");
+    const disc = logo.querySelector("circle")!;
+    expect([disc.getAttribute("cx"), disc.getAttribute("cy"), disc.getAttribute("r")]).toEqual(["120", "120", "120"]);
+    const plane = logo.querySelector("path")!;
+    expect(plane.getAttribute("fill")).toBe("#fff");
+    expect(plane.getAttribute("d")!.startsWith("M54.3 118.8c35-15.2 58.3-25.3 70-30.2")).toBe(true);
+    const stops = [...svg.querySelectorAll("#hx-tg stop")].map((x) => (x.getAttribute("stop-color") ?? "").toLowerCase());
+    expect(stops).toEqual(["#2aabee", "#229ed9"]);
+    // Telegram's blues are in the logo and nowhere else in the drawing or its rules.
+    const outside = svg.outerHTML.replace(/<symbol id="hx-i-telegram".*?<\/symbol>/s, "").replace(/<linearGradient id="hx-tg".*?<\/linearGradient>/s, "");
+    expect((outside + own).match(/#(0088cc|08c|229ed9|24a1de|2aabee|27a7e7|0af)\b/gi) ?? []).toEqual([]);
     // The owner's message goes in and the reply comes back, and the phone hands off to the Orchestrator and back.
     expect(said(chat.querySelector(".hx-msg")!)).toBe("can’t log in");
     expect(said(chat.querySelector(".hx-reply")!)).toBe("Done. Tests pass.");

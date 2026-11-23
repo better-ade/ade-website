@@ -18,7 +18,7 @@ describe("the technical paper's page", () => {
     expect(builtPages()).toContain("paper/index.html");
     expect(paper.querySelectorAll("h1").length).toBe(1);
     expect(paper.querySelector("h1")!.textContent).toBe("Fast and verified: delivering software with a team of AI agents");
-    expect((main.querySelector(".lead")!.textContent ?? "").trim()).toBe("The ADE team · November 2026");
+    expect((main.querySelector(".lead")!.textContent ?? "").trim()).toBe("The ADE team · Conceived May 2025 · This edition November 2026");
     expect(text).not.toMatch(/draft for review/i);
     expect(paper.querySelector('meta[name="description"]')!.getAttribute("content")!.length).toBeGreaterThan(80);
   });
@@ -141,15 +141,15 @@ describe("what the paper says is true of the repos", () => {
         return [cells[0], cells];
       }),
     );
-    const repos = { "ade-cli": "cli", "ade-brain": "brain", "ade-skills": "skills", "ade-secrets": "secrets", "ade-method": "method" } as const;
+    const repos = { "ade-cli": "cli", "ade-brain": "brain", "ade-skills": "skills", "ade-secrets": "secrets", "ade-method": "method", "ade-agent-registry": "registry" } as const;
     for (const [name, key] of Object.entries(repos)) expect(rows[name][2], name).toBe("v" + readRepo(key, "VERSION").trim());
     // The count is the sum of the rows, and the numbers carry the date they are of.
     const merged = Object.entries(rows).filter(([name]) => name !== "Total").map(([, cells]) => Number(cells[1]));
-    expect(merged.length).toBe(7);
+    expect(merged.length).toBe(8);
     expect(merged.reduce((a, b) => a + b, 0)).toBe(Number(rows.Total[1]));
-    expect(rows.Total[1]).toBe("138");
+    expect(rows.Total[1]).toBe("142");
     expect(text.match(/as of 23 November 2026/g)!.length).toBe(2);
-    expect(text).toContain("138 pull requests merged across seven repositories");
+    expect(text).toContain("142 pull requests merged across eight repositories");
   });
 
   it("the services it says ADE runs today are the ones ade-cli can test live, and the rest are labelled Coming", () => {

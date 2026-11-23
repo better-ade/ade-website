@@ -33,17 +33,18 @@ describe("every page", () => {
     expect(CONTENT.map((p) => urlOf(p.path)).sort()).toEqual(["/", "/get-started/", "/paper/"]);
   });
 
-  it("the guide, the Repos page and the ADE app page are gone, and each of their addresses redirects to the home page", () => {
+  it("the guide, the Repos page and the ADE app page are gone, and each of their addresses redirects to the home page (Repos to its list of what ships)", () => {
     const moved = Object.fromEntries(
       PAGES.filter((p) => isRedirect(p.doc)).map(({ path, doc }) => [
         urlOf(path),
         /url=(\S+)/.exec(doc.querySelector('meta[http-equiv="refresh"]')!.getAttribute("content")!)![1],
       ]),
     );
-    for (const u of REMOVED) expect(moved[u], u).toBe("/");
+    for (const u of REMOVED) expect(moved[u], u).toBe(u === "/repos/" ? "/#ships" : "/");
+    expect(parse(readBuilt("index.html")).getElementById("ships"), "the section /repos/ now leads to").not.toBeNull();
     // Every older address that pointed at one of them now points at the home page too: none is left behind them.
     for (const u of OLDER) expect(moved[u], u).toBe("/");
-    for (const [from, to] of Object.entries(moved)) expect(["/", "/get-started/"], from).toContain(to);
+    for (const [from, to] of Object.entries(moved)) expect(["/", "/#ships", "/get-started/"], from).toContain(to);
     expect(moved["/training/"]).toBe("/get-started/");
     // The link a visitor is shown, when the refresh does not fire, goes to the same place.
     for (const { path, doc } of PAGES.filter((p) => isRedirect(p.doc))) {

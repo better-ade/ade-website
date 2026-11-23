@@ -39,7 +39,12 @@ Alternates:
 
 - **What it is.** An isolated Ubuntu desktop with ADE, VS Code, a terminal and database tools already installed. One
   per project or per task, on your own Docker today. You watch its desktop in your browser, on your own machine only.
-- **Headline.** "A computer of its own for your AI delivery team." The tagline stays **Verified, not vibed.**
+- **Headline.** "Your AI delivery team, in a computer you control." (the gradient is on "in a computer you control.").
+  The tagline stays **Verified, not vibed.** The page title and the meta description say the same.
+- **Sub-text, word for word.** "ADE Computer is a separate Ubuntu desktop with ADE, VS Code, a terminal and database
+  tools ready to go, one per project or per task, running on your own Docker. The agents work inside it, you watch from
+  your browser or your phone, and work only counts as done when the tests pass, checked by an agent that didn't write
+  it."
 - **Early preview.** The image and its launcher are not public yet. The home page's first button is **Ask for an
   early preview**: it opens an email to the preview address (the mailbox "preview" at ardata.tech), with the subject
   "ADE Computer early preview" and a short body asking what they would use it for, their team size and their
@@ -56,21 +61,29 @@ Alternates:
   headline, sub-text, buttons and the two short lines under them on the left, left-aligned; the drawing on the right.
   Below that, the words first, then the drawing. On a 1280x800, 1440x900 or 1920x1080 screen the whole hero is on
   the first screen, and no text in the drawing is under 13px.
-- **The hero drawing.** Two things, clearly apart: a phone, and an ADE Computer window of our own drawing (a top bar,
-  a terminal window in the middle, and a dock along the bottom with plain icons for a code editor, a terminal, a
-  database tool and a browser). No logo, mascot, character, brand colour or style of any other product, provider or
-  game. Its words are copy:
-  - **The phone.** Beside the window's lower-left corner, never over it. A plain speech-bubble icon and the word
-    **Telegram**. The owner's message in it is "can't log in"; the reply is "Done. Tests pass.", with a small picture
-    of the proof (`ade shot --tg` sends one). No approval buttons in the chat: they are Coming.
+- **The hero drawing.** Three things, clearly apart: two phones, and beside them an ADE Computer window of our own
+  drawing (a top bar, a terminal window in the middle, and a dock along the bottom with plain icons for a code
+  editor, a terminal, a database tool and a browser). The phones never overlap the window or each other. Beyond
+  Telegram's own logo, no logo, mascot, character, brand colour or style of any other product, provider or game. Its
+  words are copy:
+  - **Phone 1, "ADE on your phone".** ADE's own logo and the word **ADE**: the agents and their states (busy, working,
+    idle) in step with the loop, then "tests pass ✓ Done". It is the read-only web view (`ade web --tailnet`) over your
+    own Tailscale network, and the line under the drawing says so.
+  - **Phone 2, Telegram.** Telegram's own logo (the white paper plane in the blue circle, unmodified, used only to show
+    the integration) beside the word **Telegram**. The owner's message in it is "can't log in"; the reply is "Done.
+    Tests pass.", with a small picture of the proof (`ade shot --tg` sends one). No approval buttons in the chat: they
+    are Coming.
   - **The team.** Five badges around the terminal, as a team at a table and not a list, joined by dotted hand-off
     lines: **Orchestrator** (lower left, next to the phone), **Product**, **Architect** (top), **Developer**,
     **Reviewer** (lower right). They are ade-method's four core roles and the orchestrator. No specialists here.
   - **Agent faces.** Each role has the same small face of our own: a rounded screen with two eyes and a status light,
     in the role's colour along the orange-to-violet gradient, with the role's job icon as a corner badge. The light
     glows while that role works; the Reviewer's shows a check at Done.
-  - **Services, as plain names.** A small second line on each badge: Orchestrator, Product and Architect on
-    **Claude**, Developer on **Gemini**, Reviewer on **DeepSeek**. Only what ADE runs today is shown running a role;
+  - **Services, as plain names, an example mix.** A small second line on each badge: Orchestrator, Product and
+    Architect on **Claude**, Developer on **Gemini**, Reviewer on **DeepSeek**. The page says it is an example mix:
+    the defaults are in ade-brain (the builder on Claude Opus, the reviewer on DeepSeek or Claude Sonnet), and with
+    only Claude signed in the builder runs on Claude Opus and the reviewer on Claude Sonnet. Only what ADE runs
+    today is shown running a role;
     the orchestrator is only ever shown on Claude. Nothing Coming is in the drawing. On a phone the second line goes.
   - **The terminal is never empty.** It opens on a prompt and a line of output, `$ git pull` and
     "Already up to date.", which stay through the whole loop.
@@ -90,6 +103,9 @@ Alternates:
   Product and Architect on Claude, Developer on Gemini, Reviewer on DeepSeek. One line on what the role does, taken
   from ade-method.
 - **Specialists.** Smaller cards, **Support** and **Sysadmin**, "loaded when needed" (from ade-agent-registry).
+- **Later, one quiet line (not a section, no labels).** "Later: Kimi and ChatGPT as services, ADE Computer in the
+  cloud, keys per hub (`ade key`, `ade vault`), the `codesec` plugin, and Telegram commands for status and progress."
+  Once on the home page and once in the paper; nowhere else.
 - **Services.** Available today: **Claude**, **DeepSeek**, **Gemini**. Then **GLM**, **Muse**, **Kimi** and
   **ChatGPT**, each with its own Coming label.
 
@@ -99,7 +115,7 @@ Alternates:
   and the ADE app page are gone; their addresses, and every older address that pointed at them, redirect to the
   home page.
 - **The paper** (`/paper/`, "Paper" in the menu): "Fast and verified: delivering software with a team of AI
-  agents", by "The ADE team · November 2026". Its text is the paper's own, copied as it is; the page adds a table of
+  agents", by "The ADE team · Conceived May 2025 · This edition November 2026", with the conception sentence after the abstract. Its text is the paper's own, copied as it is; the page adds a table of
   contents, a "Download PDF" link and the site's Coming label where the paper names work that is not merged. Its
   numbers are as of 23 November 2026 and say so. The home page links it as "Read the technical paper".
 - Where a page used to link to a guide page, it links to the README of the public better-ade repo that documents the
@@ -115,24 +131,52 @@ Alternates:
   and one line in `hub.conf` turns it off.
 - **`ade web`.** A read-only page of your agents, their logs and the journal, keys hidden: on this machine, or on
   your tailnet for your phone.
-- **`ade shot`.** Screenshots as proof, kept with the project; `--tg` sends one to you on Telegram.
+- **`ade project`.** `ade project add <path or git address>` brings a repo you already have into the hub; `list`
+  shows them; `--scan` finds the repos in a folder. Released in ade-cli v0.2.8.
+- **`ade shot`.** Screenshots as proof, kept with the project; `--tg` sends one to you on Telegram. Released in
+  ade-cli v0.2.8.
 - **Connectors and the guard.** ClickUp, Jira, Linear and Orgo, each through the service's own server; reads are free,
   every change asks. The guard refuses the commands that print a stored token.
 - **Keys.** Typed only at a hidden prompt in your own terminal. Agents never see a value.
 
-## Coming (not merged; every mention carries the label)
+## Coming, and later
 
-`ade project add`, `list` and `--scan`; `ade key` and `ade vault`, with keys per hub; `ade connect`; Telegram pairing
-without typing commands; approval buttons for focus agents; the Telegram commands `/status`, `/progress`, `/start`
-and `/stop`; ADE Computer in the cloud; the `codesec` plugin; the GLM, Muse, Kimi and ChatGPT providers; Gemini in `ade setup`'s live
-test; an Anthropic API key or DeepSeek for the orchestrator; connectors beyond the four above.
+There is no Coming section on the home page. Whatever is not merged and is **next** keeps a small **Coming** label
+where it is mentioned. Only three things are next: **approval buttons on Telegram**, **Telegram pairing without
+commands**, and **`ade connect`** (with the connectors beyond ClickUp, Jira, Linear and Orgo it brings). The GLM and
+Muse providers, Gemini in `ade setup`'s live test and an Anthropic API key or DeepSeek for the orchestrator keep their
+label too.
+
+**Later** is one quiet line without labels: Kimi and ChatGPT, ADE Computer in the cloud, keys per hub, the `codesec`
+plugin, Telegram commands for status and progress. Every sentence that says approvals happen on Telegram says what
+works today (approvals are given at your own terminal) or carries the Coming label.
+
+## What ships with ADE (home page)
+
+One card per public better-ade repo listed with a `job` in `site/_data/repos.yml`: its job, its latest release (from
+`site/_data/releases.yml`, held to each repo's `VERSION` by the tests) and a link to the repo. ADE Computer is a card
+marked **Early preview**, with no link. `/repos/` redirects to `/#ships`.
+
+## Built on BMAD v6
+
+A "Built on BMAD v6" badge in "How it works", linking to the open-source BMAD Method (ade-method's README: "ADE's BMAD
+v6 settings"). The footer says: "Built on Claude Code and the open-source BMAD Method (v6)."
+
+## Questions (FAQ)
+
+- **Who pays for the AI models?** You do, directly: your own Claude account, or your own API key with each AI service
+  you choose. ADE is free and open source, under the MIT license.
+- **What is a hub?** One git repository per owner or per client, made from ade-brain. It holds each project's context,
+  the memory, the journal and the agents' rules. Your code stays in its own repos.
+- **Where do my prompts go?** Only to the AI services you choose. ADE runs no server and collects nothing. Telegram
+  messages pass through Telegram.
 
 ## Audience messages
 
 - **Developers.** "Hand off the ticket, keep the judgement. ADE builds test-first on the model you pick, reviews by
   risk, and you merge only what's green."
-- **Product managers.** "Write what you want in plain words. Watch it get built from Telegram and approve what
-  matters, without reading code."
+- **Product managers.** "Write what you want in plain words. Follow it from Telegram and get proof when it is
+  done, without reading code. Approvals are given at your own terminal today; approval buttons in Telegram are Coming."
 - **Forward deployed engineers and consultancies.** "One hub per customer. Their approved models only, their data stays
   put, every engagement document drafted."
 - **Support.** "Reproduce, investigate, draft the reply. Nothing reaches a customer without your yes."

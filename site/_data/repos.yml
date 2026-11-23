@@ -1,11 +1,26 @@
 # The public better-ade repos: the only ones a page may link to. tests/sitePages.test.ts fails on a link to any
-# other better-ade repo, so a private repo is never linked.
+# other better-ade repo, so a private repo is never linked. A repo with a `job` is a card of the home page's "What ships
+# with ADE" section: its one-line job and its release (a key of releases.yml), or its state when it has no release there.
 - name: ade-cli
+  job: "The <code>ade</code> command: set-up, the workspace of tabs, updates, screenshots as proof."
+  release: ade_cli
 - name: ade-method
+  job: "The rules every agent works by, the four core roles and the BMAD v6 settings."
+  release: ade_method
 - name: ade-agent-registry
+  job: "The specialists, each loaded only when a task needs one."
+  release: ade_agent_registry
 - name: ade-skills
+  job: "Plugins for Claude Code: the trackers, the guard, notes and the engagement documents."
+  release: ade_skills
 - name: ade-brain
+  job: "The hub template: memory, journal, Telegram, crash recovery and the scripts behind them."
+  release: ade_brain
 - name: ade-secrets
+  job: "A local key store and terminal vault that refuses to run inside an agent session."
+  release: ade_secrets
 - name: ade-terminal
+  job: "The desktop app."
+  state: "Frozen, still downloadable"
 - name: ade-website
 - name: .github

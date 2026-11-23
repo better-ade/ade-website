@@ -24,8 +24,7 @@ curl -fsSL https://raw.githubusercontent.com/better-ade/ade-cli/main/install.sh 
 It writes `~/.local/bin/ade` and tells you when that folder is not on your `PATH`. It installs the tagged release that
 ade-cli's `main` names, never `main` itself, and a failed download keeps the `ade` you had.
 
-> Today that release is **v{{ site.data.releases.ade_cli }}**. It holds every `ade` command on this site not marked Coming, except
-> `ade shot`, which is merged on `main` and ships with the next release; its
+> Today that release is **v{{ site.data.releases.ade_cli }}**. It holds every `ade` command on this site not marked Coming; its
 > [changelog]({{ site.cli_repo }}/blob/main/CHANGELOG.md) lists what each release added.
 
 `ade update` upgrades `ade`, the hub, its plugins and Claude Code, and `ade update --rollback` brings back the `ade` you
