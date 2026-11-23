@@ -63,7 +63,7 @@ describe("every page", () => {
   it("the header's menu has no item for a removed page", () => {
     for (const { path, doc } of PAGES) {
       const items = [...doc.querySelectorAll("#site-nav a")].map((a) => (a.textContent ?? "").trim());
-      expect(items, path).toEqual(["How it works", "Paper", "GitHub", "Get started"]);
+      expect(items, path).toEqual(["How it works", "Paper", "Projects", "GitHub", "Get started"]);
       expect(doc.querySelector(".brand small"), path).toBeNull();
     }
   });
