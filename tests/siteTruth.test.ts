@@ -205,6 +205,7 @@ describe("numbers and versions", () => {
  */
 const NOT_MERGED: [string, RegExp][] = [
   ["the GLM and Muse providers", /\b(GLM|Muse)\b/i],
+  ["the Kimi and ChatGPT providers (nothing for either is in ade-cli yet)", /\b(Kimi|ChatGPT)\b/i],
   ["ade key and ade vault inside ade, and the hub's keys on ade-secrets (ade-cli A13, A14; ade-brain H2)", /\bade (key|vault)\b|keys` on ade-secrets/i],
   ["the Gemini CLI in ade setup's live test", /live test[^.|]*Gemini|Gemini[^.|]*live test/i],
   ["an Anthropic API key or DeepSeek for the orchestrator", /(API key|DeepSeek) for the orchestrator|API key kept in the hub/i],

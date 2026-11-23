@@ -52,6 +52,7 @@ GPT and Codex are not offered.
 | DeepSeek | <span class="coming">Coming</span> | yes, in your own hub (refused in a customer's hub) |
 | Gemini | no | yes, through a role entry; in `ade setup` its live test fails until it runs the Gemini CLI <span class="coming">Coming</span> |
 | GLM, Muse | <span class="coming">Coming</span>, after a passing live check | <span class="coming">Coming</span>, after a passing live check |
+| Kimi, ChatGPT | <span class="coming">Coming</span> | <span class="coming">Coming</span> |
 
 ## Live tests
 

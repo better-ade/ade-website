@@ -3,78 +3,199 @@ import { gzipSync } from "node:zlib";
 import { parse, readBuilt, readRepo, readSite } from "./paths";
 
 /**
- * The home page's hero shows an ADE Computer desktop with the agents at work on it: an inline SVG, moved by CSS
- * keyframes alone. Two drawings share the classes: a wide one, and one laid out for a phone. These tests hold it to
- * what it must stay: named for a screen reader, still when motion is not wanted, true to ADE's real roles, readable in
- * both themes, and made of nothing fetched from anywhere.
+ * The home page's hero is two columns on a wide screen: the words on the left, and on the right a drawing of an ADE
+ * Computer desktop with the agents at work on it and the owner's Telegram chat as the way in. The drawing is one
+ * inline SVG, moved by CSS keyframes alone. These tests hold it to what it must stay: beside the words above the
+ * breakpoint and under them below it, named for a screen reader, still when motion is not wanted, true to ADE's real
+ * roles, readable in both themes and at the size it is shown, and made of nothing fetched from anywhere.
  */
 const home = parse(readBuilt("index.html"));
 const hero = home.querySelector("main section")!;
 const drawings = [...hero.querySelectorAll('svg[role="img"]')];
-const wide = hero.querySelector("svg.hx--wide")!;
-const phone = hero.querySelector("svg.hx--phone")!;
+const svg = hero.querySelector("svg.hx")!;
 const css = readSite("assets/css/site.css");
-const labels = (svg: Element, selector: string) => [...svg.querySelectorAll(selector)].map((t) => (t.textContent ?? "").trim());
+const own = css.slice(css.indexOf("/* ---------- Hero: the ADE Computer"), css.indexOf("/* ---------- end of the hero's ADE Computer"));
+const labels = (selector: string) => [...svg.querySelectorAll(selector)].map((t) => (t.textContent ?? "").trim());
 const cap = (name: string) => name[0].toUpperCase() + name.slice(1);
+const text = (svg.textContent ?? "").replace(/\s+/g, " ");
+/** The body of the first `@media (<query>) { ... }` in the hero's own rules. */
+const media = (query: string) => {
+  const start = own.indexOf(`@media (${query}) {`);
+  expect(start, query).toBeGreaterThan(-1);
+  return /@media [^{]+\{((?:[^{}]|\{[^{}]*\})*)\}/.exec(own.slice(start))![1];
+};
+
+describe("the hero is two columns on a wide screen", () => {
+  const grid = hero.querySelector(".hero-grid")!;
+
+  it("holds exactly the words, then the drawing", () => {
+    expect(grid).not.toBeNull();
+    expect([...grid.children].map((c) => c.className)).toEqual(["hero-copy", "hero-computer"]);
+    // The words come first in the page, so they are first when the columns stack and for a screen reader.
+    const copy = grid.children[0];
+    expect(copy.querySelector("h1")).not.toBeNull();
+    expect(copy.querySelectorAll("a.btn").length).toBe(2);
+    expect(copy.querySelectorAll(".hero-meta").length).toBe(2);
+    expect(copy.querySelector(".hero-kicker")).not.toBeNull();
+    expect(grid.children[1].querySelector("svg.hx")).not.toBeNull();
+  });
+
+  it("from 1024px up: two equal columns, centred against each other, the words left-aligned", () => {
+    const wide = media("min-width: 1024px");
+    expect(wide).toMatch(/\.hero-grid\s*\{[^}]*display:\s*grid;[^}]*grid-template-columns:\s*minmax\(0, 1fr\) minmax\(0, 1fr\);[^}]*align-items:\s*center;/);
+    expect(wide).toMatch(/\.hero-grid \.hero-copy\s*\{[^}]*text-align:\s*left;/);
+    expect(wide).toMatch(/\.hero-grid \.hero-cta, \.hero-grid \.hero-meta\s*\{[^}]*justify-content:\s*flex-start;/);
+    // Below it nothing makes a grid: the drawing follows the words, as the page orders them.
+    expect(own.replace(wide, "")).not.toMatch(/\.hero-grid\s*\{[^}]*display:\s*grid/);
+    expect(css.slice(0, css.indexOf(own))).not.toMatch(/\.hero-grid/);
+  });
+
+  it("the headline stays the largest text on the page in the column", () => {
+    const h1 = /\.hero-grid h1\s*\{[^}]*font-size:\s*clamp\((\d+)px, [^,]+, (\d+)px\)/.exec(media("min-width: 1024px"))!;
+    const h2 = /\.section-head h2\s*\{[^}]*font-size:\s*clamp\((\d+)px, ([\d.]+)vw, (\d+)px\)/.exec(css)!;
+    expect(Number(h1[2])).toBeGreaterThan(Number(h2[3]));
+    // At the breakpoint itself, where both are at their smallest two-column size.
+    expect(Number(h1[1])).toBeGreaterThan(Math.min(Number(h2[3]), Math.max(Number(h2[1]), (Number(h2[2]) / 100) * 1024)));
+  });
+
+  it("no text in the drawing is smaller than 13px when shown in the column", () => {
+    // Drawn 360 units wide. At 1024px the column is its narrowest: (1024 - 2 x 28 padding - the gap) / 2.
+    expect(svg.getAttribute("viewBox")).toBe("0 0 360 398");
+    const gap = /\.hero-grid\s*\{[^}]*gap:\s*clamp\((\d+)px, ([\d.]+)vw, \d+px\)/.exec(media("min-width: 1024px"))!;
+    const column = (1024 - 56 - Math.max(Number(gap[1]), (Number(gap[2]) / 100) * 1024)) / 2;
+    const sizes = [
+      ...[...svg.querySelectorAll("[font-size]")].map((e) => Number(e.getAttribute("font-size"))),
+      ...[...own.matchAll(/\.hx[^{}]*\{[^}]*font-size:\s*([\d.]+)px/g)].map((m) => Number(m[1])),
+    ];
+    expect(sizes.length).toBeGreaterThan(8);
+    for (const t of svg.querySelectorAll("text")) {
+      expect(t.closest("[font-size]") ?? t.closest(".hx-label"), t.textContent ?? "").not.toBeNull();
+    }
+    expect(Math.min(...sizes) * (column / 360)).toBeGreaterThanOrEqual(13);
+  });
+});
 
 describe("the hero's ADE Computer, with the agents at work", () => {
   it("is in the hero, after the headline and the buttons, with an accessible name", () => {
-    expect(wide).not.toBeNull();
-    expect(phone).not.toBeNull();
-    expect(drawings.length).toBe(2);
+    expect(svg).not.toBeNull();
+    expect(drawings.length).toBe(1);
     const lastButton = [...hero.querySelectorAll("a.btn")].pop()!;
-    for (const svg of drawings) {
-      expect(svg.getAttribute("aria-label")!.length).toBeGreaterThan(40);
-      expect(svg.getAttribute("aria-label")!.length).toBeLessThan(200);
-      expect(svg.querySelector("title")!.textContent).toBe(svg.getAttribute("aria-label"));
-      for (const word of ["ADE Computer", "Orchestrator", "Product", "Architect", "Developer", "Reviewer", "tests pass"]) {
-        expect(svg.getAttribute("aria-label"), word).toContain(word);
-      }
-      // The headline and the buttons come first, at every width.
-      expect(hero.querySelector("h1")!.compareDocumentPosition(svg) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-      expect(lastButton.compareDocumentPosition(svg) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(svg.getAttribute("aria-label")!.length).toBeGreaterThan(40);
+    expect(svg.getAttribute("aria-label")!.length).toBeLessThan(240);
+    expect(svg.querySelector("title")!.textContent).toBe(svg.getAttribute("aria-label"));
+    for (const word of ["ADE Computer", "Telegram", "Orchestrator", "Product", "Architect", "Developer", "Reviewer", "tests pass"]) {
+      expect(svg.getAttribute("aria-label"), word).toContain(word);
     }
+    expect(hero.querySelector("h1")!.compareDocumentPosition(svg) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(lastButton.compareDocumentPosition(svg) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("names the orchestrator, ade-method's core roles in order, and two ade-agent-registry specialists", () => {
     const core: { name: string }[] = JSON.parse(readRepo("method", "ade.json")).core_roles;
     const registry: { name: string }[] = JSON.parse(readRepo("registry", "registry.json")).roles;
-    expect(labels(wide, ".hx-agent .hx-label")).toEqual(["Orchestrator", ...core.map((r) => cap(r.name))]);
-    expect(labels(wide, ".hx-agent .hx-label")).toEqual(["Orchestrator", "Product", "Architect", "Developer", "Reviewer"]);
-    const specialists = labels(wide, ".hx-specialist .hx-label");
+    expect(labels(".hx-agent .hx-label")).toEqual(["Orchestrator", ...core.map((r) => cap(r.name))]);
+    expect(labels(".hx-agent .hx-label")).toEqual(["Orchestrator", "Product", "Architect", "Developer", "Reviewer"]);
+    const specialists = labels(".hx-specialist .hx-label");
     expect(specialists).toEqual(["Support", "Sysadmin"]);
     for (const s of specialists) expect(registry.map((r) => cap(r.name)), s).toContain(s);
-    expect((wide.textContent ?? "").replace(/\s+/g, " ")).toContain("loaded when needed");
-    // The phone drawing keeps the five and leaves the specialists out.
-    expect(labels(phone, ".hx-agent .hx-label")).toEqual(labels(wide, ".hx-agent .hx-label"));
-    expect(labels(phone, ".hx-specialist .hx-label")).toEqual([]);
+    expect(text).toContain("loaded when needed");
   });
 
-  it("plays the hand-off: the message, the ticket, the terminal with its test, Done, and the note back", () => {
-    for (const svg of drawings) {
-      const text = (svg.textContent ?? "").replace(/\s+/g, " ");
-      for (const said of ["can’t log in", "Ticket", "bash tests/run.sh", "not ok", "tests pass ✓ Done", "Done. Tests pass."]) {
-        expect(text, said).toContain(said);
-      }
-      expect(svg.querySelectorAll(".hx-pulse").length, "one pulse for each hand-off").toBe(5);
-      expect(svg.querySelectorAll(".hx-ring").length, "one ring for each agent").toBe(5);
-      expect(svg.querySelector(".hx-dot"), "the test dot").not.toBeNull();
+  it("names Telegram as the chat the request comes in by, in plain words and with no mark of theirs", () => {
+    const chat = svg.querySelector(".hx-chat")!;
+    expect(chat).not.toBeNull();
+    expect(chat.querySelector(".hx-chat-name")!.textContent).toBe("Telegram");
+    // The owner's message and the reply are both in the chat, and the chat hands off to the Orchestrator and back.
+    expect((chat.querySelector(".hx-msg")!.textContent ?? "").trim()).toBe("can’t log in");
+    expect((chat.querySelector(".hx-reply")!.textContent ?? "").trim()).toBe("Done. Tests pass.");
+    expect(svg.querySelector(".hx-pulse.hx-p0"), "the pulse from the chat").not.toBeNull();
+    expect(svg.querySelector(".hx-pulse.hx-p6"), "the pulse back to the chat").not.toBeNull();
+    // A plain chat icon of our own; none of Telegram's blues anywhere in the drawing or its rules.
+    expect(chat.querySelector("use")!.getAttribute("href")).toBe("#hx-i-chat");
+    expect((svg.outerHTML + own).match(/#(0088cc|08c|229ed9|24a1de|2aabee|27a7e7|0af)\b/gi) ?? []).toEqual([]);
+    // Approval buttons are not merged (siteTruth's NOT_MERGED list), so the drawing shows none.
+    expect(text).not.toMatch(/Approve|Deny/);
+  });
+
+  it("names a model only where ADE runs it today; the rest sit under the Coming label and run no role", () => {
+    const cli = readRepo("cli", "ade");
+    // What `ade setup` can live-test, and the ones it will not put in a role until their live check passes.
+    const live = /^LIVE_PROVIDERS="([^"]*)"/m.exec(cli)![1].split(/\s+/);
+    const gated = new Set([...cli.matchAll(/"([a-z]+)\|[^"|]*\(needs the live check\)"/g)].map((m) => m[1]));
+    expect(live).toEqual(expect.arrayContaining(["anthropic", "deepseek", "gemini"]));
+    const ID: Record<string, string> = { Claude: "anthropic", DeepSeek: "deepseek", Gemini: "gemini", GLM: "glm", Muse: "muse" };
+    const names = (selector: string) => (svg.querySelector(selector)!.textContent ?? "").split("·").map((n) => n.trim());
+    const now = names(".hx-models-now");
+    const soon = names(".hx-soon .hx-models-soon");
+    expect(now).toEqual(["Claude", "DeepSeek", "Gemini"]);
+    expect(soon).toEqual(["GLM", "Muse", "Kimi", "ChatGPT"]);
+    for (const n of now) {
+      expect(live, n).toContain(ID[n]);
+      expect(gated.has(ID[n]), `${n} is still waiting for its live check`).toBe(false);
     }
+    // Coming: not in ade-cli at all, or there but held back. When one lands, this fails and the label comes off.
+    for (const n of soon) {
+      const held = ID[n] ? gated.has(ID[n]) : !new RegExp(`\\b${n}\\b`, "i").test(cli);
+      expect(held, `${n} is supported now: move it out of the Coming group`).toBe(true);
+    }
+    expect(cli).not.toMatch(/kimi|moonshot|chatgpt|openai/i);
+    expect(svg.querySelector(".hx-soon .hx-t-coming")!.textContent).toBe("Coming");
+    // Each role names what it runs on, from the supported ones only; the orchestrator is on Claude (anything else is Coming).
+    const roles = Object.fromEntries([...svg.querySelectorAll(".hx-agent")].map((g) => [g.querySelector(".hx-label")!.textContent, g.querySelector(".hx-model")!.textContent]));
+    expect(roles).toEqual({ Orchestrator: "Claude", Product: "Claude", Architect: "Claude", Developer: "Gemini", Reviewer: "DeepSeek" });
+    for (const m of Object.values(roles)) expect(now).toContain(m);
+    // No provider is named anywhere else in the drawing: the Coming ones appear once, in the strip.
+    for (const n of soon) expect(text.split(n).length - 1, n).toBe(1);
+    expect(svg.querySelectorAll(".hx-specialist .hx-model").length).toBe(0);
+    // On a phone the strip stays and the per-role names go.
+    expect(media("max-width: 700px")).toMatch(/\.hx \.hx-model, \.hx \.hx-corner\s*\{[^}]*display:\s*none/);
+  });
+
+  it("gives each role the same agent face, with its job as a corner badge and a light that glows while it works", () => {
+    const agents = [...svg.querySelectorAll(".hx-agent")];
+    for (const g of [...agents, ...svg.querySelectorAll(".hx-specialist")]) {
+      expect(g.querySelector("use.hx-face")!.getAttribute("href"), g.textContent ?? "").toBe("#hx-i-agent");
+    }
+    expect(agents.map((g) => g.querySelector(".hx-corner use")!.getAttribute("href"))).toEqual(
+      ["#hx-i-orch", "#hx-i-product", "#hx-i-architect", "#hx-i-developer", "#hx-i-reviewer"],
+    );
+    expect(svg.querySelectorAll(".hx-specialist .hx-corner").length).toBe(0);
+    // The light shares its role's ring animation, so it glows exactly while that role is working.
+    agents.forEach((g, i) => {
+      expect(g.querySelector(".hx-ring")!.classList.contains(`hx-r${i + 1}`)).toBe(true);
+      expect(g.querySelector(".hx-glow")!.classList.contains(`hx-r${i + 1}`)).toBe(true);
+      expect([...g.classList]).toContain(`hx-c${i + 1}`);
+    });
+    // Calm at rest (and so under reduced motion); the Reviewer's check arrives with Done and stays.
+    expect(own).toMatch(/\.hx-glow\s*\{[^}]*opacity:\s*0;/);
+    expect(agents[4].querySelector(".hx-live .hx-check")).not.toBeNull();
+    expect(svg.querySelectorAll(".hx-check").length).toBe(1);
+    expect(own).toMatch(/\.hx-check\s*\{\s*animation:\s*hx-stamp 12s/);
+    // One family of plain shapes: a rounded screen, two eyes, a status light.
+    const face = home.getElementById("hx-i-agent")!;
+    expect(face.querySelectorAll("rect.hx-face-head").length).toBe(1);
+    expect(face.querySelectorAll("circle.hx-face-dot").length).toBe(3);
+  });
+
+  it("plays the hand-off: the message, the ticket, the terminal with its test, Done, and the reply", () => {
+    for (const said of ["can’t log in", "Ticket", "bash tests/run.sh", "not ok", "tests pass ✓ Done", "Done. Tests pass."]) {
+      expect(text, said).toContain(said);
+    }
+    expect(svg.querySelectorAll(".hx-pulse").length, "one pulse for each hand-off").toBe(7);
+    expect(svg.querySelectorAll(".hx-ring").length, "one ring for each agent").toBe(5);
+    expect(svg.querySelector(".hx-dot"), "the test dot").not.toBeNull();
     expect(css).toMatch(/\.hx-dot\s*\{[^}]*animation:\s*hx-dot 12s/);
     expect(css).toMatch(/@keyframes hx-dot\s*\{[^@]*#ff7b72[^@]*#3fb950/);
   });
 
   it("is a desktop of our own: a top bar, a dock with four plain icons, a terminal", () => {
-    for (const svg of drawings) {
-      expect(svg.querySelector(".hx-bar")).not.toBeNull();
-      expect([...svg.querySelectorAll(".hx-dock-icon")].map((u) => u.getAttribute("href"))).toEqual(["#hx-i-code", "#hx-i-term", "#hx-i-db", "#hx-i-web"]);
-      expect(svg.querySelector(".hx-term")).not.toBeNull();
-    }
+    expect(svg.querySelector(".hx-bar")).not.toBeNull();
+    expect([...svg.querySelectorAll(".hx-dock-icon")].map((u) => u.getAttribute("href"))).toEqual(["#hx-i-code", "#hx-i-term", "#hx-i-db", "#hx-i-web"]);
+    expect(svg.querySelector(".hx-term")).not.toBeNull();
   });
 
   it("stands still, on its last frame, when reduced motion is asked for", () => {
-    const reduce = [...css.matchAll(/@media \(prefers-reduced-motion: reduce\)\s*\{((?:[^{}]|\{[^{}]*\})*)\}/g)].map((m) => m[1]).join("\n");
-    expect(reduce).toMatch(/\.hx \*\s*\{[^}]*animation:\s*none\s*!important/);
+    expect(media("prefers-reduced-motion: reduce")).toMatch(/\.hx \*\s*\{[^}]*animation:\s*none\s*!important/);
     // Every moving part rests on the end state: the rules outside keyframes never hide what the last frame shows.
     const rule = (cls: string) => new RegExp(`(^|[\\s,])\\.${cls}\\s*\\{([^}]*)\\}`, "m").exec(css)?.[2] ?? "";
     for (const cls of ["hx-msg", "hx-ticket", "hx-note", "hx-out2", "hx-out5", "hx-stamp", "hx-reply"]) {
@@ -101,12 +222,12 @@ describe("the hero's ADE Computer, with the agents at work", () => {
     }
     // Every reference resolves inside the page.
     for (const use of visual.querySelectorAll("use")) expect(home.getElementById(use.getAttribute("href")!.slice(1)), use.getAttribute("href")!).not.toBeNull();
-    const own = css.slice(css.indexOf("/* ---------- Hero: the ADE Computer"), css.indexOf("/* ---------- end of the hero's ADE Computer"));
     expect(own.length).toBeGreaterThan(500);
     expect(own).not.toMatch(/url\(|@import|@font-face|https?:/);
-    // A few KB on the wire (Pages serves both compressed): the two drawings, and their rules.
-    expect(gzipSync(visual.outerHTML).length).toBeLessThan(4500);
-    expect(gzipSync(own).length).toBeLessThan(2500);
+    // A few KB, raw and on the wire: the drawing as served, and its rules.
+    expect(Buffer.byteLength(visual.outerHTML)).toBeLessThan(15000);
+    expect(gzipSync(visual.outerHTML).length).toBeLessThan(3600);
+    expect(gzipSync(own).length).toBeLessThan(3000);
   });
 });
 
@@ -125,15 +246,15 @@ function tokens(block: string): Record<string, string> {
 }
 
 describe("the hero drawing's text is readable in both themes", () => {
-  const own = css.slice(css.indexOf("/* ---------- Hero: the ADE Computer"), css.indexOf("/* ---------- end of the hero's ADE Computer"));
   const light = tokens(/:root\s*\{([^}]*)\}/.exec(css)![1]);
   const dark = { ...light, ...tokens(/:root\[data-theme="dark"\]\s*\{([^}]*)\}/.exec(css)![1]) };
   /** Each text colour the drawing uses, and the surfaces that text is drawn on. */
   const SURFACES: Record<string, string[]> = {
-    "var(--text)": ["panel"],
+    "var(--text)": ["panel", "panel-2"],
     "var(--text-2)": ["panel", "panel-2"],
     "var(--text-3)": ["panel"],
     "var(--agent-green)": ["panel"],
+    "var(--violet)": ["panel"],
     "#d7d8de": ["term-bg"],
     "#9a9ba3": ["term-bg"],
     "#ff7b72": ["term-bg"],

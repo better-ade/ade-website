@@ -48,17 +48,29 @@ Alternates:
   and, on Docker Desktop, services on your machine that listen on localhost. Say this wherever "isolated" is said.
 - **In the cloud.** Coming. Name no provider and promise no service: it is a computer you start, not one we run.
 - **Never on the site:** a link to its repo (private), a command that installs or starts it, a date.
-- **The hero drawing.** Under the headline and buttons: an ADE Computer desktop of our own drawing (a top bar, a
-  dock with plain icons for a code editor, a terminal, a database tool and a browser, and a terminal window), with
-  the agents at work on it. No logo, mascot or style of any other product. Its words are copy:
-  - Role labels, exactly: **Orchestrator**, **Product**, **Architect**, **Developer**, **Reviewer** (ade-method's
+- **The hero.** Two columns on a wide screen (from 1024px): the kicker, headline, sub-text, buttons and the two
+  notes on the left, left-aligned; the drawing on the right. Below that, the words first, then the drawing.
+- **The hero drawing.** An ADE Computer desktop of our own drawing (a top bar, a dock with plain icons for a code
+  editor, a terminal, a database tool and a browser, and a terminal window), with the agents at work on it. No logo,
+  mascot, character, brand colour or style of any other product, provider or game. Its words are copy:
+  - **The chat.** A small chat panel at the window's corner, a plain speech-bubble icon and the word **Telegram**.
+    The owner's message in it is "can't log in"; the reply is "Done. Tests pass.", with a small picture of the proof
+    (`ade shot --tg` sends one). No approval buttons in the chat: they are Coming.
+  - **Role labels, exactly:** **Orchestrator**, **Product**, **Architect**, **Developer**, **Reviewer** (ade-method's
     four core roles and the orchestrator), and two specialists drawn dimmer, **Support** and **Sysadmin**, with
     "loaded when needed" (they come from ade-agent-registry).
-  - The loop, about 12 seconds: the message "can't log in" reaches the Orchestrator; a ticket, "Login fails after
-    reset", goes to Product; the Architect adds "design note ✓"; the Developer's terminal runs `bash tests/run.sh`,
-    shows "not ok login after reset", then "ok login after reset" and "ok all tests pass", and the test dot turns
-    from red to green; the Reviewer shows "tests pass ✓ Done"; the note "Done. Tests pass." returns to the
-    Orchestrator.
+  - **Agent faces.** Each role has the same small face of our own: a rounded screen with two eyes and a status light,
+    in the role's colour along the orange-to-violet gradient, with the role's job icon as a corner badge. The light
+    glows while that role works; the Reviewer's shows a check at Done. Specialists have the face, dimmer.
+  - **Models, as plain names.** Under each role, what it runs on in this scene: Orchestrator, Product and Architect
+    on **Claude**, Developer on **Gemini**, Reviewer on **DeepSeek**. A strip at the bottom reads "Runs on Claude ·
+    DeepSeek · Gemini", then **Coming** "GLM · Muse · Kimi · ChatGPT". Only what ADE runs today is shown running a
+    role; the orchestrator is only ever shown on Claude. On a phone the strip stays and the per-role names go.
+  - **The loop, about 12 seconds:** "can't log in" leaves the chat and reaches the Orchestrator; a ticket, "Login
+    fails after reset", goes to Product; the Architect adds "design note ✓"; the Developer's terminal runs
+    `bash tests/run.sh`, shows "not ok login after reset", then "ok login after reset" and "ok all tests pass", and
+    the test dot turns from red to green; the Reviewer shows "tests pass ✓ Done"; the note returns to the
+    Orchestrator, and "Done. Tests pass." arrives in the chat.
   - It is an illustration of the method, not a recording: no customer, no person, no real project in it.
 
 ## What works today, in plain words
@@ -80,7 +92,7 @@ Alternates:
 
 `ade project add`, `list` and `--scan`; `ade key` and `ade vault`, with keys per hub; `ade connect`; Telegram pairing
 without typing commands; approval buttons for focus agents; the Telegram commands `/status`, `/progress`, `/start`
-and `/stop`; ADE Computer in the cloud; the `codesec` plugin; the GLM and Muse providers; Gemini in `ade setup`'s live
+and `/stop`; ADE Computer in the cloud; the `codesec` plugin; the GLM, Muse, Kimi and ChatGPT providers; Gemini in `ade setup`'s live
 test; an Anthropic API key or DeepSeek for the orchestrator; connectors beyond the four above.
 
 ## Audience messages
