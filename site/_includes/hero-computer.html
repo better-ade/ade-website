@@ -1,0 +1,150 @@
+{% comment %}
+  The hero's ADE Computer: a desktop of our own drawing with the agents at work on it. Inline SVG, moved by CSS
+  keyframes in site.css (the "Hero: the ADE Computer" block); no script, no image, no style attribute (the policy
+  blocks them). Two drawings share the classes: a wide one, and one laid out for a phone (site.css shows one).
+  The words in it are copy: docs/messaging.md lists them, and tests/siteHero.test.ts holds the role names to the repos.
+{% endcomment %}
+{% capture hx_name %}An ADE Computer desktop with the agents at work: a request passes from the Orchestrator to Product, Architect, Developer and Reviewer, and is Done when the tests pass.{% endcapture %}
+<div class="hero-computer">
+  <svg class="hx-sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <radialGradient id="hx-go"><stop offset="0" stop-color="#ff8a3d" stop-opacity=".2"/><stop offset="1" stop-color="#ff8a3d" stop-opacity="0"/></radialGradient>
+    <radialGradient id="hx-gv"><stop offset="0" stop-color="#a78bfa" stop-opacity=".24"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
+    <symbol id="hx-i-orch" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="4" r="1.6"/><circle cx="5" cy="18" r="1.6"/><circle cx="19" cy="18" r="1.6"/><path d="M12 9V5.6M9.6 13.8l-3.4 3M14.4 13.8l3.4 3"/></symbol>
+    <symbol id="hx-i-product" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2.5"/><path d="M9 9h6M9 13h6M9 17h3"/></symbol>
+    <symbol id="hx-i-architect" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-4h12v4"/></symbol>
+    <symbol id="hx-i-developer" viewBox="0 0 24 24"><path d="M8.5 7 4 12l4.5 5M15.5 7 20 12l-4.5 5M13.5 5l-3 14"/></symbol>
+    <symbol id="hx-i-reviewer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m8.2 12.3 2.6 2.6 5-5.4"/></symbol>
+    <symbol id="hx-i-support" viewBox="0 0 24 24"><path d="M5 6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v7a2.5 2.5 0 0 1-2.5 2.5H11l-4 3.5V16A2.5 2.5 0 0 1 5 13.5z"/></symbol>
+    <symbol id="hx-i-sysadmin" viewBox="0 0 24 24"><rect x="4" y="4.5" width="16" height="6.5" rx="1.8"/><rect x="4" y="13" width="16" height="6.5" rx="1.8"/><path d="M7.5 7.8h.01M7.5 16.3h.01"/></symbol>
+    <symbol id="hx-i-code" viewBox="0 0 24 24"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></symbol>
+    <symbol id="hx-i-term" viewBox="0 0 24 24"><path d="M6 8l4 4-4 4M12.5 16H18"/></symbol>
+    <symbol id="hx-i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6.5" rx="6.5" ry="2.8"/><path d="M5.5 6.5v11c0 1.5 2.9 2.8 6.5 2.8s6.5-1.3 6.5-2.8v-11M5.5 12c0 1.5 2.9 2.8 6.5 2.8s6.5-1.3 6.5-2.8"/></symbol>
+    <symbol id="hx-i-web" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.6 2.4 2.6 13.6 0 16M12 4c-2.6 2.4-2.6 13.6 0 16"/></symbol>
+  </svg>
+
+  <svg class="hx hx--wide" viewBox="0 0 960 600" role="img" aria-label="{{ hx_name | strip }}">
+    <title>{{ hx_name | strip }}</title>
+    <defs>
+      <clipPath id="hx-clip-w"><rect width="960" height="600" rx="16"/></clipPath>
+    </defs>
+    <g clip-path="url(#hx-clip-w)">
+      <rect class="hx-wall" width="960" height="600"/>
+      <circle cx="300" cy="590" r="330" fill="url(#hx-go)"/>
+      <circle cx="840" cy="130" r="360" fill="url(#hx-gv)"/>
+      <rect class="hx-bar" width="960" height="30"/>
+      <rect class="hx-dock" y="30" width="56" height="570"/>
+      <path class="hx-rule" d="M0 30.5h960M56.5 30v570"/>
+      <text class="hx-t-2" x="16" y="20" font-size="12" font-weight="600">ADE Computer</text>
+      <text class="hx-t-2 hx-mono" x="480" y="20" font-size="11.5" text-anchor="middle">10:42</text>
+      <path class="hx-status" d="M916 15h.01M928 15h.01M940 15h.01"/>
+      <rect class="hx-tile" x="10" y="46" width="36" height="36" rx="9"/><use class="hx-ico hx-dock-icon" href="#hx-i-code" x="18" y="54" width="20" height="20"/>
+      <rect class="hx-tile hx-tile--on" x="10" y="92" width="36" height="36" rx="9"/><use class="hx-ico hx-dock-icon" href="#hx-i-term" x="18" y="100" width="20" height="20"/>
+      <rect class="hx-tile" x="10" y="138" width="36" height="36" rx="9"/><use class="hx-ico hx-dock-icon" href="#hx-i-db" x="18" y="146" width="20" height="20"/>
+      <rect class="hx-tile" x="10" y="184" width="36" height="36" rx="9"/><use class="hx-ico hx-dock-icon" href="#hx-i-web" x="18" y="192" width="20" height="20"/>
+    </g>
+    <rect class="hx-frame" x=".5" y=".5" width="959" height="599" rx="16"/>
+
+    <path class="hx-wire" d="M212 110v12q0 10 10 10h568q10 0 10-10v-12"/>
+    <path class="hx-wire" d="M880 110v174"/>
+    <path class="hx-wire" d="M860 336v158q0 10-10 10H592"/>
+    <path class="hx-wire" d="M424 504H166q-10 0-10-10V336"/>
+    <path class="hx-wire" d="M128 284V110"/>
+    <path class="hx-pulse hx-p1 hx-c2" pathLength="1" d="M212 110v12q0 10 10 10h568q10 0 10-10v-12"/>
+    <path class="hx-pulse hx-p2 hx-c3" pathLength="1" d="M880 110v174"/>
+    <path class="hx-pulse hx-p3 hx-c4" pathLength="1" d="M860 336v158q0 10-10 10H592"/>
+    <path class="hx-pulse hx-p4 hx-c5" pathLength="1" d="M424 504H166q-10 0-10-10V336"/>
+    <path class="hx-pulse hx-p5 hx-c1" pathLength="1" d="M128 284V110"/>
+
+    <rect class="hx-term" x="264" y="146" width="488" height="306" rx="12"/>
+    <path class="hx-term-rule" d="M264 176.5h488"/>
+    <path class="hx-term-dots" d="M282 161h.01M298 161h.01M314 161h.01"/>
+    <text class="hx-t-term-dim hx-mono" x="508" y="165" font-size="11.5" text-anchor="middle">terminal</text>
+    <text class="hx-t-term-dim hx-mono" x="718" y="165" font-size="11.5" text-anchor="end">tests</text>
+    <circle class="hx-dot" cx="732" cy="161" r="5"/>
+    <g class="hx-live hx-mono" font-size="14">
+      <text class="hx-t-term" x="284" y="208">$ bash tests/run.sh</text><rect class="hx-cover hx-k1" x="280" y="193" width="168" height="22"/>
+      <text class="hx-t-term-bad hx-out2" x="284" y="234">not ok login after reset</text>
+      <text class="hx-t-term-dim" x="284" y="260"># fix: keep the session after a reset</text><rect class="hx-cover hx-k3" x="280" y="245" width="320" height="22"/>
+      <text class="hx-t-term" x="284" y="286">$ bash tests/run.sh</text><rect class="hx-cover hx-k4" x="280" y="271" width="168" height="22"/>
+      <text class="hx-t-term-ok hx-out5" x="284" y="312">ok login after reset</text>
+      <text class="hx-t-term-ok hx-out5" x="284" y="338">ok all tests pass</text>
+    </g>
+
+    <g class="hx-agent hx-c1"><rect class="hx-card" x="84" y="58" width="168" height="52" rx="16"/><rect class="hx-ring hx-r1" x="84" y="58" width="168" height="52" rx="16"/><circle class="hx-chip" cx="112" cy="84" r="17"/><use class="hx-ico" href="#hx-i-orch" x="102" y="74" width="20" height="20"/><text class="hx-label" x="138" y="89">Orchestrator</text></g>
+    <g class="hx-agent hx-c2"><rect class="hx-card" x="740" y="58" width="168" height="52" rx="16"/><rect class="hx-ring hx-r2" x="740" y="58" width="168" height="52" rx="16"/><circle class="hx-chip" cx="768" cy="84" r="17"/><use class="hx-ico" href="#hx-i-product" x="758" y="74" width="20" height="20"/><text class="hx-label" x="794" y="89">Product</text></g>
+    <g class="hx-agent hx-c3"><rect class="hx-card" x="776" y="284" width="168" height="52" rx="16"/><rect class="hx-ring hx-r3" x="776" y="284" width="168" height="52" rx="16"/><circle class="hx-chip" cx="804" cy="310" r="17"/><use class="hx-ico" href="#hx-i-architect" x="794" y="300" width="20" height="20"/><text class="hx-label" x="830" y="315">Architect</text></g>
+    <g class="hx-agent hx-c4"><rect class="hx-card" x="424" y="478" width="168" height="52" rx="16"/><rect class="hx-ring hx-r4" x="424" y="478" width="168" height="52" rx="16"/><circle class="hx-chip" cx="452" cy="504" r="17"/><use class="hx-ico" href="#hx-i-developer" x="442" y="494" width="20" height="20"/><text class="hx-label" x="478" y="509">Developer</text></g>
+    <g class="hx-agent hx-c5"><rect class="hx-card" x="72" y="284" width="168" height="52" rx="16"/><rect class="hx-ring hx-r5" x="72" y="284" width="168" height="52" rx="16"/><circle class="hx-chip" cx="100" cy="310" r="17"/><use class="hx-ico" href="#hx-i-reviewer" x="90" y="300" width="20" height="20"/><text class="hx-label" x="126" y="315">Reviewer</text></g>
+
+    <g class="hx-specialist"><rect class="hx-card" x="76" y="548" width="112" height="32" rx="16"/><use class="hx-ico" href="#hx-i-support" x="87" y="556" width="16" height="16"/><text class="hx-label hx-t-3" x="111" y="568.5">Support</text></g>
+    <g class="hx-specialist"><rect class="hx-card" x="198" y="548" width="120" height="32" rx="16"/><use class="hx-ico" href="#hx-i-sysadmin" x="209" y="556" width="16" height="16"/><text class="hx-label hx-t-3" x="233" y="568.5">Sysadmin</text></g>
+    <text class="hx-t-2" x="330" y="568.5" font-size="12.5">loaded when needed</text>
+
+    <g class="hx-live">
+      <g class="hx-msg"><rect class="hx-card" x="264" y="54" width="116" height="30" rx="15"/><text x="322" y="74" font-size="13" text-anchor="middle">can&rsquo;t log in</text></g>
+      <g class="hx-ticket"><rect class="hx-card" x="540" y="50" width="188" height="70" rx="10"/><text class="hx-t-2 hx-mono hx-caps" x="554" y="69" font-size="10">Ticket</text><text x="554" y="88" font-size="13" font-weight="600">Login fails after reset</text><text class="hx-t-2 hx-note" x="554" y="107" font-size="11.5">design note ✓</text></g>
+      <g class="hx-stamp"><rect class="hx-card hx-card--done" x="72" y="346" width="168" height="30" rx="15"/><text class="hx-t-done" x="156" y="366" font-size="13" font-weight="600" text-anchor="middle">tests pass ✓ Done</text></g>
+      <g class="hx-reply hx-c1"><rect class="hx-card hx-card--reply" x="264" y="92" width="150" height="30" rx="15"/><text x="339" y="112" font-size="13" text-anchor="middle">Done. Tests pass.</text></g>
+    </g>
+  </svg>
+
+  <svg class="hx hx--phone" viewBox="0 0 360 344" role="img" aria-label="{{ hx_name | strip }}">
+    <title>{{ hx_name | strip }}</title>
+    <defs>
+      <clipPath id="hx-clip-p"><rect width="360" height="232" rx="12"/></clipPath>
+    </defs>
+    <g clip-path="url(#hx-clip-p)">
+      <rect class="hx-wall" width="360" height="232"/>
+      <circle cx="90" cy="232" r="150" fill="url(#hx-go)"/>
+      <circle cx="320" cy="40" r="160" fill="url(#hx-gv)"/>
+      <rect class="hx-bar" width="360" height="20"/>
+      <rect class="hx-dock" y="20" width="30" height="212"/>
+      <path class="hx-rule" d="M0 20.5h360M30.5 20v212"/>
+      <text class="hx-t-2" x="10" y="13.5" font-size="9" font-weight="600">ADE Computer</text>
+      <text class="hx-t-2 hx-mono" x="180" y="13.5" font-size="8.5" text-anchor="middle">10:42</text>
+      <rect class="hx-tile" x="5" y="28" width="20" height="20" rx="5"/><use class="hx-ico hx-dock-icon" href="#hx-i-code" x="9" y="32" width="12" height="12"/>
+      <rect class="hx-tile hx-tile--on" x="5" y="54" width="20" height="20" rx="5"/><use class="hx-ico hx-dock-icon" href="#hx-i-term" x="9" y="58" width="12" height="12"/>
+      <rect class="hx-tile" x="5" y="80" width="20" height="20" rx="5"/><use class="hx-ico hx-dock-icon" href="#hx-i-db" x="9" y="84" width="12" height="12"/>
+      <rect class="hx-tile" x="5" y="106" width="20" height="20" rx="5"/><use class="hx-ico hx-dock-icon" href="#hx-i-web" x="9" y="110" width="12" height="12"/>
+    </g>
+    <rect class="hx-frame" x=".5" y=".5" width="359" height="231" rx="12"/>
+
+    <path class="hx-wire" d="M110 266h15"/>
+    <path class="hx-wire" d="M235 266h15"/>
+    <path class="hx-wire" d="M305 286v16"/>
+    <path class="hx-wire" d="M250 322h-15"/>
+    <path class="hx-wire" d="M125 322H65q-10 0-10-10v-26"/>
+    <path class="hx-pulse hx-p1 hx-c2" pathLength="1" d="M110 266h15"/>
+    <path class="hx-pulse hx-p2 hx-c3" pathLength="1" d="M235 266h15"/>
+    <path class="hx-pulse hx-p3 hx-c4" pathLength="1" d="M305 286v16"/>
+    <path class="hx-pulse hx-p4 hx-c5" pathLength="1" d="M250 322h-15"/>
+    <path class="hx-pulse hx-p5 hx-c1" pathLength="1" d="M125 322H65q-10 0-10-10v-26"/>
+
+    <rect class="hx-term" x="38" y="28" width="168" height="196" rx="8"/>
+    <path class="hx-term-rule" d="M38 48.5h168"/>
+    <path class="hx-term-dots hx-term-dots--s" d="M48 38h.01M57 38h.01M66 38h.01"/>
+    <text class="hx-t-term-dim hx-mono" x="187" y="41" font-size="8.5" text-anchor="end">tests</text>
+    <circle class="hx-dot" cx="196" cy="38" r="3.5"/>
+    <g class="hx-live hx-mono" font-size="9">
+      <text class="hx-t-term" x="46" y="66">$ bash tests/run.sh</text><rect class="hx-cover hx-k1" x="44" y="56" width="108" height="14"/>
+      <text class="hx-t-term-bad hx-out2" x="46" y="82">not ok login after reset</text>
+      <text class="hx-t-term-dim" x="46" y="98"># fix: keep the session</text><rect class="hx-cover hx-k3" x="44" y="88" width="130" height="14"/>
+      <text class="hx-t-term" x="46" y="114">$ bash tests/run.sh</text><rect class="hx-cover hx-k4" x="44" y="104" width="108" height="14"/>
+      <text class="hx-t-term-ok hx-out5" x="46" y="130">ok login after reset</text>
+      <text class="hx-t-term-ok hx-out5" x="46" y="146">ok all tests pass</text>
+    </g>
+
+    <g class="hx-agent hx-c1"><rect class="hx-card" x=".5" y="246" width="109.5" height="40" rx="13"/><rect class="hx-ring hx-r1" x=".5" y="246" width="109.5" height="40" rx="13"/><circle class="hx-chip" cx="18" cy="266" r="12"/><use class="hx-ico" href="#hx-i-orch" x="11" y="259" width="14" height="14"/><text class="hx-label" x="34" y="270">Orchestrator</text></g>
+    <g class="hx-agent hx-c2"><rect class="hx-card" x="125" y="246" width="110" height="40" rx="13"/><rect class="hx-ring hx-r2" x="125" y="246" width="110" height="40" rx="13"/><circle class="hx-chip" cx="143" cy="266" r="12"/><use class="hx-ico" href="#hx-i-product" x="136" y="259" width="14" height="14"/><text class="hx-label" x="159" y="270">Product</text></g>
+    <g class="hx-agent hx-c3"><rect class="hx-card" x="250" y="246" width="109.5" height="40" rx="13"/><rect class="hx-ring hx-r3" x="250" y="246" width="109.5" height="40" rx="13"/><circle class="hx-chip" cx="268" cy="266" r="12"/><use class="hx-ico" href="#hx-i-architect" x="261" y="259" width="14" height="14"/><text class="hx-label" x="284" y="270">Architect</text></g>
+    <g class="hx-agent hx-c4"><rect class="hx-card" x="250" y="302" width="109.5" height="40" rx="13"/><rect class="hx-ring hx-r4" x="250" y="302" width="109.5" height="40" rx="13"/><circle class="hx-chip" cx="268" cy="322" r="12"/><use class="hx-ico" href="#hx-i-developer" x="261" y="315" width="14" height="14"/><text class="hx-label" x="284" y="326">Developer</text></g>
+    <g class="hx-agent hx-c5"><rect class="hx-card" x="125" y="302" width="110" height="40" rx="13"/><rect class="hx-ring hx-r5" x="125" y="302" width="110" height="40" rx="13"/><circle class="hx-chip" cx="143" cy="322" r="12"/><use class="hx-ico" href="#hx-i-reviewer" x="136" y="315" width="14" height="14"/><text class="hx-label" x="159" y="326">Reviewer</text></g>
+
+    <g class="hx-live">
+      <g class="hx-msg"><rect class="hx-card" x="254" y="30" width="96" height="24" rx="12"/><text x="302" y="46" font-size="10.5" text-anchor="middle">can&rsquo;t log in</text></g>
+      <g class="hx-ticket"><rect class="hx-card" x="214" y="62" width="136" height="56" rx="8"/><text class="hx-t-2 hx-mono hx-caps" x="224" y="77" font-size="8">Ticket</text><text x="224" y="92" font-size="10" font-weight="600">Login fails after reset</text><text class="hx-t-2 hx-note" x="224" y="107" font-size="9">design note ✓</text></g>
+      <g class="hx-stamp"><rect class="hx-card hx-card--done" x="214" y="126" width="136" height="26" rx="13"/><text class="hx-t-done" x="282" y="143" font-size="10.5" font-weight="600" text-anchor="middle">tests pass ✓ Done</text></g>
+      <g class="hx-reply hx-c1"><rect class="hx-card hx-card--reply" x="214" y="160" width="136" height="24" rx="12"/><text x="282" y="176" font-size="10.5" text-anchor="middle">Done. Tests pass.</text></g>
+    </g>
+  </svg>
+</div>
