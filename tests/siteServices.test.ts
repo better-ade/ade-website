@@ -60,7 +60,12 @@ describe("Mix AI services per role", () => {
     const now = names(".svc-now li");
     const soon = names(".svc-soon li b");
     expect(now).toEqual(["Claude", "DeepSeek", "Gemini"]);
-    expect(soon).toEqual(["GLM", "Muse", "Kimi", "ChatGPT"]);
+    expect(soon).toEqual(["GLM", "Muse"]);
+    // Kimi and ChatGPT are neither released nor next: only in the section's Later line, with no label.
+    const later = section.querySelector("p.later")!;
+    expect(later.textContent).toMatch(/^Later: Kimi and ChatGPT as services,/);
+    expect(section.querySelectorAll(".svc .coming").length).toBe(2);
+    for (const n of ["Kimi", "ChatGPT"]) expect((section.textContent ?? "").split(n).length - 1, n).toBe(1);
     expect(section.querySelectorAll(".svc-now .coming").length).toBe(0);
     for (const n of now) {
       expect(live, n).toContain(ID[n]);

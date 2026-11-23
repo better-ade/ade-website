@@ -23,6 +23,9 @@ function labelledComing(el: Element): boolean {
   return !!around && !!around.querySelector(".coming");
 }
 
+/** True when the element is in the one quiet "Later:" line (what is neither released nor next). */
+const inLater = (el: Element) => !!el.closest(".later");
+
 /** The subcommands ade-cli's main dispatches (the `case "$cmd" in` at the end of the script). */
 function adeCommands(): Set<string> {
   const src = readRepo("cli", "ade");
@@ -51,13 +54,13 @@ function secretsCommands(): Set<string> {
 describe("commands and scripts the pages name exist on main", () => {
   const codes = PAGES.flatMap(({ path, doc }) => [...doc.querySelectorAll("main code")].map((el) => ({ path, el })));
 
-  it("every `ade <command>` is one ade-cli dispatches, or is labelled Coming", () => {
+  it("every `ade <command>` is one ade-cli dispatches, or is labelled Coming, or is in the Later line", () => {
     const real = adeCommands();
     expect(real.has("setup") && real.has("ui") && real.has("dispatch")).toBe(true);
     const wrong: string[] = [];
     for (const { path, el } of codes) {
       for (const m of (el.textContent ?? "").matchAll(/(?:^|[\s;(])ade ([a-z][a-z-]*)/gm)) {
-        if (!real.has(m[1]) && !labelledComing(el)) wrong.push(`${path}: ade ${m[1]}`);
+        if (!real.has(m[1]) && !labelledComing(el) && !inLater(el)) wrong.push(`${path}: ade ${m[1]}`);
       }
     }
     expect(wrong).toEqual([]);
@@ -69,7 +72,7 @@ describe("commands and scripts the pages name exist on main", () => {
     const wrong: string[] = [];
     for (const { path, el } of codes) {
       for (const m of (el.textContent ?? "").matchAll(/(?:^|[\s;(])ade ([a-z][a-z-]*)/gm)) {
-        if (!help.has(m[1]) && !labelledComing(el)) wrong.push(`${path}: ade ${m[1]}`);
+        if (!help.has(m[1]) && !labelledComing(el) && !inLater(el)) wrong.push(`${path}: ade ${m[1]}`);
       }
     }
     expect(wrong).toEqual([]);
@@ -170,7 +173,7 @@ describe("numbers and versions", () => {
     const data = Object.fromEntries(
       [...readSite("_data/releases.yml").matchAll(/^([a-z_]+):\s*(\S+)\s*$/gm)].map((m) => [m[1], m[2]]),
     );
-    const repos = { ade_cli: "cli", ade_brain: "brain", ade_skills: "skills", ade_secrets: "secrets" } as const;
+    const repos = { ade_cli: "cli", ade_brain: "brain", ade_skills: "skills", ade_secrets: "secrets", ade_method: "method", ade_agent_registry: "registry" } as const;
     expect(Object.keys(data).sort()).toEqual(Object.keys(repos).sort());
     for (const [k, repo] of Object.entries(repos)) expect(data[k], k).toBe(readRepo(repo, "VERSION").trim());
   });
@@ -209,29 +212,38 @@ describe("numbers and versions", () => {
 });
 
 /**
- * Work that is not merged on main today. Wherever a page mentions one, a Coming label sits beside it. When one is
- * merged, take it off this list and drop its labels in the same change.
+ * Work that is not merged on main today and is next. Wherever a page mentions one, a Coming label sits beside it. When
+ * one is merged, take it off this list and drop its labels in the same change.
  */
 const NOT_MERGED: [string, RegExp][] = [
   ["the GLM and Muse providers", /\b(GLM|Muse)\b/i],
-  ["the Kimi and ChatGPT providers (nothing for either is in ade-cli yet)", /\b(Kimi|ChatGPT)\b/i],
-  ["ade key and ade vault inside ade, and the hub's keys on ade-secrets (ade-cli A13, A14; ade-brain H2)", /\bade (key|vault)\b|keys` on ade-secrets/i],
   ["the Gemini CLI in ade setup's live test", /live test[^.|]*Gemini|Gemini[^.|]*live test/i],
   ["an Anthropic API key or DeepSeek for the orchestrator", /(API key|DeepSeek) for the orchestrator|API key kept in the hub/i],
   ["connectors beyond ClickUp, Jira, Linear and Orgo, and ade connect (ade-skills K1b to K7; ade-cli A16)", /\b(GitHub|Gmail|Slack|Outlook|Teams|Discord) connector|\bade connect\b/i],
-  ["ade project add, list and --scan (ade-cli A21)", /\bade project\b/i],
-  ["Telegram pairing without typing commands", /pair(ing|ed)?\b[^.]*without typing/i],
+  ["Telegram pairing without typing commands", /pair(ing|ed)?\b[^.]*without (typing|slash)/i],
   ["approval buttons for focus agents", /approval buttons/i],
-  ["the Telegram commands /status, /progress, /start and /stop", /(?:^|[\s(,])\/(status|progress|start|stop)\b/],
-  ["ADE Computer in the cloud", /\bin the cloud\b|\bFly(\.io)?\b/],
-  ["the codesec plugin", /\bcodesec\b/i],
 ];
+/** What the site keeps under Coming: each is named on the home page, with its label. */
+const NEXT = ["approval buttons for focus agents", "Telegram pairing without typing commands", "connectors beyond ClickUp, Jira, Linear and Orgo, and ade connect (ade-skills K1b to K7; ade-cli A16)"];
+
+/**
+ * Not merged, and not next: said once per page, in one quiet line that starts "Later:" (class `later`), with no label
+ * per item. Anywhere else on the site, none of these is mentioned at all.
+ */
+const LATER: [string, RegExp][] = [
+  ["the Kimi and ChatGPT providers (nothing for either is in ade-cli yet)", /\b(Kimi|ChatGPT)\b/i],
+  ["ade key and ade vault inside ade, with keys per hub (ade-cli A13, A14; ade-brain H2)", /\bade (key|vault)\b|keys` on ade-secrets/i],
+  ["the Telegram commands for status and progress", /Telegram commands|progress commands|(?:^|[\s(,])\/(status|progress|start|stop)\b/i],
+  ["ADE Computer in the cloud", /\bin the cloud\b|\bFly(\.io)?\b/],
+  ["the codesec plugin", /\bcodesec\b|code-security plugin/i],
+];
+const BLOCKS = "main p, main li, main td, main h2, main h3, main figcaption, main summary";
 
 describe("not merged yet is labelled Coming", () => {
   it.each(NOT_MERGED)("%s", (_name, re) => {
     const unlabelled: string[] = [];
     for (const { path, doc } of PAGES) {
-      for (const el of doc.querySelectorAll("main p, main li, main td, main h2, main h3, main figcaption, main summary")) {
+      for (const el of doc.querySelectorAll(BLOCKS)) {
         // Check the innermost block that says it: a paragraph inside a list item is judged on its own.
         if (el.querySelector("p, li, td")) continue;
         const text = el.textContent ?? "";
@@ -243,14 +255,51 @@ describe("not merged yet is labelled Coming", () => {
     expect(unlabelled).toEqual([]);
   });
 
-  it("the home page's Coming list names every item on the list above, each with its own label", () => {
-    const items = [...page("index.html").querySelectorAll("#coming li")];
-    for (const li of items) expect(li.querySelector(".coming"), li.textContent ?? "").not.toBeNull();
-    const text = items.map((li) => li.textContent ?? "").join("\n");
-    for (const [name, re] of NOT_MERGED) expect(re.test(text), name).toBe(true);
+  it("there is no Coming list: the section is gone, nothing links to it, and what is next is labelled where it is named", () => {
+    const home = page("index.html");
+    expect(home.querySelector("#coming")).toBeNull();
+    expect((home.body.textContent ?? "")).not.toMatch(/Not merged yet, and marked as such/);
+    for (const { path, doc } of PAGES) for (const a of doc.querySelectorAll("a[href]")) expect(a.getAttribute("href"), path).not.toMatch(/#coming$/);
+    // The four the site keeps under Coming are each named on the home page, in a block that carries the label.
+    for (const name of NEXT) {
+      const re = NOT_MERGED.find(([n]) => n === name)![1];
+      const said = [...home.querySelectorAll(BLOCKS)].filter((el) => !el.querySelector("p, li, td") && re.test(el.textContent ?? ""));
+      expect(said.length, name).toBeGreaterThan(0);
+      for (const el of said) expect(labelledComing(el), name).toBe(true);
+    }
   });
 
   it("the label is never empty and always reads Coming", () => {
     for (const { path, doc } of PAGES) for (const c of doc.querySelectorAll(".coming")) expect(c.textContent, path).toBe("Coming");
+  });
+});
+
+describe("what comes later is one quiet line, not a list of labels", () => {
+  it.each(LATER)("%s is named only in a Later line", (_name, re) => {
+    const elsewhere: string[] = [];
+    for (const { path, doc } of PAGES) {
+      for (const el of doc.querySelectorAll(BLOCKS)) {
+        if (el.querySelector("p, li, td")) continue;
+        const text = el.textContent ?? "";
+        if (re.test(text) && !inLater(el)) elsewhere.push(`${path}: "${text.trim().slice(0, 90)}"`);
+      }
+    }
+    expect(elsewhere).toEqual([]);
+  });
+
+  it("the home page and the paper each have one Later line, which names every item and carries no label", () => {
+    for (const path of ["index.html", "paper/index.html"]) {
+      const lines = [...page(path).querySelectorAll(".later")];
+      expect(lines.length, path).toBe(1);
+      const text = lines[0].textContent ?? "";
+      expect(text.trim(), path).toMatch(/^Later:/);
+      expect(lines[0].querySelector(".coming"), path).toBeNull();
+      for (const [name, re] of LATER) expect(re.test(text), `${path}: ${name}`).toBe(true);
+      // Nothing that is next is in it: those keep their own label where they are named.
+      for (const [name, re] of NOT_MERGED) expect(re.test(text), `${path}: ${name}`).toBe(false);
+    }
+    // On the home page it sits in the services section, not in a section of its own.
+    expect(page("index.html").querySelector("#services .later")).not.toBeNull();
+    expect(page("get-started/index.html").querySelector(".later")).toBeNull();
   });
 });

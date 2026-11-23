@@ -1,7 +1,8 @@
 ---
 layout: default
 body_class: home
-description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a terminal and database tools, one per project or per task, on your own Docker. ADE is the AI delivery team that turns tickets into verified, reviewed changes.
+home_title: Your AI delivery team, in a computer you control
+description: Your AI delivery team, in a computer you control. ADE Computer is a separate Ubuntu desktop with ADE, VS Code, a terminal and database tools, one per project or per task, running on your own Docker. Work only counts as done when the tests pass, checked by an agent that didn't write it.
 ---
 {% assign img = '/assets/img/' | relative_url %}
 <section class="hero">
@@ -9,14 +10,14 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
     <div class="hero-copy">
       <div class="hero-mark"><img src="{{ img }}logo.svg" width="76" height="76" alt=""></div>
       <p class="hero-kicker">ADE Computer &middot; early preview</p>
-      <h1>A computer of its own for your <span class="grad-text">AI&nbsp;delivery&nbsp;team.</span></h1>
-      <p class="sub">ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a terminal and database tools already installed. One per project or per task, on your own Docker today. The agents work inside it, you watch in your browser, and nothing counts as done until the tests say so.</p>
+      <h1>Your AI delivery team, <span class="grad-text">in a computer you&nbsp;control.</span></h1>
+      <p class="sub">ADE Computer is a separate Ubuntu desktop with ADE, VS Code, a terminal and database tools ready to go, one per project or per task, running on your own Docker. The agents work inside it, you watch from your browser or your phone, and work only counts as done when the tests pass, checked by an agent that didn&rsquo;t write it.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview <span class="arrow" aria-hidden="true">&rarr;</span></a>
         <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Get started with ADE</a>
       </div>
       <p class="hero-meta"><a href="{{ site.preview_url }}">or open a GitHub issue</a></p>
-      <p class="hero-meta"><span>On your own Docker today &middot; in the cloud <span class="coming">Coming</span></span></p>
+      <p class="hero-meta"><span>On your own Docker today, on macOS or Linux</span></p>
     </div>
     {% include hero-computer.html %}
   </div>
@@ -27,8 +28,9 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
     <div class="section-head">
       <span class="kicker">AI services</span>
       <h2>Mix AI services per role.</h2>
-      <p>Each role runs on the service you pick for it, and <code>ade roles</code> shows which. Here is the team from the drawing above.</p>
+      <p>Each role runs on the service you pick for it, and <code>ade roles</code> shows which. Here is the team from the drawing above, as one example of a mix.</p>
     </div>
+    <p class="roles-note"><span class="tag-note">Example mix</span> Out of the box, with only Claude signed in, the builder runs on Claude Opus and the reviewer on Claude Sonnet.</p>
     <div class="roles">
       <article class="role-card hx-c1" data-role="orchestrator">
         <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-orch" x="16" y="16" width="7" height="7"/></svg>
@@ -79,10 +81,11 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
         </div>
         <div class="svc-row">
           <span class="svc-label">Not yet</span>
-          <ul class="svc-soon"><li><b>GLM</b> <span class="coming">Coming</span></li><li><b>Muse</b> <span class="coming">Coming</span></li><li><b>Kimi</b> <span class="coming">Coming</span></li><li><b>ChatGPT</b> <span class="coming">Coming</span></li></ul>
+          <ul class="svc-soon"><li><b>GLM</b> <span class="coming">Coming</span></li><li><b>Muse</b> <span class="coming">Coming</span></li></ul>
         </div>
       </div>
     </div>
+    <p class="later">Later: Kimi and ChatGPT as services, ADE Computer in the cloud, keys per hub (<code>ade key</code>, <code>ade vault</code>), the <code>codesec</code> plugin, and Telegram commands for status and progress.</p>
   </div>
 </section>
 
@@ -128,7 +131,6 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
         <span class="feat-eyebrow">Where it stands</span>
         <h3>Early preview.</h3>
         <p>It runs today on your own Docker, on macOS or Linux. The image and its launcher are not public yet, so there is nothing to install from this page. Ask, and say what you would use it for.</p>
-        <p>A computer in the cloud <span class="coming">Coming</span></p>
         <a class="more" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview <span aria-hidden="true">&rarr;</span></a>
       </article>
     </div>
@@ -204,7 +206,7 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
           <li><strong>4 core roles</strong> from ade-method: product, architect, developer, reviewer.</li>
           <li><strong>10 specialists</strong> from ade-agent-registry, loaded only when a task needs one.</li>
           <li>An <strong>orchestrator</strong> that dispatches tickets to focus builders: <code>ade dispatch</code>.</li>
-          <li><strong>Reviewers on a different model:</strong> by default the builder runs on Opus, the reviewer role on Sonnet.</li>
+          <li><strong>Reviewers on a different model:</strong> by default the builder runs on Claude Opus and the reviewer on Claude Sonnet, and you can point either at another service.</li>
         </ul>
       </article>
       <article class="orx-card">
@@ -322,7 +324,7 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
     <ol class="flow">
       <li>
         <span class="flow-step">Ticket</span>
-        <p>A small story with acceptance criteria and a risk level. Write it yourself, or ask the orchestrator in plain words and it writes the ticket (<code>bmad-ticket</code>).</p>
+        <p>A small story with acceptance criteria and a risk level. Write it yourself, or ask the orchestrator in plain words and it writes the ticket (<code>bmad-ticket</code>). <a class="tag-note" href="https://github.com/bmad-code-org/BMAD-METHOD">Built on BMAD v6</a></p>
       </li>
       <li>
         <span class="flow-step">Build</span>
@@ -349,7 +351,7 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
     <div class="section-head">
       <span class="kicker">What works today</span>
       <h2>From the first command to proof on your phone.</h2>
-      <p>Each of these is merged on <code>main</code> in the repos. What is not is in the <a href="#coming">Coming</a> list.</p>
+      <p>Each of these is merged on <code>main</code> in the repos. What is not merged yet carries a <span class="coming">Coming</span> label wherever the site mentions it.</p>
     </div>
     <div class="orx-cards">
       <article class="orx-card">
@@ -357,6 +359,7 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
         <h3>Six steps, one at a time.</h3>
         <p><code>ade setup</code> goes from nothing to a working hub: Claude Code, sign in to Claude, sign in to GitHub, your hub, your first project, Telegram. Each step says what it will do before it runs and is checked after.</p>
         <p class="proof">When a step fails you get one plain line on what went wrong and a numbered choice of what to do next. Run <code>ade setup</code> again and it resumes where you are.</p>
+        <p class="proof">Bring in a repo you already have with one command: <code>ade project add &lt;path or git address&gt;</code> makes its project folder in your hub. <code>ade project list</code> shows them.</p>
         <a class="more" href="{{ site.cli_repo }}#readme">ade setup, in ade-cli&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">
@@ -364,6 +367,7 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
         <h3>Your own bot, locked to you.</h3>
         <p>Message your main agent from your phone. The bot answers one account, yours, and no groups.</p>
         <p class="proof">Once it is locked to you, the chat runs in <strong>auto mode</strong>: your main agent acts on your Telegram messages without asking at the terminal. Claude Code&rsquo;s auto mode still refuses risky actions, and <code>HUB_CHAT_MODE=manual</code> in <code>hub.conf</code> turns it off.</p>
+        <p class="proof">Today you pair the bot with two commands typed in Claude Code; pairing without typing commands <span class="coming">Coming</span></p>
         <a class="more" href="{{ site.brain_repo }}#readme">Telegram, in ade-brain&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">
@@ -377,7 +381,7 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
         <span class="feat-eyebrow">ade shot</span>
         <h3>Screenshots as proof.</h3>
         <p><code>ade shot</code> saves a picture of a page, of the screen (it asks first) or of an agent&rsquo;s tab, and keeps it with the project as evidence.</p>
-        <p class="proof"><code>ade shot url &lt;address&gt; --tg</code> also sends it to you on Telegram, only while the bot is locked to you. Merged on <code>main</code>; it ships with the next release of <code>ade</code>.</p>
+        <p class="proof"><code>ade shot url &lt;address&gt; --tg</code> also sends it to you on Telegram, only while the bot is locked to you.</p>
         <a class="more" href="{{ site.cli_repo }}#readme">ade shot, in ade-cli&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">
@@ -385,6 +389,7 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
         <h3>Reads are free. Every change asks.</h3>
         <p data-truth="plugins">ClickUp, Jira, Linear and Orgo, each through the service&rsquo;s own server: the <code>clickup</code>, <code>jira</code>, <code>linear</code> and <code>orgo</code> plugins.</p>
         <p class="proof">The <code data-truth="plugin">guard</code> plugin refuses the commands that print a stored token, in every mode.</p>
+        <p class="proof">Connecting a service to a project with your own sign-in, starting with GitHub: <code>ade connect</code> <span class="coming">Coming</span></p>
         <a class="more" href="{{ site.skills_repo }}#readme">Connectors and the guard, in ade-skills&rsquo; README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">
@@ -398,25 +403,28 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
   </div>
 </section>
 
-<section class="section" id="coming">
+<section class="section" id="ships">
   <div class="wrap">
     <div class="section-head">
-      <span class="kicker">Coming</span>
-      <h2>Not merged yet, and marked as such.</h2>
-      <p>Nothing below works today. Wherever the site mentions one, it carries the label.</p>
+      <span class="kicker">Open source</span>
+      <h2>What ships with ADE.</h2>
+      <p>Each part is its own public repo under the MIT license, with its own tests. Use one, or all of them together.</p>
     </div>
-    <ul class="checks coming-list">
-      <li><strong>Bring in the repos you already have:</strong> <code>ade project add</code>, <code>ade project list</code> and <code>--scan</code>, to turn existing repos into hub projects with one command. <span class="coming">Coming</span></li>
-      <li><strong>The key store inside <code>ade</code>:</strong> <code>ade key</code> and <code>ade vault</code>, with keys kept per hub. <span class="coming">Coming</span></li>
-      <li><strong>More connectors, and <code>ade connect</code>:</strong> connect a service to a project with your own sign-in. <span class="coming">Coming</span></li>
-      <li><strong>Telegram pairing without typing commands.</strong> <span class="coming">Coming</span></li>
-      <li><strong>Approval buttons for focus agents</strong> in Telegram. <span class="coming">Coming</span></li>
-      <li><strong>Telegram commands and progress:</strong> <code>/status</code>, <code>/progress</code>, <code>/start</code> and <code>/stop</code>, with progress messages while work runs. <span class="coming">Coming</span></li>
-      <li><strong>ADE Computer in the cloud.</strong> <span class="coming">Coming</span></li>
-      <li><strong>The <code>codesec</code> plugin</strong> for ade-skills. <span class="coming">Coming</span></li>
-      <li><strong>The GLM, Muse, Kimi and ChatGPT providers</strong>, and Gemini in <code>ade setup</code>&rsquo;s live test. <span class="coming">Coming</span></li>
-      <li><strong>An Anthropic API key or DeepSeek for the orchestrator.</strong> <span class="coming">Coming</span></li>
-    </ul>
+    <div class="orx-cards ships">
+      {% for repo in site.data.repos %}{% if repo.job %}
+      <article class="orx-card ship-card" data-repo="{{ repo.name }}">
+        <span class="feat-eyebrow">{% if repo.release %}v{{ site.data.releases[repo.release] }}{% else %}{{ repo.state }}{% endif %}</span>
+        <h3>{{ repo.name }}</h3>
+        <p>{{ repo.job }}</p>
+        <a class="more" href="{{ site.org_url }}/{{ repo.name }}">{{ repo.name }} on GitHub <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      {% endif %}{% endfor %}
+      <article class="orx-card ship-card orx-card--check" data-repo="ade-computer">
+        <span class="feat-eyebrow">Early preview</span>
+        <h3>ADE Computer</h3>
+        <p>A separate Ubuntu desktop per project or per task, on your own Docker. Not public yet: ask for a preview.</p>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -436,8 +444,8 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
       <article class="orx-card audience">
         <span class="feat-eyebrow">Product managers</span>
         <h3>Write what you want in plain words.</h3>
-        <p>Watch it get built from Telegram and approve what matters, without reading code.</p>
-        <p class="proof">The method has a section for people who don&rsquo;t write code: ask in plain words, and the orchestrator writes the ticket and tells you when it is Done. From Telegram you ask for status, answer what it asks you to approve, and message a running focus agent.</p>
+        <p>Follow it from Telegram and get proof when it is done, without reading code.</p>
+        <p class="proof">The method has a section for people who don&rsquo;t write code: ask in plain words, and the orchestrator writes the ticket and tells you when it is Done. From Telegram you ask your main agent for status, message a running focus agent and get a picture of the proof. Approvals are given at your own terminal today; approval buttons in Telegram <span class="coming">Coming</span></p>
       </article>
       <article class="orx-card audience">
         <span class="feat-eyebrow">Forward deployed engineers and consultancies</span>
@@ -502,7 +510,19 @@ description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a ter
       </details>
       <details>
         <summary>What is not here yet?</summary>
-        <p>Everything in the <a href="#coming">Coming list</a>, and it carries that label wherever the site mentions it. ADE Computer itself is in early preview: it runs on your own Docker, and it is not public yet.</p>
+        <p>Whatever is not merged yet carries the <span class="coming">Coming</span> label wherever the site mentions it, and the <a href="#services">services section</a> says what comes later. ADE Computer itself is in early preview: it runs on your own Docker, and it is not public yet.</p>
+      </details>
+      <details>
+        <summary>Who pays for the AI models?</summary>
+        <p>You do, directly: your own Claude account, or your own API key with each AI service you choose. ADE itself is free and open source, under the MIT license.</p>
+      </details>
+      <details>
+        <summary>What is a hub?</summary>
+        <p>One git repository per owner or per client, made from <code>ade-brain</code>. It holds each project&rsquo;s context, the memory, the journal and the agents&rsquo; rules. Your code stays in its own repos.</p>
+      </details>
+      <details>
+        <summary>Where do my prompts go?</summary>
+        <p>Only to the AI services you choose, from your own machine or your ADE Computer. ADE runs no server and collects nothing. If you use the Telegram bot, your messages to it pass through Telegram.</p>
       </details>
     </div>
   </div>

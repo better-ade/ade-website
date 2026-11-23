@@ -4,7 +4,7 @@ title: "Fast and verified: delivering software with a team of AI agents"
 kicker: Technical paper
 permalink: /paper/
 description: "The ADE technical paper: the method, the architecture, the security model, and what was learned building ADE with ADE. Work is Done only when a verification command passes, run by an agent that did not build it."
-lead: "The ADE team &middot; November 2026"
+lead: "The ADE team &middot; Conceived May 2025 &middot; This edition November 2026"
 ---
 
 <p class="paper-actions"><a class="btn btn-ghost btn-small" href="{{ '/assets/ade-whitepaper.pdf' | relative_url }}">Download PDF</a></p>
@@ -22,10 +22,10 @@ work is finished. An agent that reports "done" has usually run something, and us
 ADE (an AI delivery environment) is an open set of tools and working rules that let a team of AI agents deliver software
 while a person stays in control. Its central rule is simple: **work is Done only when a verification command passes, and
 that command is run by an agent other than the one that built the work.** Around that rule ADE adds roles, risk-scaled
-review, a per-project memory, isolated computers, a control surface on the owner's phone, and a security model in which
-agents never see a key. This paper describes the method, the architecture, the security model and what we learned
-building ADE with ADE: 138 pull requests merged across seven repositories in four days (as of 23 November 2026), with every high-risk change
-put through an adversarial review that found real flaws in nearly every case.
+review, a per-project memory, separate computers, a control surface on the owner's phone, and a security model designed so agents never need a key. This paper describes the method, the architecture, the security model and what we learned
+building ADE with ADE: 142 pull requests merged across eight repositories in four days (as of 23 November 2026); all 17 adversarial reviews with a recorded verdict found at least one blocking flaw before merge.
+
+*ADE was conceived in May 2025; this paper reports on the system as built and released in November 2026.*
 
 **Keywords:** AI agents; software delivery; verification; code review; agentic security; human oversight
 
@@ -79,7 +79,7 @@ attribution. Stories stay small: about ten acceptance criteria at most, each nam
 ## 3. Architecture
 
 
-ADE is seven small repositories, each with one job:
+ADE is made of seven parts, each in its own repository with one job (the website and the terminal app are separate):
 
 | Part | Job |
 |---|---|
@@ -190,9 +190,7 @@ The owner should not have to sit at a terminal. ADE's chat channel connects the 
 
 The design assumption is that an agent can be wrong, confused, or steered by content it reads. So:
 
-1. **Keys live in secure storage** (the macOS keychain, or ade-secrets on top of it), typed only at a hidden prompt in
-   the owner's own terminal. Agents never see a value: Claude Code receives a key through its key helper when it needs
-   it. `ACCESS.md` and `hub.conf` hold names and locations only.
+1. **Keys live in secure storage** (the macOS keychain, or ade-secrets on top of it), typed only at a hidden prompt in the owner's own terminal. The design goal is that agents never need a value: Claude Code receives a key through its key helper when it needs it, and `ACCESS.md` and `hub.conf` hold names and locations only. This held for every key ADE manages; section 6 reports the one time a credential reached an agent's output, through a tool outside that design, and what changed afterwards.
 
    <figure class="paper-fig">
    <img src="{{ '/assets/img/paper/keys.svg' | relative_url }}" alt="Figure 4. Where a key can and cannot go. A key is typed once, at a hidden prompt; Claude Code receives it at request time; an agent&#x27;s shell has no path to the value, and the guard refuses the commands that would print one." loading="lazy">
@@ -206,8 +204,7 @@ The design assumption is that an agent can be wrong, confused, or steered by con
    plugins let agents read freely and ask before any change, and before anything that bills.
 4. **Content is data.** Messages, pages and files an agent reads never become instructions (the prompt-injection risk catalogued by OWASP [6]); the rules say so, and the
    skills that read external content repeat it.
-5. **Deny by default where it matters.** Owner-level settings refuse token-printing commands for every session and
-   agent, in addition to the guard.
+5. **Refuse the known token-printing commands.** Owner-level settings refuse a list of commands that print a credential, for every session and agent, in addition to the guard. This is a deny-list, not a default deny: it narrows a known risk and does not replace isolation (section 8).
 
 ### Trust boundaries
 
@@ -223,21 +220,23 @@ The design assumption is that an agent can be wrong, confused, or steered by con
 
 ## 6. Evidence: building ADE with ADE
 
-We built ADE with its own method, in the open, over four days (20 to 23 November 2026). The numbers are as of 23 November 2026:
+We built ADE with its own method, in the open, over four days (20 to 23 November 2026). The numbers are as of 23 November 2026, 14:10 UTC:
 
 | Repository | Pull requests merged | Latest release |
 |---|---|---|
-| ade-cli | 56 | v0.2.7 |
+| ade-cli | 56 | v0.2.8 |
 | ade-brain | 46 | v1.0.0 |
 | ade-skills | 19 | v0.9.0 |
-| ade-website | 7 | (site) |
+| ade-website | 8 | (site) |
 | ade-secrets | 4 | v0.3.1 |
 | ade-method | 3 | v2.1.0 |
+| ade-agent-registry | 3 | v1.1.0 |
 | ADE Computer | 3 | v0.1.0 |
-| **Total** | **138** | |
+| **Total** | **142** | |
 
-**Adversarial review earns its cost.** Every high-risk story got one adversarial pass on a stronger model, by an agent
-that had not built it. Nearly every one found a real, blocking flaw. A sample:
+**Who reviewed 142 pull requests.** Every pull request passed its repository's CI, which runs the verification command. Each change was reviewed as its risk required: low-risk changes by the verification command alone, medium-risk ones by a quick review on a smaller model, and high-risk ones by a thorough review plus an adversarial pass on a stronger model, by an agent that had not built the change. The owner set direction, answered the questions the agents raised, and merged. These figures show throughput; we did not run a controlled comparison against the same work done without ADE, so we make no claim about speed beyond them.
+
+**Adversarial review earns its cost.** Between 21 and 23 November the hub's journal records 17 adversarial reviews with a verdict (some covered two or three related changes). All 17 found at least one blocking flaw in a change they covered; of the changes those reviews covered, one (the hub's `bin/chat send`) had none. A sample:
 
 - **Self-unlocking chat.** In auto mode the agent could have edited its own access list, letting a group in, because the
   messaging plugin re-reads that file on every message. Fixed with an ask rule and a lost-lock notice.
@@ -247,10 +246,11 @@ that had not built it. Nearly every one found a real, blocking flaw. A sample:
   skipped elsewhere still counted. Fixed by reading every settings level and the real project root.
 - **A one-line denial of service.** One 250,000-character log line froze the log viewer for 74 seconds, because a
   redaction pattern is quadratic on long lines. Fixed by capping lines before redaction.
-- **Guard bypasses.** Capital letters, `${IFS}` and quoted forms slipped past the first guard. The fix round grew the
-  guard's table to 407 cases; a sign-off check then reverted fixes one at a time to prove a test catches each (14 of 15).
+- **Guard bypasses.** Capital letters, `${IFS}` and quoted forms slipped past the first guard. The fix round grew the guard's table to 407 cases.
 - **A timing bug mistaken for flakiness.** A test that failed only on Linux CI was a whole-second comparison in "learned
   since the last briefing"; a fast machine put two events in the same second.
+
+**Are the tests any good?** Verification is only as strong as the tests, and the builder writes them. The sign-off check of the guard answered this directly: it reverted the fix round's changes one at a time and confirmed a test failed for each. Fourteen of fifteen were caught; the one that was not (deny words compared in any case) was a missing test, recorded for follow-up. Reviewers did the same on other changes ("undo the fix, show the test fails"). We now consider this revert check part of what a high-risk review should do (section 8).
 
 **Failures, reported as they happened.** During one fix round an agent tested the guard by passing hostile command
 lines through a shell here-document. One test line contained the here-document's end marker; the shell ended the block
@@ -270,11 +270,14 @@ Benchmarks such as SWE-bench [5] measure whether a model can resolve a real issu
 
 - **Prefix rules are not a sandbox.** Permission rules match command text; a command wrapped inside another can slip
   past them. The guard narrows that gap; real isolation is a container (ADE Computer) or a separate account.
+- **Test strength.** The revert check of section 6 is done by hand in reviews today; making it a standard, automated step of every high-risk review is the next change to the method.
+- **No speed baseline.** We report throughput, not a measured comparison.
 - **Self-reported approvals.** Where ADE checks that an approval rule exists, it cannot see the moment a person clicked
   Allow; Claude Code's own prompt remains the boundary.
-- <span class="coming">Coming</span> Approval buttons and progress commands on Telegram for every focus agent; pairing without slash commands;
-  per-hub keys (`ade key`, `ade vault`); `ade connect` for GitHub; ADE Computer in the cloud; Kimi and ChatGPT as
-  services; a code-security plugin.
+- <span class="coming">Coming</span> Approval buttons on Telegram for every focus agent; pairing without slash commands;
+  `ade connect` for GitHub.
+- {:.later}Later: progress commands on Telegram; per-hub keys (`ade key`, `ade vault`); ADE Computer in the cloud;
+  Kimi and ChatGPT as services; a code-security plugin.
 
 ## 9. Conclusion
 
