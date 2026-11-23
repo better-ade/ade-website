@@ -41,10 +41,7 @@ Alternates:
   per project or per task, on your own Docker today. You watch its desktop in your browser, on your own machine only.
 - **Headline.** "Your AI delivery team, in a computer you control." (the gradient is on "in a computer you control.").
   The tagline stays **Verified, not vibed.** The page title and the meta description say the same.
-- **Sub-text, word for word.** "ADE Computer is a separate Ubuntu desktop with ADE, VS Code, a terminal and database
-  tools ready to go, one per project or per task, running on your own Docker. The agents work inside it, you watch from
-  your browser or your phone, and work only counts as done when the tests pass, checked by an agent that didn't write
-  it."
+- **Sub-text, word for word.** "A separate Ubuntu desktop for each project, with your AI agents inside. Watch from your browser or your phone. Work counts as done only when the tests pass."
 - **Early preview.** The image and its launcher are not public yet. The home page's first button is **Ask for an
   early preview**: it opens an email to the preview address (the mailbox "preview" at ardata.tech), with the subject
   "ADE Computer early preview" and a short body asking what they would use it for, their team size and their

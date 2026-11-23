@@ -2,7 +2,7 @@
 layout: default
 body_class: home
 home_title: Your AI delivery team, in a computer you control
-description: Your AI delivery team, in a computer you control. ADE Computer is a separate Ubuntu desktop with ADE, VS Code, a terminal and database tools, one per project or per task, running on your own Docker. Work only counts as done when the tests pass, checked by an agent that didn't write it.
+description: Your AI delivery team, in a computer you control. A separate Ubuntu desktop for each project, with your AI agents inside. Watch from your browser or your phone. Work counts as done only when the tests pass.
 ---
 {% assign img = '/assets/img/' | relative_url %}
 <section class="hero">
@@ -11,7 +11,7 @@ description: Your AI delivery team, in a computer you control. ADE Computer is a
       <div class="hero-mark"><img src="{{ img }}logo.svg" width="76" height="76" alt=""></div>
       <p class="hero-kicker">ADE Computer &middot; early preview</p>
       <h1>Your AI delivery team, <span class="grad-text">in a computer you&nbsp;control.</span></h1>
-      <p class="sub">ADE Computer is a separate Ubuntu desktop with ADE, VS Code, a terminal and database tools ready to go, one per project or per task, running on your own Docker. The agents work inside it, you watch from your browser or your phone, and work only counts as done when the tests pass, checked by an agent that didn&rsquo;t write it.</p>
+      <p class="sub">A separate Ubuntu desktop for each project, with your AI agents inside. Watch from your browser or your phone. Work counts as done only when the tests pass.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview <span class="arrow" aria-hidden="true">&rarr;</span></a>
         <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Get started with ADE</a>
@@ -94,7 +94,7 @@ description: Your AI delivery team, in a computer you control. ADE Computer is a
     <div class="section-head">
       <span class="kicker">ADE Computer</span>
       <h2>One container is one computer.</h2>
-      <p>Run a project in it, watch its desktop in your browser, throw it away when you are done.</p>
+      <p>An Ubuntu desktop with ADE, VS Code, a terminal and database tools ready to go, one per project or per task. Run a project in it, watch its desktop in your browser, throw it away when you are done.</p>
     </div>
     <div class="orx-cards orx-cards--two">
       <article class="orx-card">
@@ -498,19 +498,19 @@ description: Your AI delivery team, in a computer you control. ADE Computer is a
     <div class="faq">
       <details>
         <summary>Is it safe to let agents do this?</summary>
-        <p><b>Approvals:</b> high-risk tickets wait until you approve them at your own terminal, typing the ticket&rsquo;s reference back. <b>Owner-only actions:</b> nothing is sent to a customer, changed in an account or run on a live system without your yes, and ADE refuses to start Claude Code with its permission checks skipped. <b>Secrets:</b> keys go from a hidden prompt to the hub&rsquo;s key store and never into an argument, a log or a Claude Code session&rsquo;s environment. <b>Isolation:</b> one hub per customer; a provider you keep for your own work is refused in a customer&rsquo;s hub.</p>
+        <p>Agents ask before anything risky, keys stay in your keychain, and nothing reaches a customer, an account or a live system without your yes. One hub per customer keeps their work apart. <a href="{{ '/paper/' | relative_url }}">The paper</a> has the security model in detail.</p>
       </details>
       <details>
         <summary>Will I be locked in?</summary>
-        <p><b>Open source:</b> the ADE tools are public on GitHub under the MIT license (ADE Computer, in early preview, is not public yet). <b>Any model:</b> agents run through Claude Code, on Anthropic&rsquo;s models or DeepSeek, focus agents and builders can run in the Gemini CLI, and each role can be pointed at another model; GLM and Muse <span class="coming">Coming</span>. <b>Your own account:</b> your Claude login or your own API key, on your own machine.</p>
+        <p>No. The ADE tools are open source (MIT), they run on your own machine with your own accounts, and each role can use a different AI service: Claude, DeepSeek or Gemini today, GLM and Muse <span class="coming">Coming</span>. ADE Computer, in early preview, is not public yet.</p>
       </details>
       <details>
         <summary>Isn&rsquo;t this just prompts?</summary>
-        <p>It&rsquo;s a tested system, verified by its own test suites. Each repo has a verification command that CI runs on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain, ade-skills and ade-secrets, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every script in the hub has a test. The <a href="#why">terminal output on this page</a> is one of them.</p>
+        <p>No. Each repo has a verification command that CI runs on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain, ade-skills and ade-secrets, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every script in the hub has a test. The <a href="#why">terminal output on this page</a> is one of them.</p>
       </details>
       <details>
         <summary>What is not here yet?</summary>
-        <p>Whatever is not merged yet carries the <span class="coming">Coming</span> label wherever the site mentions it, and the <a href="#services">services section</a> says what comes later. ADE Computer itself is in early preview: it runs on your own Docker, and it is not public yet.</p>
+        <p>Anything not built yet carries a <span class="coming">Coming</span> label where it is mentioned. ADE Computer is in early preview.</p>
       </details>
       <details>
         <summary>Who pays for the AI models?</summary>
