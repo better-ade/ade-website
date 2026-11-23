@@ -11,5 +11,7 @@
   url: /guide/tickets/
 - title: Telegram
   url: /guide/telegram/
-- title: Keys
+- title: Connectors and the guard
+  url: /guide/connectors/
+- title: How to store keys
   url: /guide/keys/

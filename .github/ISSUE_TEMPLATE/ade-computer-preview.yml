@@ -1,0 +1,48 @@
+name: Ask for an early preview of ADE Computer
+description: Tell us what you would use an ADE Computer for. This issue is public.
+title: "ADE Computer preview: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **This issue is public: anyone can read it.** Put nothing private in it: no key, token or password, no
+        customer or company name you would not publish, no address or phone number.
+
+        ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a terminal and database tools, one per
+        project or per task, on your own Docker. It is in early preview and not public yet.
+  - type: textarea
+    id: use
+    attributes:
+      label: What would you use it for?
+      description: The kind of work, in a sentence or two. No private details.
+    validations:
+      required: true
+  - type: dropdown
+    id: team-size
+    attributes:
+      label: Team size
+      options:
+        - Just me
+        - 2 to 5
+        - 6 to 20
+        - More than 20
+    validations:
+      required: false
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Where your Docker runs. Pick both if both.
+      multiple: true
+      options:
+        - macOS
+        - Linux
+    validations:
+      required: false
+  - type: textarea
+    id: anything-else
+    attributes:
+      label: Anything else?
+      description: Optional. Remember that this issue is public.
+    validations:
+      required: false

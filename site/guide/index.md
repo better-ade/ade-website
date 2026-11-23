@@ -12,7 +12,7 @@ lead: A hub holds the work's memory, an orchestrator runs the team, focus agents
 | The hub | A private repo per customer or team that holds the context, state and history of the work | [ade-brain](https://github.com/better-ade/ade-brain), the template |
 | The method | The rules, the four core roles and the BMAD v6 settings a project follows | [ade-method](https://github.com/better-ade/ade-method) |
 | Specialists | Frontend, backend, devops, support and more, loaded only when a task needs one | [ade-agent-registry](https://github.com/better-ade/ade-agent-registry) |
-| Skills | Claude Code plugins: git, browser, notes, `fde` documents, the `ade` commands and the ClickUp, Jira and Linear connectors | [ade-skills](https://github.com/better-ade/ade-skills) |
+| Skills | Claude Code plugins: git, browser, notes, `fde` documents, the `ade` commands, the ClickUp, Jira, Linear and Orgo [connectors]({{ '/guide/connectors/' | relative_url }}) and the guard | [ade-skills](https://github.com/better-ade/ade-skills) |
 
 `ade` holds no state about your work. Inside a hub it runs the hub's own `bin/` scripts, so the hub stays the single
 source of truth. Inside a project it copies the method, specialists and skills from their repos at pinned versions.
@@ -31,7 +31,8 @@ One hub per customer keeps customers apart: each has its own folders, keys, allo
 `ade claude` opens Claude Code at the hub root as the orchestrator, the *everything agent*. It reads every folder's
 state, proposes the day's tasks, and on your go hands each one to the folder that owns it. It confirms the result in
 that folder's `STATE.md` and the journal, then reports in a few lines. You can also reach it from
-[Telegram]({{ '/guide/telegram/' | relative_url }}).
+[Telegram]({{ '/guide/telegram/' | relative_url }}). `ade web` shows the same team on a read-only page in your browser
+([more]({{ '/guide/ui/' | relative_url }}#ade-web)).
 
 ## Focus agents and roles
 

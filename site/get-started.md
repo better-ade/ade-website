@@ -23,7 +23,8 @@ curl -fsSL https://raw.githubusercontent.com/better-ade/ade-cli/main/install.sh 
 It writes `~/.local/bin/ade` and tells you when that folder is not on your `PATH`. It installs the tagged release that
 ade-cli's `main` names, never `main` itself, and a failed download keeps the `ade` you had.
 
-> Today that release is **v{{ site.data.releases.ade_cli }}**, and it holds every `ade` command on this site not marked Coming; its
+> Today that release is **v{{ site.data.releases.ade_cli }}**. It holds every `ade` command on this site not marked Coming, except
+> `ade shot`, which is merged on `main` and ships with the next release; its
 > [changelog]({{ site.cli_repo }}/blob/main/CHANGELOG.md) lists what each release added.
 
 `ade update` upgrades `ade`, the hub, its plugins and Claude Code, and `ade update --rollback` brings back the `ade` you
@@ -36,10 +37,12 @@ says what you have; `ade help` lists every command.
 ade setup
 ```
 
-One command from nothing to a working hub, and it asks before every step. It installs Claude Code if it is missing
-(after a yes), makes a hub when you have none, has you pick one *everything agent* (the orchestrator) and any number of
-*focus* providers, signs each in and live-tests it, offers Telegram, and ends in a guided session with the
-orchestrator. [What each step does]({{ '/guide/setup/' | relative_url }}).
+One command from nothing to a working hub, in six steps: Claude Code, sign in to Claude, sign in to GitHub, your hub,
+your first project, Telegram. Each step is said before it runs and checked after. When one fails, you get one plain
+line and a choice of what to do next, and `ade setup` again resumes where you are.
+[What each step does]({{ '/guide/setup/' | relative_url }}).
+
+A key is typed only at a hidden prompt: [How to store keys]({{ '/guide/keys/' | relative_url }}).
 
 `ade setup --check` reads only and says what is missing. The same steps by hand:
 
@@ -66,8 +69,13 @@ While `ade ui` runs, `ade work` opens each focus agent in a tab of its own, with
 
 ## Then
 
+- **Want it all in a desktop of its own?** ADE Computer is in early preview:
+  [ask for one]({{ site.preview_url }}) (a public GitHub issue; put nothing private in it).
 - **Set up a project.** In any git repo: `ade init` copies the method (the rules, the four core roles and the context
   store) at a pinned version and never overwrites a file you have. `ade agent add <name>` adds a specialist and
   `ade skills add <plugin>` a plugin.
+- **Watch from your phone.** [Telegram]({{ '/guide/telegram/' | relative_url }}), or `ade web --tailnet` for a read-only
+  page.
+- **Connect your tracker.** [Connectors and the guard]({{ '/guide/connectors/' | relative_url }}).
 - **Hand off a ticket.** [Tickets and dispatch]({{ '/guide/tickets/' | relative_url }}).
 - **See how the pieces fit.** [How ADE works]({{ '/guide/' | relative_url }}).

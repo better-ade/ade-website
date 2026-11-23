@@ -1,21 +1,92 @@
 ---
 layout: default
 body_class: home
-description: For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns tickets into verified, reviewed changes, unlike general AI assistants that leave you to check everything they do.
+description: ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a terminal and database tools, one per project or per task, on your own Docker. ADE is the AI delivery team that turns tickets into verified, reviewed changes.
 ---
 {% assign img = '/assets/img/' | relative_url %}
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
       <div class="hero-mark"><img src="{{ img }}logo.svg" width="76" height="76" alt=""></div>
-      <p class="hero-kicker">Your AI delivery team &middot; Done means tested</p>
-      <h1>Verified, <span class="grad-text">not&nbsp;vibed.</span></h1>
-      <p class="sub">For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns tickets into verified, reviewed changes, unlike general AI assistants that leave you to check everything they do.</p>
+      <p class="hero-kicker">ADE Computer &middot; early preview</p>
+      <h1>A computer of its own for your <span class="grad-text">AI&nbsp;delivery&nbsp;team.</span></h1>
+      <p class="sub">ADE Computer is an isolated Ubuntu desktop with ADE, VS Code, a terminal and database tools already installed. One per project or per task, on your own Docker today. The agents work inside it, you watch in your browser, and nothing counts as done until the tests say so.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started <span class="arrow" aria-hidden="true">&rarr;</span></a>
-        <a class="btn btn-ghost" href="#how-it-works">How it works</a>
+        <a class="btn btn-primary" href="{{ site.preview_url }}">Ask for an early preview <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Get started with ADE</a>
       </div>
-      <p class="hero-meta"><span>Open source &middot; MIT</span> <code>{{ site.cli_install }}</code></p>
+      <p class="hero-meta"><span>The button opens a public GitHub issue. Put nothing private in it.</span></p>
+      <p class="hero-meta"><span>On your own Docker today &middot; in the cloud <span class="coming">Coming</span></span></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="computer">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">ADE Computer</span>
+      <h2>One container is one computer.</h2>
+      <p>Run a project in it, watch its desktop in your browser, throw it away when you are done.</p>
+    </div>
+    <div class="orx-cards orx-cards--two">
+      <article class="orx-card">
+        <span class="feat-eyebrow">What is inside</span>
+        <h3>A whole desktop, already set up.</h3>
+        <ul class="checks">
+          <li><strong>Ubuntu 24.04 with a desktop</strong> you open in your browser, on your own machine only, behind a password made for that computer.</li>
+          <li><strong>ADE and Claude Code</strong>, with git, node, bun, python3, tmux and a browser the agents can drive.</li>
+          <li><strong>VS Code and a terminal</strong> on the desktop.</li>
+          <li><strong>Database tools:</strong> DBeaver, DB Browser for SQLite, and the <code>psql</code>, <code>mysql</code> and <code>sqlite3</code> clients.</li>
+          <li><strong>It starts with the guide:</strong> the first terminal runs <code>ade</code>, and <code>ade setup</code> walks you through signing in and making your hub. No sign-in comes with the image.</li>
+        </ul>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">How you use it</span>
+        <h3>One per project, or one per task.</h3>
+        <ul class="checks">
+          <li><strong>Per project:</strong> a computer you name and keep. Stop it and start it again; its home and what you installed stay.</li>
+          <li><strong>Per task:</strong> a computer labelled with its ticket, or a throwaway one that is deleted with its home when you stop it.</li>
+          <li><strong>Several at once</strong>, each with its own home, password, address and network.</li>
+          <li><strong>Save an installed state</strong> as an image on your machine, and start new computers from it.</li>
+        </ul>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">What it can and cannot reach</span>
+        <h3>Kept apart from your machine, and honest about the wall.</h3>
+        <ul class="checks">
+          <li><strong>Not given</strong> your home folder, your keys or the Docker socket. A project folder is shared only when you name one.</li>
+          <li><strong>A container, not a separate machine.</strong> It can reach the internet and, on Docker Desktop, services on your machine that listen on localhost.</li>
+          <li><strong>The agents inside have full rights inside.</strong> Give a computer nothing you would not give the agents in it.</li>
+        </ul>
+      </article>
+      <article class="orx-card orx-card--check">
+        <span class="feat-eyebrow">Where it stands</span>
+        <h3>Early preview.</h3>
+        <p>It runs today on your own Docker, on macOS or Linux. The image and its launcher are not public yet, so there is nothing to install from this page. Ask, and say what you would use it for.</p>
+        <p>A computer in the cloud <span class="coming">Coming</span></p>
+        <a class="more" href="{{ site.preview_url }}">Ask for an early preview <span aria-hidden="true">&rarr;</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Why ADE</span>
+      <h2>Speed was never the hard part. <span class="grad-text">Trust is.</span></h2>
+    </div>
+    <div class="feat-grid">
+      <article class="feat-card text">
+        <span class="feat-eyebrow">The problem</span>
+        <h3>Agents write code fast. Nobody trusts what they ship.</h3>
+        <p>Teams spend their time checking, untangling and redoing agent work. Every session starts from zero, and the agent grades its own homework.</p>
+      </article>
+      <article class="feat-card text">
+        <span class="feat-eyebrow">The promise</span>
+        <h3>A delivery team that works like a good engineering team.</h3>
+        <p>ADE plans, builds and reviews, it remembers, and nothing counts as done until the tests say so.</p>
+      </article>
     </div>
     <figure class="hero-visual hero-visual--term">
       <div class="window">
@@ -41,27 +112,6 @@ description: For software teams and product managers who want AI to ship real wo
       </div>
       <figcaption class="term-caption">Real output: the <code>ade</code> command&rsquo;s own verification command, on <code>main</code> at 5daf9ba, run 2026-11-22. Each repo behind ADE has one, and CI runs it on every pull request.</figcaption>
     </figure>
-  </div>
-</section>
-
-<section class="section tint" id="why">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Why ADE</span>
-      <h2>Speed was never the hard part. <span class="grad-text">Trust is.</span></h2>
-    </div>
-    <div class="feat-grid">
-      <article class="feat-card text">
-        <span class="feat-eyebrow">The problem</span>
-        <h3>Agents write code fast. Nobody trusts what they ship.</h3>
-        <p>Teams spend their time checking, untangling and redoing agent work. Every session starts from zero, and the agent grades its own homework.</p>
-      </article>
-      <article class="feat-card text">
-        <span class="feat-eyebrow">The promise</span>
-        <h3>A delivery team that works like a good engineering team.</h3>
-        <p>ADE plans, builds and reviews, it remembers, and nothing counts as done until the tests say so.</p>
-      </article>
-    </div>
   </div>
 </section>
 
@@ -116,7 +166,9 @@ description: For software teams and product managers who want AI to ship real wo
         <p>The same team in your terminal, on your phone and in the app.</p>
         <ul class="checks">
           <li><strong><code>ade ui</code></strong>: the orchestrator and the fleet in one tmux window, in any terminal, with a tab per focus agent. <code>ade files</code> and <code>ade view</code> show the hub&rsquo;s files and code, read-only.</li>
-          <li><strong>Telegram</strong>: message your orchestrator from your phone, paired to you alone.</li>
+          <li><strong>Telegram</strong>: message your orchestrator from your phone, locked to you alone.</li>
+          <li><strong><code>ade web</code></strong>: a read-only page of the agents and their logs, on this machine or on your tailnet.</li>
+          <li><strong>An ADE Computer</strong>: a desktop of its own per project or per task, in early preview.</li>
           <li data-truth="plugins"><strong>Your tracker</strong>: ClickUp, Jira and Linear through the <code>clickup</code>, <code>jira</code> and <code>linear</code> plugins. Every change asks first.</li>
           <li><strong>Remote Control</strong>: the orchestrator and every focus session start with Claude Code&rsquo;s Remote Control on, named after the hub or the folder.</li>
           <li><strong>The desktop app</strong>: frozen, still downloadable.</li>
@@ -226,6 +278,82 @@ description: For software teams and product managers who want AI to ship real wo
   </div>
 </section>
 
+<section class="section tint" id="today">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">What works today</span>
+      <h2>From the first command to proof on your phone.</h2>
+      <p>Each of these is merged on <code>main</code> in the repos. What is not is in the <a href="#coming">Coming</a> list.</p>
+    </div>
+    <div class="orx-cards">
+      <article class="orx-card">
+        <span class="feat-eyebrow">The guided first run</span>
+        <h3>Six steps, one at a time.</h3>
+        <p><code>ade setup</code> goes from nothing to a working hub: Claude Code, sign in to Claude, sign in to GitHub, your hub, your first project, Telegram. Each step says what it will do before it runs and is checked after.</p>
+        <p class="proof">When a step fails you get one plain line on what went wrong and a numbered choice of what to do next. Run <code>ade setup</code> again and it resumes where you are.</p>
+        <a class="more" href="{{ '/guide/setup/' | relative_url }}">ade setup <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">Telegram control</span>
+        <h3>Your own bot, locked to you.</h3>
+        <p>Message your main agent from your phone. The bot answers one account, yours, and no groups.</p>
+        <p class="proof">Once it is locked to you, the chat runs in <strong>auto mode</strong>: your main agent acts on your Telegram messages without asking at the terminal. Claude Code&rsquo;s auto mode still refuses risky actions, and <code>HUB_CHAT_MODE=manual</code> in <code>hub.conf</code> turns it off.</p>
+        <a class="more" href="{{ '/guide/telegram/' | relative_url }}">Telegram <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">ade web</span>
+        <h3>The team on a page, read-only.</h3>
+        <p><code>ade web</code> shows your agents, their logs, the journal and the chat log in your browser, with keys hidden. It changes nothing.</p>
+        <p class="proof">It listens on your own machine only, behind a random link. <code>ade web --tailnet</code> puts it on your machine&rsquo;s Tailscale address instead, for your phone.</p>
+        <a class="more" href="{{ '/guide/ui/' | relative_url }}#ade-web">ade web <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">ade shot</span>
+        <h3>Screenshots as proof.</h3>
+        <p><code>ade shot</code> saves a picture of a page, of the screen (it asks first) or of an agent&rsquo;s tab, and keeps it with the project as evidence.</p>
+        <p class="proof"><code>ade shot url &lt;address&gt; --tg</code> also sends it to you on Telegram, only while the bot is locked to you. Merged on <code>main</code>; it ships with the next release of <code>ade</code>.</p>
+        <a class="more" href="{{ '/guide/tickets/' | relative_url }}#proof-ade-shot">ade shot <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">Connectors and the guard</span>
+        <h3>Reads are free. Every change asks.</h3>
+        <p data-truth="plugins">ClickUp, Jira, Linear and Orgo, each through the service&rsquo;s own server: the <code>clickup</code>, <code>jira</code>, <code>linear</code> and <code>orgo</code> plugins.</p>
+        <p class="proof">The <code data-truth="plugin">guard</code> plugin refuses the commands that print a stored token, in every mode.</p>
+        <a class="more" href="{{ '/guide/connectors/' | relative_url }}">Connectors and the guard <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">Keys</span>
+        <h3>Typed once, at a hidden prompt.</h3>
+        <p>A key goes in only at your own terminal, in <code>ade setup</code> or the hub&rsquo;s <code>bin/keys set &lt;name&gt;</code>. Agents never see a value.</p>
+        <p class="proof">Never in a chat, a file or a command line.</p>
+        <a class="more" href="{{ '/guide/keys/' | relative_url }}">How to store keys <span aria-hidden="true">&rarr;</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="coming">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Coming</span>
+      <h2>Not merged yet, and marked as such.</h2>
+      <p>Nothing below works today. Wherever the site mentions one, it carries the label.</p>
+    </div>
+    <ul class="checks coming-list">
+      <li><strong>Bring in the repos you already have:</strong> <code>ade project add</code>, <code>ade project list</code> and <code>--scan</code>, to turn existing repos into hub projects with one command. <span class="coming">Coming</span></li>
+      <li><strong>The key store inside <code>ade</code>:</strong> <code>ade key</code> and <code>ade vault</code>, with keys kept per hub. <span class="coming">Coming</span></li>
+      <li><strong>More connectors, and <code>ade connect</code>:</strong> connect a service to a project with your own sign-in. <span class="coming">Coming</span></li>
+      <li><strong>Telegram pairing without typing commands.</strong> <span class="coming">Coming</span></li>
+      <li><strong>Approval buttons for focus agents</strong> in Telegram. <span class="coming">Coming</span></li>
+      <li><strong>Telegram commands and progress:</strong> <code>/status</code>, <code>/progress</code>, <code>/start</code> and <code>/stop</code>, with progress messages while work runs. <span class="coming">Coming</span></li>
+      <li><strong>ADE Computer in the cloud.</strong> <span class="coming">Coming</span></li>
+      <li><strong>The <code>codesec</code> plugin</strong> for ade-skills. <span class="coming">Coming</span></li>
+      <li><strong>The GLM and Muse providers</strong>, and Gemini in <code>ade setup</code>&rsquo;s live test. <span class="coming">Coming</span></li>
+      <li><strong>An Anthropic API key or DeepSeek for the orchestrator.</strong> <span class="coming">Coming</span></li>
+    </ul>
+  </div>
+</section>
+
 <section class="section" id="who">
   <div class="wrap">
     <div class="section-head">
@@ -304,11 +432,11 @@ description: For software teams and product managers who want AI to ship real wo
       </details>
       <details>
         <summary>Isn&rsquo;t this just prompts?</summary>
-        <p>It&rsquo;s a tested system, verified by its own test suites. Each repo has a verification command that CI runs on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain, ade-skills and ade-secrets, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every script in the hub has a test. The output at the top of this page is one of them.</p>
+        <p>It&rsquo;s a tested system, verified by its own test suites. Each repo has a verification command that CI runs on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain, ade-skills and ade-secrets, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every script in the hub has a test. The <a href="#why">terminal output on this page</a> is one of them.</p>
       </details>
       <details>
-        <summary>What is Coming, and not here yet?</summary>
-        <p>Marked <span class="coming">Coming</span> wherever it appears: the GLM and Muse providers, Gemini in <code>ade setup</code>&rsquo;s live test, an Anthropic API key or DeepSeek for the orchestrator, and ade-secrets inside <code>ade</code> (<code>ade key</code>, <code>ade vault</code>).</p>
+        <summary>What is not here yet?</summary>
+        <p>Everything in the <a href="#coming">Coming list</a>, and it carries that label wherever the site mentions it. ADE Computer itself is in early preview: it runs on your own Docker, and it is not public yet.</p>
       </details>
     </div>
   </div>
@@ -319,10 +447,10 @@ description: For software teams and product managers who want AI to ship real wo
     <div class="cta-band">
       <img src="{{ img }}logo.svg" width="60" height="60" alt="">
       <h2>Hand off the first ticket.</h2>
-      <p>Install the <code>ade</code> command, make a hub, open the orchestrator.</p>
+      <p>Install the <code>ade</code> command, run <code>ade setup</code>, open the orchestrator. Or ask for an ADE Computer.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
-        <a class="btn btn-ghost" href="{{ '/guide/' | relative_url }}">Read the guide</a>
+        <a class="btn btn-ghost" href="{{ site.preview_url }}">Ask for an early preview</a>
       </div>
     </div>
   </div>

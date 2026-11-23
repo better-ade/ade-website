@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
-import { BUILT, builtPages, isRedirect, parse, readBuilt } from "./paths";
+import { BUILT, builtPages, isRedirect, parse, readBuilt, readSite } from "./paths";
 
 /**
  * Checks on the built site (_site), page by page: what a visitor and a search engine get. The verification command
@@ -23,7 +23,7 @@ function fileFor(url: string): string | null {
 describe("every page", () => {
   it("the site has the pages the narrative calls for", () => {
     const urls = CONTENT.map((p) => urlOf(p.path));
-    for (const u of ["/", "/get-started/", "/guide/", "/guide/setup/", "/guide/ui/", "/guide/tickets/", "/guide/telegram/", "/guide/keys/", "/repos/", "/app/"]) {
+    for (const u of ["/", "/get-started/", "/guide/", "/guide/setup/", "/guide/ui/", "/guide/tickets/", "/guide/telegram/", "/guide/connectors/", "/guide/keys/", "/repos/", "/app/"]) {
       expect(urls, u).toContain(u);
     }
   });
@@ -99,6 +99,80 @@ describe("the ADE app's installers", () => {
   });
 });
 
+/** The issue form the home page's first button opens. GitHub reads it from the default branch of this repo. */
+const PREVIEW_FORM = ".github/ISSUE_TEMPLATE/ade-computer-preview.yml";
+const PREVIEW_URL = "https://github.com/better-ade/ade-website/issues/new?template=ade-computer-preview.yml";
+
+describe("the home page leads with ADE Computer", () => {
+  const home = CONTENT.find((p) => p.path === "index.html")!.doc;
+  const hero = home.querySelector("main section")!;
+
+  it("the first section names ADE Computer in the page's one h1 block, and what it is", () => {
+    expect(hero.querySelector("h1")).not.toBeNull();
+    const text = (hero.textContent ?? "").replace(/\s+/g, " ");
+    expect(text).toContain("ADE Computer");
+    for (const word of ["Ubuntu desktop", "VS Code", "terminal", "database tools", "per project or per task", "your own Docker"]) {
+      expect(text, word).toContain(word);
+    }
+  });
+
+  it("its first button asks for an early preview and opens the issue form in this repo", () => {
+    const first = hero.querySelector("a.btn")!;
+    expect((first.textContent ?? "").trim()).toMatch(/^Ask for an early preview/);
+    expect(first.getAttribute("href")).toBe(PREVIEW_URL);
+    expect(existsSync(join(BUILT, "..", PREVIEW_FORM))).toBe(true);
+  });
+
+  it("says, beside the button, that the request is public", () => {
+    expect((hero.textContent ?? "").replace(/\s+/g, " ")).toMatch(/public GitHub issue[^.]*\. Put nothing private in it/);
+  });
+
+  it("the issue form asks the four questions, and opens with the note that issues are public", () => {
+    const form = readFileSync(join(BUILT, "..", PREVIEW_FORM), "utf8");
+    expect(form).toMatch(/^name: \S/m);
+    expect(form).toMatch(/^description: \S/m);
+    const types = [...form.matchAll(/^  - type: (\w+)/gm)].map((m) => m[1]);
+    expect(types[0]).toBe("markdown");
+    const note = form.slice(form.indexOf("- type: markdown"), form.indexOf("- type:", form.indexOf("- type: markdown") + 1));
+    expect(note).toMatch(/public/);
+    expect(note).toMatch(/nothing private/);
+    const ids = [...form.matchAll(/^    id: ([a-z-]+)/gm)].map((m) => m[1]);
+    expect(ids).toEqual(["use", "team-size", "platform", "anything-else"]);
+    for (const os of ["macOS", "Linux"]) expect(form, os).toMatch(new RegExp(`^        - ${os}`, "m"));
+    // Only what it would be used for is required; nobody is made to say more.
+    expect([...form.matchAll(/required: true/g)].length).toBe(1);
+    // No assignee, no person, no address: the form is client-neutral like the pages.
+    expect(form).not.toMatch(/assignees:|@[A-Za-z0-9-]+|mailto:/);
+  });
+});
+
+describe("the keys guide", () => {
+  const keys = CONTENT.find((p) => p.path === "guide/keys/index.html")!.doc;
+  const text = (keys.querySelector("main")!.textContent ?? "").replace(/\s+/g, " ");
+
+  it("is titled How to store keys and has the section for an exposed key", () => {
+    expect(keys.querySelector("h1")!.textContent).toBe("How to store keys");
+    expect(keys.getElementById("if-a-key-was-exposed")).not.toBeNull();
+  });
+
+  it("names the two places a key is typed, and where each kind lives", () => {
+    const codes = [...keys.querySelectorAll("main code")].map((c) => c.textContent ?? "");
+    for (const c of ["ade setup", "bin/keys set <name>", "gh auth login --web", "--insecure-storage", "ACCESS.md", "hub.conf"]) {
+      expect(codes.some((x) => x.includes(c)), c).toBe(true);
+    }
+    for (const phrase of ["hidden prompt", "Keychain", "key helper", "names and locations only", "Revoke it at the provider first"]) {
+      expect(text, phrase).toContain(phrase);
+    }
+  });
+
+  it("shows nothing shaped like a key", () => {
+    for (const { path, doc } of CONTENT) {
+      const body = doc.body.textContent ?? "";
+      expect(body.match(/\b(sk-[A-Za-z0-9_-]{16,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_\w{20,}|AKIA[0-9A-Z]{16}|\d{8,10}:[A-Za-z0-9_-]{35})\b/g) ?? [], path).toEqual([]);
+    }
+  });
+});
+
 describe("what the pages never say", () => {
   const text = CONTENT.map(({ path, doc }) => ({ path, body: doc.body.textContent ?? "" }));
 
@@ -118,6 +192,24 @@ describe("what the pages never say", () => {
         const href = a.getAttribute("href")!;
         expect(href, path).toMatch(/^https:\/\/(github\.com|raw\.githubusercontent\.com)\/(better-ade|bmad-code-org)(\/|$)/);
       }
+    }
+  });
+
+  it("no link to a better-ade repo that is not on the Repos page's list (a private repo is never linked)", () => {
+    const listed = new Set([...readSite("_data/repos.yml").matchAll(/^- name: (\S+)/gm)].map((m) => m[1]));
+    expect(listed.has("ade-cli") && listed.has("ade-website")).toBe(true);
+    expect(listed.has("ade-computer")).toBe(false);
+    for (const { path, doc } of PAGES) {
+      for (const a of doc.querySelectorAll('a[href*="github.com/better-ade/"], a[href*="githubusercontent.com/better-ade/"]')) {
+        const repo = /\/better-ade\/([^/?#]+)/.exec(a.getAttribute("href")!)![1];
+        expect(listed.has(repo), `${path}: ${repo}`).toBe(true);
+      }
+    }
+  });
+
+  it("no command that installs or starts an ADE Computer, and no address of its image", () => {
+    for (const { path, body } of text) {
+      expect(body.match(/ade-computer\b|docker (pull|run|build|login)|ghcr\.io/gi) ?? [], path).toEqual([]);
     }
   });
 });

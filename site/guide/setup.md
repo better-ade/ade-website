@@ -1,25 +1,43 @@
 ---
 title: ade setup
-description: What ade setup does, step by step. The everything agent, focus providers, live tests, Telegram and the tools it installs.
-lead: One command from nothing to a working hub and a guided first session. It asks before every step.
+description: What ade setup does. Six steps from nothing to a working hub, what happens when a step fails, the providers, the live tests and the tools it installs.
+lead: One command, six steps, from nothing to a working hub. Each step is said before it runs and checked after, and a failed step tells you what to do next.
 ---
 
 > What a provider does not support yet is marked <span class="coming">Coming</span> below.
 
-## The steps, in order
+## The six steps
 
-1. **Claude Code.** If it is missing, `ade setup` shows the installer's URL and runs it only after your yes. A "no"
-   prints the command to run yourself.
-2. **The hub.** If you have none, it makes one with `ade hub new`: a name, and whether it should be a private GitHub
-   repo.
-3. **The everything agent.** Exactly one: the orchestrator. It is signed in, then live-tested.
-4. **Focus providers.** Any number, for the focus agents. Each is signed in, then live-tested; a failure shows its
-   reason.
-5. **The allowed list.** `HUB_PROVIDERS_ALLOWED` in `hub.conf` becomes the everything agent plus every focus provider
-   that passed, so the hub's roles never pick a provider that failed.
-6. **Telegram.** Asked once. See [Telegram]({{ '/guide/telegram/' | relative_url }}).
-7. **The guided session.** `ade claude` opens the orchestrator, which asks about your projects and then, with your yes
-   for each, runs `ade init`, `ade agent add`, `ade skills add` and sets the role models.
+`ade` with no hub lists the steps with their state and asks `Set up now?`. `ade setup` is the guide: one step at a
+time, each said before it runs and checked after. A step already done is skipped, so running `ade setup` again resumes
+where you are.
+
+1. **Claude Code.** If it is missing, the guide shows the installer's address and runs it only after your yes.
+2. **Sign in to Claude.** Claude Code's own sign-in, in your browser. `ade` stores nothing.
+3. **Sign in to GitHub.** The GitHub CLI is installed after a yes and signed in with GitHub's own browser flow
+   (`gh auth login --web`): a one-time code, typed in your browser. `ade` never sees a token.
+4. **Your hub.** A folder in `~/hubs`, saved as a private repo on your GitHub. The guide asks the persona, the client or
+   team and your name, then you pick its agents: exactly one *everything agent* (the orchestrator) and any number of
+   focus providers. Each is live-tested, and `HUB_PROVIDERS_ALLOWED` in `hub.conf` becomes the ones that passed.
+5. **Your first project.** `ade claude` opens the orchestrator, which asks about your work and then, with your yes for
+   each change, runs `ade init`, `ade agent add`, `ade skills add` and sets the role models.
+6. **Telegram** (optional). A yes asks for your bot's token at a hidden prompt, then goes one step at a time. See
+   [Telegram]({{ '/guide/telegram/' | relative_url }}).
+
+The guide ends by telling you to type `ade` to open your workspace.
+
+## When a step fails
+
+- **One plain line** says what went wrong, never another tool's raw output. A `details:` line says where the rest is.
+- **A numbered question** offers what fits, with a default: try again, show the steps to do it by hand, use another
+  AI service, stop. Answer with the number, the name or the start of it.
+- **Stopping is safe.** `stop`, Ctrl-C or the end of input leave with one line on how to come back, and `ade setup`
+  resumes at that step.
+- **A live test that fails** says why: a usage limit and when it resets, Claude Code not signed in, or the engine's
+  own reason. You can sign in with a different Claude account, enter the key again, try again, pick another AI
+  service, or go on without the test. An everything agent chosen without its test shows as "not tested" in
+  `ade setup --check` and is in no focus role until `ade setup --test` passes.
+- **A hub that stopped half-way** is picked up, not made twice.
 
 ## Providers
 
@@ -58,4 +76,4 @@ The hub runs it, with `bin/agent --live-test`.
 A key is typed at a hidden prompt and handed straight to the hub's `bin/keys` on standard input. It never appears in a
 command line, a log or a file in your repo, and Claude Code reads it through its key helper, never from its
 environment. With a Claude account, Claude Code's own
-login is used and `ade` stores nothing. See [Keys]({{ '/guide/keys/' | relative_url }}).
+login is used and `ade` stores nothing. See [How to store keys]({{ '/guide/keys/' | relative_url }}).

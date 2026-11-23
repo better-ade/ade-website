@@ -108,12 +108,22 @@ describe("commands and scripts the pages name exist on main", () => {
   it("the connectors named are ade-skills plugins, and each asks before every change", () => {
     const plugins: { name: string; description: string }[] = JSON.parse(readRepo("skills", ".claude-plugin/marketplace.json")).plugins;
     const named = PAGES.flatMap(({ doc }) => [...doc.querySelectorAll('[data-truth="plugins"] code')].map((c) => c.textContent ?? ""));
-    expect(named).toEqual(expect.arrayContaining(["clickup", "jira", "linear"]));
+    expect(named).toEqual(expect.arrayContaining(["clickup", "jira", "linear", "orgo"]));
     for (const n of named) {
       const p = plugins.find((x) => x.name === n);
       expect(p, n).toBeTruthy();
-      expect(p!.description, n).toMatch(/every change through this server asks/);
+      // Orgo's reads are free and "everything else through this server ... asks".
+      expect(p!.description, n).toMatch(/(every change|everything else) through this server\b[^;]*\basks/);
     }
+  });
+
+  it("every other ade-skills plugin a page names (the guard, the install-ADE skill's plugin) is in the marketplace", () => {
+    const plugins: { name: string }[] = JSON.parse(readRepo("skills", ".claude-plugin/marketplace.json")).plugins;
+    const named = PAGES.flatMap(({ doc }) => [...doc.querySelectorAll('[data-truth="plugin"]')].map((c) => c.textContent ?? ""));
+    expect(named).toContain("guard");
+    for (const n of named) expect(plugins.map((x) => x.name), n).toContain(n);
+    // The skill the pages name for Orgo is one the orgo plugin ships.
+    expect(existsSync(resolve(REPOS.skills, "plugins/orgo/skills/install-ade/SKILL.md"))).toBe(true);
   });
 
   it("every `bin/<script>` is a script in ade-brain's bin/", () => {
@@ -198,7 +208,13 @@ const NOT_MERGED: [string, RegExp][] = [
   ["ade key and ade vault inside ade, and the hub's keys on ade-secrets (ade-cli A13, A14; ade-brain H2)", /\bade (key|vault)\b|keys` on ade-secrets/i],
   ["the Gemini CLI in ade setup's live test", /live test[^.|]*Gemini|Gemini[^.|]*live test/i],
   ["an Anthropic API key or DeepSeek for the orchestrator", /(API key|DeepSeek) for the orchestrator|API key kept in the hub/i],
-  ["connectors beyond ClickUp, Jira and Linear, and ade connect (ade-skills K1b to K7; ade-cli A16)", /\b(GitHub|Gmail|Slack|Outlook|Teams|Discord) connector|\bade connect\b/i],
+  ["connectors beyond ClickUp, Jira, Linear and Orgo, and ade connect (ade-skills K1b to K7; ade-cli A16)", /\b(GitHub|Gmail|Slack|Outlook|Teams|Discord) connector|\bade connect\b/i],
+  ["ade project add, list and --scan (ade-cli A21)", /\bade project\b/i],
+  ["Telegram pairing without typing commands", /pair(ing|ed)?\b[^.]*without typing/i],
+  ["approval buttons for focus agents", /approval buttons/i],
+  ["the Telegram commands /status, /progress, /start and /stop", /(?:^|[\s(,])\/(status|progress|start|stop)\b/],
+  ["ADE Computer in the cloud", /\bin the cloud\b|\bFly(\.io)?\b/],
+  ["the codesec plugin", /\bcodesec\b/i],
 ];
 
 describe("not merged yet is labelled Coming", () => {
@@ -215,6 +231,13 @@ describe("not merged yet is labelled Coming", () => {
       }
     }
     expect(unlabelled).toEqual([]);
+  });
+
+  it("the home page's Coming list names every item on the list above, each with its own label", () => {
+    const items = [...page("index.html").querySelectorAll("#coming li")];
+    for (const li of items) expect(li.querySelector(".coming"), li.textContent ?? "").not.toBeNull();
+    const text = items.map((li) => li.textContent ?? "").join("\n");
+    for (const [name, re] of NOT_MERGED) expect(re.test(text), name).toBe(true);
   });
 
   it("the label is never empty and always reads Coming", () => {

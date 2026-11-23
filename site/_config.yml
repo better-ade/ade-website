@@ -17,6 +17,8 @@ app_repo: https://github.com/better-ade/ade-terminal
 cli_install: curl -fsSL https://raw.githubusercontent.com/better-ade/ade-cli/main/install.sh | bash
 # The desktop app's installers, copied into the site at build time (scripts/fetch-installers.sh).
 app_install: curl -fsSL https://ade.ardata.tech/install.sh | bash
+# The issue form the home page's first button opens (.github/ISSUE_TEMPLATE/ade-computer-preview.yml).
+preview_url: https://github.com/better-ade/ade-website/issues/new?template=ade-computer-preview.yml
 
 plugins:
   - jekyll-sitemap
