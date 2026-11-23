@@ -1,10 +1,7 @@
-// ADE website: mobile nav, light/dark toggle, copy buttons, reveal-on-scroll, and the ADE app's
-// latest release version and download links (the app page).
+// ADE website: mobile nav, light/dark toggle, copy buttons and reveal-on-scroll. It calls no other origin.
 (function () {
   "use strict";
 
-  // The ADE app (the desktop terminal): its releases fill the app page's download links.
-  var REPO = "better-ade/ade-terminal";
   var isMac = /Mac|iPhone|iPad/i.test(navigator.platform || navigator.userAgent);
 
   // --- Mobile nav ---------------------------------------------------------
@@ -78,7 +75,7 @@
       ".section-head", ".feat-card", ".orx-card", ".hl", ".new-strip", ".price-card", ".training", ".faq", ".cta-band",
       // The composition section joins the same mechanism rather than adding a
       // second one, so reduced-motion and the no-JS fallback keep holding.
-      ".compose", ".flow li", ".org-node", ".org-tier"
+      ".compose", ".flow li", ".org-node", ".org-tier", ".role-card", ".svc"
     ].join(",");
     var els = Array.prototype.slice.call(document.querySelectorAll(sel));
     if (!els.length) return;
@@ -100,115 +97,7 @@
     });
     document.documentElement.classList.add("reveal-on");
   })();
-
-  // --- Latest release: version label and direct download links ---------------
-  var versionEls = document.querySelectorAll("[data-latest-version]");
-  var downloadEls = document.querySelectorAll("[data-download]");
-  var grid = document.getElementById("dl-grid");
-  if (!versionEls.length && !downloadEls.length && !grid) return;
-
-  fetch("https://api.github.com/repos/" + REPO + "/releases/latest", { headers: { Accept: "application/vnd.github+json" } })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (rel) {
-      if (!rel || !rel.tag_name) return;
-      versionEls.forEach(function (el) { el.textContent = rel.tag_name; });
-      var assets = rel.assets || [];
-      var find = function (re) {
-        for (var i = 0; i < assets.length; i++) if (re.test(assets[i].name)) return assets[i].browser_download_url;
-        return null;
-      };
-      var links = {
-        "mac-arm": find(/aarch64\.dmg$/),
-        "mac-intel": find(/x64\.dmg$/),
-        "deb": find(/\.deb$/),
-        "appimage": find(/\.AppImage$/),
-      };
-      downloadEls.forEach(function (el) {
-        var kind = el.getAttribute("data-download");
-        if (kind === "auto") kind = isMac ? "mac-arm" : "appimage";
-        if (links[kind]) el.href = links[kind];
-      });
-
-      // The downloads grid draws on this same fetch. A size is worth showing
-      // because the AppImage is an order of magnitude larger than the rest.
-      if (!grid) return;
-      var sizeOf = function (re) {
-        for (var i = 0; i < assets.length; i++) if (re.test(assets[i].name)) return assets[i].size;
-        return null;
-      };
-      var sizes = {
-        "mac-arm": sizeOf(/aarch64\.dmg$/),
-        "mac-intel": sizeOf(/x64\.dmg$/),
-        "deb": sizeOf(/\.deb$/),
-        "appimage": sizeOf(/\.AppImage$/),
-      };
-      Object.keys(links).forEach(function (kind) {
-        var row = grid.querySelector('[data-dl="' + kind + '"]');
-        if (!row || !links[kind]) return;
-        var a = row.querySelector("a");
-        if (a) { a.href = links[kind]; a.setAttribute("download", ""); }
-        var em = row.querySelector("em");
-        if (em && sizes[kind]) em.textContent = Math.round(sizes[kind] / 1048576) + " MB";
-      });
-
-      // Releases cut before the checksums job existed carry no SHA256SUMS.
-      // Telling someone to verify against a file that is not there is worse
-      // than saying nothing, so the sentence is replaced rather than left
-      // pointing at the releases page. The installers say the same thing.
-      var sums = find(/SHA256SUMS$/);
-      var sumsLink = document.getElementById("sums-link");
-      var sumsNote = document.getElementById("sums-note");
-      if (sums && sumsLink) sumsLink.href = sums;
-      else if (sumsNote) sumsNote.textContent =
-        "This release publishes no SHA256SUMS, so the installer says so rather " +
-        "than claiming a check it cannot do. Checksums are published from the " +
-        "next release onward.";
-
-      // Put the build this machine wants first, and mark it. Apple Silicon is
-      // not reported by the user agent, so a Mac is assumed to be one and the
-      // Intel build sits directly beneath rather than being hidden.
-      var mine = isMac ? "mac-arm" : null;
-      var plat = navigator.platform || "";
-      if (!mine && /Win/i.test(plat)) mine = "windows";
-      else if (!mine && /Linux|X11/i.test(plat)) mine = "deb";
-      if (mine) {
-        var pick = grid.querySelector('[data-dl="' + mine + '"]');
-        if (pick) { pick.setAttribute("data-recommended", ""); grid.prepend(pick); }
-      }
-
-      // Only now, when the links point at real files.
-      grid.hidden = false;
-    })
-    .catch(function () { /* keep the links to the releases page */ });
 })();
-
-  // --- Repo stats and the install copy button --------------------------------
-  // Moved out of index.html so the page carries no inline script but the
-  // pre-paint theme setter, which lets the CSP name a single hash instead of
-  // allowing inline script wholesale.
-  // Counts come from the API at load, never hardcoded: a number baked into the
-    // page is wrong the day after it ships. If the call fails the row stays
-    // hidden, because no number beats a stale one.
-    (function () {
-      var rows = document.querySelectorAll("[data-repo-stats]");
-      if (!rows.length) return;
-      fetch("https://api.github.com/repos/better-ade/ade-cli")
-        .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-        .then(function (d) {
-          var fmt = function (v) {
-            return v >= 1000 ? (v / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(v);
-          };
-          // subscribers_count is the Watch number GitHub shows. watchers_count is
-          // a legacy alias for stargazers and would print the star count twice.
-          var stats = { stars: d.stargazers_count, forks: d.forks_count, watchers: d.subscribers_count };
-          document.querySelectorAll("[data-stat]").forEach(function (slot) {
-            var v = stats[slot.getAttribute("data-stat")];
-            if (typeof v === "number") slot.textContent = fmt(v);
-          });
-          rows.forEach(function (r) { r.hidden = false; });
-        })
-        .catch(function () { /* leave them hidden */ });
-    })();
 
   // Copy buttons: data-copy names the id of the element whose text is copied.
     (function () {

@@ -12,12 +12,11 @@ baseurl: ""
 org_url: https://github.com/better-ade
 cli_repo: https://github.com/better-ade/ade-cli
 brain_repo: https://github.com/better-ade/ade-brain
-app_repo: https://github.com/better-ade/ade-terminal
+skills_repo: https://github.com/better-ade/ade-skills
 # The one-line installer for the ade command (ade-cli's install.sh, piped).
 cli_install: curl -fsSL https://raw.githubusercontent.com/better-ade/ade-cli/main/install.sh | bash
-# The desktop app's installers, copied into the site at build time (scripts/fetch-installers.sh).
-app_install: curl -fsSL https://ade.ardata.tech/install.sh | bash
-# The issue form the home page's first button opens (.github/ISSUE_TEMPLATE/ade-computer-preview.yml).
+# The issue form (.github/ISSUE_TEMPLATE/ade-computer-preview.yml). The home page's first button opens an email
+# (assets/js/preview.js builds the link); this is where it goes without JavaScript, and the small link under it.
 preview_url: https://github.com/better-ade/ade-website/issues/new?template=ade-computer-preview.yml
 
 plugins:
@@ -32,11 +31,8 @@ kramdown:
     disable: true
 
 defaults:
-  - scope:
-      path: guide
-    values:
-      layout: guide
-  # Old addresses (the app-era guide, the agent hub guide, the training) that now point at their new home.
+  # Old addresses (the guide, the Repos page, the ADE app page and everything older) that now point at a page that
+  # exists: the home page, or Get started.
   - scope:
       path: redirects
     values:

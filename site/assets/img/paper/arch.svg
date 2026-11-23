@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="13">
+<defs>
+ <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+ <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#59636e"/></marker>
+</defs>
+<rect width="880" height="560" fill="#fff"/>
+<!-- owner -->
+<rect x="20" y="20" width="840" height="64" rx="12" fill="#0b0b0e"/>
+<text x="40" y="47" fill="#fff" font-weight="700" font-size="15">Owner</text>
+<text x="40" y="68" fill="#c9c9d1">Telegram (locked to one account) · terminal: ade, ade ui · browser: ade web, ADE Computer desktop</text>
+<!-- ade-cli -->
+<rect x="20" y="108" width="840" height="46" rx="10" fill="none" stroke="url(#g)" stroke-width="2.5"/>
+<text x="40" y="136" fill="#0b0b0e" font-weight="700">ade-cli</text>
+<text x="110" y="136" fill="#3a3a44">guided setup · tab view · files · ade shot · ade web · ade project · ade update</text>
+<!-- hub -->
+<rect x="20" y="178" width="560" height="250" rx="12" fill="#faf8ff" stroke="#6d28d9" stroke-width="1.5"/>
+<text x="40" y="203" fill="#6d28d9" font-weight="700" font-size="15">Hub (from ade-brain) · one per owner or client</text>
+<rect x="40" y="218" width="250" height="58" rx="9" fill="#fff" stroke="#c2410c" stroke-width="1.5"/>
+<text x="56" y="242" font-weight="700" fill="#c2410c">Orchestrator</text>
+<text x="56" y="262" fill="#3a3a44">coordinator · chat · dispatch</text>
+<rect x="310" y="218" width="250" height="58" rx="9" fill="#fff" stroke="#59636e"/>
+<text x="326" y="242" font-weight="700">Memory · journal · learning</text>
+<text x="326" y="262" fill="#3a3a44">confirmed by the owner</text>
+<text x="130" y="300" fill="#3a3a44">Focus agents, one per folder (tabs):</text>
+<g fill="#fff" stroke="#59636e">
+ <rect x="40" y="310" width="160" height="96" rx="9"/><rect x="215" y="310" width="160" height="96" rx="9"/><rect x="390" y="310" width="170" height="96" rx="9"/>
+</g>
+<g font-weight="700"><text x="54" y="332">projects/app</text><text x="229" y="332">projects/api</text><text x="404" y="332">ops/environments</text></g>
+<g fill="#3a3a44" font-size="12">
+ <text x="54" y="352">STATE.md · ACCESS.md</text><text x="54" y="370">rules copy (.claude/hub)</text><text x="54" y="388">roles: dev · reviewer</text>
+ <text x="229" y="352">STATE.md · ACCESS.md</text><text x="229" y="370">rules copy (.claude/hub)</text><text x="229" y="388">roles: dev · reviewer</text>
+ <text x="404" y="352">servers, deploys</text><text x="404" y="370">read-only commands</text><text x="404" y="388">sysadmin specialist</text>
+</g>
+<!-- right column -->
+<rect x="600" y="178" width="260" height="78" rx="10" fill="#fff" stroke="#59636e"/>
+<text x="616" y="202" font-weight="700">ade-method</text><text x="616" y="222" fill="#3a3a44">.ade/rules.md · BMAD settings</text><text x="616" y="240" fill="#3a3a44">pinned by version</text>
+<rect x="600" y="266" width="260" height="78" rx="10" fill="#fff" stroke="#59636e"/>
+<text x="616" y="290" font-weight="700">ade-skills</text><text x="616" y="310" fill="#3a3a44">connectors: ClickUp, Jira, Linear, Orgo</text><text x="616" y="328" fill="#3a3a44">guard · skills</text>
+<rect x="600" y="354" width="260" height="74" rx="10" fill="#fff" stroke="#59636e"/>
+<text x="616" y="378" font-weight="700">ade-agent-registry</text><text x="616" y="398" fill="#3a3a44">specialists on demand</text><text x="616" y="416" fill="#3a3a44">support · sysadmin · …</text>
+<!-- bottom -->
+<rect x="20" y="452" width="270" height="88" rx="10" fill="#fff" stroke="#59636e"/>
+<text x="36" y="476" font-weight="700">Code repos</text><text x="36" y="496" fill="#3a3a44">the client's code stays here</text><text x="36" y="514" fill="#3a3a44">branches · draft PRs · CI</text>
+<rect x="305" y="452" width="270" height="88" rx="10" fill="#fff" stroke="#59636e"/>
+<text x="321" y="476" font-weight="700">Keys</text><text x="321" y="496" fill="#3a3a44">macOS keychain · ade-secrets</text><text x="321" y="514" fill="#3a3a44">agents never see a value</text>
+<rect x="590" y="452" width="270" height="88" rx="10" fill="#fff" stroke="#59636e"/>
+<text x="606" y="476" font-weight="700">AI services, per role</text><text x="606" y="496" fill="#3a3a44">Claude · DeepSeek · Gemini</text><text x="606" y="514" fill="#3a3a44">(GLM · Muse: after live test)</text>
+<!-- arrows -->
+<g stroke="#59636e" stroke-width="1.6" fill="none" marker-end="url(#a)">
+ <path d="M440 84V106"/><path d="M300 154V176"/><path d="M110 276V296"/>
+ <path d="M580 220H598"/><path d="M580 300H598"/><path d="M580 390H598"/>
+ <path d="M150 428V450"/><path d="M440 428V450"/><path d="M725 428V450"/>
+</g>
+</svg>

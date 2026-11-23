@@ -90,18 +90,22 @@ describe("commands and scripts the pages name exist on main", () => {
     expect(wrong).toEqual([]);
   });
 
-  it("every `prefix <key>` on the ade ui page is in ade ui's own key list (UI_KEYS, shown by prefix ?)", () => {
+  it("every `prefix <key>` a page names is in ade ui's own key list (UI_KEYS, shown by prefix ?)", () => {
     const src = readRepo("cli", "ade");
     const list = /^UI_KEYS="([^"]*)"/m.exec(src)![1];
     const bound = new Set([...list.matchAll(/^\s*prefix (\S+)\s/gm)].map((m) => m[1]));
     expect(bound.has("e") && bound.has("l")).toBe(true);
+    // The ade ui guide page, with its table of keys, is gone; Get started still names four of them.
     const named: string[] = [];
-    for (const row of page("guide/ui/index.html").querySelectorAll("tr")) {
-      const kbd = [...row.querySelectorAll("td:first-child kbd")].map((k) => k.textContent ?? "");
-      if (kbd[0] !== "prefix" || kbd.length !== 2 || !/^[a-z?]$/.test(kbd[1]) || labelledComing(row)) continue;
-      named.push(kbd[1]);
+    for (const { doc } of PAGES) {
+      for (const k of doc.querySelectorAll("main kbd")) {
+        const next = k.nextElementSibling;
+        if (k.textContent !== "prefix" || next?.tagName !== "KBD" || labelledComing(k.parentElement!)) continue;
+        expect(next.textContent, "a single key after prefix").toMatch(/^[a-z?]$/);
+        named.push(next.textContent!);
+      }
     }
-    expect(named).toEqual(expect.arrayContaining(["a", "t", "e", "l"]));
+    expect(named).toEqual(expect.arrayContaining(["f", "?", "d", "e"]));
     for (const k of named) expect(bound.has(k), `prefix ${k}`).toBe(true);
   });
 
@@ -157,12 +161,9 @@ describe("numbers and versions", () => {
     expect(home).toContain(`from ade-method: ${core.map((r) => r.name).join(", ")}`);
   });
 
-  it("the specialist count is ade-agent-registry's, and the Repos page lists each one", () => {
+  it("the specialist count is ade-agent-registry's", () => {
     const roles: { name: string }[] = JSON.parse(readRepo("registry", "registry.json")).roles;
     expect(home).toContain(`${roles.length} specialists`);
-    const row = [...page("repos/index.html").querySelectorAll("tr")].find((tr) => tr.textContent?.includes("ade-agent-registry"))!;
-    const text = (row.textContent ?? "").toLowerCase();
-    for (const r of roles) expect(text, r.name).toContain(r.name.replace(/-/g, " "));
   });
 
   it("the release numbers the pages show (site/_data/releases.yml) are each repo's VERSION on main", () => {
@@ -179,15 +180,23 @@ describe("numbers and versions", () => {
     expect(page("get-started/index.html").body.textContent).toContain(`v${version}`);
   });
 
-  it("the Repos page gives each repo the verification command its CI runs", () => {
-    const rows = [...page("repos/index.html").querySelectorAll("tbody tr")];
+  it("the home page gives each repo the verification command its CI runs", () => {
+    // The Repos page, with its table, is gone. The home page's "Isn't this just prompts?" answer names the same
+    // commands: each `command` in code, followed by "in" and the repos that are held to it.
+    const answer = [...page("index.html").querySelectorAll("#faq details")].find((d) => /just prompts/.test(d.querySelector("summary")!.textContent ?? ""))!;
+    const claimed: Record<string, string> = {};
+    for (const code of answer.querySelectorAll("p code")) {
+      let after = "";
+      for (let n = code.nextSibling; n && n.nodeName !== "CODE"; n = n.nextSibling) after += n.textContent ?? "";
+      if (!/^\s+in\s/.test(after)) continue;
+      for (const m of after.split(".")[0].matchAll(/\bade-[a-z-]+/g)) claimed[m[0]] = code.textContent ?? "";
+    }
     const dirs = { "ade-cli": "cli", "ade-brain": "brain", "ade-method": "method", "ade-agent-registry": "registry", "ade-skills": "skills", "ade-secrets": "secrets" } as const;
+    expect(Object.keys(claimed).sort()).toEqual(Object.keys(dirs).sort());
     for (const [name, key] of Object.entries(dirs)) {
       const ci = readRepo(key, ".github/workflows/ci.yml");
       const command = /command:\s*"([^"]+)"/.exec(ci)![1];
-      const row = rows.find((tr) => tr.querySelector("td a")?.textContent === name)!;
-      expect(row, name).toBeTruthy();
-      expect(row.querySelectorAll("td")[2].textContent, name).toBe(command);
+      expect(claimed[name], name).toBe(command);
     }
   });
 
