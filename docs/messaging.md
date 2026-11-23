@@ -41,37 +41,69 @@ Alternates:
   per project or per task, on your own Docker today. You watch its desktop in your browser, on your own machine only.
 - **Headline.** "A computer of its own for your AI delivery team." The tagline stays **Verified, not vibed.**
 - **Early preview.** The image and its launcher are not public yet. The home page's first button is **Ask for an
-  early preview**: it opens this repo's issue form (`.github/ISSUE_TEMPLATE/ade-computer-preview.yml`). The request
-  is a public issue, and the page says so: put nothing private in it.
+  early preview**: it opens an email to the preview address (the mailbox "preview" at ardata.tech), with the subject
+  "ADE Computer early preview" and a short body asking what they would use it for, their team size and their
+  platform. The address is never written in a page: a small script (`site/assets/js/preview.js`) builds the link on
+  click. Without JavaScript the button opens this repo's issue form
+  (`.github/ISSUE_TEMPLATE/ade-computer-preview.yml`), and a small link under the button, "or open a GitHub issue",
+  opens the same form. The form itself says that an issue is public.
 - **Honest about the wall.** A computer is a container, not a separate machine. It is not given your home folder,
   your keys or the Docker socket, and a project folder is shared only when you name one. It can reach the internet
   and, on Docker Desktop, services on your machine that listen on localhost. Say this wherever "isolated" is said.
 - **In the cloud.** Coming. Name no provider and promise no service: it is a computer you start, not one we run.
 - **Never on the site:** a link to its repo (private), a command that installs or starts it, a date.
-- **The hero.** Two columns on a wide screen (from 1024px): the kicker, headline, sub-text, buttons and the two
-  notes on the left, left-aligned; the drawing on the right. Below that, the words first, then the drawing.
-- **The hero drawing.** An ADE Computer desktop of our own drawing (a top bar, a dock with plain icons for a code
-  editor, a terminal, a database tool and a browser, and a terminal window), with the agents at work on it. No logo,
-  mascot, character, brand colour or style of any other product, provider or game. Its words are copy:
-  - **The chat.** A small chat panel at the window's corner, a plain speech-bubble icon and the word **Telegram**.
-    The owner's message in it is "can't log in"; the reply is "Done. Tests pass.", with a small picture of the proof
-    (`ade shot --tg` sends one). No approval buttons in the chat: they are Coming.
-  - **Role labels, exactly:** **Orchestrator**, **Product**, **Architect**, **Developer**, **Reviewer** (ade-method's
-    four core roles and the orchestrator), and two specialists drawn dimmer, **Support** and **Sysadmin**, with
-    "loaded when needed" (they come from ade-agent-registry).
+- **The hero.** Two columns on a wide screen (from 1024px), the drawing's column the wider one: the kicker,
+  headline, sub-text, buttons and the two short lines under them on the left, left-aligned; the drawing on the right.
+  Below that, the words first, then the drawing. On a 1280x800, 1440x900 or 1920x1080 screen the whole hero is on
+  the first screen, and no text in the drawing is under 13px.
+- **The hero drawing.** Two things, clearly apart: a phone, and an ADE Computer window of our own drawing (a top bar,
+  a terminal window in the middle, and a dock along the bottom with plain icons for a code editor, a terminal, a
+  database tool and a browser). No logo, mascot, character, brand colour or style of any other product, provider or
+  game. Its words are copy:
+  - **The phone.** Beside the window's lower-left corner, never over it. A plain speech-bubble icon and the word
+    **Telegram**. The owner's message in it is "can't log in"; the reply is "Done. Tests pass.", with a small picture
+    of the proof (`ade shot --tg` sends one). No approval buttons in the chat: they are Coming.
+  - **The team.** Five badges around the terminal, as a team at a table and not a list, joined by dotted hand-off
+    lines: **Orchestrator** (lower left, next to the phone), **Product**, **Architect** (top), **Developer**,
+    **Reviewer** (lower right). They are ade-method's four core roles and the orchestrator. No specialists here.
   - **Agent faces.** Each role has the same small face of our own: a rounded screen with two eyes and a status light,
     in the role's colour along the orange-to-violet gradient, with the role's job icon as a corner badge. The light
-    glows while that role works; the Reviewer's shows a check at Done. Specialists have the face, dimmer.
-  - **Models, as plain names.** Under each role, what it runs on in this scene: Orchestrator, Product and Architect
-    on **Claude**, Developer on **Gemini**, Reviewer on **DeepSeek**. A strip at the bottom reads "Runs on Claude ·
-    DeepSeek · Gemini", then **Coming** "GLM · Muse · Kimi · ChatGPT". Only what ADE runs today is shown running a
-    role; the orchestrator is only ever shown on Claude. On a phone the strip stays and the per-role names go.
-  - **The loop, about 12 seconds:** "can't log in" leaves the chat and reaches the Orchestrator; a ticket, "Login
-    fails after reset", goes to Product; the Architect adds "design note ✓"; the Developer's terminal runs
-    `bash tests/run.sh`, shows "not ok login after reset", then "ok login after reset" and "ok all tests pass", and
-    the test dot turns from red to green; the Reviewer shows "tests pass ✓ Done"; the note returns to the
-    Orchestrator, and "Done. Tests pass." arrives in the chat.
+    glows while that role works; the Reviewer's shows a check at Done.
+  - **Services, as plain names.** A small second line on each badge: Orchestrator, Product and Architect on
+    **Claude**, Developer on **Gemini**, Reviewer on **DeepSeek**. Only what ADE runs today is shown running a role;
+    the orchestrator is only ever shown on Claude. Nothing Coming is in the drawing. On a phone the second line goes.
+  - **The terminal is never empty.** It opens on a prompt and a line of output, `$ git pull` and
+    "Already up to date.", which stay through the whole loop.
+  - **The loop, about 12 seconds:** "can't log in" leaves the phone and reaches the Orchestrator; a small tag,
+    "Login fails after reset", appears by Product; the Architect takes its turn; the Developer's terminal runs
+    `bash tests/run.sh`, shows "not ok login after reset", then "# fix: keep the session", runs it again and shows
+    "ok all tests pass", and the test dot turns from red to green; the Reviewer shows "tests pass ✓ Done"; the note
+    returns to the Orchestrator, and "Done. Tests pass." arrives on the phone.
+  - **Not in the hero:** a ticket card, the specialists, "loaded when needed", the list of services. They are in the
+    section under it.
   - It is an illustration of the method, not a recording: no customer, no person, no real project in it.
+
+## Mix AI services per role (the section under the hero)
+
+- **Headline.** "Mix AI services per role." Each role runs on the service you pick for it; `ade roles` shows which.
+- **Role cards.** One card per role, with its face and the service it runs on in the drawing above: Orchestrator,
+  Product and Architect on Claude, Developer on Gemini, Reviewer on DeepSeek. One line on what the role does, taken
+  from ade-method.
+- **Specialists.** Smaller cards, **Support** and **Sysadmin**, "loaded when needed" (from ade-agent-registry).
+- **Services.** Available today: **Claude**, **DeepSeek**, **Gemini**. Then **GLM**, **Muse**, **Kimi** and
+  **ChatGPT**, each with its own Coming label.
+
+## The pages
+
+- The site is three pages: the home page, **Get started** and the **technical paper**. The guide, the Repos page
+  and the ADE app page are gone; their addresses, and every older address that pointed at them, redirect to the
+  home page.
+- **The paper** (`/paper/`, "Paper" in the menu): "Fast and verified: delivering software with a team of AI
+  agents", by "The ADE team · November 2026". Its text is the paper's own, copied as it is; the page adds a table of
+  contents, a "Download PDF" link and the site's Coming label where the paper names work that is not merged. Its
+  numbers are as of 23 November 2026 and say so. The home page links it as "Read the technical paper".
+- Where a page used to link to a guide page, it links to the README of the public better-ade repo that documents the
+  same thing, or to nothing.
 
 ## What works today, in plain words
 

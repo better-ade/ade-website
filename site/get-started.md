@@ -1,5 +1,6 @@
 ---
-layout: guide
+layout: page
+kicker: Guide
 title: Get started
 permalink: /get-started/
 description: Install the ade command, run ade setup, and open everything in one window with ade ui. On macOS or Linux, from the release the installer names.
@@ -40,9 +41,9 @@ ade setup
 One command from nothing to a working hub, in six steps: Claude Code, sign in to Claude, sign in to GitHub, your hub,
 your first project, Telegram. Each step is said before it runs and checked after. When one fails, you get one plain
 line and a choice of what to do next, and `ade setup` again resumes where you are.
-[What each step does]({{ '/guide/setup/' | relative_url }}).
+[ade-cli's README]({{ site.cli_repo }}#readme) says what each step does.
 
-A key is typed only at a hidden prompt: [How to store keys]({{ '/guide/keys/' | relative_url }}).
+A key is typed only at a hidden prompt, never in a chat, a file or a command line.
 
 `ade setup --check` reads only and says what is missing. The same steps by hand:
 
@@ -62,7 +63,7 @@ ade ui
 
 One tmux window on `ade`'s own tmux server, so your own tmux setup is never touched. Tab 0 is the orchestrator;
 <kbd>prefix</kbd> <kbd>f</kbd> shows the fleet sidebar, <kbd>prefix</kbd> <kbd>?</kbd> lists the keys and
-<kbd>prefix</kbd> <kbd>d</kbd> detaches while the agents keep running. [More on ade ui]({{ '/guide/ui/' | relative_url }}).
+<kbd>prefix</kbd> <kbd>d</kbd> detaches while the agents keep running.
 
 While `ade ui` runs, `ade work` opens each focus agent in a tab of its own, with its unread count.
 <kbd>prefix</kbd> <kbd>e</kbd> opens the file viewer.
@@ -70,12 +71,13 @@ While `ade ui` runs, `ade work` opens each focus agent in a tab of its own, with
 ## Then
 
 - **Want it all in a desktop of its own?** ADE Computer is in early preview:
-  [ask for one]({{ site.preview_url }}) (a public GitHub issue; put nothing private in it).
+  [ask for one by email]({{ site.preview_url }}){: data-preview-mail=""}, or [open a GitHub issue]({{ site.preview_url }}), which is
+  public: put nothing private in it.
 - **Set up a project.** In any git repo: `ade init` copies the method (the rules, the four core roles and the context
   store) at a pinned version and never overwrites a file you have. `ade agent add <name>` adds a specialist and
   `ade skills add <plugin>` a plugin.
-- **Watch from your phone.** [Telegram]({{ '/guide/telegram/' | relative_url }}), or `ade web --tailnet` for a read-only
-  page.
-- **Connect your tracker.** [Connectors and the guard]({{ '/guide/connectors/' | relative_url }}).
-- **Hand off a ticket.** [Tickets and dispatch]({{ '/guide/tickets/' | relative_url }}).
-- **See how the pieces fit.** [How ADE works]({{ '/guide/' | relative_url }}).
+- **Watch from your phone.** Telegram, set up by `ade setup`'s last step ([ade-brain's README]({{ site.brain_repo }}#readme) has the
+  details), or `ade web --tailnet` for a read-only page.
+- **Connect your tracker.** The connectors and the guard are in [ade-skills' README]({{ site.skills_repo }}#readme).
+- **Hand off a ticket.** A ticket's path, and `ade dispatch`, are in [ade-cli's README]({{ site.cli_repo }}#readme).
+- **See how the pieces fit.** [How it works]({{ '/#how-it-works' | relative_url }}), on the home page.

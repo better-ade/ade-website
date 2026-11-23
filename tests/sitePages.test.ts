@@ -20,11 +20,50 @@ function fileFor(url: string): string | null {
   return null;
 }
 
+/** The pages this site no longer has. Links to them are in the repos' READMEs, so each one still answers. */
+const REMOVED = ["/guide/", "/guide/setup/", "/guide/ui/", "/guide/tickets/", "/guide/telegram/", "/guide/connectors/", "/guide/keys/", "/repos/", "/app/"];
+/** Older addresses that used to redirect to one of those. */
+const OLDER = [
+  "/agent-hub/", "/guide/agents/", "/guide/anti-slop/", "/guide/contracts/", "/guide/files/", "/guide/integrations/", "/guide/project-setup/",
+  "/guide/scratchpad/", "/guide/settings/", "/guide/shortcuts/", "/guide/sync/", "/guide/terminal/", "/guide/tokens/", "/guide/troubleshooting/",
+];
+
 describe("every page", () => {
-  it("the site has the pages the narrative calls for", () => {
-    const urls = CONTENT.map((p) => urlOf(p.path));
-    for (const u of ["/", "/get-started/", "/guide/", "/guide/setup/", "/guide/ui/", "/guide/tickets/", "/guide/telegram/", "/guide/connectors/", "/guide/keys/", "/repos/", "/app/"]) {
-      expect(urls, u).toContain(u);
+  it("the site is three pages: the home page, Get started and the technical paper", () => {
+    expect(CONTENT.map((p) => urlOf(p.path)).sort()).toEqual(["/", "/get-started/", "/paper/"]);
+  });
+
+  it("the guide, the Repos page and the ADE app page are gone, and each of their addresses redirects to the home page", () => {
+    const moved = Object.fromEntries(
+      PAGES.filter((p) => isRedirect(p.doc)).map(({ path, doc }) => [
+        urlOf(path),
+        /url=(\S+)/.exec(doc.querySelector('meta[http-equiv="refresh"]')!.getAttribute("content")!)![1],
+      ]),
+    );
+    for (const u of REMOVED) expect(moved[u], u).toBe("/");
+    // Every older address that pointed at one of them now points at the home page too: none is left behind them.
+    for (const u of OLDER) expect(moved[u], u).toBe("/");
+    for (const [from, to] of Object.entries(moved)) expect(["/", "/get-started/"], from).toContain(to);
+    expect(moved["/training/"]).toBe("/get-started/");
+    // The link a visitor is shown, when the refresh does not fire, goes to the same place.
+    for (const { path, doc } of PAGES.filter((p) => isRedirect(p.doc))) {
+      expect(doc.querySelector("main a")!.getAttribute("href"), path).toBe(moved[urlOf(path)]);
+    }
+    // Nothing still links to a removed address: not a page, not the header, not the footer.
+    for (const { path, doc } of PAGES) {
+      for (const a of doc.querySelectorAll("a[href]")) {
+        const href = a.getAttribute("href")!.split("#")[0];
+        expect([...REMOVED, ...OLDER].includes(href), `${path} -> ${href}`).toBe(false);
+        expect(href, path).not.toMatch(/^\/(guide|repos|app)(\/|$)/);
+      }
+    }
+  });
+
+  it("the header's menu has no item for a removed page", () => {
+    for (const { path, doc } of PAGES) {
+      const items = [...doc.querySelectorAll("#site-nav a")].map((a) => (a.textContent ?? "").trim());
+      expect(items, path).toEqual(["How it works", "Paper", "GitHub", "Get started"]);
+      expect(doc.querySelector(".brand small"), path).toBeNull();
     }
   });
 
@@ -90,16 +129,10 @@ describe("the ADE app's installers", () => {
     expect(statSync(join(BUILT, "install.ps1")).size).toBeGreaterThan(0);
   });
 
-  it("the app page gives the install command and links both scripts", () => {
-    const app = CONTENT.find((p) => p.path === "app/index.html")!.doc;
-    expect(app.body.textContent).toContain("curl -fsSL https://ade.ardata.tech/install.sh | bash");
-    const hrefs = [...app.querySelectorAll("a[href]")].map((a) => a.getAttribute("href"));
-    expect(hrefs).toContain("/install.sh");
-    expect(hrefs).toContain("/install.ps1");
-  });
+  // The app's page is gone; the scripts stay, because installs of the app and its own README fetch them from here.
 });
 
-/** The issue form the home page's first button opens. GitHub reads it from the default branch of this repo. */
+/** The issue form the home page's first button falls back to. GitHub reads it from the default branch of this repo. */
 const PREVIEW_FORM = ".github/ISSUE_TEMPLATE/ade-computer-preview.yml";
 const PREVIEW_URL = "https://github.com/better-ade/ade-website/issues/new?template=ade-computer-preview.yml";
 
@@ -116,15 +149,13 @@ describe("the home page leads with ADE Computer", () => {
     }
   });
 
-  it("its first button asks for an early preview and opens the issue form in this repo", () => {
-    const first = hero.querySelector("a.btn")!;
-    expect((first.textContent ?? "").trim()).toMatch(/^Ask for an early preview/);
-    expect(first.getAttribute("href")).toBe(PREVIEW_URL);
+  // The button itself, and the email it opens, are held in tests/sitePreview.test.ts.
+  it("the issue form the button falls back to exists, and Get started links it with the note that an issue is public", () => {
     expect(existsSync(join(BUILT, "..", PREVIEW_FORM))).toBe(true);
-  });
-
-  it("says, beside the button, that the request is public", () => {
-    expect((hero.textContent ?? "").replace(/\s+/g, " ")).toMatch(/public GitHub issue[^.]*\. Put nothing private in it/);
+    const start = CONTENT.find((p) => p.path === "get-started/index.html")!.doc;
+    const link = [...start.querySelectorAll("main a")].find((a) => a.getAttribute("href") === PREVIEW_URL)!;
+    expect(link).toBeTruthy();
+    expect((link.closest("li")!.textContent ?? "").replace(/\s+/g, " ")).toMatch(/public[^.]*put nothing private in it/);
   });
 
   it("the issue form asks the four questions, and opens with the note that issues are public", () => {
@@ -146,21 +177,17 @@ describe("the home page leads with ADE Computer", () => {
   });
 });
 
-describe("the keys guide", () => {
-  const keys = CONTENT.find((p) => p.path === "guide/keys/index.html")!.doc;
-  const text = (keys.querySelector("main")!.textContent ?? "").replace(/\s+/g, " ");
+describe("keys", () => {
+  // The keys guide is gone with the guide. What the home page still says about keys is held here.
+  const home = CONTENT.find((p) => p.path === "index.html")!.doc;
+  const card = [...home.querySelectorAll("#today .orx-card")].find((c) => c.querySelector(".feat-eyebrow")?.textContent === "Keys")!;
 
-  it("is titled How to store keys and has the section for an exposed key", () => {
-    expect(keys.querySelector("h1")!.textContent).toBe("How to store keys");
-    expect(keys.getElementById("if-a-key-was-exposed")).not.toBeNull();
-  });
-
-  it("names the two places a key is typed, and where each kind lives", () => {
-    const codes = [...keys.querySelectorAll("main code")].map((c) => c.textContent ?? "");
-    for (const c of ["ade setup", "bin/keys set <name>", "gh auth login --web", "--insecure-storage", "ACCESS.md", "hub.conf"]) {
-      expect(codes.some((x) => x.includes(c)), c).toBe(true);
-    }
-    for (const phrase of ["hidden prompt", "Keychain", "key helper", "names and locations only", "Revoke it at the provider first"]) {
+  it("the home page names the two places a key is typed, and that it is never in a chat, a file or a command line", () => {
+    expect(card).toBeTruthy();
+    const codes = [...card.querySelectorAll("code")].map((c) => c.textContent ?? "");
+    for (const c of ["ade setup", "bin/keys set <name>"]) expect(codes, c).toContain(c);
+    const text = (card.textContent ?? "").replace(/\s+/g, " ");
+    for (const phrase of ["hidden prompt", "only at your own terminal", "Agents never see a value", "Never in a chat, a file or a command line"]) {
       expect(text, phrase).toContain(phrase);
     }
   });
@@ -195,7 +222,7 @@ describe("what the pages never say", () => {
     }
   });
 
-  it("no link to a better-ade repo that is not on the Repos page's list (a private repo is never linked)", () => {
+  it("no link to a better-ade repo that is not on the list of public repos (a private repo is never linked)", () => {
     const listed = new Set([...readSite("_data/repos.yml").matchAll(/^- name: (\S+)/gm)].map((m) => m[1]));
     expect(listed.has("ade-cli") && listed.has("ade-website")).toBe(true);
     expect(listed.has("ade-computer")).toBe(false);

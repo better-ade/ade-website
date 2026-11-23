@@ -51,7 +51,13 @@ describe("the site's content security policy", () => {
   it("allows exactly the outside origins the pages actually use", () => {
     expect(csp).toContain("https://fonts.googleapis.com"); // stylesheet
     expect(csp).toContain("https://fonts.gstatic.com");    // font files
-    expect(csp).toContain("https://api.github.com");       // the ADE app's latest release, on the app page
+    // The ADE app's page is gone, and with it the one call the site made to another origin (the app's latest
+    // release): scripts connect to nothing but the site itself, and no script names another origin.
+    expect(csp).toMatch(/connect-src 'self'(;|$)/);
+    expect(csp).not.toContain("api.github.com");
+    for (const file of ["assets/js/site.js", "assets/js/preview.js"]) {
+      expect(readSite(file), file).not.toMatch(/\bfetch\(|XMLHttpRequest|sendBeacon|https?:\/\//);
+    }
   });
 
   it("locks down the directives that have no legitimate use here", () => {

@@ -28,7 +28,7 @@
      hash rather than allowed wholesale; tests/siteCsp.test.ts fails if the
      two drift. frame-ancestors is deliberately absent: it is ignored in a
      meta policy and needs a real header, which Pages will not send. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-FsIZN6Mqzes8U6LwztrW72hqF7cLDnCGBES+X937vAQ='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.github.com; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-FsIZN6Mqzes8U6LwztrW72hqF7cLDnCGBES+X937vAQ='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,3 +38,6 @@
      meant a CSS change could be invisible for ten minutes after shipping. -->
 <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 <script defer src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+<!-- Builds the early-preview email link on click, so no address is written in a page. A file of the site's own,
+     which the policy's script-src 'self' already allows: no nonce, no hash and no wider allowance is needed. -->
+<script defer src="{{ '/assets/js/preview.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
