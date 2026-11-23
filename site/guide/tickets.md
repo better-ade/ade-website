@@ -53,6 +53,27 @@ permission prompt in your own session, and the journal shows every start.
 4. Green is Done, and one dated line goes into the project's journal. Red goes back to the builder. Unresolved material
    flaws after the fix round go to you with the findings, and the work stays not Done.
 
+## Proof: ade shot
+
+Words in a report are a claim; a picture is evidence. `ade shot` saves one with the project:
+
+```
+ade shot url http://localhost:3000 --full-page   # a page, through the hub's headless browser
+ade shot screen                                  # the whole screen; it asks first
+ade shot agent api                               # a focus agent's tab, keys hidden first
+ade shot url http://localhost:3000 --tg "the new sign-in page"   # and send it to you on Telegram
+```
+
+- Shots go to the project's `.ade/evidence/` folder, by date, as a PNG with a `.txt` beside it saying what it is.
+  They are private to you, never overwritten and ignored by git.
+- A page gets only `http`, `https` and `file` addresses, and a file only inside the project: never a key file or a
+  `.env`.
+- **A page or screen shot cannot be redacted.** Look before you share one. An agent's tab has keys hidden first.
+- `--tg` sends the picture to you on [Telegram]({{ '/guide/telegram/' | relative_url }}), only while the bot is locked
+  to you.
+
+`ade shot` is merged on `main` and ships with the next release of `ade`.
+
 ## What dispatch needs
 
 The folder has exactly one code repo, checked out, with BMAD installed in it, and `node` on the path. On any doubt it

@@ -1,6 +1,6 @@
 ---
 title: ade ui
-description: ade ui puts the orchestrator and the fleet in one tmux window, in any terminal. Its keys, its tabs, ade dash and the file viewer.
+description: ade ui puts the orchestrator and the fleet in one tmux window, in any terminal. Its keys, its tabs, ade dash, the file viewer, and ade web for a read-only page in your browser.
 lead: One window for the whole team, in whatever terminal you already use.
 ---
 
@@ -53,3 +53,22 @@ ade view <path[:line[:col]]>  # code at the line, Markdown, images and PDF pages
 Read-only. Code shows with `bat` (or `less -N`), Markdown with `glow`, images and PDF pages inline on a graphics
 terminal. <kbd>o</kbd> opens a document, <kbd>f</kbd> reveals it, <kbd>y</kbd> copies the path. A path outside the hub
 and its projects asks first, and is listed, never previewed. `ade setup --tools extras` installs the viewer's tools.
+
+## ade web
+
+```
+ade web               # a read-only page of the hub, in your browser
+ade web --tailnet     # the same page on this machine's Tailscale address, for your phone
+ade web --print-link  # the running page's address, else nothing
+```
+
+`ade web` shows the agents and their state, the picked agent's log and its `STATE.md`, today's and yesterday's journal
+and the chat log, refreshed every 3 seconds. It is read-only: it changes nothing and starts nothing.
+
+- **On this machine only.** It listens on 127.0.0.1, on port 8765 or a free one (`--port N`), and prints an address
+  with a random token. Without the token the page is refused. Ctrl-C stops it.
+- **Keys are hidden** before anything is shown: provider keys, GitHub tokens, passwords in addresses, private key
+  blocks.
+- **`--tailnet`** puts the page on this machine's Tailscale address only, never on every interface. Anyone on your
+  tailnet with the link can read these logs, and the link changes at every start. `ade` never installs Tailscale or
+  signs in to it; it says how when it is missing or signed out.

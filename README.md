@@ -15,13 +15,20 @@ The public website for ADE, served at https://ade.ardata.tech. ADE itself lives 
   - `sitePages`: every page has a title, a description and one `h1`; every internal
     link, image and `#anchor` resolves; old addresses redirect to real pages; the
     sitemap is complete; `/install.sh` and `/install.ps1` are built; no pricing, no AI
-    attribution, no GitHub link outside the better-ade organisation.
+    attribution, no GitHub link outside the better-ade organisation and none to a repo
+    that is not on the Repos page's list (a private repo is never linked); no command
+    that installs an ADE Computer. The home page leads with ADE Computer, and its first
+    button opens the issue form `.github/ISSUE_TEMPLATE/ade-computer-preview.yml`, which
+    is held to its four questions and its "issues are public" note. The keys guide names
+    where a key is typed and what to do when one was exposed; no page shows anything
+    shaped like a key.
   - `siteTruth`: holds the pages to `main` of the repos they describe. Every `ade`
     command and hub `bin/` script named exists, and each `ade` command is in `ade help`;
     every `ade ui` key and `ade-secrets` command named exists; the connectors named are
     ade-skills plugins that ask before a change; role, specialist and version numbers
     (`site/_data/releases.yml`) match; each repo's verification command matches its CI; and anything not merged
-    yet carries a **Coming** label (the `NOT_MERGED` list).
+    yet carries a **Coming** label (the `NOT_MERGED` list), and the home page's Coming
+    list names every item on it.
   - `siteCsp`, `siteThemeContrast`, `fetchInstallers`: the content security policy on
     every page, the light/dark contrast rule, and the installer copy script.
 - `scripts/fetch-installers.sh`: copies the ADE app's `install.sh` and `install.ps1`
