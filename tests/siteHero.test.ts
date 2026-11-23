@@ -182,7 +182,7 @@ describe("the hero's ADE Computer, with the agents at work", () => {
     const caption = (svg.parentElement!.querySelector(".hero-caption")!.textContent ?? "").replace(/\s+/g, " ");
     expect(caption).toMatch(/ADE on your phone is the read-only web view/);
     expect(caption).toMatch(/Tailscale/);
-    expect(caption).toMatch(/example mix/);
+    expect(caption).toMatch(/example mix/i);
   });
 
   it("draws the hand-off lines between them, and a pulse for each hand-off", () => {

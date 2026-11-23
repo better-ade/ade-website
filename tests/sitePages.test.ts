@@ -145,8 +145,11 @@ describe("the home page leads with ADE Computer", () => {
     expect(hero.querySelector("h1")).not.toBeNull();
     const text = (hero.textContent ?? "").replace(/\s+/g, " ");
     expect(text).toContain("ADE Computer");
+    for (const word of ["Ubuntu desktop", "your own Docker"]) expect(text, word).toContain(word);
+    // The hero stays short; what is inside it is said in the ADE Computer section right after.
+    const computer = (home.querySelector("#computer")!.textContent ?? "").replace(/\s+/g, " ");
     for (const word of ["Ubuntu desktop", "VS Code", "terminal", "database tools", "per project or per task", "your own Docker"]) {
-      expect(text, word).toContain(word);
+      expect(computer, word).toContain(word);
     }
   });
 
