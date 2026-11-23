@@ -43,3 +43,5 @@ defaults:
 # custom domain comes from the repository's Pages settings, not this file.
 include:
   - CNAME
+ardata_url: https://ardata.tech
+aracademy_url: https://ardata.academy
