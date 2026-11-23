@@ -1162,3 +1162,117 @@ a.cred:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2p
 .coming-list { max-width: 820px; margin: 0 auto; }
 .coming-list code { font: .86em var(--mono); padding: 1px 5px; border-radius: 5px; background: var(--code-bg); border: 1px solid var(--line); color: var(--text); }
 .hero-meta + .hero-meta { margin-top: 8px; }
+
+/* ---------- Hero: the ADE Computer, with the agents at work ----------
+   Two inline SVGs (_includes/hero-computer.html) share these rules: a wide drawing, and one laid out for a phone.
+   Every rule outside the keyframes is the last frame of the loop, so with reduced motion, or with no animation at
+   all, the picture stands still on the finished hand-off. The terminal is dark in both themes, so its text is a
+   fixed light colour; everything else takes the theme's tokens. tests/siteHero.test.ts holds all of this. */
+.hero-computer { position: relative; margin: 44px auto 0; max-width: 1140px; }
+.hero-computer::before {
+  content: ""; position: absolute; left: -4%; right: -4%; top: -6%; bottom: 14%; pointer-events: none;
+  background: radial-gradient(40% 50% at 25% 40%, var(--glow-o), transparent 72%), radial-gradient(40% 50% at 75% 40%, var(--glow-v), transparent 72%);
+  filter: blur(48px); opacity: .7;
+}
+.hx { position: relative; display: block; width: 100%; height: auto; }
+.hx-sprite { position: absolute; width: 0; height: 0; }
+.hx--phone { display: none; max-width: 520px; margin: 0 auto; --hx-dx: -40px; }
+@media (max-width: 700px) {
+  .hero-computer { margin-top: 36px; }
+  .hx--wide { display: none; }
+  .hx--phone { display: block; }
+}
+
+.hx text { font-family: var(--sans); fill: var(--text); }
+.hx .hx-mono, .hx .hx-mono text { font-family: var(--mono); }
+.hx .hx-caps { text-transform: uppercase; letter-spacing: .14em; }
+.hx .hx-label { font-weight: 600; font-size: 14px; }
+.hx--phone .hx-label { font-size: 10.5px; }
+.hx .hx-specialist .hx-label { font-weight: 500; font-size: 12.5px; }
+.hx .hx-t-2 { fill: var(--text-2); }
+.hx .hx-t-3 { fill: var(--text-3); }
+.hx .hx-t-done { fill: var(--agent-green); }
+.hx .hx-t-term { fill: #d7d8de; }
+.hx .hx-t-term-dim { fill: #9a9ba3; }
+.hx .hx-t-term-bad { fill: #ff7b72; }
+.hx .hx-t-term-ok { fill: #3fb950; }
+
+.hx-wall { fill: var(--panel-2); }
+.hx-bar, .hx-dock { fill: var(--panel); }
+.hx-rule { fill: none; stroke: var(--line-2); }
+.hx-frame { fill: none; stroke: var(--line-3); }
+.hx-status { stroke: var(--text-3); stroke-width: 5; stroke-linecap: round; }
+.hx-tile { fill: var(--panel-2); stroke: var(--line-2); }
+.hx-tile--on { stroke: var(--orange); }
+.hx-ico { fill: none; stroke: var(--c, var(--text-2)); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.hx-card { fill: var(--panel); stroke: var(--line-3); }
+.hx-card--done { stroke: var(--agent-green); }
+.hx-card--reply { stroke: var(--c); }
+.hx-specialist .hx-card { stroke-dasharray: 3 3; }
+.hx-specialist .hx-ico { stroke: var(--text-3); }
+.hx-term { fill: var(--term-bg); stroke: var(--term-line); }
+.hx-term-rule { stroke: var(--term-line); }
+.hx-term-dots { stroke: #34353b; stroke-width: 9; stroke-linecap: round; }
+.hx-term-dots--s { stroke-width: 6; }
+
+/* The agents take the gradient's colours in order, orange to violet. */
+.hx-c1 { --c: var(--orange); }
+.hx-c2 { --c: color-mix(in srgb, var(--orange) 75%, var(--violet)); }
+.hx-c3 { --c: color-mix(in srgb, var(--orange) 50%, var(--violet)); }
+.hx-c4 { --c: color-mix(in srgb, var(--orange) 25%, var(--violet)); }
+.hx-c5 { --c: var(--violet); }
+.hx-chip { fill: var(--c); fill-opacity: .14; }
+.hx-ring { fill: none; stroke: var(--c); stroke-width: 2.5; opacity: 0; }
+.hx-wire { fill: none; stroke: var(--line-3); stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 2 5; }
+.hx-pulse { fill: none; stroke: var(--c); stroke-width: 3; stroke-linecap: round; stroke-dasharray: .25 1; stroke-dashoffset: .25; opacity: 0; animation-timing-function: linear; }
+.hx-cover { fill: var(--term-bg); transform-box: fill-box; transform-origin: 100% 50%; transform: scaleX(0); }
+
+/* The loop, 12 seconds: message, ticket, design note, the terminal and its test, Done, the note back, then a reset. */
+.hx-live { animation: hx-reset 12s infinite; }
+.hx-msg { animation: hx-msg 12s infinite; }
+.hx-ticket { animation: hx-ticket 12s infinite; }
+.hx-note { animation: hx-note 12s infinite; }
+.hx-out2 { animation: hx-out2 12s infinite; }
+.hx-out5 { animation: hx-out5 12s infinite; }
+.hx-stamp { animation: hx-stamp 12s infinite; }
+.hx-reply { animation: hx-reply 12s infinite; }
+.hx-dot { fill: #3fb950; animation: hx-dot 12s infinite; }
+.hx-k1 { animation: hx-k1 12s infinite; }
+.hx-k3 { animation: hx-k3 12s infinite; }
+.hx-k4 { animation: hx-k4 12s infinite; }
+.hx-r1 { animation: hx-r1 12s infinite; }
+.hx-r2 { animation: hx-r2 12s infinite; }
+.hx-r3 { animation: hx-r3 12s infinite; }
+.hx-r4 { animation: hx-r4 12s infinite; }
+.hx-r5 { animation: hx-r5 12s infinite; }
+.hx-p1 { animation: hx-p1 12s infinite; }
+.hx-p2 { animation: hx-p2 12s infinite; }
+.hx-p3 { animation: hx-p3 12s infinite; }
+.hx-p4 { animation: hx-p4 12s infinite; }
+.hx-p5 { animation: hx-p5 12s infinite; }
+@keyframes hx-reset { 0%, 95% { opacity: 1; } 98%, 100% { opacity: 0; } }
+@keyframes hx-msg { 0%, 4% { opacity: 0; transform: translateY(-6px); } 7%, 100% { opacity: 1; transform: none; } }
+@keyframes hx-ticket { 0%, 15% { opacity: 0; transform: translateX(var(--hx-dx, -240px)); } 17% { opacity: 1; } 22%, 100% { opacity: 1; transform: none; } }
+@keyframes hx-note { 0%, 34% { opacity: 0; } 36%, 100% { opacity: 1; } }
+@keyframes hx-out2 { 0%, 48% { opacity: 0; } 48.5%, 100% { opacity: 1; } }
+@keyframes hx-out5 { 0%, 63% { opacity: 0; } 63.5%, 100% { opacity: 1; } }
+@keyframes hx-stamp { 0%, 72% { opacity: 0; transform: translateY(-6px); } 75%, 100% { opacity: 1; transform: none; } }
+@keyframes hx-reply { 0%, 86% { opacity: 0; transform: translateY(-6px); } 89%, 100% { opacity: 1; transform: none; } }
+@keyframes hx-dot { 0%, 47.9% { fill: #5a5b63; } 48%, 62.9% { fill: #ff7b72; } 63%, 100% { fill: #3fb950; } }
+@keyframes hx-k1 { 0%, 42% { transform: scaleX(1); animation-timing-function: steps(19, end); } 46%, 100% { transform: scaleX(0); } }
+@keyframes hx-k3 { 0%, 51% { transform: scaleX(1); animation-timing-function: steps(37, end); } 57%, 100% { transform: scaleX(0); } }
+@keyframes hx-k4 { 0%, 58% { transform: scaleX(1); animation-timing-function: steps(19, end); } 62%, 100% { transform: scaleX(0); } }
+@keyframes hx-r1 { 0%, 6%, 18%, 84%, 94%, 100% { opacity: 0; } 8%, 16%, 86%, 92% { opacity: 1; } }
+@keyframes hx-r2 { 0%, 20%, 32%, 100% { opacity: 0; } 22%, 30% { opacity: 1; } }
+@keyframes hx-r3 { 0%, 31%, 41%, 100% { opacity: 0; } 33%, 39% { opacity: 1; } }
+@keyframes hx-r4 { 0%, 40%, 67%, 100% { opacity: 0; } 42%, 65% { opacity: 1; } }
+@keyframes hx-r5 { 0%, 68%, 83%, 100% { opacity: 0; } 70%, 81% { opacity: 1; } }
+@keyframes hx-p1 { 0%, 15% { opacity: 0; stroke-dashoffset: .25; } 15.1% { opacity: 1; stroke-dashoffset: .25; } 22% { opacity: 1; stroke-dashoffset: -1; } 22.1%, 100% { opacity: 0; stroke-dashoffset: -1; } }
+@keyframes hx-p2 { 0%, 28% { opacity: 0; stroke-dashoffset: .25; } 28.1% { opacity: 1; stroke-dashoffset: .25; } 33% { opacity: 1; stroke-dashoffset: -1; } 33.1%, 100% { opacity: 0; stroke-dashoffset: -1; } }
+@keyframes hx-p3 { 0%, 37% { opacity: 0; stroke-dashoffset: .25; } 37.1% { opacity: 1; stroke-dashoffset: .25; } 42% { opacity: 1; stroke-dashoffset: -1; } 42.1%, 100% { opacity: 0; stroke-dashoffset: -1; } }
+@keyframes hx-p4 { 0%, 65% { opacity: 0; stroke-dashoffset: .25; } 65.1% { opacity: 1; stroke-dashoffset: .25; } 70% { opacity: 1; stroke-dashoffset: -1; } 70.1%, 100% { opacity: 0; stroke-dashoffset: -1; } }
+@keyframes hx-p5 { 0%, 79% { opacity: 0; stroke-dashoffset: .25; } 79.1% { opacity: 1; stroke-dashoffset: .25; } 85% { opacity: 1; stroke-dashoffset: -1; } 85.1%, 100% { opacity: 0; stroke-dashoffset: -1; } }
+@media (prefers-reduced-motion: reduce) {
+  .hx * { animation: none !important; }
+}
+/* ---------- end of the hero's ADE Computer ---------- */

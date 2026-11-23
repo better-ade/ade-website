@@ -29,6 +29,12 @@ The public website for ADE, served at https://ade.ardata.tech. ADE itself lives 
     (`site/_data/releases.yml`) match; each repo's verification command matches its CI; and anything not merged
     yet carries a **Coming** label (the `NOT_MERGED` list), and the home page's Coming
     list names every item on it.
+  - `siteHero`: the home page hero's drawing of an ADE Computer with the agents at work
+    (`site/_includes/hero-computer.html`, inline SVG moved by CSS keyframes). It has an
+    accessible name and comes after the headline and buttons; its role labels are the
+    orchestrator, ade-method's core roles and two ade-agent-registry specialists; it stands
+    still on its last frame under reduced motion; its text is readable in both themes; it
+    uses no script, image or address, and stays a few KB as served.
   - `siteCsp`, `siteThemeContrast`, `fetchInstallers`: the content security policy on
     every page, the light/dark contrast rule, and the installer copy script.
 - `scripts/fetch-installers.sh`: copies the ADE app's `install.sh` and `install.ps1`

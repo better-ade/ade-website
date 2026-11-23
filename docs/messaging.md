@@ -48,6 +48,18 @@ Alternates:
   and, on Docker Desktop, services on your machine that listen on localhost. Say this wherever "isolated" is said.
 - **In the cloud.** Coming. Name no provider and promise no service: it is a computer you start, not one we run.
 - **Never on the site:** a link to its repo (private), a command that installs or starts it, a date.
+- **The hero drawing.** Under the headline and buttons: an ADE Computer desktop of our own drawing (a top bar, a
+  dock with plain icons for a code editor, a terminal, a database tool and a browser, and a terminal window), with
+  the agents at work on it. No logo, mascot or style of any other product. Its words are copy:
+  - Role labels, exactly: **Orchestrator**, **Product**, **Architect**, **Developer**, **Reviewer** (ade-method's
+    four core roles and the orchestrator), and two specialists drawn dimmer, **Support** and **Sysadmin**, with
+    "loaded when needed" (they come from ade-agent-registry).
+  - The loop, about 12 seconds: the message "can't log in" reaches the Orchestrator; a ticket, "Login fails after
+    reset", goes to Product; the Architect adds "design note ✓"; the Developer's terminal runs `bash tests/run.sh`,
+    shows "not ok login after reset", then "ok login after reset" and "ok all tests pass", and the test dot turns
+    from red to green; the Reviewer shows "tests pass ✓ Done"; the note "Done. Tests pass." returns to the
+    Orchestrator.
+  - It is an illustration of the method, not a recording: no customer, no person, no real project in it.
 
 ## What works today, in plain words
 
