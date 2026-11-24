@@ -3,6 +3,13 @@
 The public website for ADE, served at https://ade.ardata.tech. ADE itself lives in the
 [better-ade](https://github.com/better-ade) repos.
 
+Where it fits: [ade](https://github.com/better-ade/ade-cli) is the command,
+[ade-brain](https://github.com/better-ade/ade-brain) the hub, [ade-method](https://github.com/better-ade/ade-method)
+the rules, [ade-skills](https://github.com/better-ade/ade-skills) the skills,
+[ade-secrets](https://github.com/better-ade/ade-secrets) the keys, [ade-terminal](https://github.com/better-ade/ade-terminal)
+the desktop app, and ade-computer (a private repo, so not linked here or on the site) an isolated desktop to run it
+in. This repo is the site that describes them.
+
 ## Layout
 
 - `docs/messaging.md`: the source of truth for every word on the site (the story,
