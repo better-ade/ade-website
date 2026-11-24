@@ -28,23 +28,26 @@ const OLDER = [
   "/guide/scratchpad/", "/guide/settings/", "/guide/shortcuts/", "/guide/sync/", "/guide/terminal/", "/guide/tokens/", "/guide/troubleshooting/",
 ];
 
+/** Where /repos/ now leads: the list of what ships, on Get started. */
+const SHIPS = "/get-started/#what-ships-with-ade";
+
 describe("every page", () => {
   it("the site is three pages: the home page, Get started and the technical paper", () => {
     expect(CONTENT.map((p) => urlOf(p.path)).sort()).toEqual(["/", "/get-started/", "/paper/"]);
   });
 
-  it("the guide, the Repos page and the ADE app page are gone, and each of their addresses redirects to the home page (Repos to its list of what ships)", () => {
+  it("the guide, the Repos page and the ADE app page are gone, and each of their addresses redirects to the home page (Repos to Get started's list of what ships)", () => {
     const moved = Object.fromEntries(
       PAGES.filter((p) => isRedirect(p.doc)).map(({ path, doc }) => [
         urlOf(path),
         /url=(\S+)/.exec(doc.querySelector('meta[http-equiv="refresh"]')!.getAttribute("content")!)![1],
       ]),
     );
-    for (const u of REMOVED) expect(moved[u], u).toBe(u === "/repos/" ? "/#ships" : "/");
-    expect(parse(readBuilt("index.html")).getElementById("ships"), "the section /repos/ now leads to").not.toBeNull();
+    for (const u of REMOVED) expect(moved[u], u).toBe(u === "/repos/" ? SHIPS : "/");
+    expect(parse(readBuilt("get-started/index.html")).getElementById(SHIPS.split("#")[1]), "the section /repos/ now leads to").not.toBeNull();
     // Every older address that pointed at one of them now points at the home page too: none is left behind them.
     for (const u of OLDER) expect(moved[u], u).toBe("/");
-    for (const [from, to] of Object.entries(moved)) expect(["/", "/#ships", "/get-started/"], from).toContain(to);
+    for (const [from, to] of Object.entries(moved)) expect(["/", SHIPS, "/get-started/"], from).toContain(to);
     expect(moved["/training/"]).toBe("/get-started/");
     // The link a visitor is shown, when the refresh does not fire, goes to the same place.
     for (const { path, doc } of PAGES.filter((p) => isRedirect(p.doc))) {
@@ -141,15 +144,18 @@ describe("the home page leads with ADE Computer", () => {
   const home = CONTENT.find((p) => p.path === "index.html")!.doc;
   const hero = home.querySelector("main section")!;
 
-  it("the first section names ADE Computer in the page's one h1 block, and what it is", () => {
+  it("the first section names ADE Computer in the page's one h1 block, and the ADE Computer section says what it is", () => {
     expect(hero.querySelector("h1")).not.toBeNull();
     const text = (hero.textContent ?? "").replace(/\s+/g, " ");
     expect(text).toContain("ADE Computer");
-    for (const word of ["Ubuntu desktop", "your own Docker"]) expect(text, word).toContain(word);
-    // The hero stays short; what is inside it is said in the ADE Computer section right after.
+    // The hero stays one line; the ADE Computer section says what it is in one more.
     const computer = (home.querySelector("#computer")!.textContent ?? "").replace(/\s+/g, " ");
+    for (const word of ["Ubuntu desktop", "your own Docker"]) expect(computer, word).toContain(word);
+    // What is inside it is on Get started.
+    const start = CONTENT.find((p) => p.path === "get-started/index.html")!.doc;
+    const inside = [...start.querySelectorAll("main li")].map((li) => (li.textContent ?? "").replace(/\s+/g, " ")).find((t) => /ADE Computer/.test(t))!;
     for (const word of ["Ubuntu desktop", "VS Code", "terminal", "database tools", "per project or per task", "your own Docker"]) {
-      expect(computer, word).toContain(word);
+      expect(inside, word).toContain(word);
     }
   });
 
@@ -182,11 +188,11 @@ describe("the home page leads with ADE Computer", () => {
 });
 
 describe("keys", () => {
-  // The keys guide is gone with the guide. What the home page still says about keys is held here.
-  const home = CONTENT.find((p) => p.path === "index.html")!.doc;
-  const card = [...home.querySelectorAll("#today .orx-card")].find((c) => c.querySelector(".feat-eyebrow")?.textContent === "Keys")!;
+  // The keys guide is gone with the guide. What Get started says about keys is held here.
+  const start = CONTENT.find((p) => p.path === "get-started/index.html")!.doc;
+  const card = [...start.querySelectorAll("main li")].find((li) => /hidden prompt/.test(li.textContent ?? ""))!;
 
-  it("the home page names the two places a key is typed, and that it is never in a chat, a file or a command line", () => {
+  it("Get started names the two places a key is typed, and that it is never in a chat, a file or a command line", () => {
     expect(card).toBeTruthy();
     const codes = [...card.querySelectorAll("code")].map((c) => c.textContent ?? "");
     for (const c of ["ade setup", "bin/keys set <name>"]) expect(codes, c).toContain(c);

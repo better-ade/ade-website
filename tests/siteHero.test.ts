@@ -46,8 +46,11 @@ describe("the hero is two columns on a wide screen", () => {
     const copy = grid.children[0];
     expect(copy.querySelector("h1")).not.toBeNull();
     expect(copy.querySelectorAll("a.btn").length).toBe(2);
-    expect(copy.querySelectorAll(".hero-meta").length).toBe(2);
+    expect(copy.querySelectorAll(".hero-meta").length).toBe(1);
     expect(copy.querySelector(".hero-kicker")).not.toBeNull();
+    // One line saying what ADE is, then the install command; nothing more in words.
+    expect(copy.querySelectorAll("p:not(.hero-kicker):not(.hero-meta)").length).toBe(0);
+    expect((copy.querySelector(".hero-install code")!.textContent ?? "").trim()).toMatch(/^curl -fsSL \S+\/install\.sh \| bash$/);
     expect(grid.children[1].querySelector("svg.hx")).not.toBeNull();
   });
 
@@ -125,7 +128,7 @@ describe("the hero's ADE Computer, with the agents at work", () => {
     expect(labels(".hx-label").length).toBe(5);
   });
 
-  it("leaves the ticket card, the specialists and the services list to the section under it", () => {
+  it("leaves the ticket card, the specialists and the services list to Get started", () => {
     expect(svg.querySelectorAll(".hx-specialist, .hx-models, .hx-soon, .hx-coming-pill").length).toBe(0);
     expect(text).not.toMatch(/Support|Sysadmin|loaded when needed|Runs on|Coming|GLM|Muse|Kimi|ChatGPT|design note/);
     // The ticket is a small tag in Product's colour, in Product's moment of the loop; no card titled Ticket.
@@ -259,15 +262,16 @@ describe("the hero's ADE Computer, with the agents at work", () => {
     }
   });
 
-  it("names on each role the service it runs on, the same as the section under the hero, and only ones ADE runs today", () => {
+  it("names on each role the service it runs on, the same as AI services per role on Get started, and only ones ADE runs today", () => {
     const cli = readRepo("cli", "ade");
     const live = /^LIVE_PROVIDERS="([^"]*)"/m.exec(cli)![1].split(/\s+/);
     const ID: Record<string, string> = { Claude: "anthropic", DeepSeek: "deepseek", Gemini: "gemini" };
     const roles = Object.fromEntries(agents.map((g) => [g.querySelector(".hx-label")!.textContent, g.querySelector(".hx-model")!.textContent]));
     expect(roles).toEqual({ Orchestrator: "Claude", Product: "Claude", Architect: "Claude", Developer: "Gemini", Reviewer: "DeepSeek" });
     for (const m of Object.values(roles)) expect(live, m!).toContain(ID[m!]);
+    const start = parse(readBuilt("get-started/index.html"));
     const cards = Object.fromEntries(
-      [...home.querySelectorAll("#services .role-card[data-role]")].map((c) => [c.querySelector("h3")!.textContent, c.querySelector(".role-service b")!.textContent]),
+      [...start.querySelectorAll("#services [data-role]")].map((c) => [cap(c.getAttribute("data-role")!), c.querySelector("b")!.textContent]),
     );
     expect(roles).toEqual(cards);
     // It is the small second line of the badge, and on a phone it goes.

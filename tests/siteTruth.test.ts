@@ -144,10 +144,10 @@ describe("commands and scripts the pages name exist on main", () => {
   });
 
   it("the specialists and plugins named are the ones in ade-agent-registry and ade-skills", () => {
-    const home = page("index.html");
     const roles: { name: string }[] = JSON.parse(readRepo("registry", "registry.json")).roles;
     const plugins: { name: string }[] = JSON.parse(readRepo("skills", ".claude-plugin/marketplace.json")).plugins;
-    const named = [...home.querySelectorAll("#who code")].map((c) => c.textContent);
+    // Get started's step 1 names them (the home page's "Four ways in" section is gone).
+    const named = [...page("get-started/index.html").querySelectorAll("main li code")].map((c) => c.textContent);
     expect(roles.map((r) => r.name)).toEqual(expect.arrayContaining(["forward-deployed", "support"]));
     for (const n of ["forward-deployed", "support"]) expect(named).toContain(n);
     expect(plugins.map((p) => p.name)).toContain("fde");
@@ -156,7 +156,8 @@ describe("commands and scripts the pages name exist on main", () => {
 });
 
 describe("numbers and versions", () => {
-  const home = page("index.html").body.textContent ?? "";
+  // The home page says each step in one line; the counts are on Get started.
+  const home = (page("get-started/index.html").body.textContent ?? "").replace(/\s+/g, " ");
 
   it("the core roles are ade-method's, by count and by name", () => {
     const core: { name: string }[] = JSON.parse(readRepo("method", "ade.json")).core_roles;
@@ -183,12 +184,12 @@ describe("numbers and versions", () => {
     expect(page("get-started/index.html").body.textContent).toContain(`v${version}`);
   });
 
-  it("the home page gives each repo the verification command its CI runs", () => {
-    // The Repos page, with its table, is gone. The home page's "Isn't this just prompts?" answer names the same
-    // commands: each `command` in code, followed by "in" and the repos that are held to it.
-    const answer = [...page("index.html").querySelectorAll("#faq details")].find((d) => /just prompts/.test(d.querySelector("summary")!.textContent ?? ""))!;
+  it("Get started gives each repo the verification command its CI runs", () => {
+    // The Repos page, with its table, is gone, and so is the home page's FAQ. Get started's "Check it yourself" names
+    // the same commands: each `command` in code, followed by "in" and the repos that are held to it.
+    const answer = [...page("get-started/index.html").querySelectorAll("main li")].find((li) => /Check it yourself/.test(li.textContent ?? ""))!;
     const claimed: Record<string, string> = {};
-    for (const code of answer.querySelectorAll("p code")) {
+    for (const code of answer.querySelectorAll("code")) {
       let after = "";
       for (let n = code.nextSibling; n && n.nodeName !== "CODE"; n = n.nextSibling) after += n.textContent ?? "";
       if (!/^\s+in\s/.test(after)) continue;
@@ -203,10 +204,10 @@ describe("numbers and versions", () => {
     }
   });
 
-  it("the hero's terminal output is ade-cli's own suite list", () => {
-    const shown = [...page("index.html").querySelectorAll(".term")].map((t) => t.textContent ?? "").join("\n");
+  it("any terminal output a page shows names only ade-cli's own suites", () => {
+    // The home page's "Why ADE" section, with its real run, is gone; the check stays for any page that shows one.
+    const shown = PAGES.flatMap(({ doc }) => [...doc.querySelectorAll(".term")].map((t) => t.textContent ?? "")).join("\n");
     const suites = [...shown.matchAll(/ok\s+(test_[a-z_]+\.sh)/g)].map((m) => m[1]);
-    expect(suites.length).toBeGreaterThan(0);
     for (const s of suites) expect(existsSync(resolve(REPOS.cli, "tests", s)), s).toBe(true);
   });
 });
@@ -300,8 +301,8 @@ describe("what comes later is one quiet line, not a list of labels", () => {
       // Nothing that is next is in it: those keep their own label where they are named.
       for (const [name, re] of NOT_MERGED) expect(re.test(text), `${path}: ${name}`).toBe(false);
     }
-    // On the home page it sits in the services section, not in a section of its own.
-    expect(page("index.html").querySelector("#services .later")).not.toBeNull();
+    // On the home page it sits in What works today, not in a section of its own.
+    expect(page("index.html").querySelector("#today .later")).not.toBeNull();
     expect(page("get-started/index.html").querySelector(".later")).toBeNull();
   });
 });

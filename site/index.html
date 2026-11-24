@@ -2,7 +2,7 @@
 layout: default
 body_class: home
 home_title: Your AI delivery team, in a computer you control
-description: Your AI delivery team, in a computer you control. A separate Ubuntu desktop for each project, with your AI agents inside. Watch from your browser or your phone. Work counts as done only when the tests pass.
+description: Your AI delivery team, in a computer you control. A separate Ubuntu desktop for each project, with your AI agents inside. Work counts as done only when the tests pass.
 ---
 {% assign img = '/assets/img/' | relative_url %}
 <section class="hero">
@@ -11,81 +11,14 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
       <div class="hero-mark"><img src="{{ img }}logo.svg" width="76" height="76" alt=""></div>
       <p class="hero-kicker">ADE Computer &middot; early preview</p>
       <h1>Your AI delivery team, <span class="grad-text">in a computer you&nbsp;control.</span></h1>
-      <p class="sub">A separate Ubuntu desktop for each project, with your AI agents inside. Watch from your browser or your phone. Work counts as done only when the tests pass.</p>
+      <div class="dl-install hero-install"><code>{{ site.cli_install }}</code></div>
       <div class="hero-cta">
         <a class="btn btn-primary" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview <span class="arrow" aria-hidden="true">&rarr;</span></a>
         <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Get started with ADE</a>
       </div>
       <p class="hero-meta"><a href="{{ site.preview_url }}">or open a GitHub issue</a></p>
-      <p class="hero-meta"><span>On your own Docker today, on macOS or Linux</span></p>
     </div>
     {% include hero-computer.html %}
-  </div>
-</section>
-
-<section class="section tint" id="services">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">AI services</span>
-      <h2>Mix AI services per role.</h2>
-      <p>Each role runs on the service you pick. <code>ade roles</code> shows which.</p>
-    </div>
-    <p class="roles-note"><span class="tag-note">Example mix</span> With only Claude signed in, the builder runs on Claude Opus and the reviewer on Claude Sonnet.</p>
-    <div class="roles">
-      <article class="role-card hx-c1" data-role="orchestrator">
-        <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-orch" x="16" y="16" width="7" height="7"/></svg>
-        <h3>Orchestrator</h3>
-        <p class="role-service">Runs on <b>Claude</b></p>
-        <p>Writes the ticket and dispatches it.</p>
-      </article>
-      <article class="role-card hx-c2" data-role="product">
-        <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-product" x="16" y="16" width="7" height="7"/></svg>
-        <h3>Product</h3>
-        <p class="role-service">Runs on <b>Claude</b></p>
-        <p>Turns requests into small stories, each with a risk level.</p>
-      </article>
-      <article class="role-card hx-c3" data-role="architect">
-        <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-architect" x="16" y="16" width="7" height="7"/></svg>
-        <h3>Architect</h3>
-        <p class="role-service">Runs on <b>Claude</b></p>
-        <p>Owns the design and the verification command.</p>
-      </article>
-      <article class="role-card hx-c4" data-role="developer">
-        <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-developer" x="16" y="16" width="7" height="7"/></svg>
-        <h3>Developer</h3>
-        <p class="role-service">Runs on <b>Gemini</b></p>
-        <p>Builds one story, test-first.</p>
-      </article>
-      <article class="role-card hx-c5" data-role="reviewer">
-        <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-reviewer" x="16" y="16" width="7" height="7"/></svg>
-        <h3>Reviewer</h3>
-        <p class="role-service">Runs on <b>DeepSeek</b></p>
-        <p>Runs the verification command. Never edits code.</p>
-      </article>
-    </div>
-    <div class="roles-more">
-      <div class="specialists">
-        <article class="role-card role-card--specialist">
-          <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/></svg>
-          <div><h3>Support</h3><p>Specialist, loaded when needed</p></div>
-        </article>
-        <article class="role-card role-card--specialist">
-          <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/></svg>
-          <div><h3>Sysadmin</h3><p>Specialist, loaded when needed</p></div>
-        </article>
-      </div>
-      <div class="svc">
-        <div class="svc-row">
-          <span class="svc-label">Available today</span>
-          <ul class="svc-now"><li>Claude</li><li>DeepSeek</li><li>Gemini</li></ul>
-        </div>
-        <div class="svc-row">
-          <span class="svc-label">Not yet</span>
-          <ul class="svc-soon"><li><b>GLM</b> <span class="coming">Coming</span></li><li><b>Muse</b> <span class="coming">Coming</span></li></ul>
-        </div>
-      </div>
-    </div>
-    <p class="later">Later: Kimi and ChatGPT as services, ADE Computer in the cloud, keys per hub (<code>ade key</code>, <code>ade vault</code>), the <code>codesec</code> plugin, and Telegram commands for status and progress.</p>
   </div>
 </section>
 
@@ -94,248 +27,51 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <div class="section-head">
       <span class="kicker">A day with ADE</span>
       <h2>One engineer, four steps.</h2>
-      <p>A fintech client, an agency project, a product of their own.</p>
     </div>
     <div class="orx-cards orx-cards--two">
       <article class="orx-card" data-story="you">
         <span class="feat-eyebrow">Step 1 &middot; You</span>
-        <h3>Say who you are.</h3>
-        <p>The hub is built around your job.</p>
-        <ul class="checks">
-          <li><strong>Persona:</strong> one of 13 personas, like <span data-persona>Staff Software Engineer</span>, <span data-persona>Tech Lead</span> or <span data-persona>Fractional CTO</span>, set by <code>ade hub new</code> with your client and name.</li>
-          <li><strong>Roles:</strong> 4 core roles from ade-method: product, architect, developer, reviewer. 10 specialists, like support and sysadmin, load when needed.</li>
-          <li><strong>Yours:</strong> you approve high-risk work. The verification command decides Done.</li>
-        </ul>
+        <p>Pick your persona; ADE&rsquo;s roles plan, build and review.</p>
       </article>
       <article class="orx-card" data-story="context">
         <span class="feat-eyebrow">Step 2 &middot; Your context, tools and access</span>
-        <h3>Context, tools, access.</h3>
-        <p>On Claude or each role&rsquo;s service, starting where the last session stopped.</p>
-        <ul class="checks">
-          <li><strong>Sign-ins:</strong> <code>ade setup</code> signs you in to Claude and GitHub.</li>
-          <li><strong>Memory:</strong> each project&rsquo;s state, decisions and journal.</li>
-          <li><strong>Access:</strong> <code>ade connect &lt;service&gt;</code>: you sign in, the project keeps names only, every change asks.</li>
-        </ul>
-        <div class="svc">
-          <div class="svc-row">
-            <span class="svc-label">Connect today</span>
-            <ul class="svc-now"><li data-tool="clickup">ClickUp</li><li data-tool="jira">Jira</li><li data-tool="linear">Linear</li></ul>
-          </div>
-          <div class="svc-row">
-            <span class="svc-label">Not yet</span>
-            <ul class="svc-soon"><li data-tool="github"><b>GitHub</b> <span class="coming">Coming</span></li><li data-tool="gmail"><b>Gmail</b> <span class="coming">Coming</span></li><li data-tool="slack"><b>Slack</b> <span class="coming">Coming</span></li><li data-tool="outlook"><b>Outlook</b> <span class="coming">Coming</span></li><li data-tool="teams"><b>Microsoft Teams</b> <span class="coming">Coming</span></li><li data-tool="discord"><b>Discord</b> <span class="coming">Coming</span></li></ul>
-          </div>
-        </div>
+        <p>Sign in once; every change to a tool asks first.</p>
       </article>
       <article class="orx-card" data-story="projects">
         <span class="feat-eyebrow">Step 3 &middot; Projects and customers</span>
-        <h3>A focus agent per project.</h3>
-        <p>Its own agent and context per project, so you run several tasks at once.</p>
-        <ul class="checks">
-          <li><code>ade project add &lt;path or git address&gt;</code>: a repo becomes a project folder.</li>
-          <li><code>ade work &lt;folder&gt;</code>: its focus agent, seeing only that folder and its repos.</li>
-          <li><code>ade dispatch</code>: ready tickets to focus builders, as many as you allow.</li>
-          <li><code>ade hub new</code> per customer, each running only the models it approved.</li>
-        </ul>
+        <p>A focus agent per project or customer, several at once.</p>
       </article>
       <article class="orx-card" data-story="control">
         <span class="feat-eyebrow">Step 4 &middot; Run it from the terminal or Telegram</span>
-        <h3>At your desk or phone.</h3>
-        <p>The same team, wherever you are.</p>
-        <ul class="checks">
-          <li><strong>Terminal:</strong> <code>ade ui</code>: the orchestrator plus a tab per focus agent.</li>
-          <li><strong>Telegram:</strong> your own bot, locked to you, for status, messages and screenshots of proof.</li>
-          <li><strong>Phone:</strong> <code>ade web --tailnet</code>, a read-only page.</li>
-          <li><strong>Approvals</strong> at your terminal today; approval buttons in Telegram <span class="coming">Coming</span></li>
-        </ul>
+        <p><code>ade ui</code> at your desk, your own Telegram bot on your phone.</p>
       </article>
     </div>
   </div>
 </section>
 
-<section class="section" id="computer">
+<section class="section tint" id="computer">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">ADE Computer</span>
       <h2>One ADE Computer per engagement.</h2>
-      <p data-story="computer">An ADE Computer is one machine: a mini PC, a compute instance or a container on your own Docker. For dedicated work, or several contracts in their own hubs.</p>
-      <p>Today: an Ubuntu desktop with ADE, VS Code, a terminal and database tools, per project or per task.</p>
-    </div>
-    <div class="orx-cards orx-cards--two">
-      <article class="orx-card">
-        <span class="feat-eyebrow">What is inside</span>
-        <h3>Already set up.</h3>
-        <ul class="checks">
-          <li><strong>Ubuntu 24.04 desktop</strong> in your browser, local only, with its own password.</li>
-          <li><strong>ADE and Claude Code</strong>, git, node, bun, python3, tmux and a browser agents can drive.</li>
-          <li><strong>VS Code, a terminal, DBeaver</strong>, DB Browser for SQLite, <code>psql</code>, <code>mysql</code>, <code>sqlite3</code>.</li>
-          <li><strong>The guide first:</strong> the first terminal runs <code>ade setup</code>. No sign-in ships in the image.</li>
-        </ul>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">How you use it</span>
-        <h3>Per project or task.</h3>
-        <ul class="checks">
-          <li><strong>Per project:</strong> named, and kept across restarts.</li>
-          <li><strong>Per task:</strong> labelled with its ticket, or thrown away with its home on stop.</li>
-          <li><strong>Several at once</strong>, each with its own home, password, address and network.</li>
-          <li><strong>Save a state</strong> as a local image to start new ones.</li>
-          <li><strong>Mini PC or compute instance</strong> (Ubuntu 24.04): the one-line install, then <code>ade setup</code>.</li>
-        </ul>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">What it can reach</span>
-        <h3>Honest about the wall.</h3>
-        <ul class="checks">
-          <li><strong>Not given</strong> your home folder, keys or Docker socket; a project folder only when you name it.</li>
-          <li><strong>A container, not a separate machine:</strong> it reaches the internet and, on Docker Desktop, your localhost services.</li>
-          <li><strong>Agents inside have full rights.</strong> Give it nothing you would not give them.</li>
-        </ul>
-      </article>
-      <article class="orx-card orx-card--check">
-        <span class="feat-eyebrow">Where it stands</span>
-        <h3>Early preview.</h3>
-        <p>On your own Docker, macOS or Linux. The image and launcher are not public yet.</p>
-        <a class="more" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview <span aria-hidden="true">&rarr;</span></a>
-      </article>
+      <p data-story="computer">An ADE Computer is one Ubuntu desktop: a mini PC, a compute instance or a container on your own Docker, for dedicated work or several contracts.</p>
+      <p><a class="more" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview <span aria-hidden="true">&rarr;</span></a></p>
     </div>
   </div>
 </section>
 
-<section class="section tint" id="why">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Why ADE</span>
-      <h2>Speed was never the hard part. <span class="grad-text">Trust is.</span></h2>
-    </div>
-    <div class="feat-grid">
-      <article class="feat-card text">
-        <span class="feat-eyebrow">The problem</span>
-        <h3>Fast agents, no trust.</h3>
-        <p>Teams redo agent work. Each session starts from zero, and the agent grades its own homework.</p>
-      </article>
-      <article class="feat-card text">
-        <span class="feat-eyebrow">The promise</span>
-        <h3>A real engineering team.</h3>
-        <p>ADE plans, builds, reviews and remembers. Nothing is done until the tests say so.</p>
-      </article>
-    </div>
-    <figure class="hero-visual hero-visual--term">
-      <div class="window">
-        <div class="window-inner">
-          <div class="shot-bar"><i></i><i></i><i></i><span>ade-cli &middot; the verification command</span></div>
-          <pre class="term" aria-label="Terminal output of bash tests/run.sh in ade-cli: thirteen test suites, each ok, then exit status 0"><code><span class="term-dim">$</span> bash tests/run.sh; echo $?
-<span class="term-dim">bash 5.3.20(1)-release (/opt/homebrew/bin/bash)</span>
-<span class="term-ok">ok</span>    test_ade.sh
-<span class="term-ok">ok</span>    test_claude.sh
-<span class="term-ok">ok</span>    test_clean.sh
-<span class="term-ok">ok</span>    test_files.sh
-<span class="term-ok">ok</span>    test_hostile.sh
-<span class="term-ok">ok</span>    test_hub.sh
-<span class="term-ok">ok</span>    test_orchestrator.sh
-<span class="term-ok">ok</span>    test_releases.sh
-<span class="term-ok">ok</span>    test_restore.sh
-<span class="term-ok">ok</span>    test_setup.sh
-<span class="term-ok">ok</span>    test_skills.sh
-<span class="term-ok">ok</span>    test_ui.sh
-<span class="term-ok">ok</span>    test_update.sh
-0</code></pre>
-        </div>
-      </div>
-      <figcaption class="term-caption">Real output of the <code>ade</code> command&rsquo;s verification command, <code>main</code> at 5daf9ba, 2026-11-22. Every ADE repo has one; CI runs it on every pull request.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="section tint" id="how-it-works">
+<section class="section" id="how-it-works">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">How it works</span>
       <h2>Ticket to Done.</h2>
-      <p>The whole loop. Red at any gate goes back to the builder.</p>
     </div>
-
-    <figure class="hl loop">
-      <svg class="hl-svg hl-svg--wide" viewBox="0 0 1000 250" role="img" aria-labelledby="loop-w-title loop-w-desc">
-        <title id="loop-w-title">How a ticket becomes Done</title>
-        <desc id="loop-w-desc">A ticket with a risk level goes to a builder, who works test-first. Review follows, scaled to the risk. Then the reviewer runs the verification command. Green is Done. A material flaw in review, or a red verification command, sends the work back to the builder.</desc>
-        <defs>
-          <linearGradient id="loop-w-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" class="hl-stop1"/><stop offset="1" class="hl-stop2"/></linearGradient>
-          <marker id="loop-w-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="hl-arrow" d="M0 0L8 4L0 8z"/></marker>
-        </defs>
-        <g class="hl-edges">
-          <path class="hl-edge" d="M180 66H230" marker-end="url(#loop-w-arrow)"/>
-          <path class="hl-edge" d="M390 66H440" marker-end="url(#loop-w-arrow)"/>
-          <path class="hl-edge" d="M600 66H650" marker-end="url(#loop-w-arrow)"/>
-          <path class="hl-edge" d="M810 66H860" marker-end="url(#loop-w-arrow)"/>
-          <path class="hl-edge hl-edge--next" d="M520 102C520 160 310 160 310 106" marker-end="url(#loop-w-arrow)"/>
-          <path class="hl-edge hl-edge--next" d="M730 102C730 220 310 220 310 106" marker-end="url(#loop-w-arrow)"/>
-        </g>
-        <g class="hl-pulses" stroke="url(#loop-w-g)">
-          <path class="hl-pulse hl-p1" pathLength="100" d="M180 66H230"/>
-          <path class="hl-pulse hl-p2" pathLength="100" d="M390 66H440"/>
-          <path class="hl-pulse hl-p3" pathLength="100" d="M600 66H650"/>
-          <path class="hl-pulse hl-p4" pathLength="100" d="M810 66H860"/>
-        </g>
-        <g class="hl-node hl-node--you"><rect class="hl-box" x="20" y="30" width="160" height="72" rx="12"/><g class="hl-lit hl-l0"><rect class="hl-glow" x="20" y="30" width="160" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="20" y="30" width="160" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="100" y="61">Ticket</text><text class="hl-s" x="100" y="82">story + risk level</text></g>
-        <g class="hl-node"><rect class="hl-box" x="230" y="30" width="160" height="72" rx="12"/><g class="hl-lit hl-l1"><rect class="hl-glow" x="230" y="30" width="160" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="230" y="30" width="160" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="310" y="61">Build</text><text class="hl-s" x="310" y="82">test-first</text></g>
-        <g class="hl-node"><rect class="hl-box" x="440" y="30" width="160" height="72" rx="12"/><g class="hl-lit hl-l2"><rect class="hl-glow" x="440" y="30" width="160" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="440" y="30" width="160" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="520" y="61">Review</text><text class="hl-s" x="520" y="82">scaled to risk</text></g>
-        <g class="hl-node"><rect class="hl-box" x="650" y="30" width="160" height="72" rx="12"/><g class="hl-lit hl-l3"><rect class="hl-glow" x="650" y="30" width="160" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="650" y="30" width="160" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="730" y="61">Verified</text><text class="hl-s" x="730" y="82">the command passes</text></g>
-        <g class="hl-node hl-node--ade"><rect class="hl-box" x="860" y="30" width="120" height="72" rx="12"/><g class="hl-lit hl-l4"><rect class="hl-glow" x="860" y="30" width="120" height="72" rx="12" fill="url(#loop-w-g)"/><rect class="hl-ring" x="860" y="30" width="120" height="72" rx="12" stroke="url(#loop-w-g)"/></g><text class="hl-t" x="920" y="61">Done</text><text class="hl-s" x="920" y="82">journaled</text></g>
-        <text class="hl-s" x="612" y="146">material flaw</text>
-        <text class="hl-s" x="520" y="214">red: back to the builder</text>
-      </svg>
-      <svg class="hl-svg hl-svg--tall" viewBox="0 0 360 530" role="img" aria-labelledby="loop-t-title loop-t-desc">
-        <title id="loop-t-title">How a ticket becomes Done</title>
-        <desc id="loop-t-desc">A ticket with a risk level goes to a builder, who works test-first. Review follows, scaled to the risk. Then the reviewer runs the verification command. Green is Done. A material flaw in review, or a red verification command, sends the work back to the builder.</desc>
-        <defs>
-          <linearGradient id="loop-t-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="360" y2="530"><stop offset="0" class="hl-stop1"/><stop offset="1" class="hl-stop2"/></linearGradient>
-          <marker id="loop-t-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path class="hl-arrow" d="M0 0L8 4L0 8z"/></marker>
-        </defs>
-        <g class="hl-edges">
-          <path class="hl-edge" d="M180 74V120" marker-end="url(#loop-t-arrow)"/>
-          <path class="hl-edge" d="M180 184V230" marker-end="url(#loop-t-arrow)"/>
-          <path class="hl-edge" d="M180 294V340" marker-end="url(#loop-t-arrow)"/>
-          <path class="hl-edge" d="M180 404V450" marker-end="url(#loop-t-arrow)"/>
-          <path class="hl-edge hl-edge--next" d="M60 262C22 262 22 152 56 152" marker-end="url(#loop-t-arrow)"/>
-          <path class="hl-edge hl-edge--next" d="M300 372C340 372 340 152 304 152" marker-end="url(#loop-t-arrow)"/>
-        </g>
-        <g class="hl-pulses" stroke="url(#loop-t-g)">
-          <path class="hl-pulse hl-p1" pathLength="100" d="M180 74V120"/>
-          <path class="hl-pulse hl-p2" pathLength="100" d="M180 184V230"/>
-          <path class="hl-pulse hl-p3" pathLength="100" d="M180 294V340"/>
-          <path class="hl-pulse hl-p4" pathLength="100" d="M180 404V450"/>
-        </g>
-        <g class="hl-node hl-node--you"><rect class="hl-box" x="60" y="10" width="240" height="64" rx="12"/><g class="hl-lit hl-l0"><rect class="hl-glow" x="60" y="10" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="10" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="38">Ticket</text><text class="hl-s" x="180" y="57">story + risk level</text></g>
-        <g class="hl-node"><rect class="hl-box" x="60" y="120" width="240" height="64" rx="12"/><g class="hl-lit hl-l1"><rect class="hl-glow" x="60" y="120" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="120" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="148">Build</text><text class="hl-s" x="180" y="167">test-first</text></g>
-        <g class="hl-node"><rect class="hl-box" x="60" y="230" width="240" height="64" rx="12"/><g class="hl-lit hl-l2"><rect class="hl-glow" x="60" y="230" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="230" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="258">Review</text><text class="hl-s" x="180" y="277">scaled to risk</text></g>
-        <g class="hl-node"><rect class="hl-box" x="60" y="340" width="240" height="64" rx="12"/><g class="hl-lit hl-l3"><rect class="hl-glow" x="60" y="340" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="340" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="368">Verified</text><text class="hl-s" x="180" y="387">the command passes</text></g>
-        <g class="hl-node hl-node--ade"><rect class="hl-box" x="60" y="450" width="240" height="64" rx="12"/><g class="hl-lit hl-l4"><rect class="hl-glow" x="60" y="450" width="240" height="64" rx="12" fill="url(#loop-t-g)"/><rect class="hl-ring" x="60" y="450" width="240" height="64" rx="12" stroke="url(#loop-t-g)"/></g><text class="hl-t" x="180" y="478">Done</text><text class="hl-s" x="180" y="497">journaled</text></g>
-      </svg>
-      <figcaption>Dashed: a material flaw in review, or a red verification command, sends the work back to the builder.</figcaption>
-    </figure>
-
     <ol class="flow">
-      <li>
-        <span class="flow-step">Ticket</span>
-        <p>A small story with acceptance criteria and a risk level, by you or the orchestrator (<code>bmad-ticket</code>). <a class="tag-note" href="https://github.com/bmad-code-org/BMAD-METHOD">Built on BMAD v6</a></p>
-      </li>
-      <li>
-        <span class="flow-step">Build</span>
-        <p><code>ade dispatch</code> starts a focus builder. Failing test first, then code.</p>
-      </li>
-      <li>
-        <span class="flow-step">Review</span>
-        <p>Low: the command only. Medium: one quick pass. High (secrets, sign-in, personal data, production, money): a thorough review plus an adversarial pass.</p>
-      </li>
-      <li>
-        <span class="flow-step">Verified</span>
-        <p>The reviewer, never the builder, runs the command and records its real output.</p>
-      </li>
-      <li>
-        <span class="flow-step">Done</span>
-        <p>Green is Done, with a dated line in the journal. No other path.</p>
-      </li>
+      <li><span class="flow-step">Ticket</span><p>A small story with a risk level.</p></li>
+      <li><span class="flow-step">Build</span><p>A failing test first, then the code.</p></li>
+      <li><span class="flow-step">Review</span><p>Scaled to the risk.</p></li>
+      <li><span class="flow-step">Verified</span><p>The reviewer, never the builder, runs the tests.</p></li>
+      <li><span class="flow-step">Done</span><p>Green only. Red goes back to the builder.</p></li>
     </ol>
   </div>
 </section>
@@ -345,155 +81,18 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <div class="section-head">
       <span class="kicker">What works today</span>
       <h2>Merged and working.</h2>
-      <p>On <code>main</code> today. Anything else is labelled <span class="coming">Coming</span></p>
     </div>
-    <div class="orx-cards">
-      <article class="orx-card">
-        <span class="feat-eyebrow">The guided first run</span>
-        <h3>Six steps, one at a time.</h3>
-        <p><code>ade setup</code>: Claude Code, Claude, GitHub, your hub, your first project, Telegram.</p>
-        <p class="proof">Each step is announced, then checked. A failure gets one plain line and a numbered choice; rerun to resume.</p>
-        <a class="more" href="{{ site.cli_repo }}#readme">ade setup, in ade-cli&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">Telegram control</span>
-        <h3>Your own bot.</h3>
-        <p>It answers only your account, never groups.</p>
-        <p class="proof">Once locked, it runs in <strong>auto mode</strong>: your agent acts without asking at the terminal, and Claude Code still refuses risky actions. <code>HUB_CHAT_MODE=manual</code> in <code>hub.conf</code> turns it off.</p>
-        <p class="proof">Pairing takes two commands in Claude Code; pairing without typing commands <span class="coming">Coming</span></p>
-        <a class="more" href="{{ site.brain_repo }}#readme">Telegram, in ade-brain&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">ade web and ade shot</span>
-        <h3>The team, and proof.</h3>
-        <p><code>ade web</code>: agents, logs, journal and chat, read-only, keys hidden, behind a random local link.</p>
-        <p class="proof"><code>ade shot</code> keeps a page, the screen (after asking) or a tab as evidence; <code>--tg</code> sends it to your locked bot.</p>
-        <a class="more" href="{{ site.cli_repo }}#readme">ade web and ade shot, in ade-cli&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">Connectors and the guard</span>
-        <h3>Reads free. Changes ask.</h3>
-        <p data-truth="plugins">ClickUp, Jira, Linear and Orgo, each through its own server: the <code>clickup</code>, <code>jira</code>, <code>linear</code> and <code>orgo</code> plugins.</p>
-        <p class="proof">The <code data-truth="plugin">guard</code> plugin refuses commands that print a stored token, in every mode.</p>
-        <a class="more" href="{{ site.skills_repo }}#readme">Connectors and the guard, in ade-skills&rsquo; README <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">Keys</span>
-        <h3>Typed once, hidden.</h3>
-        <p>A key goes in only at your own terminal, at a hidden prompt, in <code>ade setup</code> or <code>bin/keys set &lt;name&gt;</code>. Agents never see a value.</p>
-        <p class="proof">Never in a chat, a file or a command line. It lives in the hub&rsquo;s key store: the macOS Keychain, or pass or a private file on Linux.</p>
-        <p class="proof"><code>ade-secrets vault</code> refuses to run inside an agent session.</p>
-        <a class="more" href="{{ site.brain_repo }}#readme">Keys, in ade-brain&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">Memory</span>
-        <h3>It remembers.</h3>
-        <p>The brain indexes the journal, folder state, project context and decisions, locally. Hooks load it into every session and prompt.</p>
-        <p class="proof">After a crash, <code>bin/recover</code> clears stale locks, repairs the event log, blocks a dead agent&rsquo;s ticket, says how to resume, and journals each repair.</p>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">Where it runs</span>
-        <h3>Mac or Ubuntu server.</h3>
-        <p><code>bin/server install</code> checks SSH, the firewall and upgrades, and opens no public port.</p>
-        <ul class="checks">
-          <li><code>ade files</code>, <code>ade view</code>: hub files and code, read-only.</li>
-          <li><strong>Remote Control</strong> on in every session.</li>
-          <li><strong>The desktop app</strong>: frozen, still downloadable.</li>
-        </ul>
-      </article>
-      <article class="orx-card orx-card--check">
-        <span class="feat-eyebrow">Check it yourself</span>
-        <h3>Open source.</h3>
-        <p>Every repo, with its verification command.</p>
-        <a class="more" href="{{ site.org_url }}">The repos on GitHub <span aria-hidden="true">&rarr;</span></a>
-        <a class="more" href="{{ '/paper/' | relative_url }}">Read the technical paper <span aria-hidden="true">&rarr;</span></a>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="ships">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Open source</span>
-      <h2>What ships with ADE.</h2>
-      <p>Public MIT repos, each with its own tests.</p>
-    </div>
-    <div class="orx-cards ships">
-      {% for repo in site.data.repos %}{% if repo.job %}
-      <article class="orx-card ship-card" data-repo="{{ repo.name }}">
-        <span class="feat-eyebrow">{% if repo.release %}v{{ site.data.releases[repo.release] }}{% else %}{{ repo.state }}{% endif %}</span>
-        <h3>{{ repo.name }}</h3>
-        <p>{{ repo.job }}</p>
-        <a class="more" href="{{ site.org_url }}/{{ repo.name }}">{{ repo.name }} on GitHub <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      {% endif %}{% endfor %}
-      <article class="orx-card ship-card orx-card--check" data-repo="ade-computer">
-        <span class="feat-eyebrow">Early preview</span>
-        <h3>ADE Computer</h3>
-        <p>Not public yet.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="who">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Who it&rsquo;s for</span>
-      <h2>Four ways in.</h2>
-    </div>
-    <div class="orx-cards orx-cards--two">
-      <article class="orx-card audience">
-        <span class="feat-eyebrow">Developers</span>
-        <h3>Keep the judgement.</h3>
-        <p>ADE builds and reviews; you merge only what&rsquo;s green.</p>
-        <p class="proof"><code>ade work &lt;folder&gt; --role builder</code> opens a focus agent on that role&rsquo;s model.</p>
-      </article>
-      <article class="orx-card audience">
-        <span class="feat-eyebrow">Product managers</span>
-        <h3>Ask in plain words.</h3>
-        <p>The orchestrator writes the ticket; Telegram brings status and proof.</p>
-      </article>
-      <article class="orx-card audience">
-        <span class="feat-eyebrow">Forward deployed engineers and consultancies</span>
-        <h3>One hub per customer.</h3>
-        <p>Their approved models only; their data stays put.</p>
-        <p class="proof">The <code>forward-deployed</code> specialist and the <code>fde</code> plugin draft discovery, proposal, SOW, change request, design doc, status report and handover.</p>
-      </article>
-      <article class="orx-card audience">
-        <span class="feat-eyebrow">Support</span>
-        <h3>Reproduce, investigate, draft.</h3>
-        <p>Nothing reaches a customer without your yes.</p>
-        <p class="proof">The <code>support</code> specialist reproduces, checks known issues, investigates read-only and drafts the reply.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section tint" id="compare">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">How it compares</span>
-      <h2>Built to ship verified work.</h2>
-    </div>
-    <div class="orx-cards">
-      <article class="orx-card">
-        <span class="feat-eyebrow">General assistants</span>
-        <h3>OpenClaw, Hermes</h3>
-        <p>Assistants for everything. ADE does one thing: ship verified work.</p>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">Coding agents alone</span>
-        <h3>An agent writes code.</h3>
-        <p>ADE runs the whole loop, ticket to Done, with memory.</p>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">DIY scripts</span>
-        <h3>Already built and tested.</h3>
-        <p>Method, guardrails, crash recovery: all tested.</p>
-      </article>
-    </div>
+    <ul class="checks today-list">
+      <li><code>ade setup</code>: a guided first run, each step checked.</li>
+      <li><strong>AI services per role:</strong> Claude, DeepSeek, Gemini. GLM and Muse <span class="coming">Coming</span></li>
+      <li><strong>Connectors:</strong> ClickUp, Jira, Linear. GitHub, Gmail, Slack, Outlook, Teams and Discord connectors <span class="coming">Coming</span></li>
+      <li><strong>Telegram:</strong> your own bot, locked to you. Pairing without typing commands <span class="coming">Coming</span></li>
+      <li><strong>Approvals</strong> at your terminal. Approval buttons in Telegram <span class="coming">Coming</span></li>
+      <li><strong>Keys</strong> typed once, at a hidden prompt. Agents never see them.</li>
+      <li><strong>Memory</strong> across sessions, and crash recovery.</li>
+      <li><strong>Open source:</strong> <a href="{{ site.org_url }}">every repo, with its tests</a>.</li>
+    </ul>
+    <p class="later">Later: Kimi and ChatGPT as services, ADE Computer in the cloud, keys per hub (<code>ade key</code>, <code>ade vault</code>), the <code>codesec</code> plugin, and Telegram commands for status and progress.</p>
   </div>
 </section>
 
@@ -501,90 +100,12 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">Used on real work</span>
-      <h2>The tool its author ships with</h2>
+      <h2>The tool its author ships with.</h2>
+      <p>Built in ADE: <a href="{{ site.ardata_url }}">ardata</a>&rsquo;s client projects, <a href="https://caiden.tech">CAIDen</a>&rsquo;s agents, <a href="{{ site.aracademy_url }}">ardata academy</a>&rsquo;s AI training.</p>
     </div>
-    <div class="training">
-      <div class="partner-mark partner-mark--dark">
-        <img src="{{ img }}ardata.png" alt="ardata" width="320" height="111" loading="lazy">
-      </div>
-      <div>
-        <span class="kicker">ardata.tech</span>
-        <h2>The tool behind ardata's projects</h2>
-        <p>ardata builds its client work in ADE.</p>
-      </div>
-      <a class="btn btn-primary" href="{{ site.ardata_url }}">Visit ardata.tech <span class="arrow" aria-hidden="true">→</span></a>
-    </div>
-    <div class="training">
-      <div class="partner-mark partner-mark--plain">
-        <img src="{{ img }}caiden-mark.svg" alt="CAIDen" width="108" height="108" loading="lazy">
-      </div>
-      <div>
-        <span class="kicker">caiden.tech</span>
-        <h2>The tool behind CAIDen</h2>
-        <p>Voice, SMS and chat agents; Booked, NarraLearn and the Healthway front desk were built in ADE.</p>
-      </div>
-      <a class="btn btn-ghost" href="https://caiden.tech">Visit caiden.tech <span class="arrow" aria-hidden="true">&rarr;</span></a>
-    </div>
-
-    <div class="training">
-      <div class="partner-mark partner-mark--plain">
-        <img src="{{ img }}ardata-academy.png" alt="ardata academy" width="320" height="320" loading="lazy">
-      </div>
-      <div>
-        <span class="kicker">ardata academy</span>
-        <h2>The tool behind ardata academy's AI training</h2>
-        <p>Learn the workflow in the course, then use it on real projects.</p>
-      </div>
-      <a class="btn btn-ghost" href="{{ site.aracademy_url }}">Explore the training <span class="arrow" aria-hidden="true">→</span></a>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="faq">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Questions</span>
-      <h2>Common questions</h2>
-    </div>
-    <div class="faq">
-      <details>
-        <summary>Is it safe to let agents do this?</summary>
-        <p>Agents ask before anything risky; nothing reaches a customer, an account or a live system without your yes. <a href="{{ '/paper/' | relative_url }}">The paper</a> has the security model.</p>
-      </details>
-      <details>
-        <summary>Will I be locked in?</summary>
-        <p>No. MIT open source, on your machine and accounts. Each role picks its service: Claude, DeepSeek or Gemini today, GLM and Muse <span class="coming">Coming</span></p>
-      </details>
-      <details>
-        <summary>Isn&rsquo;t this just prompts?</summary>
-        <p>No. CI runs each repo&rsquo;s verification command on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain, ade-skills and ade-secrets, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every hub script has a test. <a href="#why">One run is above.</a></p>
-      </details>
-      <details>
-        <summary>Who pays for the AI models?</summary>
-        <p>You do, directly, with your own account or key. ADE is free.</p>
-      </details>
-      <details>
-        <summary>What is a hub?</summary>
-        <p>One git repo per owner or client, made from <code>ade-brain</code>: context, memory, journal and the agents&rsquo; rules. Your code stays in its own repos.</p>
-      </details>
-      <details>
-        <summary>Where do my prompts go?</summary>
-        <p>Only to the AI services you choose. ADE runs no server and collects nothing; bot messages pass through Telegram.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<section class="section cta-section">
-  <div class="wrap">
-    <div class="cta-band">
-      <img src="{{ img }}logo.svg" width="60" height="60" alt="">
-      <h2>Hand off the first ticket.</h2>
-      <p>Install <code>ade</code>, run <code>ade setup</code>, open the orchestrator.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
-        <a class="btn btn-ghost" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview</a>
-      </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
+      <a class="btn btn-ghost" href="{{ '/paper/' | relative_url }}">Read the technical paper</a>
     </div>
   </div>
 </section>

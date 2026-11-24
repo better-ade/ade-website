@@ -28,7 +28,8 @@ page that introduces ADE tells it in the same four steps, in this order (story `
 
 Then the **ADE Computer**: one machine per engagement (a mini PC, a compute instance, or the container on your own
 Docker), for dedicated work or several contracts. Examples stay generic: "a fintech client", "an agency project".
-On the home page the story is the section after "Mix AI services per role", right before the ADE Computer section.
+On the home page the story is the section right after the hero, one line per step, before the ADE Computer line.
+The detail of each step is on Get started.
 
 ## Positioning
 
@@ -112,22 +113,27 @@ Alternates:
     section under it.
   - It is an illustration of the method, not a recording: no customer, no person, no real project in it.
 
-## Mix AI services per role (the section under the hero)
+## AI services per role (on Get started, under step 2)
 
 - **Headline.** "Mix AI services per role." Each role runs on the service you pick for it; `ade roles` shows which.
-- **Role cards.** One card per role, with its face and the service it runs on in the drawing above: Orchestrator,
-  Product and Architect on Claude, Developer on Gemini, Reviewer on DeepSeek. One line on what the role does, taken
-  from ade-method.
-- **Specialists.** Smaller cards, **Support** and **Sysadmin**, "loaded when needed" (from ade-agent-registry).
+- **Roles.** One line per role, with the service it runs on in the hero's drawing: Orchestrator,
+  Product and Architect on Claude, Developer on Gemini, Reviewer on DeepSeek.
+- **Specialists.** **Support** and **Sysadmin**, "loaded when needed" (from ade-agent-registry).
 - **Later, one quiet line (not a section, no labels).** "Later: Kimi and ChatGPT as services, ADE Computer in the
   cloud, keys per hub (`ade key`, `ade vault`), the `codesec` plugin, and Telegram commands for status and progress."
-  Once on the home page and once in the paper; nowhere else.
+  Once on the home page (in "What works today") and once in the paper; nowhere else.
 - **Services.** Available today: **Claude**, **DeepSeek**, **Gemini**. Then **GLM**, **Muse**, **Kimi** and
   **ChatGPT**, each with its own Coming label.
 
 ## The pages
 
-- The site is three pages: the home page, **Get started** and the **technical paper**. The guide, the Repos page
+- The site is three pages: the home page, **Get started** and the **technical paper**.
+- **The home page** is about 500 words in six sections, in this order: the hero (one line, the install command, the
+  drawing); "A day with ADE" (the four steps, one line each); "One ADE Computer per engagement" (one line); "How it
+  works" (the five steps of the loop, one line each); "What works today" (a short list, Coming labels kept, and the
+  Later line); "Used on real work", with links to Get started and the paper. Everything else is on Get started.
+- **Get started** is numbered steps, one command each, then the ADE Computer, the verification commands and what
+  ships. The guide, the Repos page
   and the ADE app page are gone; their addresses, and every older address that pointed at them, redirect to the
   home page.
 - **The paper** (`/paper/`, "Paper" in the menu): "Fast and verified: delivering software with a team of AI
@@ -170,18 +176,17 @@ label too.
 plugin, Telegram commands for status and progress. Every sentence that says approvals happen on Telegram says what
 works today (approvals are given at your own terminal) or carries the Coming label.
 
-## What ships with ADE (home page)
+## What ships with ADE (Get started)
 
-One card per public better-ade repo listed with a `job` in `site/_data/repos.yml`: its job, its latest release (from
-`site/_data/releases.yml`, held to each repo's `VERSION` by the tests) and a link to the repo. ADE Computer is a card
-marked **Early preview**, with no link. `/repos/` redirects to `/#ships`.
+One line per public better-ade repo listed with a `job` in `site/_data/repos.yml`: its job, its latest release (from
+`site/_data/releases.yml`, held to each repo's `VERSION` by the tests) and a link to the repo. ADE Computer is a line
+marked early preview, with no link. `/repos/` redirects to `/get-started/#what-ships-with-ade`.
 
 ## Built on BMAD v6
 
-A "Built on BMAD v6" badge in "How it works", linking to the open-source BMAD Method (ade-method's README: "ADE's BMAD
-v6 settings"). The footer says: "Built on Claude Code and the open-source BMAD Method (v6)."
+The footer says: "Built on Claude Code and the open-source BMAD Method (v6)."
 
-## Questions (FAQ)
+## Questions (said on Get started, under "What you need" and step 1)
 
 - **Who pays for the AI models?** You do, directly: your own Claude account, or your own API key with each AI service
   you choose. ADE is free and open source, under the MIT license.
