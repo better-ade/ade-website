@@ -1392,3 +1392,9 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
   .prose a { color: inherit; text-decoration: none; }
   .prose li, .prose p { orphans: 3; widows: 3; }
 }
+
+/* The video of the user flow (ade-drill's drill D4, recorded in CI): home page and Get started. */
+.demo-video { margin: 28px auto 0; max-width: 880px; }
+.demo-video video { display: block; width: 100%; height: auto; border-radius: 12px; background: #0d1117; border: 1px solid var(--line-2); box-shadow: var(--shot-shadow); }
+.demo-video figcaption { margin: 12px 0 0; text-align: center; color: var(--text-3); font-size: 13.5px; line-height: 1.6; }
+.prose .demo-video { margin: 8px 0 28px; }

@@ -7,6 +7,14 @@ description: Install the ade command, run ade setup, and open everything in one 
 lead: Three commands. Install <code>ade</code>, run <code>ade setup</code>, open <code>ade ui</code>.
 ---
 
+<figure class="demo-video">
+  <video controls muted playsinline preload="none" poster="{{ '/assets/video/' | relative_url }}ade-d4.png" width="988" height="676" aria-label="ADE's user flow on a fresh Ubuntu desktop: install, ade setup, then build a website from Telegram">
+    <source src="{{ '/assets/video/' | relative_url }}ade-d4.mp4" type="video/mp4">
+    <a href="{{ '/assets/video/' | relative_url }}ade-d4.mp4">Download the video (MP4)</a>
+  </video>
+  <figcaption>ADE on a fresh Ubuntu 24.04 desktop: recorded in CI. Claude sign-in and the focus agents' work are stand-ins in this recording.</figcaption>
+</figure>
+
 ## What you need
 
 - **macOS or Linux.** On macOS the hub keeps its keys in the Keychain and its services in launchd; on Linux (Ubuntu,
