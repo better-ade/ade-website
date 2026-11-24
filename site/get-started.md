@@ -3,61 +3,78 @@ layout: page
 kicker: Guide
 title: Get started
 permalink: /get-started/
-description: Set up ADE in the order of a software engineer's day. You, your context and access, your projects and customers, then the terminal or Telegram. On macOS or Linux.
-lead: Four steps, in the order of your day.
+description: Set up ADE in four steps, in the order of a software engineer's day. You, your context and access, your projects and customers, then the terminal or Telegram. On macOS or Linux.
+lead: Four steps, one command each.
 ---
 
 ## What you need
 
-- **macOS** (Keychain, launchd) or **Linux** (`pass` or a private file, systemd user units).
-- `git`, Bash, `python3`; `gh` for a GitHub hub; `tmux` for `ade ui`. `ade setup --tools` installs what is missing.
+- **macOS** or **Linux**, with `git`, Bash and `python3`. `ade setup --tools` installs what is missing.
 - Claude Code, on Claude Pro, Max, Team or Enterprise. `ade setup` offers to install it.
+- Your own AI accounts or keys: you pay the AI services directly. ADE is free, MIT open source, and collects nothing.
 
-## 1. You: install ADE and make your hub
+## 1. You
 
 ```
 curl -fsSL https://raw.githubusercontent.com/better-ade/ade-cli/main/install.sh | bash
 ade setup
 ```
 
-- The installer puts the tagged release (never `main`) in `~/.local/bin/ade` and warns if it is not on your `PATH`.
-  A failed download keeps your old `ade`.
-- Today: **v{{ site.data.releases.ade_cli }}**, every command on this site not marked Coming
-  ([changelog]({{ site.cli_repo }}/blob/main/CHANGELOG.md)).
-- `ade setup`: Claude Code, Claude, GitHub, your hub, your first project, Telegram. Each step is checked; a rerun
-  resumes ([README]({{ site.cli_repo }}#readme)).
-- `ade hub new` asks for your persona (tech lead, fractional CTO and others), client and name. You approve
-  high-risk work; the verification command decides Done.
-- `ade update` upgrades everything; `--rollback` undoes it. Patch and minor releases self-install unless
-  `ADE_NO_AUTO_UPDATE=1`. `ade help` lists every command.
+- Installs **v{{ site.data.releases.ade_cli }}** of `ade` in `~/.local/bin`
+  ([changelog]({{ site.cli_repo }}/blob/main/CHANGELOG.md)). `ade update` upgrades; `ade help` lists every command.
+- `ade setup` walks six checked steps: Claude Code, Claude, GitHub, your hub, your first project, Telegram. Rerun to resume.
+- Your hub is one git repo per owner or client: context, memory, journal and the agents' rules. Your code stays in its own repos.
+- `ade hub new` asks for your persona, one of 13 personas, like <span data-persona>Staff Software Engineer</span>,
+  <span data-persona>Tech Lead</span> or <span data-persona>Fractional CTO</span>, your client and your name.
+- The team: 4 core roles from ade-method: product, architect, developer, reviewer. 10 specialists load when needed;
+  `ade agent add <name>` adds one, like `support` or `forward-deployed` (with the `fde` plugin's engagement documents).
+- You approve high-risk work. The verification command decides Done.
 
 ## 2. Your context, tools and access
 
 ```
-ade hub new my-hub     # a private GitHub repo (--no-github: a local one)
-ade keys               # what each provider still needs
-ade claude             # the orchestrator: Claude Code at the hub root
+ade connect clickup
 ```
 
-- `ade setup` by hand; `ade setup --check` says what is missing.
-- Keys go in only at a hidden prompt, never in a chat, a file or a command line.
-- `ade init` adds the method to any repo, at a pinned version, overwriting nothing. `ade agent add <name>` adds a
-  specialist, `ade skills add <plugin>` a plugin.
-- `ade connect <service>`: you sign in, the project keeps the name only, every change asks. ClickUp, Jira and
-  Linear today ([ade-skills' README]({{ site.skills_repo }}#readme)).
-- The GitHub, Gmail, Slack, Outlook, Microsoft Teams and Discord connectors <span class="coming">Coming</span>
+- `ade connect <service>`: you sign in, the project keeps the name only, every change asks.
+- <span data-tool="clickup">ClickUp</span>, <span data-tool="jira">Jira</span> and <span data-tool="linear">Linear</span> today;
+  <span data-tool="github"><b>GitHub</b> <span class="coming">Coming</span></span>,
+  <span data-tool="gmail"><b>Gmail</b> <span class="coming">Coming</span></span>,
+  <span data-tool="slack"><b>Slack</b> <span class="coming">Coming</span></span>,
+  <span data-tool="outlook"><b>Outlook</b> <span class="coming">Coming</span></span>,
+  <span data-tool="teams"><b>Microsoft Teams</b> <span class="coming">Coming</span></span>,
+  <span data-tool="discord"><b>Discord</b> <span class="coming">Coming</span></span>
+- <span data-truth="plugins">Each through its own server: the `clickup`, `jira`, `linear` and `orgo` plugins
+  ([ade-skills' README]({{ site.skills_repo }}#readme)).</span> The <code data-truth="plugin">guard</code> plugin
+  refuses commands that print a stored token.
+- Keys: a key goes in only at your own terminal, at a hidden prompt, in `ade setup` or `bin/keys set <name>`.
+  Agents never see a value. Never in a chat, a file or a command line. `ade-secrets vault` refuses to run inside an
+  agent session.
+- Memory: each project's state, decisions and journal load into every session, so work starts where it stopped.
+
+<div id="services">
+<p><strong>AI services per role.</strong> Each role runs on the service you pick; <code>ade roles</code> shows which. An example mix:</p>
+<ul>
+<li data-role="orchestrator">Orchestrator: <b>Claude</b></li>
+<li data-role="product">Product: <b>Claude</b></li>
+<li data-role="architect">Architect: <b>Claude</b></li>
+<li data-role="developer">Developer: <b>Gemini</b></li>
+<li data-role="reviewer">Reviewer: <b>DeepSeek</b></li>
+</ul>
+<p>Specialists such as <b class="specialist">Support</b> and <b class="specialist">Sysadmin</b> are loaded when needed.</p>
+<p>Available today: <span class="svc-now"><span>Claude</span>, <span>DeepSeek</span>, <span>Gemini</span></span>. Not yet: <span class="svc-soon"><span><b>GLM</b> <span class="coming">Coming</span></span>, <span><b>Muse</b> <span class="coming">Coming</span></span></span></p>
+</div>
 
 ## 3. Projects and customers
 
 ```
-ade project add ~/code/agency-site     # a repo you already have
-ade project add --scan ~/code          # pick from the repos in a folder
-ade project list
+ade project add ~/code/agency-site
 ```
 
-- `ade work <folder>` opens a project's focus agent; it sees only its folder and repos.
-- `ade dispatch` hands ready tickets to focus builders, as many at once as you allow.
-- One hub per customer with `ade hub new`; switch with `ade hub use <path>`. Each runs only the models it allows.
+- `ade project add <path or git address>`: a repo becomes a project folder. `--scan ~/code` picks from a folder.
+- `ade work <folder>`: its focus agent, seeing only that folder and its repos, so you run several tasks at once.
+- `ade dispatch`: ready tickets to focus builders, as many as you allow.
+- `ade hub new` per customer, each running only the models it approved; `ade hub use <path>` switches.
 
 ## 4. Run it from the terminal or Telegram
 
@@ -65,16 +82,25 @@ ade project list
 ade ui
 ```
 
-- One tmux window, on `ade`'s own server. Your own tmux is untouched. Tab 0 is the orchestrator; each `ade work` adds a tab with its unread count.
+- One tmux window on `ade`'s own server: tab 0 is the orchestrator, each `ade work` adds a tab.
 - <kbd>prefix</kbd> <kbd>f</kbd> fleet sidebar, <kbd>prefix</kbd> <kbd>e</kbd> file viewer, <kbd>prefix</kbd>
   <kbd>?</kbd> keys, <kbd>prefix</kbd> <kbd>d</kbd> detach (the agents keep running).
 - Away: your Telegram bot, locked to you ([ade-brain's README]({{ site.brain_repo }}#readme)), or
-  `ade web --tailnet`, read-only on your phone.
+  `ade web --tailnet`, read-only on your phone. `ade shot --tg` sends a screenshot as proof.
 
 ## Then
 
 - **One ADE Computer per engagement.** A mini PC, a compute instance or a container on your own Docker, for
-  dedicated work or several contracts. The container is in early preview:
+  dedicated work or several contracts. Inside: an Ubuntu desktop with ADE, VS Code, a terminal and database tools,
+  per project or per task. It is not given your home folder, keys or Docker socket, but agents inside have full
+  rights: give it nothing you would not give them. The container is in early preview:
   [ask by email]({{ site.preview_url }}){: data-preview-mail=""} or [open a GitHub issue]({{ site.preview_url }}),
   which is public: put nothing private in it.
 - **Hand off a ticket:** [ade-cli's README]({{ site.cli_repo }}#readme), and [How it works]({{ '/#how-it-works' | relative_url }}).
+- **Check it yourself:** CI runs each repo's verification command on every pull request: `bash tests/run.sh` in
+  ade-cli, ade-brain, ade-skills and ade-secrets, `node scripts/validate.mjs` in ade-method and ade-agent-registry.
+
+## What ships with ADE
+
+{% for repo in site.data.repos %}{% if repo.job %}- **[{{ repo.name }}]({{ site.org_url }}/{{ repo.name }})** ({% if repo.release %}v{{ site.data.releases[repo.release] }}{% else %}{{ repo.state }}{% endif %}): {{ repo.job }}
+{% endif %}{% endfor %}- **ADE Computer** (early preview): not public yet.

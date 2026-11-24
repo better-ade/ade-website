@@ -1,5 +1,5 @@
 # The public better-ade repos: the only ones a page may link to. tests/sitePages.test.ts fails on a link to any
-# other better-ade repo, so a private repo is never linked. A repo with a `job` is a card of the home page's "What ships
+# other better-ade repo, so a private repo is never linked. A repo with a `job` is a line of Get started's "What ships
 # with ADE" section: its one-line job and its release (a key of releases.yml), or its state when it has no release there.
 - name: ade-cli
   job: "The <code>ade</code> command: set-up, the workspace of tabs, updates, screenshots as proof."

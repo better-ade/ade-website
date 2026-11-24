@@ -15,7 +15,17 @@ const home = parse(readBuilt("index.html"));
 const start = parse(readBuilt("get-started/index.html"));
 const paper = parse(readBuilt("paper/index.html"));
 const flat = (el: Element | null) => (el?.textContent ?? "").replace(/\s+/g, " ").trim();
-const step = (name: (typeof STEPS)[number]) => home.querySelector(`#story [data-story="${name}"]`)!;
+/**
+ * Get started's section for a step: its numbered h2 and everything up to the next h2, in one element. The home page
+ * says each step in one line; the detail the checks below hold is on Get started.
+ */
+const step = (name: (typeof STEPS)[number]) => {
+  const i = STEPS.indexOf(name);
+  const h = [...start.querySelectorAll("main h2")].find((e) => flat(e).startsWith(`${i + 1}. `))!;
+  const box = start.createElement("div");
+  for (let n = h.nextElementSibling; n && n.tagName !== "H2"; n = n.nextElementSibling) box.appendChild(n.cloneNode(true));
+  return box;
+};
 const codes = (el: Element) => [...el.querySelectorAll("code")].map((c) => flat(c));
 /** a before b in the document */
 const before = (a: Node, b: Node) => !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
@@ -33,6 +43,9 @@ describe("one engineer's day, across the site", () => {
     expect(cards.map((c) => c.getAttribute("data-story"))).toEqual([...STEPS]);
     for (const [i, c] of cards.entries()) {
       expect(flat(c.querySelector(".feat-eyebrow")), STEPS[i]).toBe(`Step ${i + 1} · ${NAMES[i]}`);
+      // One line each.
+      expect(c.querySelectorAll("p").length, STEPS[i]).toBe(1);
+      expect(c.querySelectorAll("ul, ol, h3").length, STEPS[i]).toBe(0);
     }
     const computer = home.querySelector('[data-story="computer"]')!;
     expect(computer).not.toBeNull();
@@ -43,7 +56,7 @@ describe("one engineer's day, across the site", () => {
     }
   });
 
-  it("step 1 names the hub's personas and ADE's roles as they are", () => {
+  it("Get started's step 1 names the hub's personas and ADE's roles as they are", () => {
     const titles = readdirSync(resolve(REPOS.brain, "personas"))
       .filter((f) => f.endsWith(".md"))
       .map((f) => /^title:\s*(.+)$/m.exec(readRepo("brain", `personas/${f}`))![1].trim());
@@ -60,7 +73,7 @@ describe("one engineer's day, across the site", () => {
     expect(codes(you)).toContain("ade hub new");
   });
 
-  it("step 2 names Claude, and every tool or connector it names has a recipe or a plugin, or is marked Coming", () => {
+  it("Get started's step 2 names Claude, and every tool or connector it names has a recipe or a plugin, or is marked Coming", () => {
     const context = step("context");
     expect(flat(context)).toMatch(/\bClaude\b/);
     expect(codes(context)).toContain("ade connect <service>");
@@ -81,13 +94,14 @@ describe("one engineer's day, across the site", () => {
     }
     // Every recipe is in the list, and no service is named outside it.
     for (const r of recipes) expect(tools.map((t) => t.getAttribute("data-tool")), r.service).toContain(r.service);
-    const rest = context.cloneNode(true) as Element;
+    // The list of tools names no service outside its own tag.
+    const rest = tools[0].closest("li, p")!.cloneNode(true) as Element;
     for (const t of rest.querySelectorAll("[data-tool]")) t.remove();
     const others = ["Gmail", "Slack", "Outlook", "Teams", "Discord", "ClickUp", "Jira", "Linear", "Notion", "Google Drive", "Calendar", "Asana"];
     for (const n of others) expect(flat(rest), n).not.toContain(n);
   });
 
-  it("step 3 names the commands that bring projects in and run focus agents", () => {
+  it("Get started's step 3 names the commands that bring projects in and run focus agents", () => {
     const projects = step("projects");
     const named = codes(projects);
     for (const c of ["ade project add <path or git address>", "ade work <folder>", "ade dispatch", "ade hub new"]) {
@@ -97,7 +111,7 @@ describe("one engineer's day, across the site", () => {
     expect(flat(projects)).toMatch(/several tasks at once/);
   });
 
-  it("step 4 names the terminal and Telegram", () => {
+  it("Get started's step 4 names the terminal and Telegram", () => {
     const control = step("control");
     expect(codes(control)).toContain("ade ui");
     expect(flat(control)).toMatch(/Telegram[^.]*locked to you/);

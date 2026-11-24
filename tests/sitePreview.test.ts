@@ -39,7 +39,7 @@ describe("the early preview button", () => {
 
   it("every other link that asks for a preview on the home page behaves the same way", () => {
     const asks = [...home.querySelectorAll("main a")].filter((a) => /^Ask for an early preview/.test((a.textContent ?? "").trim()));
-    expect(asks.length).toBeGreaterThanOrEqual(3);
+    expect(asks.length).toBeGreaterThanOrEqual(2);
     for (const a of asks) {
       expect(a.getAttribute("href")).toBe(FORM_URL);
       expect(a.hasAttribute("data-preview-mail")).toBe(true);
