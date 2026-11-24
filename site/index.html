@@ -89,12 +89,77 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   </div>
 </section>
 
+<section class="section" id="story">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">A day with ADE</span>
+      <h2>One engineer, several projects, one team of agents.</h2>
+      <p>Meet a software engineer with a few things on the go: a fintech client, an agency project and a product of their own. This is their day with ADE, in four steps.</p>
+    </div>
+    <div class="orx-cards orx-cards--two">
+      <article class="orx-card" data-story="you">
+        <span class="feat-eyebrow">Step 1 &middot; You</span>
+        <h3>Say who you are and what you own.</h3>
+        <p>Your hub is set up around your job, and the agents take the roles around you.</p>
+        <ul class="checks">
+          <li><strong>Your persona:</strong> pick one of 13 personas, such as <span data-persona>Staff Software Engineer</span>, <span data-persona>Tech Lead</span>, <span data-persona>Fractional CTO</span> or <span data-persona>DevOps / Site Reliability Engineer</span>. <code>ade hub new</code> asks for it, with the client or team and your name.</li>
+          <li><strong>The roles around you:</strong> 4 core roles (product, architect, developer, reviewer) and 10 specialists, such as support and sysadmin, loaded only when a task needs one.</li>
+          <li><strong>Your responsibilities stay yours:</strong> you say what you want, and you approve high-risk work at your own terminal. The verification command decides Done, never an agent.</li>
+        </ul>
+      </article>
+      <article class="orx-card" data-story="context">
+        <span class="feat-eyebrow">Step 2 &middot; Your context, tools and access</span>
+        <h3>Claude, your memory and the services you allow.</h3>
+        <p>The agents run on Claude, or on the service you pick for each role. They start from what each project already knows.</p>
+        <ul class="checks">
+          <li><strong>Sign-ins:</strong> <code>ade setup</code> signs you in to Claude and to GitHub. A key is typed once, at a hidden prompt.</li>
+          <li><strong>Context:</strong> the hub keeps each project&rsquo;s state, decisions and journal, so every session starts where the last one stopped.</li>
+          <li><strong>Access, one service at a time:</strong> <code>ade connect &lt;service&gt;</code>, at your own terminal. You sign in yourself, the project records names only, and every change asks first.</li>
+        </ul>
+        <div class="svc">
+          <div class="svc-row">
+            <span class="svc-label">Connect today</span>
+            <ul class="svc-now"><li data-tool="clickup">ClickUp</li><li data-tool="jira">Jira</li><li data-tool="linear">Linear</li></ul>
+          </div>
+          <div class="svc-row">
+            <span class="svc-label">Not yet</span>
+            <ul class="svc-soon"><li data-tool="github"><b>GitHub</b> <span class="coming">Coming</span></li><li data-tool="gmail"><b>Gmail</b> <span class="coming">Coming</span></li><li data-tool="slack"><b>Slack</b> <span class="coming">Coming</span></li><li data-tool="outlook"><b>Outlook</b> <span class="coming">Coming</span></li><li data-tool="teams"><b>Microsoft Teams</b> <span class="coming">Coming</span></li><li data-tool="discord"><b>Discord</b> <span class="coming">Coming</span></li></ul>
+          </div>
+        </div>
+      </article>
+      <article class="orx-card" data-story="projects">
+        <span class="feat-eyebrow">Step 3 &middot; Projects and customers</span>
+        <h3>A focus agent per project, a hub per customer.</h3>
+        <p>Each project gets its own agent with its own context, so you can run several tasks at once, for several customers.</p>
+        <ul class="checks">
+          <li><strong>Bring your repos in:</strong> <code>ade project add &lt;path or git address&gt;</code> makes a project folder for each.</li>
+          <li><strong>One focus agent per project:</strong> <code>ade work &lt;folder&gt;</code> opens it. It sees only its folder and the repos that folder lists.</li>
+          <li><strong>Many tickets in parallel:</strong> <code>ade dispatch</code> hands ready tickets to focus builders, as many at once as you allow.</li>
+          <li><strong>One hub per customer:</strong> <code>ade hub new</code> for each client. The fintech client&rsquo;s hub runs only the models they approved; the agency project has a hub of its own.</li>
+        </ul>
+      </article>
+      <article class="orx-card" data-story="control">
+        <span class="feat-eyebrow">Step 4 &middot; Run it from the terminal or Telegram</span>
+        <h3>At your desk or on your phone.</h3>
+        <p>The same team, wherever you are.</p>
+        <ul class="checks">
+          <li><strong>The terminal:</strong> <code>ade ui</code> puts the orchestrator and a tab per focus agent in one window.</li>
+          <li><strong>Telegram:</strong> your own bot, locked to you. Ask for status, message a focus agent, get a screenshot of the proof.</li>
+          <li><strong>Your phone&rsquo;s browser:</strong> <code>ade web --tailnet</code>, a read-only page of the agents and their logs.</li>
+          <li><strong>Approvals</strong> are given at your own terminal today; approval buttons in Telegram <span class="coming">Coming</span></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="computer">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">ADE Computer</span>
-      <h2>One container is one computer.</h2>
-      <p>An Ubuntu desktop with ADE, VS Code, a terminal and database tools ready to go, one per project or per task. Run a project in it, watch its desktop in your browser, throw it away when you are done.</p>
+      <h2>One ADE Computer per engagement.</h2>
+      <p data-story="computer">An ADE Computer is one machine for your work: a mini PC on your desk, a compute instance, or a container on your own Docker. Give it to one client for dedicated work, or run several contracts on it, each in a hub of its own.</p>
+      <p>Today it is an Ubuntu desktop with ADE, VS Code, a terminal and database tools ready to go, on your own Docker, one per project or per task. On a mini PC or a compute instance with Ubuntu 24.04, the one-line install and <code>ade setup</code> set ADE up on the machine itself.</p>
     </div>
     <div class="orx-cards orx-cards--two">
       <article class="orx-card">
@@ -389,7 +454,8 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
         <h3>Reads are free. Every change asks.</h3>
         <p data-truth="plugins">ClickUp, Jira, Linear and Orgo, each through the service&rsquo;s own server: the <code>clickup</code>, <code>jira</code>, <code>linear</code> and <code>orgo</code> plugins.</p>
         <p class="proof">The <code data-truth="plugin">guard</code> plugin refuses the commands that print a stored token, in every mode.</p>
-        <p class="proof">Connecting a service to a project with your own sign-in, starting with GitHub: <code>ade connect</code> <span class="coming">Coming</span></p>
+        <p class="proof"><code>ade connect &lt;service&gt;</code> connects ClickUp, Jira or Linear to a project with your own sign-in, at your own terminal. The project records names only.</p>
+        <p class="proof">The GitHub, Gmail, Slack, Outlook, Microsoft Teams and Discord connectors <span class="coming">Coming</span></p>
         <a class="more" href="{{ site.skills_repo }}#readme">Connectors and the guard, in ade-skills&rsquo; README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">

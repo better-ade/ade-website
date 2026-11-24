@@ -219,12 +219,14 @@ const NOT_MERGED: [string, RegExp][] = [
   ["the GLM and Muse providers", /\b(GLM|Muse)\b/i],
   ["the Gemini CLI in ade setup's live test", /live test[^.|]*Gemini|Gemini[^.|]*live test/i],
   ["an Anthropic API key or DeepSeek for the orchestrator", /(API key|DeepSeek) for the orchestrator|API key kept in the hub/i],
-  ["connectors beyond ClickUp, Jira, Linear and Orgo, and ade connect (ade-skills K1b to K7; ade-cli A16)", /\b(GitHub|Gmail|Slack|Outlook|Teams|Discord) connector|\bade connect\b/i],
+  // ade connect (ade-cli A16) is merged; the recipes it reads for these services are `held` in ade-skills (K7 makes
+  // GitHub and Gmail ready). tests/siteNarrative.test.ts holds the home page's list to each recipe's state.
+  ["the connectors beyond ClickUp, Jira and Linear (held recipes in ade-skills)", /\b(GitHub|Gmail|Slack|Outlook|Teams|Discord) connectors?\b|\b(Gmail|Slack|Outlook|Discord)\b|\bade connect\b[^.]*\bGitHub\b/i],
   ["Telegram pairing without typing commands", /pair(ing|ed)?\b[^.]*without (typing|slash)/i],
   ["approval buttons for focus agents", /approval buttons/i],
 ];
 /** What the site keeps under Coming: each is named on the home page, with its label. */
-const NEXT = ["approval buttons for focus agents", "Telegram pairing without typing commands", "connectors beyond ClickUp, Jira, Linear and Orgo, and ade connect (ade-skills K1b to K7; ade-cli A16)"];
+const NEXT = ["approval buttons for focus agents", "Telegram pairing without typing commands", "the connectors beyond ClickUp, Jira and Linear (held recipes in ade-skills)"];
 
 /**
  * Not merged, and not next: said once per page, in one quiet line that starts "Later:" (class `later`), with no label

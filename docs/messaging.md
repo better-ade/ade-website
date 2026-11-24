@@ -11,6 +11,25 @@ here first, then the pages. Approved by the owner.
 - **Promise.** ADE gives you an AI delivery team that works like a good engineering team: it plans, builds and
   reviews, it remembers, and nothing counts as done until the tests say so.
 
+## One engineer's day (the thread across the site)
+
+Owner, 2026-11-24. The site follows one software engineer who builds several projects, for several customers. Every
+page that introduces ADE tells it in the same four steps, in this order (story `docs/stories/W-narrative.md`):
+
+1. **You.** Your persona (one of ade-brain's personas, picked by `ade hub new`), the roles around you (ade-method's
+   core roles, ade-agent-registry's specialists) and your responsibilities (you approve; the verification command
+   decides Done).
+2. **Your context, tools and access.** Claude, each project's memory, and services connected one at a time with
+   `ade connect <service>`. Name a service only if ade-skills has a recipe or a plugin for it; a `held` recipe
+   (GitHub, Gmail, Slack, Outlook, Microsoft Teams, Discord in v0.9.0) is labelled Coming.
+3. **Projects and customers.** `ade project add`, one focus agent per project (`ade work`), several tasks at once
+   (`ade dispatch`), one hub per customer (`ade hub new`).
+4. **Run it from the terminal or Telegram.** `ade ui` at the desk, the bot locked to you on the phone.
+
+Then the **ADE Computer**: one machine per engagement (a mini PC, a compute instance, or the container on your own
+Docker), for dedicated work or several contracts. Examples stay generic: "a fintech client", "an agency project".
+On the home page the story is the section after "Mix AI services per role", right before the ADE Computer section.
+
 ## Positioning
 
 For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns tickets
@@ -134,13 +153,16 @@ Alternates:
   ade-cli v0.2.8.
 - **Connectors and the guard.** ClickUp, Jira, Linear and Orgo, each through the service's own server; reads are free,
   every change asks. The guard refuses the commands that print a stored token.
+  `ade connect <service>` connects ClickUp, Jira or Linear to a project with your own sign-in; the project records
+  names only.
 - **Keys.** Typed only at a hidden prompt in your own terminal. Agents never see a value.
 
 ## Coming, and later
 
 There is no Coming section on the home page. Whatever is not merged and is **next** keeps a small **Coming** label
 where it is mentioned. Only three things are next: **approval buttons on Telegram**, **Telegram pairing without
-commands**, and **`ade connect`** (with the connectors beyond ClickUp, Jira, Linear and Orgo it brings). The GLM and
+commands**, and **the connectors beyond ClickUp, Jira and Linear** (`ade connect` is merged; the GitHub, Gmail,
+Slack, Outlook, Microsoft Teams and Discord recipes are held). The GLM and
 Muse providers, Gemini in `ade setup`'s live test and an Anthropic API key or DeepSeek for the orchestrator keep their
 label too.
 
