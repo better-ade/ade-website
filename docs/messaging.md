@@ -218,6 +218,11 @@ v6 settings"). The footer says: "Built on Claude Code and the open-source BMAD M
 
 Calm, precise, engineering-honest, no hype. Show real output.
 
+**Short** (owner, 2026-11-24: "too wordy"). Headlines of 2 to 6 words, one short sentence under each (two at most),
+bullets over paragraphs, and each point made once on a page. The messages in this file are the meaning; the pages
+may say them in fewer words. The home page has no separate pillars section: each pillar's proof sits in the story,
+the ADE Computer, How it works or What works today.
+
 ## Rules for the pages
 
 - **Truth.** Every claim matches what is merged on `main` in the better-ade repos today. Anything not merged yet is

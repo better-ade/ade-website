@@ -28,39 +28,39 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <div class="section-head">
       <span class="kicker">AI services</span>
       <h2>Mix AI services per role.</h2>
-      <p>Each role runs on the service you pick for it, and <code>ade roles</code> shows which. Here is the team from the drawing above, as one example of a mix.</p>
+      <p>Each role runs on the service you pick. <code>ade roles</code> shows which.</p>
     </div>
-    <p class="roles-note"><span class="tag-note">Example mix</span> Out of the box, with only Claude signed in, the builder runs on Claude Opus and the reviewer on Claude Sonnet.</p>
+    <p class="roles-note"><span class="tag-note">Example mix</span> With only Claude signed in, the builder runs on Claude Opus and the reviewer on Claude Sonnet.</p>
     <div class="roles">
       <article class="role-card hx-c1" data-role="orchestrator">
         <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-orch" x="16" y="16" width="7" height="7"/></svg>
         <h3>Orchestrator</h3>
         <p class="role-service">Runs on <b>Claude</b></p>
-        <p>Takes your request, writes the ticket and dispatches it to a builder.</p>
+        <p>Writes the ticket and dispatches it.</p>
       </article>
       <article class="role-card hx-c2" data-role="product">
         <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-product" x="16" y="16" width="7" height="7"/></svg>
         <h3>Product</h3>
         <p class="role-service">Runs on <b>Claude</b></p>
-        <p>Turns what you want into small, testable stories, each with a risk level.</p>
+        <p>Turns requests into small stories, each with a risk level.</p>
       </article>
       <article class="role-card hx-c3" data-role="architect">
         <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-architect" x="16" y="16" width="7" height="7"/></svg>
         <h3>Architect</h3>
         <p class="role-service">Runs on <b>Claude</b></p>
-        <p>Keeps the parts consistent: the architecture note and the verification command.</p>
+        <p>Owns the design and the verification command.</p>
       </article>
       <article class="role-card hx-c4" data-role="developer">
         <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-developer" x="16" y="16" width="7" height="7"/></svg>
         <h3>Developer</h3>
         <p class="role-service">Runs on <b>Gemini</b></p>
-        <p>Builds one story test-first, runs the verification command and stops.</p>
+        <p>Builds one story, test-first.</p>
       </article>
       <article class="role-card hx-c5" data-role="reviewer">
         <svg class="role-face" viewBox="0 0 24 24" aria-hidden="true"><use href="#hx-i-agent"/><circle class="hx-job" cx="19.5" cy="19.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-reviewer" x="16" y="16" width="7" height="7"/></svg>
         <h3>Reviewer</h3>
         <p class="role-service">Runs on <b>DeepSeek</b></p>
-        <p>Runs the verification command that decides Done. Never edits the code.</p>
+        <p>Runs the verification command. Never edits code.</p>
       </article>
     </div>
     <div class="roles-more">
@@ -93,28 +93,28 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">A day with ADE</span>
-      <h2>One engineer, several projects, one team of agents.</h2>
-      <p>Meet a software engineer with a few things on the go: a fintech client, an agency project and a product of their own. This is their day with ADE, in four steps.</p>
+      <h2>One engineer, four steps.</h2>
+      <p>A fintech client, an agency project, a product of their own.</p>
     </div>
     <div class="orx-cards orx-cards--two">
       <article class="orx-card" data-story="you">
         <span class="feat-eyebrow">Step 1 &middot; You</span>
-        <h3>Say who you are and what you own.</h3>
-        <p>Your hub is set up around your job, and the agents take the roles around you.</p>
+        <h3>Say who you are.</h3>
+        <p>The hub is built around your job.</p>
         <ul class="checks">
-          <li><strong>Your persona:</strong> pick one of 13 personas, such as <span data-persona>Staff Software Engineer</span>, <span data-persona>Tech Lead</span>, <span data-persona>Fractional CTO</span> or <span data-persona>DevOps / Site Reliability Engineer</span>. <code>ade hub new</code> asks for it, with the client or team and your name.</li>
-          <li><strong>The roles around you:</strong> 4 core roles (product, architect, developer, reviewer) and 10 specialists, such as support and sysadmin, loaded only when a task needs one.</li>
-          <li><strong>Your responsibilities stay yours:</strong> you say what you want, and you approve high-risk work at your own terminal. The verification command decides Done, never an agent.</li>
+          <li><strong>Persona:</strong> one of 13 personas, like <span data-persona>Staff Software Engineer</span>, <span data-persona>Tech Lead</span> or <span data-persona>Fractional CTO</span>, set by <code>ade hub new</code> with your client and name.</li>
+          <li><strong>Roles:</strong> 4 core roles from ade-method: product, architect, developer, reviewer. 10 specialists, like support and sysadmin, load when needed.</li>
+          <li><strong>Yours:</strong> you approve high-risk work. The verification command decides Done.</li>
         </ul>
       </article>
       <article class="orx-card" data-story="context">
         <span class="feat-eyebrow">Step 2 &middot; Your context, tools and access</span>
-        <h3>Claude, your memory and the services you allow.</h3>
-        <p>The agents run on Claude, or on the service you pick for each role. They start from what each project already knows.</p>
+        <h3>Context, tools, access.</h3>
+        <p>On Claude or each role&rsquo;s service, starting where the last session stopped.</p>
         <ul class="checks">
-          <li><strong>Sign-ins:</strong> <code>ade setup</code> signs you in to Claude and to GitHub. A key is typed once, at a hidden prompt.</li>
-          <li><strong>Context:</strong> the hub keeps each project&rsquo;s state, decisions and journal, so every session starts where the last one stopped.</li>
-          <li><strong>Access, one service at a time:</strong> <code>ade connect &lt;service&gt;</code>, at your own terminal. You sign in yourself, the project records names only, and every change asks first.</li>
+          <li><strong>Sign-ins:</strong> <code>ade setup</code> signs you in to Claude and GitHub.</li>
+          <li><strong>Memory:</strong> each project&rsquo;s state, decisions and journal.</li>
+          <li><strong>Access:</strong> <code>ade connect &lt;service&gt;</code>: you sign in, the project keeps names only, every change asks.</li>
         </ul>
         <div class="svc">
           <div class="svc-row">
@@ -129,24 +129,24 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
       </article>
       <article class="orx-card" data-story="projects">
         <span class="feat-eyebrow">Step 3 &middot; Projects and customers</span>
-        <h3>A focus agent per project, a hub per customer.</h3>
-        <p>Each project gets its own agent with its own context, so you can run several tasks at once, for several customers.</p>
+        <h3>A focus agent per project.</h3>
+        <p>Its own agent and context per project, so you run several tasks at once.</p>
         <ul class="checks">
-          <li><strong>Bring your repos in:</strong> <code>ade project add &lt;path or git address&gt;</code> makes a project folder for each.</li>
-          <li><strong>One focus agent per project:</strong> <code>ade work &lt;folder&gt;</code> opens it. It sees only its folder and the repos that folder lists.</li>
-          <li><strong>Many tickets in parallel:</strong> <code>ade dispatch</code> hands ready tickets to focus builders, as many at once as you allow.</li>
-          <li><strong>One hub per customer:</strong> <code>ade hub new</code> for each client. The fintech client&rsquo;s hub runs only the models they approved; the agency project has a hub of its own.</li>
+          <li><code>ade project add &lt;path or git address&gt;</code>: a repo becomes a project folder.</li>
+          <li><code>ade work &lt;folder&gt;</code>: its focus agent, seeing only that folder and its repos.</li>
+          <li><code>ade dispatch</code>: ready tickets to focus builders, as many as you allow.</li>
+          <li><code>ade hub new</code> per customer, each running only the models it approved.</li>
         </ul>
       </article>
       <article class="orx-card" data-story="control">
         <span class="feat-eyebrow">Step 4 &middot; Run it from the terminal or Telegram</span>
-        <h3>At your desk or on your phone.</h3>
+        <h3>At your desk or phone.</h3>
         <p>The same team, wherever you are.</p>
         <ul class="checks">
-          <li><strong>The terminal:</strong> <code>ade ui</code> puts the orchestrator and a tab per focus agent in one window.</li>
-          <li><strong>Telegram:</strong> your own bot, locked to you. Ask for status, message a focus agent, get a screenshot of the proof.</li>
-          <li><strong>Your phone&rsquo;s browser:</strong> <code>ade web --tailnet</code>, a read-only page of the agents and their logs.</li>
-          <li><strong>Approvals</strong> are given at your own terminal today; approval buttons in Telegram <span class="coming">Coming</span></li>
+          <li><strong>Terminal:</strong> <code>ade ui</code>: the orchestrator plus a tab per focus agent.</li>
+          <li><strong>Telegram:</strong> your own bot, locked to you, for status, messages and screenshots of proof.</li>
+          <li><strong>Phone:</strong> <code>ade web --tailnet</code>, a read-only page.</li>
+          <li><strong>Approvals</strong> at your terminal today; approval buttons in Telegram <span class="coming">Coming</span></li>
         </ul>
       </article>
     </div>
@@ -158,44 +158,44 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <div class="section-head">
       <span class="kicker">ADE Computer</span>
       <h2>One ADE Computer per engagement.</h2>
-      <p data-story="computer">An ADE Computer is one machine for your work: a mini PC on your desk, a compute instance, or a container on your own Docker. Give it to one client for dedicated work, or run several contracts on it, each in a hub of its own.</p>
-      <p>Today it is an Ubuntu desktop with ADE, VS Code, a terminal and database tools ready to go, on your own Docker, one per project or per task. On a mini PC or a compute instance with Ubuntu 24.04, the one-line install and <code>ade setup</code> set ADE up on the machine itself.</p>
+      <p data-story="computer">An ADE Computer is one machine: a mini PC, a compute instance or a container on your own Docker. For dedicated work, or several contracts in their own hubs.</p>
+      <p>Today: an Ubuntu desktop with ADE, VS Code, a terminal and database tools, per project or per task.</p>
     </div>
     <div class="orx-cards orx-cards--two">
       <article class="orx-card">
         <span class="feat-eyebrow">What is inside</span>
-        <h3>A whole desktop, already set up.</h3>
+        <h3>Already set up.</h3>
         <ul class="checks">
-          <li><strong>Ubuntu 24.04 with a desktop</strong> you open in your browser, on your own machine only, behind a password made for that computer.</li>
-          <li><strong>ADE and Claude Code</strong>, with git, node, bun, python3, tmux and a browser the agents can drive.</li>
-          <li><strong>VS Code and a terminal</strong> on the desktop.</li>
-          <li><strong>Database tools:</strong> DBeaver, DB Browser for SQLite, and the <code>psql</code>, <code>mysql</code> and <code>sqlite3</code> clients.</li>
-          <li><strong>It starts with the guide:</strong> the first terminal runs <code>ade</code>, and <code>ade setup</code> walks you through signing in and making your hub. No sign-in comes with the image.</li>
+          <li><strong>Ubuntu 24.04 desktop</strong> in your browser, local only, with its own password.</li>
+          <li><strong>ADE and Claude Code</strong>, git, node, bun, python3, tmux and a browser agents can drive.</li>
+          <li><strong>VS Code, a terminal, DBeaver</strong>, DB Browser for SQLite, <code>psql</code>, <code>mysql</code>, <code>sqlite3</code>.</li>
+          <li><strong>The guide first:</strong> the first terminal runs <code>ade setup</code>. No sign-in ships in the image.</li>
         </ul>
       </article>
       <article class="orx-card">
         <span class="feat-eyebrow">How you use it</span>
-        <h3>One per project, or one per task.</h3>
+        <h3>Per project or task.</h3>
         <ul class="checks">
-          <li><strong>Per project:</strong> a computer you name and keep. Stop it and start it again; its home and what you installed stay.</li>
-          <li><strong>Per task:</strong> a computer labelled with its ticket, or a throwaway one that is deleted with its home when you stop it.</li>
+          <li><strong>Per project:</strong> named, and kept across restarts.</li>
+          <li><strong>Per task:</strong> labelled with its ticket, or thrown away with its home on stop.</li>
           <li><strong>Several at once</strong>, each with its own home, password, address and network.</li>
-          <li><strong>Save an installed state</strong> as an image on your machine, and start new computers from it.</li>
+          <li><strong>Save a state</strong> as a local image to start new ones.</li>
+          <li><strong>Mini PC or compute instance</strong> (Ubuntu 24.04): the one-line install, then <code>ade setup</code>.</li>
         </ul>
       </article>
       <article class="orx-card">
-        <span class="feat-eyebrow">What it can and cannot reach</span>
-        <h3>Kept apart from your machine, and honest about the wall.</h3>
+        <span class="feat-eyebrow">What it can reach</span>
+        <h3>Honest about the wall.</h3>
         <ul class="checks">
-          <li><strong>Not given</strong> your home folder, your keys or the Docker socket. A project folder is shared only when you name one.</li>
-          <li><strong>A container, not a separate machine.</strong> It can reach the internet and, on Docker Desktop, services on your machine that listen on localhost.</li>
-          <li><strong>The agents inside have full rights inside.</strong> Give a computer nothing you would not give the agents in it.</li>
+          <li><strong>Not given</strong> your home folder, keys or Docker socket; a project folder only when you name it.</li>
+          <li><strong>A container, not a separate machine:</strong> it reaches the internet and, on Docker Desktop, your localhost services.</li>
+          <li><strong>Agents inside have full rights.</strong> Give it nothing you would not give them.</li>
         </ul>
       </article>
       <article class="orx-card orx-card--check">
         <span class="feat-eyebrow">Where it stands</span>
         <h3>Early preview.</h3>
-        <p>It runs today on your own Docker, on macOS or Linux. The image and its launcher are not public yet, so there is nothing to install from this page. Ask, and say what you would use it for.</p>
+        <p>On your own Docker, macOS or Linux. The image and launcher are not public yet.</p>
         <a class="more" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview <span aria-hidden="true">&rarr;</span></a>
       </article>
     </div>
@@ -211,13 +211,13 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <div class="feat-grid">
       <article class="feat-card text">
         <span class="feat-eyebrow">The problem</span>
-        <h3>Agents write code fast. Nobody trusts what they ship.</h3>
-        <p>Teams spend their time checking, untangling and redoing agent work. Every session starts from zero, and the agent grades its own homework.</p>
+        <h3>Fast agents, no trust.</h3>
+        <p>Teams redo agent work. Each session starts from zero, and the agent grades its own homework.</p>
       </article>
       <article class="feat-card text">
         <span class="feat-eyebrow">The promise</span>
-        <h3>A delivery team that works like a good engineering team.</h3>
-        <p>ADE plans, builds and reviews, it remembers, and nothing counts as done until the tests say so.</p>
+        <h3>A real engineering team.</h3>
+        <p>ADE plans, builds, reviews and remembers. Nothing is done until the tests say so.</p>
       </article>
     </div>
     <figure class="hero-visual hero-visual--term">
@@ -242,79 +242,8 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
 0</code></pre>
         </div>
       </div>
-      <figcaption class="term-caption">Real output: the <code>ade</code> command&rsquo;s own verification command, on <code>main</code> at 5daf9ba, run 2026-11-22. Each repo behind ADE has one, and CI runs it on every pull request.</figcaption>
+      <figcaption class="term-caption">Real output of the <code>ade</code> command&rsquo;s verification command, <code>main</code> at 5daf9ba, 2026-11-22. Every ADE repo has one; CI runs it on every pull request.</figcaption>
     </figure>
-  </div>
-</section>
-
-<section class="section" id="pillars">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">What you get</span>
-      <h2>Five promises, each with its proof.</h2>
-      <p>Every line below names the piece that does it, so you can check it in the source.</p>
-    </div>
-    <div class="orx-cards pillars">
-      <article class="orx-card">
-        <h3>Verified</h3>
-        <p>Nothing counts as done until the tests say so.</p>
-        <ul class="checks">
-          <li>The <strong>verification command</strong>, agreed in the plan, gates Done. Green is Done; red is not.</li>
-          <li><strong>No agent approves its own work.</strong> The reviewer, never the builder, runs the command and records its real output.</li>
-          <li><strong>Review scales with risk:</strong> low gets the command only, medium one quick pass, high a thorough review plus one adversarial pass.</li>
-        </ul>
-      </article>
-      <article class="orx-card">
-        <h3>A team, not a chatbot</h3>
-        <p>Roles with owners and boundaries, not one assistant doing everything.</p>
-        <ul class="checks">
-          <li><strong>4 core roles</strong> from ade-method: product, architect, developer, reviewer.</li>
-          <li><strong>10 specialists</strong> from ade-agent-registry, loaded only when a task needs one.</li>
-          <li>An <strong>orchestrator</strong> that dispatches tickets to focus builders: <code>ade dispatch</code>.</li>
-          <li><strong>Reviewers on a different model:</strong> by default the builder runs on Claude Opus and the reviewer on Claude Sonnet, and you can point either at another service.</li>
-        </ul>
-      </article>
-      <article class="orx-card">
-        <h3>It remembers</h3>
-        <p>Every session starts from what is live, open and waiting.</p>
-        <ul class="checks">
-          <li><strong>The brain</strong> indexes the journal, each folder&rsquo;s state and each project&rsquo;s context and decision records, locally.</li>
-          <li>Hooks read that state back at session start and on every prompt, so each session knows what the others did.</li>
-          <li><strong>Crash recovery:</strong> after a crash or a restart, <code>bin/recover</code> clears stale locks, repairs the event log, marks a dead agent&rsquo;s ticket blocked and says how to resume it. Each repair is a line in the journal.</li>
-        </ul>
-      </article>
-      <article class="orx-card">
-        <h3>You stay in control</h3>
-        <p>Agents do the work; the decisions that matter stay yours.</p>
-        <ul class="checks">
-          <li><strong>High-risk work waits</strong> for your approval, typed at your own terminal.</li>
-          <li><strong>Secrets stay out of agents&rsquo; reach:</strong> a key goes from a hidden prompt to the hub&rsquo;s key store (the macOS Keychain; on Linux, pass or a private file), never into an argument, a log or a Claude Code session&rsquo;s environment.</li>
-          <li><strong>ade-secrets</strong>, a local key store and terminal vault (<code>ade-secrets vault</code>), refuses to run inside an agent session.</li>
-          <li><strong>Each customer kept separate:</strong> one hub per customer, with its own allowed models.</li>
-        </ul>
-      </article>
-      <article class="orx-card">
-        <h3>Works where you are</h3>
-        <p>The same team in your terminal, on your phone and in the app.</p>
-        <ul class="checks">
-          <li><strong><code>ade ui</code></strong>: the orchestrator and the fleet in one tmux window, in any terminal, with a tab per focus agent. <code>ade files</code> and <code>ade view</code> show the hub&rsquo;s files and code, read-only.</li>
-          <li><strong>Telegram</strong>: message your orchestrator from your phone, locked to you alone.</li>
-          <li><strong><code>ade web</code></strong>: a read-only page of the agents and their logs, on this machine or on your tailnet.</li>
-          <li><strong>An ADE Computer</strong>: a desktop of its own per project or per task, in early preview.</li>
-          <li data-truth="plugins"><strong>Your tracker</strong>: ClickUp, Jira and Linear through the <code>clickup</code>, <code>jira</code> and <code>linear</code> plugins. Every change asks first.</li>
-          <li><strong>Remote Control</strong>: the orchestrator and every focus session start with Claude Code&rsquo;s Remote Control on, named after the hub or the folder.</li>
-          <li><strong>The desktop app</strong>: frozen, still downloadable.</li>
-          <li><strong>A Mac or an Ubuntu server</strong>: the hub runs on both. On a server, <code>bin/server install</code> checks SSH, the firewall and upgrades first and opens no public port.</li>
-        </ul>
-      </article>
-      <article class="orx-card orx-card--check">
-        <h3>Check it yourself</h3>
-        <p>Every repo behind these lines is open source, with the verification command it is held to.</p>
-        <a class="more" href="{{ site.org_url }}">The repos on GitHub <span aria-hidden="true">&rarr;</span></a>
-        <a class="more" href="#how-it-works">How ADE works <span aria-hidden="true">&rarr;</span></a>
-        <a class="more" href="{{ '/paper/' | relative_url }}">Read the technical paper <span aria-hidden="true">&rarr;</span></a>
-      </article>
-    </div>
   </div>
 </section>
 
@@ -322,8 +251,8 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">How it works</span>
-      <h2>Ticket, build, review, verified, done.</h2>
-      <p>The whole loop, not just the code. Red at any gate goes back to the builder.</p>
+      <h2>Ticket to Done.</h2>
+      <p>The whole loop. Red at any gate goes back to the builder.</p>
     </div>
 
     <figure class="hl loop">
@@ -389,23 +318,23 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <ol class="flow">
       <li>
         <span class="flow-step">Ticket</span>
-        <p>A small story with acceptance criteria and a risk level. Write it yourself, or ask the orchestrator in plain words and it writes the ticket (<code>bmad-ticket</code>). <a class="tag-note" href="https://github.com/bmad-code-org/BMAD-METHOD">Built on BMAD v6</a></p>
+        <p>A small story with acceptance criteria and a risk level, by you or the orchestrator (<code>bmad-ticket</code>). <a class="tag-note" href="https://github.com/bmad-code-org/BMAD-METHOD">Built on BMAD v6</a></p>
       </li>
       <li>
         <span class="flow-step">Build</span>
-        <p><code>ade dispatch</code> starts a focus builder for ready tickets, as many at once as you allow, on the model you picked. It writes the failing test first, then the code.</p>
+        <p><code>ade dispatch</code> starts a focus builder. Failing test first, then code.</p>
       </li>
       <li>
         <span class="flow-step">Review</span>
-        <p>Scaled to risk. Anything touching secrets, sign-in, personal data, production or money is high risk, whatever its size, and gets the adversarial pass.</p>
+        <p>Low: the command only. Medium: one quick pass. High (secrets, sign-in, personal data, production, money): a thorough review plus an adversarial pass.</p>
       </li>
       <li>
         <span class="flow-step">Verified</span>
-        <p>The reviewer, never the builder, runs the verification command and records its real output.</p>
+        <p>The reviewer, never the builder, runs the command and records its real output.</p>
       </li>
       <li>
         <span class="flow-step">Done</span>
-        <p>Green is Done, and one dated line goes into the journal. Red goes back to the builder. There is no other path to Done.</p>
+        <p>Green is Done, with a dated line in the journal. No other path.</p>
       </li>
     </ol>
   </div>
@@ -415,55 +344,69 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">What works today</span>
-      <h2>From the first command to proof on your phone.</h2>
-      <p>Each of these is merged on <code>main</code> in the repos. What is not merged yet carries a <span class="coming">Coming</span> label wherever the site mentions it.</p>
+      <h2>Merged and working.</h2>
+      <p>On <code>main</code> today. Anything else is labelled <span class="coming">Coming</span></p>
     </div>
     <div class="orx-cards">
       <article class="orx-card">
         <span class="feat-eyebrow">The guided first run</span>
         <h3>Six steps, one at a time.</h3>
-        <p><code>ade setup</code> goes from nothing to a working hub: Claude Code, sign in to Claude, sign in to GitHub, your hub, your first project, Telegram. Each step says what it will do before it runs and is checked after.</p>
-        <p class="proof">When a step fails you get one plain line on what went wrong and a numbered choice of what to do next. Run <code>ade setup</code> again and it resumes where you are.</p>
-        <p class="proof">Bring in a repo you already have with one command: <code>ade project add &lt;path or git address&gt;</code> makes its project folder in your hub. <code>ade project list</code> shows them.</p>
+        <p><code>ade setup</code>: Claude Code, Claude, GitHub, your hub, your first project, Telegram.</p>
+        <p class="proof">Each step is announced, then checked. A failure gets one plain line and a numbered choice; rerun to resume.</p>
         <a class="more" href="{{ site.cli_repo }}#readme">ade setup, in ade-cli&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">
         <span class="feat-eyebrow">Telegram control</span>
-        <h3>Your own bot, locked to you.</h3>
-        <p>Message your main agent from your phone. The bot answers one account, yours, and no groups.</p>
-        <p class="proof">Once it is locked to you, the chat runs in <strong>auto mode</strong>: your main agent acts on your Telegram messages without asking at the terminal. Claude Code&rsquo;s auto mode still refuses risky actions, and <code>HUB_CHAT_MODE=manual</code> in <code>hub.conf</code> turns it off.</p>
-        <p class="proof">Today you pair the bot with two commands typed in Claude Code; pairing without typing commands <span class="coming">Coming</span></p>
+        <h3>Your own bot.</h3>
+        <p>It answers only your account, never groups.</p>
+        <p class="proof">Once locked, it runs in <strong>auto mode</strong>: your agent acts without asking at the terminal, and Claude Code still refuses risky actions. <code>HUB_CHAT_MODE=manual</code> in <code>hub.conf</code> turns it off.</p>
+        <p class="proof">Pairing takes two commands in Claude Code; pairing without typing commands <span class="coming">Coming</span></p>
         <a class="more" href="{{ site.brain_repo }}#readme">Telegram, in ade-brain&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">
-        <span class="feat-eyebrow">ade web</span>
-        <h3>The team on a page, read-only.</h3>
-        <p><code>ade web</code> shows your agents, their logs, the journal and the chat log in your browser, with keys hidden. It changes nothing.</p>
-        <p class="proof">It listens on your own machine only, behind a random link. <code>ade web --tailnet</code> puts it on your machine&rsquo;s Tailscale address instead, for your phone.</p>
-        <a class="more" href="{{ site.cli_repo }}#readme">ade web, in ade-cli&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
-      </article>
-      <article class="orx-card">
-        <span class="feat-eyebrow">ade shot</span>
-        <h3>Screenshots as proof.</h3>
-        <p><code>ade shot</code> saves a picture of a page, of the screen (it asks first) or of an agent&rsquo;s tab, and keeps it with the project as evidence.</p>
-        <p class="proof"><code>ade shot url &lt;address&gt; --tg</code> also sends it to you on Telegram, only while the bot is locked to you.</p>
-        <a class="more" href="{{ site.cli_repo }}#readme">ade shot, in ade-cli&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
+        <span class="feat-eyebrow">ade web and ade shot</span>
+        <h3>The team, and proof.</h3>
+        <p><code>ade web</code>: agents, logs, journal and chat, read-only, keys hidden, behind a random local link.</p>
+        <p class="proof"><code>ade shot</code> keeps a page, the screen (after asking) or a tab as evidence; <code>--tg</code> sends it to your locked bot.</p>
+        <a class="more" href="{{ site.cli_repo }}#readme">ade web and ade shot, in ade-cli&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">
         <span class="feat-eyebrow">Connectors and the guard</span>
-        <h3>Reads are free. Every change asks.</h3>
-        <p data-truth="plugins">ClickUp, Jira, Linear and Orgo, each through the service&rsquo;s own server: the <code>clickup</code>, <code>jira</code>, <code>linear</code> and <code>orgo</code> plugins.</p>
-        <p class="proof">The <code data-truth="plugin">guard</code> plugin refuses the commands that print a stored token, in every mode.</p>
-        <p class="proof"><code>ade connect &lt;service&gt;</code> connects ClickUp, Jira or Linear to a project with your own sign-in, at your own terminal. The project records names only.</p>
-        <p class="proof">The GitHub, Gmail, Slack, Outlook, Microsoft Teams and Discord connectors <span class="coming">Coming</span></p>
+        <h3>Reads free. Changes ask.</h3>
+        <p data-truth="plugins">ClickUp, Jira, Linear and Orgo, each through its own server: the <code>clickup</code>, <code>jira</code>, <code>linear</code> and <code>orgo</code> plugins.</p>
+        <p class="proof">The <code data-truth="plugin">guard</code> plugin refuses commands that print a stored token, in every mode.</p>
         <a class="more" href="{{ site.skills_repo }}#readme">Connectors and the guard, in ade-skills&rsquo; README <span aria-hidden="true">&rarr;</span></a>
       </article>
       <article class="orx-card">
         <span class="feat-eyebrow">Keys</span>
-        <h3>Typed once, at a hidden prompt.</h3>
-        <p>A key goes in only at your own terminal, in <code>ade setup</code> or the hub&rsquo;s <code>bin/keys set &lt;name&gt;</code>. Agents never see a value.</p>
-        <p class="proof">Never in a chat, a file or a command line.</p>
+        <h3>Typed once, hidden.</h3>
+        <p>A key goes in only at your own terminal, at a hidden prompt, in <code>ade setup</code> or <code>bin/keys set &lt;name&gt;</code>. Agents never see a value.</p>
+        <p class="proof">Never in a chat, a file or a command line. It lives in the hub&rsquo;s key store: the macOS Keychain, or pass or a private file on Linux.</p>
+        <p class="proof"><code>ade-secrets vault</code> refuses to run inside an agent session.</p>
         <a class="more" href="{{ site.brain_repo }}#readme">Keys, in ade-brain&rsquo;s README <span aria-hidden="true">&rarr;</span></a>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">Memory</span>
+        <h3>It remembers.</h3>
+        <p>The brain indexes the journal, folder state, project context and decisions, locally. Hooks load it into every session and prompt.</p>
+        <p class="proof">After a crash, <code>bin/recover</code> clears stale locks, repairs the event log, blocks a dead agent&rsquo;s ticket, says how to resume, and journals each repair.</p>
+      </article>
+      <article class="orx-card">
+        <span class="feat-eyebrow">Where it runs</span>
+        <h3>Mac or Ubuntu server.</h3>
+        <p><code>bin/server install</code> checks SSH, the firewall and upgrades, and opens no public port.</p>
+        <ul class="checks">
+          <li><code>ade files</code>, <code>ade view</code>: hub files and code, read-only.</li>
+          <li><strong>Remote Control</strong> on in every session.</li>
+          <li><strong>The desktop app</strong>: frozen, still downloadable.</li>
+        </ul>
+      </article>
+      <article class="orx-card orx-card--check">
+        <span class="feat-eyebrow">Check it yourself</span>
+        <h3>Open source.</h3>
+        <p>Every repo, with its verification command.</p>
+        <a class="more" href="{{ site.org_url }}">The repos on GitHub <span aria-hidden="true">&rarr;</span></a>
+        <a class="more" href="{{ '/paper/' | relative_url }}">Read the technical paper <span aria-hidden="true">&rarr;</span></a>
       </article>
     </div>
   </div>
@@ -474,7 +417,7 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <div class="section-head">
       <span class="kicker">Open source</span>
       <h2>What ships with ADE.</h2>
-      <p>Each part is its own public repo under the MIT license, with its own tests. Use one, or all of them together.</p>
+      <p>Public MIT repos, each with its own tests.</p>
     </div>
     <div class="orx-cards ships">
       {% for repo in site.data.repos %}{% if repo.job %}
@@ -488,7 +431,7 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
       <article class="orx-card ship-card orx-card--check" data-repo="ade-computer">
         <span class="feat-eyebrow">Early preview</span>
         <h3>ADE Computer</h3>
-        <p>A separate Ubuntu desktop per project or per task, on your own Docker. Not public yet: ask for a preview.</p>
+        <p>Not public yet.</p>
       </article>
     </div>
   </div>
@@ -498,32 +441,31 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">Who it&rsquo;s for</span>
-      <h2>One delivery team, four ways in.</h2>
+      <h2>Four ways in.</h2>
     </div>
     <div class="orx-cards orx-cards--two">
       <article class="orx-card audience">
         <span class="feat-eyebrow">Developers</span>
-        <h3>Hand off the ticket, keep the judgement.</h3>
-        <p>ADE builds test-first on the model you pick, reviews by risk, and you merge only what&rsquo;s green.</p>
-        <p class="proof"><code>ade work &lt;folder&gt; --role builder</code> opens a focus agent on that role&rsquo;s model; <code>ade roles</code> shows which model each role gets.</p>
+        <h3>Keep the judgement.</h3>
+        <p>ADE builds and reviews; you merge only what&rsquo;s green.</p>
+        <p class="proof"><code>ade work &lt;folder&gt; --role builder</code> opens a focus agent on that role&rsquo;s model.</p>
       </article>
       <article class="orx-card audience">
         <span class="feat-eyebrow">Product managers</span>
-        <h3>Write what you want in plain words.</h3>
-        <p>Follow it from Telegram and get proof when it is done, without reading code.</p>
-        <p class="proof">The method has a section for people who don&rsquo;t write code: ask in plain words, and the orchestrator writes the ticket and tells you when it is Done. From Telegram you ask your main agent for status, message a running focus agent and get a picture of the proof. Approvals are given at your own terminal today; approval buttons in Telegram <span class="coming">Coming</span></p>
+        <h3>Ask in plain words.</h3>
+        <p>The orchestrator writes the ticket; Telegram brings status and proof.</p>
       </article>
       <article class="orx-card audience">
         <span class="feat-eyebrow">Forward deployed engineers and consultancies</span>
         <h3>One hub per customer.</h3>
-        <p>Their approved models only, their data stays put, every engagement document drafted.</p>
-        <p class="proof"><code>ade hub new</code> per customer; the hub runs only the providers it allows. The <code>forward-deployed</code> specialist and the <code>fde</code> plugin draft discovery, proposal, SOW, change request, design doc, status report and handover.</p>
+        <p>Their approved models only; their data stays put.</p>
+        <p class="proof">The <code>forward-deployed</code> specialist and the <code>fde</code> plugin draft discovery, proposal, SOW, change request, design doc, status report and handover.</p>
       </article>
       <article class="orx-card audience">
         <span class="feat-eyebrow">Support</span>
-        <h3>Reproduce, investigate, draft the reply.</h3>
+        <h3>Reproduce, investigate, draft.</h3>
         <p>Nothing reaches a customer without your yes.</p>
-        <p class="proof">The <code>support</code> specialist reproduces, checks known issues, investigates read-only and drafts the reply. It asks before sending anything to a customer or changing their account.</p>
+        <p class="proof">The <code>support</code> specialist reproduces, checks known issues, investigates read-only and drafts the reply.</p>
       </article>
     </div>
   </div>
@@ -533,23 +475,23 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">How it compares</span>
-      <h2>A delivery team for one thing: shipping verified work.</h2>
+      <h2>Built to ship verified work.</h2>
     </div>
     <div class="orx-cards">
       <article class="orx-card">
         <span class="feat-eyebrow">General assistants</span>
         <h3>OpenClaw, Hermes</h3>
-        <p>They&rsquo;re assistants for everything; ADE is a delivery team for one thing: shipping verified work.</p>
+        <p>Assistants for everything. ADE does one thing: ship verified work.</p>
       </article>
       <article class="orx-card">
-        <span class="feat-eyebrow">Coding copilots and agents alone</span>
+        <span class="feat-eyebrow">Coding agents alone</span>
         <h3>An agent writes code.</h3>
-        <p>ADE runs the whole loop: ticket &rarr; build &rarr; review &rarr; verified &rarr; done, with memory.</p>
+        <p>ADE runs the whole loop, ticket to Done, with memory.</p>
       </article>
       <article class="orx-card">
         <span class="feat-eyebrow">DIY scripts</span>
         <h3>Already built and tested.</h3>
-        <p>The method, the guardrails and crash recovery are built and covered by tests.</p>
+        <p>Method, guardrails, crash recovery: all tested.</p>
       </article>
     </div>
   </div>
@@ -607,31 +549,27 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <div class="faq">
       <details>
         <summary>Is it safe to let agents do this?</summary>
-        <p>Agents ask before anything risky, keys stay in your keychain, and nothing reaches a customer, an account or a live system without your yes. One hub per customer keeps their work apart. <a href="{{ '/paper/' | relative_url }}">The paper</a> has the security model in detail.</p>
+        <p>Agents ask before anything risky; nothing reaches a customer, an account or a live system without your yes. <a href="{{ '/paper/' | relative_url }}">The paper</a> has the security model.</p>
       </details>
       <details>
         <summary>Will I be locked in?</summary>
-        <p>No. The ADE tools are open source (MIT), they run on your own machine with your own accounts, and each role can use a different AI service: Claude, DeepSeek or Gemini today, GLM and Muse <span class="coming">Coming</span>. ADE Computer, in early preview, is not public yet.</p>
+        <p>No. MIT open source, on your machine and accounts. Each role picks its service: Claude, DeepSeek or Gemini today, GLM and Muse <span class="coming">Coming</span></p>
       </details>
       <details>
         <summary>Isn&rsquo;t this just prompts?</summary>
-        <p>No. Each repo has a verification command that CI runs on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain, ade-skills and ade-secrets, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every script in the hub has a test. The <a href="#why">terminal output on this page</a> is one of them.</p>
-      </details>
-      <details>
-        <summary>What is not here yet?</summary>
-        <p>Anything not built yet carries a <span class="coming">Coming</span> label where it is mentioned. ADE Computer is in early preview.</p>
+        <p>No. CI runs each repo&rsquo;s verification command on every pull request: <code>bash tests/run.sh</code> in ade-cli, ade-brain, ade-skills and ade-secrets, <code>node scripts/validate.mjs</code> in ade-method and ade-agent-registry. Every hub script has a test. <a href="#why">One run is above.</a></p>
       </details>
       <details>
         <summary>Who pays for the AI models?</summary>
-        <p>You do, directly: your own Claude account, or your own API key with each AI service you choose. ADE itself is free and open source, under the MIT license.</p>
+        <p>You do, directly, with your own account or key. ADE is free.</p>
       </details>
       <details>
         <summary>What is a hub?</summary>
-        <p>One git repository per owner or per client, made from <code>ade-brain</code>. It holds each project&rsquo;s context, the memory, the journal and the agents&rsquo; rules. Your code stays in its own repos.</p>
+        <p>One git repo per owner or client, made from <code>ade-brain</code>: context, memory, journal and the agents&rsquo; rules. Your code stays in its own repos.</p>
       </details>
       <details>
         <summary>Where do my prompts go?</summary>
-        <p>Only to the AI services you choose, from your own machine or your ADE Computer. ADE runs no server and collects nothing. If you use the Telegram bot, your messages to it pass through Telegram.</p>
+        <p>Only to the AI services you choose. ADE runs no server and collects nothing; bot messages pass through Telegram.</p>
       </details>
     </div>
   </div>
@@ -642,7 +580,7 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
     <div class="cta-band">
       <img src="{{ img }}logo.svg" width="60" height="60" alt="">
       <h2>Hand off the first ticket.</h2>
-      <p>Install the <code>ade</code> command, run <code>ade setup</code>, open the orchestrator. Or ask for an ADE Computer.</p>
+      <p>Install <code>ade</code>, run <code>ade setup</code>, open the orchestrator.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
         <a class="btn btn-ghost" href="{{ site.preview_url }}" data-preview-mail>Ask for an early preview</a>
