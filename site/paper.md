@@ -27,6 +27,14 @@ building ADE with ADE: 142 pull requests merged across eight repositories in fou
 
 *ADE was conceived in May 2025; this paper reports on the system as built and released in November 2026.*
 
+In practice, a software engineer with several projects or clients works with ADE in four steps. **You:** a hub set up
+around the engineer's persona, with roles that each own a part of the work, while approvals and Done stay out of any
+agent's hands. **Your context, tools and access:** Claude, each project's memory, and services connected one at a time
+with the engineer's own sign-in. **Projects and customers:** one focus agent per project and one hub per customer, with
+several tasks running at once. **Run it from the terminal or Telegram:** one window at the desk, and a bot locked to the
+owner on the phone. One ADE Computer, a mini PC, a compute instance or a container, can hold one engagement or several.
+{: data-story="paper"}
+
 **Keywords:** AI agents; software delivery; verification; code review; agentic security; human oversight
 
 ## 1. The problem: "done" is not a fact
@@ -86,7 +94,7 @@ ADE is made of seven parts, each in its own repository with one job (the website
 | **ade-cli** (`ade`) | The command people type: a guided first run, the tab view, files, screenshots, the web view, projects |
 | **ade-brain** | The hub template: one hub per owner or client, holding context, memory, journal and the agents' rules |
 | **ade-method** | The rules and the BMAD workflow settings, pinned by version into every hub and project |
-| **ade-skills** | Plugins: connectors (ClickUp, Jira, Linear, Orgo) and the guard |
+| **ade-skills** | Plugins: connectors (ClickUp, Jira, Linear, Orgo), the connector recipes `ade connect` reads, and the guard |
 | **ade-agent-registry** | Specialist agents (support, sysadmin and others), loaded only when a task needs one |
 | **ade-secrets** | Key storage on top of the system keychain |
 | **ADE Computer** | An isolated Ubuntu desktop image with ADE and the usual tools (early preview) |
