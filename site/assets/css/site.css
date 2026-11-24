@@ -725,6 +725,7 @@ pre {
   font-size: 13px; color: var(--text); overflow-x: auto; white-space: nowrap; flex: 1;
 }
 .hero-install { margin: 26px auto 0; }
+.hero-install + .hero-cta { margin-top: 24px; }
 .today-list { max-width: 760px; margin: 0 auto; }
 @media (min-width: 1024px) { .hero-copy .hero-install { margin-left: 0; justify-content: flex-start; } }
 .dl-note { text-align: center; color: var(--text-3); font-size: 13.5px; margin: 0 0 8px; }
