@@ -229,7 +229,7 @@ We built ADE with its own method, in the open, over four days (20 to 23 November
 | ade-skills | 19 | v0.9.0 |
 | ade-website | 8 | (site) |
 | ade-secrets | 4 | v0.3.1 |
-| ade-method | 3 | v2.1.0 |
+| ade-method | 3 | v2.2.0 |
 | ade-agent-registry | 3 | v1.1.0 |
 | ADE Computer | 3 | v0.1.0 |
 | **Total** | **142** | |
