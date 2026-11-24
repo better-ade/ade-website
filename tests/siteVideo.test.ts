@@ -5,7 +5,7 @@ import { BUILT, parse, readBuilt, site } from "./paths";
 
 /**
  * The video of ADE's user flow on a fresh Ubuntu desktop: rendered by ade-drill's drill D4 in CI (RAW_RECORD=1, the
- * `ade-d4-video` artifact), shown on the home page under the hero's Get started call and at the top of Get started,
+ * `ade-d4-video` artifact), shown on the home page in the hero, under its Get started call and at the top of Get started,
  * each time with the same caption: where it was recorded, and what in it is a stand-in.
  */
 const MP4 = "/assets/video/ade-d4.mp4";
@@ -56,11 +56,14 @@ describe("the video of the user flow", () => {
     });
   }
 
-  it("on the home page, it is in the section right after the hero, whose call is Get started", () => {
+  it("on the home page, it is in the hero, after its Get started call", () => {
     const doc = parse(readBuilt("index.html"));
     const hero = doc.querySelector("section.hero")!;
-    expect(hero.querySelector('a[href="/get-started/"]')).not.toBeNull();
-    expect(hero.nextElementSibling!.querySelector("video")).not.toBeNull();
+    const call = hero.querySelector('a[href="/get-started/"]')!;
+    const video = hero.querySelector("video")!;
+    expect(call).not.toBeNull();
+    expect(video).not.toBeNull();
+    expect(call.compareDocumentPosition(video) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("on Get started, it comes before the first step", () => {
