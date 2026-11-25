@@ -85,7 +85,27 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   </div>
 </section>
 
-<section class="section tint" id="today">
+<section class="section tint" id="storage">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Secure storage</span>
+      <h2>Keys stay in secure storage.</h2>
+      <p>A key is typed once, at a hidden prompt in your own terminal. Agents never see the value.</p>
+    </div>
+    <figure class="storage-fig">
+      <img src="/assets/img/paper/keys.svg" alt="Where a key can and cannot go: typed once at a hidden prompt into secure storage; Claude Code receives it at request time; an agent's shell has no path to the value." loading="lazy" width="880" height="300">
+    </figure>
+    <ul class="checks storage-list">
+      <li><strong>Where it lives:</strong> the macOS Keychain. On Linux, pass (encrypted), or private owner-only files, which <code>bin/doctor</code> calls the weaker store.</li>
+      <li><strong>How it goes in:</strong> <code>bin/keys set</code>, at a hidden prompt. Never a chat, a file or a command line.</li>
+      <li><strong>How it is used:</strong> Claude Code asks for it through its key helper when it needs it. The hub's files hold names only.</li>
+      <li><strong>How it is shared:</strong> <code>bin/keys share</code> seals it to one person; <code>bin/keys receive</code> opens it into their own storage.</li>
+    </ul>
+    <p class="storage-more"><a class="more" href="/paper/">How it works, in the paper <span aria-hidden="true">&rarr;</span></a></p>
+  </div>
+</section>
+
+<section class="section" id="today">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">What works today</span>
@@ -105,7 +125,7 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   </div>
 </section>
 
-<section class="section" id="built-with">
+<section class="section tint" id="built-with">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">Used on real work</span>

@@ -727,6 +727,11 @@ pre {
 .hero-install { margin: 26px auto 0; }
 .hero-install + .hero-cta { margin-top: 24px; }
 .today-list { max-width: 760px; margin: 0 auto; }
+/* The secure storage section: the paper's Figure 4 on a white card (it is drawn on white, in both themes), then the list. */
+.storage-fig { max-width: 880px; margin: 0 auto 40px; }
+.storage-fig img { display: block; width: 100%; height: auto; background: #fff; border: 1px solid var(--line-2); border-radius: 12px; }
+.storage-list { max-width: 760px; margin: 0 auto; }
+.storage-more { text-align: center; margin-top: 28px; }
 @media (min-width: 1024px) { .hero-copy .hero-install { margin-left: 0; justify-content: flex-start; } }
 .dl-note { text-align: center; color: var(--text-3); font-size: 13.5px; margin: 0 0 8px; }
 .dl-note a { color: var(--accent-text); }
