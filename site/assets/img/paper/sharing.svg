@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="13">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#59636e"/></marker>
+<marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#cf222e"/></marker></defs>
+<rect width="880" height="300" fill="#fff"/>
+<g fill="#fff" stroke="#59636e" stroke-width="1.2">
+<rect x="20" y="40" width="152" height="64" rx="10" stroke="#6d28d9" stroke-width="2"/><rect x="194" y="40" width="152" height="64" rx="10"/>
+<rect x="368" y="40" width="152" height="64" rx="10" stroke="#1a7f37" stroke-width="2"/><rect x="542" y="40" width="152" height="64" rx="10"/>
+<rect x="716" y="40" width="152" height="64" rx="10" stroke="#6d28d9" stroke-width="2"/>
+<rect x="194" y="170" width="152" height="64" rx="10"/><rect x="542" y="170" width="152" height="64" rx="10"/>
+</g>
+<g font-weight="700" text-anchor="middle"><text x="96" y="66" fill="#6d28d9">Sender's keychain</text><text x="270" y="66">bin/keys share</text>
+<text x="444" y="66" fill="#1a7f37">Sealed block</text><text x="618" y="66">bin/keys receive</text><text x="792" y="66" fill="#6d28d9">Their keychain</text>
+<text x="270" y="196">Their GitHub keys</text><text x="618" y="196">Their SSH key</text></g>
+<g fill="#3a3a44" font-size="12" text-anchor="middle"><text x="96" y="88">values, never shown</text><text x="270" y="88">age seals to one key</text>
+<text x="444" y="88">chat, email: any way</text><text x="618" y="88">checks, then asks</text><text x="792" y="88">stored, never shown</text>
+<text x="270" y="218">public; you confirm them</text><text x="618" y="218">private, stays with them</text></g>
+<g stroke="#59636e" stroke-width="1.6" fill="none" marker-end="url(#a)"><path d="M172 72H192"/><path d="M346 72H366"/><path d="M520 72H540"/><path d="M694 72H714"/>
+<path d="M270 170V106"/><path d="M618 170V106"/></g>
+<text x="182" y="34" fill="#59636e" font-size="11" text-anchor="middle">pipe</text>
+<path d="M444 196V108" stroke="#cf222e" stroke-width="1.6" fill="none" stroke-dasharray="5 4" marker-end="url(#r)"/>
+<g fill="#cf222e" font-size="12" text-anchor="middle"><text x="444" y="214">✗ anyone else who sees it</text><text x="444" y="230">cannot open it</text></g>
+<text x="20" y="275" fill="#59636e" font-size="12">No value in a file, an argument, git or on a server. age does not prove the sender: receive says so and asks first.</text>
+</svg>

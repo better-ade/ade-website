@@ -3,14 +3,14 @@
 
     scripts/paper-page.py <folder holding ade-technical-paper.md, ade-whitepaper.pdf and fig/>
 
-Writes site/paper.md, and copies the four figures to site/assets/img/paper/ and the PDF to
+Writes site/paper.md, and copies the five figures to site/assets/img/paper/ and the PDF to
 site/assets/ade-whitepaper.pdf. The paper's text is copied as it is. Only what a page needs is changed, and
 each change is listed here, so the page can be made again from a newer draft and its difference from the source is
 never a guess:
 
 - the title and the byline move into the page's front matter (the layout prints them);
 - each figure becomes a <figure> with the site's address for the image, its caption as the alt text and shown under
-  it; figure 4 is indented into the list item it follows, so the numbered list it sits in keeps counting;
+  it; figures 4 and 5 are indented into the list items they follow, so the numbered list they sit in keeps counting;
 - the references become a numbered list, each address a link; the citation numbers in the text stay plain text;
 - the abstract's numbers are labelled "as of 23 November 2026" (section 6 says so itself);
 - mentions of work that is not merged and is next get the site's Coming label, and the last item of section 8 is
@@ -48,7 +48,7 @@ HEAD = """# Fast and verified: delivering software with a team of AI agents
 
 """
 
-FIGURES = ["arch", "lifecycle", "dataflow", "keys"]
+FIGURES = ["arch", "lifecycle", "dataflow", "keys", "sharing"]
 
 CHANGES = [
     # ade-cli's 0.2.8 (ade shot and ade project) was released after the paper's table was made; the table shows the
@@ -75,8 +75,8 @@ def figure(match: "re.Match[str]") -> str:
     caption, name = match.group(1), match.group(2)
     if name not in FIGURES:
         sys.exit(f"unknown figure {name}.svg")
-    # Figure 4 follows the first item of a numbered list: indented, it stays inside that item.
-    pad = "   " if name == "keys" else ""
+    # Figures 4 and 5 follow an item of a numbered list (the first and the sixth): indented, each stays inside its item.
+    pad = "   " if name in ("keys", "sharing") else ""
     return (
         f'{pad}<figure class="paper-fig">\n'
         f"{pad}<img src=\"{{{{ '/assets/img/paper/{name}.svg' | relative_url }}}}\" alt=\"{html.escape(caption, quote=True)}\" loading=\"lazy\">\n"
