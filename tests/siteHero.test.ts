@@ -316,6 +316,20 @@ describe("the hero's ADE Computer, with the agents at work", () => {
     expect(css).toMatch(/@keyframes hx-dot\s*\{[^@]*#ff7b72[^@]*#3fb950/);
   });
 
+  it("shows the keys locked: a still tag above the terminal, apart from the team, named for a screen reader", () => {
+    const key = svg.querySelector(".hx-key")!;
+    expect(said(key)).toBe("keys locked");
+    expect(key.querySelector("use")!.getAttribute("href")).toBe("#hx-i-lock");
+    expect(key.closest(".hx-live")).toBeNull();
+    expect(own).toMatch(/\.hx-key\s*\{[^}]*--c:\s*var\(--violet\)/);
+    const tag = box(key.querySelector("rect")!);
+    expect(tag.h).toBeLessThanOrEqual(20);
+    expect(tag.y + tag.h).toBeLessThanOrEqual(term.y);
+    expect(overlap(tag, box(svg.querySelector(".hx-ticket rect")!))).toBe(false);
+    for (const b of badges) expect(overlap(tag, b)).toBe(false);
+    expect(svg.getAttribute("aria-label")).toContain("Keys locked.");
+  });
+
   it("is a desktop of our own: a top bar, a dock with four plain icons, a terminal", () => {
     expect(svg.querySelector(".hx-bar")).not.toBeNull();
     expect([...svg.querySelectorAll(".hx-dock-icon")].map((u) => u.getAttribute("href"))).toEqual(["#hx-i-code", "#hx-i-term", "#hx-i-db", "#hx-i-web"]);

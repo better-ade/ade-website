@@ -109,6 +109,9 @@ Alternates:
     `bash tests/run.sh`, shows "not ok login after reset", then "# fix: keep the session", runs it again and shows
     "ok all tests pass", and the test dot turns from red to green; the Reviewer shows "tests pass ✓ Done"; the note
     returns to the Orchestrator, and "Done. Tests pass." arrives on the phone.
+  - **The keys stay locked.** A still tag above the terminal, a lock and "keys locked", in violet like the
+    keychain in the paper's Figure 5: the keys stay in secure storage while the agents work, and no agent sees one.
+    The home page's Secure storage section says how.
   - **Not in the hero:** a ticket card, the specialists, "loaded when needed", the list of services. They are in the
     section under it.
   - It is an illustration of the method, not a recording: no customer, no person, no real project in it.

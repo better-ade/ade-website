@@ -5,10 +5,11 @@
   units, so it stays readable in the hero's right column. The phones (x 0 to 82: "ADE on your phone", the read-only
   web view, above; Telegram below) and the window (x 96 to 392) never touch. Telegram's own logo is the one mark of
   another product here, unmodified, only to show the integration (docs/messaging.md).
+  The keys tag above the terminal stays still: the keys stay locked in secure storage while the agents work.
   The five badges go once round the terminal in hand-off order, starting next to the phone. The words in it are
   copy: docs/messaging.md lists them, and tests/siteHero.test.ts holds the layout and the role names.
 {% endcomment %}
-{% capture hx_name %}Two phones beside an ADE Computer window, the agents at work around its terminal: a Telegram message reaches the Orchestrator, then Product, Architect, Developer and Reviewer; when the tests pass it is Done, on ADE&rsquo;s web view and in Telegram.{% endcapture %}
+{% capture hx_name %}Two phones beside an ADE Computer window, the agents at work around its terminal: a Telegram message reaches the Orchestrator, then Product, Architect, Developer and Reviewer; when the tests pass it is Done, on ADE&rsquo;s web view and in Telegram. Keys locked.{% endcapture %}
 <div class="hero-computer">
   <svg class="hx" viewBox="0 0 392 376" role="img" aria-label="{{ hx_name | strip }}">
     <title>{{ hx_name | strip }}</title>
@@ -28,6 +29,7 @@
       <symbol id="hx-i-code" viewBox="0 0 24 24"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></symbol>
       <symbol id="hx-i-term" viewBox="0 0 24 24"><path d="M6 8l4 4-4 4M12.5 16H18"/></symbol>
       <symbol id="hx-i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6.5" rx="6.5" ry="2.8"/><path d="M5.5 6.5v11c0 1.5 2.9 2.8 6.5 2.8s6.5-1.3 6.5-2.8v-11M5.5 12c0 1.5 2.9 2.8 6.5 2.8s6.5-1.3 6.5-2.8"/></symbol>
+      <symbol id="hx-i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9.5" rx="2.2"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></symbol>
       <symbol id="hx-i-web" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.6 2.4 2.6 13.6 0 16M12 4c-2.6 2.4-2.6 13.6 0 16"/></symbol>
     </defs>
 
@@ -80,6 +82,8 @@
     <g class="hx-agent hx-c3"><rect class="hx-card" x="194" y="26" width="100" height="40" rx="12"/><rect class="hx-ring hx-r3" x="194" y="26" width="100" height="40" rx="12"/><circle class="hx-glow hx-r3" cx="213" cy="36.4" r="3.6"/><use class="hx-face" href="#hx-i-agent" x="202" y="34" width="22" height="22"/><g class="hx-corner"><circle class="hx-job" cx="222.5" cy="55.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-architect" x="219" y="52" width="7" height="7"/></g><text class="hx-label" x="233" y="43.5">Architect</text><text class="hx-model hx-t-3" x="233" y="56.5" font-size="10">Claude</text></g>
     <g class="hx-agent hx-c4"><rect class="hx-card" x="280" y="70" width="104" height="40" rx="12"/><rect class="hx-ring hx-r4" x="280" y="70" width="104" height="40" rx="12"/><circle class="hx-glow hx-r4" cx="299" cy="80.4" r="3.6"/><use class="hx-face" href="#hx-i-agent" x="288" y="78" width="22" height="22"/><g class="hx-corner"><circle class="hx-job" cx="308.5" cy="99.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-developer" x="305" y="96" width="7" height="7"/></g><text class="hx-label" x="319" y="87.5">Developer</text><text class="hx-model hx-t-3" x="319" y="100.5" font-size="10">Gemini</text></g>
     <g class="hx-agent hx-c5"><rect class="hx-card" x="284" y="280" width="100" height="40" rx="12"/><rect class="hx-ring hx-r5" x="284" y="280" width="100" height="40" rx="12"/><circle class="hx-glow hx-r5" cx="303" cy="290.4" r="3.6"/><use class="hx-face" href="#hx-i-agent" x="292" y="288" width="22" height="22"/><g class="hx-corner"><circle class="hx-job" cx="312.5" cy="309.5" r="5.5"/><use class="hx-ico hx-ico--s" href="#hx-i-reviewer" x="309" y="306" width="7" height="7"/></g><text class="hx-label" x="323" y="297.5">Reviewer</text><text class="hx-model hx-t-3" x="323" y="310.5" font-size="10">DeepSeek</text><g class="hx-live"><g class="hx-check"><circle class="hx-check-dot" cx="312.5" cy="291" r="4.5"/><path class="hx-check-tick" d="M310.3 291l1.6 1.6 2.9-3.2"/></g></g></g>
+
+    <g class="hx-key"><rect class="hx-tag" x="256" y="114" width="84" height="17" rx="8.5"/><use class="hx-ico" href="#hx-i-lock" x="263" y="116.5" width="11" height="11"/><text x="278" y="126" font-size="10">keys locked</text></g>
 
     <g class="hx-live">
       <g class="hx-ticket hx-c2"><rect class="hx-tag" x="124" y="114" width="126" height="17" rx="8.5"/><text x="187" y="126" font-size="10" text-anchor="middle">Login fails after reset</text></g>

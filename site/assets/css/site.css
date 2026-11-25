@@ -1288,6 +1288,7 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 .hx-card { fill: var(--panel); stroke: var(--line-3); }
 .hx-tag { fill: var(--panel); stroke: var(--c); }
 .hx-tag--done { stroke: var(--agent-green); }
+.hx-key { --c: var(--violet); }
 .hx-phone-body { fill: var(--panel); stroke: var(--line-3); stroke-width: 1.5; }
 .hx-web-dot { fill: var(--c); opacity: .45; }
 .hero-caption { position: relative; margin: 12px 0 0; color: var(--text-3); font-size: 13px; line-height: 1.5; text-align: center; }
