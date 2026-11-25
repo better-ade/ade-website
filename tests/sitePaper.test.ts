@@ -189,6 +189,11 @@ describe("what the paper says is true of the repos", () => {
     expect(sec).toMatch(/with --from <user> it refuses any other sender/);
     expect(keys).toContain("store these? [y/N]");
     expect(sec).toContain("receive asks before storing anything");
+    // One-time links (ade-brain story I6): only ciphertext goes to the service; a refused block is kept.
+    expect(keys).toContain("/api/v3/guest/secret/conceal");
+    expect(keys).toMatch(/refuse\(\) \{[^\n]*keep_block/);
+    expect(sec).toMatch(/With --link, share posts the sealed block to a Onetime Secret service/);
+    expect(sec).toContain("keeps the sealed copy so the receiver can try again");
     // Section 8 says what the signature does not prove.
     expect(text.slice(text.lastIndexOf("8. Limits"))).toContain("A signature proves a key, not a person.");
   });
