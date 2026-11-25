@@ -171,6 +171,28 @@ describe("what the paper says is true of the repos", () => {
     expect(para.querySelector(".coming")).not.toBeNull();
   });
 
+  it("the sixth security point says what bin/keys receive checks in a signed block (ade-brain story I5)", () => {
+    const sec = text.slice(text.lastIndexOf("age does not prove who sealed a block"), text.lastIndexOf("6. Evidence"));
+    const keys = readRepo("brain", "bin/keys");
+    // Signed with the sender's SSH key before sealing; checked against the keys GitHub publishes for that sender.
+    expect(keys).toContain("ssh-keygen -Y sign");
+    expect(keys).toContain("ssh-keygen -Y verify");
+    expect(keys).toContain("github.com/");
+    expect(sec).toMatch(/signs its contents with their SSH key before sealing/);
+    expect(sec).toMatch(/checks it against the keys GitHub publishes for that sender/);
+    expect(keys).toContain("(verified: signed by $sfp)");
+    expect(sec).toMatch(/shows verified with the key.s fingerprint/);
+    // The refusals the text names, and --from.
+    expect(keys).toMatch(/not you \(forwarded\?\); --any-to takes it anyway/);
+    expect(sec).toContain("sealed to someone else and passed on");
+    expect(keys).toMatch(/--from \$want/);
+    expect(sec).toMatch(/with --from <user> it refuses any other sender/);
+    expect(keys).toContain("store these? [y/N]");
+    expect(sec).toContain("receive asks before storing anything");
+    // Section 8 says what the signature does not prove.
+    expect(text.slice(text.lastIndexOf("8. Limits"))).toContain("A signature proves a key, not a person.");
+  });
+
   it("section 3.8 says what ade-brain installs for Docker, and that it never joins the docker group", () => {
     const sec = text.slice(text.lastIndexOf("3.8 Isolated local tests"), text.lastIndexOf("4. The owner"));
     const lib = readRepo("brain", "bin/lib.sh"), server = readRepo("brain", "bin/server"), doctor = readRepo("brain", "bin/doctor");
