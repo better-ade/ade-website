@@ -64,15 +64,15 @@ describe("the technical paper's page", () => {
     expect(css).toMatch(/\.prose\s*\{[^}]*overflow-wrap:\s*break-word/);
   });
 
-  it("shows its four figures from the site's own files, each with its caption as the alt text and under it", () => {
+  it("shows its five figures from the site's own files, each with its caption as the alt text and under it", () => {
     const figures = [...main.querySelectorAll("figure.paper-fig")];
     expect(figures.map((f) => f.querySelector("img")!.getAttribute("src"))).toEqual(
-      ["lifecycle", "arch", "dataflow", "keys"].map((n) => `/assets/img/paper/${n}.svg`),
+      ["lifecycle", "arch", "dataflow", "keys", "sharing"].map((n) => `/assets/img/paper/${n}.svg`),
     );
     for (const [i, f] of figures.entries()) {
       const img = f.querySelector("img")!;
       const caption = (f.querySelector("figcaption")!.textContent ?? "").trim();
-      expect(caption).toMatch(/^Figure [1-4]\. \S/);
+      expect(caption).toMatch(/^Figure [1-5]\. \S/);
       expect(img.getAttribute("alt")).toBe(caption);
       const file = join(BUILT, img.getAttribute("src")!);
       expect(existsSync(file), img.getAttribute("src")!).toBe(true);
@@ -80,13 +80,18 @@ describe("the technical paper's page", () => {
       const svg = readFileSync(file, "utf8");
       expect(svg).toMatch(/^<svg /);
       expect(svg.replace('xmlns="http://www.w3.org/2000/svg"', "")).not.toMatch(/https?:|<script|<image|<foreignObject|\son[a-z]+=|@import|url\((?!#)/);
-      expect(i).toBeLessThan(4);
+      expect(i).toBeLessThan(5);
     }
-    expect(figures.length).toBe(4);
-    // The numbered list that figure 4 sits in keeps counting: the security model's five points are one list.
+    expect(figures.length).toBe(5);
+    // The numbered list that figures 4 and 5 sit in keeps counting: the security model's six points are one list.
     const list = main.querySelector("[id=\"5-security-model\"] ~ ol")!;
-    expect(list.querySelectorAll(":scope > li").length).toBe(5);
-    expect(list.querySelector(":scope > li figure.paper-fig img")!.getAttribute("src")).toBe("/assets/img/paper/keys.svg");
+    expect(list.querySelectorAll(":scope > li").length).toBe(6);
+    expect(list.querySelector(":scope > li:nth-child(1) figure.paper-fig img")!.getAttribute("src")).toBe("/assets/img/paper/keys.svg");
+    // Figure 5, keys sealed to one person (ade-brain story I4), sits in the sixth point, which names the command.
+    const sixth = list.querySelector(":scope > li:nth-child(6)")!;
+    expect(sixth.querySelector("figure.paper-fig img")!.getAttribute("src")).toBe("/assets/img/paper/sharing.svg");
+    expect(sixth.textContent).toMatch(/bin\/keys share/);
+    expect(sixth.textContent).toMatch(/bin\/keys receive/);
   });
 
   it("lists its references as one numbered list, and every citation in the text points at one of them", () => {

@@ -213,6 +213,12 @@ The design assumption is that an agent can be wrong, confused, or steered by con
 4. **Content is data.** Messages, pages and files an agent reads never become instructions (the prompt-injection risk catalogued by OWASP [6]); the rules say so, and the
    skills that read external content repeat it.
 5. **Refuse the known token-printing commands.** Owner-level settings refuse a list of commands that print a credential, for every session and agent, in addition to the guard. This is a deny-list, not a default deny: it narrows a known risk and does not replace isolation (section 8).
+6. **Keys go to one person, sealed to them.** Handing a hub over or sharing it used to end with "send me your keys". `bin/keys share` seals the chosen keys with age to one person: to the public SSH keys GitHub publishes for them (their fingerprints are shown, and the sender confirms), or to a one-off age key they make. The values go from secure storage into age through a pipe, never into a file, an argument, git or a server. The sealed block can travel any way, by chat or email; only that person's private key opens it. `bin/keys receive` checks the hub and the expiry and stores the keys straight into the recipient's own secure storage, listing names, never values. age does not prove who sealed a block, so receive shows the sender as not verified and asks before storing anything.
+
+   <figure class="paper-fig">
+   <img src="{{ '/assets/img/paper/sharing.svg' | relative_url }}" alt="Figure 5. Keys sealed to one person. Values go from the sender&#x27;s secure storage into age through a pipe; the sealed block can travel any way, and only the recipient&#x27;s private key opens it, straight into their own secure storage." loading="lazy">
+   <figcaption>Figure 5. Keys sealed to one person. Values go from the sender's secure storage into age through a pipe; the sealed block can travel any way, and only the recipient's private key opens it, straight into their own secure storage.</figcaption>
+   </figure>
 
 ### Trust boundaries
 
