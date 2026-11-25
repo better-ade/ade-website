@@ -12,7 +12,7 @@
 <text x="444" y="66" fill="#1a7f37">Sealed block</text><text x="618" y="66">bin/keys receive</text><text x="792" y="66" fill="#6d28d9">Their keychain</text>
 <text x="270" y="196">Their GitHub keys</text><text x="618" y="196">Their SSH key</text></g>
 <g fill="#3a3a44" font-size="12" text-anchor="middle"><text x="96" y="88">values, never shown</text><text x="270" y="88">signs, then age seals</text>
-<text x="444" y="88">chat, email: any way</text><text x="618" y="88">verifies, then asks</text><text x="792" y="88">stored, never shown</text>
+<text x="444" y="88">chat, email or a one-time link</text><text x="618" y="88">verifies, then asks</text><text x="792" y="88">stored, never shown</text>
 <text x="270" y="218">public; you confirm them</text><text x="618" y="218">private, stays with them</text></g>
 <g stroke="#59636e" stroke-width="1.6" fill="none" marker-end="url(#a)"><path d="M172 72H192"/><path d="M346 72H366"/><path d="M520 72H540"/><path d="M694 72H714"/>
 <path d="M270 170V106"/><path d="M618 170V106"/></g>
