@@ -171,6 +171,22 @@ describe("what the paper says is true of the repos", () => {
     expect(para.querySelector(".coming")).not.toBeNull();
   });
 
+  it("section 3.8 says what ade-brain installs for Docker, and that it never joins the docker group", () => {
+    const sec = text.slice(text.lastIndexOf("3.8 Isolated local tests"), text.lastIndexOf("4. The owner"));
+    const lib = readRepo("brain", "bin/lib.sh"), server = readRepo("brain", "bin/server"), doctor = readRepo("brain", "bin/doctor");
+    expect(lib).toContain("brew install colima docker docker-compose");
+    expect(sec).toMatch(/Colima[\s\S]*docker and docker-compose clients/);
+    expect(/server_docker\(\) \{ echo "([^"]*)"/.exec(server)![1].split(" ")).toEqual(expect.arrayContaining(["docker.io", "docker-compose-v2"]));
+    expect(sec).toContain("docker.io and docker-compose-v2");
+    // Published ports stay on loopback; the group is printed, never joined.
+    expect(server).toContain('{"ip": "127.0.0.1"}');
+    expect(sec).toContain("publish their ports on the server itself only");
+    expect(server).not.toMatch(/^\s*run [^#\n]*(usermod|gpasswd)/m);
+    expect(sec).toMatch(/never adds the hub.s user to the docker group/);
+    expect(doctor).toMatch(/WARN/);
+    expect(sec).toMatch(/warn when it is missing and never fail/);
+  });
+
   it("the connectors and the guard it names are ade-skills plugins, and the specialists are in the registry", () => {
     const plugins: { name: string }[] = JSON.parse(readRepo("skills", ".claude-plugin/marketplace.json")).plugins;
     for (const n of ["clickup", "jira", "linear", "orgo", "guard"]) expect(plugins.map((p) => p.name), n).toContain(n);

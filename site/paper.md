@@ -179,6 +179,18 @@ the host. Inside it, ADE is installed from its tagged release, checked against p
 6. Proof (a screenshot of the page or the agent's terminal) is saved as evidence and sent with the reply through
    `bin/chat send`, which only talks to Telegram's own address and refuses key files, links and disguised files.
 
+### 3.8 Isolated local tests
+
+Docker is part of the hub's tool set, so a developer can run a project's system integration tests locally, in
+containers that start clean and are thrown away (local SIT). On macOS the install step is Colima, the free headless
+engine, with the `docker` and `docker-compose` clients; a Docker that already works (Docker Desktop, OrbStack) is left
+alone. On a Linux server, `bin/server install` adds the distribution's `docker.io` and `docker-compose-v2`, with the
+service enabled, and containers publish
+their ports on the server itself only, unless the owner changes it, because Docker's ports otherwise bypass the
+firewall. Docker is recommended, not needed: `bin/doctor` and `bin/setup` warn when it is missing and never fail. The
+install never adds the hub's user to the `docker` group, which is root-equivalent on Linux; it prints the one command
+and leaves that choice to the owner.
+
 ## 4. The owner's control surface
 
 The owner should not have to sit at a terminal. ADE's chat channel connects the orchestrator to the owner's Telegram:
