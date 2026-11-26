@@ -58,7 +58,40 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   </div>
 </section>
 
-<section class="section tint" id="computer">
+<section class="section tint" id="persona">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">The brain</span>
+      <h2>Build your persona over time, be great at what you do.</h2>
+    </div>
+    <div class="orx-cards orx-cards--five">
+      <article class="orx-card" data-persona="pick">
+        <span class="feat-eyebrow">1. Pick who it is.</span>
+        <p>One of 13 personas (staff engineer, DevOps/SRE, data engineer, security engineer, fractional CTO &hellip;) or your own. <code>bin/init --persona devops-sre --client "a fintech client"</code> makes a private hub: one persona, one client, with its habits, work folders and suggested model.</p>
+      </article>
+      <article class="orx-card" data-persona="work">
+        <span class="feat-eyebrow">2. Give it the work.</span>
+        <p><code>bin/new projects/shop --repo ...</code> brings in each project: its own agent, state and access list; the client&rsquo;s code stays in its own repos.</p>
+      </article>
+      <article class="orx-card" data-persona="day">
+        <span class="feat-eyebrow">3. It starts each day knowing what is live.</span>
+        <p>A morning briefing: what is open, waiting and stale. Every session reads the folders&rsquo; state and the journal, so no agent starts from zero.</p>
+      </article>
+      <article class="orx-card" data-persona="learn">
+        <span class="feat-eyebrow">4. It learns how you work, with your yes.</span>
+        <p>Correct an agent or repeat a preference and it records the rule in your words; it takes effect only after you confirm it in your own terminal. At most 30 lines load into each session; <code>bin/learn</code> shows, edits or forgets any of them.</p>
+      </article>
+      <article class="orx-card" data-persona="remember">
+        <span class="feat-eyebrow">5. It remembers everything, locally.</span>
+        <p><code>bin/brain search "what did the client decide about SMS"</code> finds any note, decision or journal entry by keyword and meaning, on your machine; nothing leaves it.</p>
+      </article>
+    </div>
+    <p class="persona-close">One hub per client, so clients never mix. Over weeks, the persona knows the client the way a senior engineer does.</p>
+    <p><a class="more" href="{{ site.brain_repo }}">See ade-brain on GitHub <span aria-hidden="true">&rarr;</span></a></p>
+  </div>
+</section>
+
+<section class="section" id="computer">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">ADE Computer</span>
@@ -69,7 +102,7 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   </div>
 </section>
 
-<section class="section" id="how-it-works">
+<section class="section tint" id="how-it-works">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">How it works</span>
@@ -85,7 +118,7 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   </div>
 </section>
 
-<section class="section tint" id="storage">
+<section class="section" id="storage">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">Secure storage</span>
@@ -105,7 +138,7 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   </div>
 </section>
 
-<section class="section" id="today">
+<section class="section tint" id="today">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">What works today</span>
@@ -125,7 +158,7 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
   </div>
 </section>
 
-<section class="section tint" id="built-with">
+<section class="section" id="built-with">
   <div class="wrap">
     <div class="section-head">
       <span class="kicker">Used on real work</span>

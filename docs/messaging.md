@@ -31,6 +31,27 @@ Docker), for dedicated work or several contracts. Examples stay generic: "a fint
 On the home page the story is the section right after the hero, one line per step, before the ADE Computer line.
 The detail of each step is on Get started.
 
+## Build your persona over time (the home page's "The brain" section)
+
+Owner, 2026-11-26. Right after the day's four steps on the home page, headline "Build your persona over time, be great
+at what you do." Five steps, from ade-brain (story `docs/stories/W-persona-over-time.md`):
+
+1. **Pick who it is.** One of 13 personas (staff engineer, DevOps/SRE, data engineer, security engineer, fractional CTO
+   ...) or your own. `bin/init --persona devops-sre --client "a fintech client"` makes a private hub: one persona, one
+   client, with its habits, work folders and suggested model.
+2. **Give it the work.** `bin/new projects/shop --repo ...` brings in each project: its own agent, state and access
+   list; the client's code stays in its own repos.
+3. **It starts each day knowing what is live.** A morning briefing: what is open, waiting and stale. Every session
+   reads the folders' state and the journal, so no agent starts from zero.
+4. **It learns how you work, with your yes.** Correct an agent or repeat a preference and it records the rule in your
+   words; it takes effect only after you confirm it in your own terminal. At most 30 lines load into each session;
+   `bin/learn` shows, edits or forgets any of them.
+5. **It remembers everything, locally.** `bin/brain search "what did the client decide about SMS"` finds any note,
+   decision or journal entry by keyword and meaning, on your machine; nothing leaves it.
+
+Closing line: "One hub per client, so clients never mix. Over weeks, the persona knows the client the way a senior
+engineer does." Then a link to ade-brain.
+
 ## Positioning
 
 For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns tickets
