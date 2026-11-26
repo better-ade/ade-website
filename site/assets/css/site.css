@@ -1408,3 +1408,10 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 .demo-video video { display: block; width: 100%; height: auto; border-radius: 12px; background: #0d1117; border: 1px solid var(--line-2); box-shadow: var(--shot-shadow); }
 .demo-video figcaption { margin: 12px 0 0; text-align: center; color: var(--text-3); font-size: 13.5px; line-height: 1.6; }
 .prose .demo-video { margin: 8px 0 28px; }
+
+/* The brain: five steps (three, then two) and a closing line. */
+.orx-cards--five { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.orx-cards--five .orx-card { grid-column: span 2; }
+.orx-cards--five .orx-card:nth-child(n+4) { grid-column: span 3; }
+.persona-close { margin: 24px 0 8px; font-size: 18px; color: var(--text-2); }
+@media (max-width: 900px) { .orx-cards--five { grid-template-columns: 1fr; } .orx-cards--five .orx-card, .orx-cards--five .orx-card:nth-child(n+4) { grid-column: auto; } }
