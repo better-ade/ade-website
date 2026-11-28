@@ -72,6 +72,9 @@ in. This repo is the site that describes them.
   - `siteDownloads`: the download count. The script against a fake API (two pages, an error, an empty list), and
     the home page and Get started built from a copy of the site with each data file: the line rounded down to the
     hundred, or left out; the policy unchanged; the wording as `docs/messaging.md` gives it.
+  - `siteScenarioWebkit`: the scenario scenes in real browsers, WebKit (Safari) and Chromium, through
+    Playwright: desktop and phone width, light and dark, and reduced motion. Each card shows once scrolled to, and
+    each scene paints the frame that is playing, at two times in the loop.
 - `scripts/paper-page.py <folder>`: makes `site/paper.md` from the paper's source
   (`ade-technical-paper.md`), and copies its four figures and its PDF
   (`ade-whitepaper.pdf`) into `site/assets/`. The text is copied as it is; the few
@@ -92,7 +95,8 @@ in. This repo is the site that describes them.
 
 ## Verification command
 
-Needs Node 22, Ruby 3.3 with Bundler, and checkouts of ade-cli, ade-brain, ade-method,
+Needs Node 22, Ruby 3.3 with Bundler, Playwright's Chromium and WebKit (`npx playwright install chromium webkit`
+after `npm ci`; CI adds `--with-deps`), and checkouts of ade-cli, ade-brain, ade-method,
 ade-agent-registry, ade-skills and ade-secrets at `main`: in `./repos/<name>` (what CI
 makes), in `../<name>`, or at the paths in `ADE_CLI_DIR`, `ADE_BRAIN_DIR`, `ADE_METHOD_DIR`,
 `ADE_REGISTRY_DIR`, `ADE_SKILLS_DIR` and `ADE_SECRETS_DIR`. The site is built before the tests, because
