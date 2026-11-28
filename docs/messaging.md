@@ -214,17 +214,16 @@ Alternates:
 - **Specialists.** **Support** and **Sysadmin**, "loaded when needed" (from ade-agent-registry).
 - **Later, one quiet line (not a section, no labels).** "Later: Kimi and ChatGPT as services, ADE Computer in the
   cloud, keys per hub (`ade key`, `ade vault`), the `codesec` plugin, and Telegram commands for status and progress."
-  Once on the home page (in "What works today") and once in the paper; nowhere else.
+  Once, in the paper; the home page has no Later line.
 - **Services.** Available today: **Claude**, **DeepSeek**, **Gemini**. Then **GLM**, **Muse**, **Kimi** and
   **ChatGPT**, each with its own Coming label.
 
 ## The pages
 
 - The site is three pages: the home page, **Get started** and the **technical paper**.
-- **The home page** is about 500 words in six sections, in this order: the hero (one line, the install command, the
+- **The home page** is about 500 words in five sections, in this order: the hero (one line, the install command, the
   drawing); "A day with ADE" (the four steps, one line each); "One ADE Computer per engagement" (one line); "How it
-  works" (the five steps of the loop, one line each); "What works today" (a short list, Coming labels kept, and the
-  Later line); "Used on real work", with links to Get started and the paper. Everything else is on Get started.
+  works" (the five steps of the loop, one line each); "Used on real work", with links to Get started and the paper. Everything else is on Get started.
 - **Get started** is numbered steps, one command each, then the ADE Computer, the verification commands and what
   ships. The guide, the Repos page
   and the ADE app page are gone; their addresses, and every older address that pointed at them, redirect to the
@@ -290,7 +289,7 @@ overstates, and has thousands separators.
 
 ## Built on BMAD v6
 
-The footer says: "Built on Claude Code and the open-source BMAD Method (v6)."
+The footer says "ADE · open source, MIT licensed" and, beside it, "From the Engineering Practices at AR Data Intelligence Solutions Inc." It does not say what ADE is built on, nor that unmerged work is marked Coming. The paper keeps its own account.
 
 ## Questions (said on Get started, under "What you need" and step 1)
 
@@ -332,7 +331,7 @@ Calm, precise, engineering-honest, no hype. Show real output.
 **Short** (owner, 2026-11-24: "too wordy"). Headlines of 2 to 6 words, one short sentence under each (two at most),
 bullets over paragraphs, and each point made once on a page. The messages in this file are the meaning; the pages
 may say them in fewer words. The home page has no separate pillars section: each pillar's proof sits in the story,
-the ADE Computer, How it works or What works today.
+the ADE Computer or How it works.
 
 ## Rules for the pages
 
