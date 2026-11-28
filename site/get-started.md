@@ -9,14 +9,6 @@ lead: Four steps, one command each.
 
 {% include downloads.html %}
 
-<figure class="demo-video">
-  <video controls muted playsinline preload="none" poster="{{ '/assets/video/' | relative_url }}ade-demo.png" width="988" height="676" aria-label="ADE from feature to ship: design, tasks, development, review">
-    <source src="{{ '/assets/video/' | relative_url }}ade-demo.mp4" type="video/mp4">
-    <a href="{{ '/assets/video/' | relative_url }}ade-demo.mp4">Download the video (MP4)</a>
-  </video>
-  <figcaption>Feature to ship on a fresh Ubuntu desktop, recorded in CI. Claude sign-in and the agents' work are stand-ins.</figcaption>
-</figure>
-
 ## What you need
 
 - **macOS** or **Linux**, with `git`, Bash and `python3`. `ade setup --tools` installs what is missing.
