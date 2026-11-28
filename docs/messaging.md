@@ -183,16 +183,16 @@ Alternates:
   ade-cli v0.2.8.
 - **Connectors and the guard.** ClickUp, Jira, Linear and Orgo, each through the service's own server; reads are free,
   every change asks. The guard refuses the commands that print a stored token.
-  `ade connect <service>` connects ClickUp, Jira or Linear to a project with your own sign-in; the project records
-  names only.
+  `ade connect <service>` connects ClickUp, Jira, Linear or Google Drive to a project with your own sign-in; the
+  project records names only.
 - **Keys.** Typed only at a hidden prompt in your own terminal. Agents never see a value.
 
 ## Coming, and later
 
 There is no Coming section on the home page. Whatever is not merged and is **next** keeps a small **Coming** label
 where it is mentioned. Only three things are next: **approval buttons on Telegram**, **Telegram pairing without
-commands**, and **the connectors beyond ClickUp, Jira and Linear** (`ade connect` is merged; the GitHub, Gmail,
-Slack, Outlook, Microsoft Teams and Discord recipes are held). The GLM and
+commands**, and **the connectors beyond ClickUp, Jira, Linear and Google Drive** (`ade connect` is merged; the
+GitHub, Gmail, Slack, Outlook, Microsoft Teams and Discord recipes are held). The GLM and
 Muse providers, Gemini in `ade setup`'s live test and an Anthropic API key or DeepSeek for the orchestrator keep their
 label too.
 

@@ -45,7 +45,8 @@ ade connect clickup
 ```
 
 - `ade connect <service>`: you sign in, the project keeps the name only, every change asks.
-- <span data-tool="clickup">ClickUp</span>, <span data-tool="jira">Jira</span> and <span data-tool="linear">Linear</span> today;
+- <span data-tool="clickup">ClickUp</span>, <span data-tool="jira">Jira</span>, <span data-tool="linear">Linear</span> and
+  <span data-tool="google-drive">Google Drive</span> today;
   <span data-tool="github"><b>GitHub</b> <span class="coming">Coming</span></span>,
   <span data-tool="gmail"><b>Gmail</b> <span class="coming">Coming</span></span>,
   <span data-tool="slack"><b>Slack</b> <span class="coming">Coming</span></span>,
