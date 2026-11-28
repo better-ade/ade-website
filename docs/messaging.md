@@ -55,7 +55,8 @@ engineer does." Then a link to ade-brain.
 ## Scenarios (the home page's "Scenarios" section)
 
 Owner, 2026-11-28. Right after "The brain" and before the ADE Computer, kicker "Scenarios", headline "How people use
-ADE.", one card per scenario with its numbered steps, then the closing line (story `docs/stories/W-scenarios.md`):
+ADE.", one card per scenario with its numbered steps, then the closing line (stories `docs/stories/W-scenarios.md` and
+`docs/stories/W-scenarios-more.md`):
 
 **Jan, a new software engineer**
 1. **Hired.** Jan joins a company as a software engineer.
@@ -90,6 +91,23 @@ ADE.", one card per scenario with its numbered steps, then the closing line (sto
 2. **Asks in plain words.** From the phone, on Sam's own Telegram bot: "check why the API is slow".
 3. **Stays in control.** The DevOps/SRE persona investigates and drafts the fix; nothing touches production without
    Sam's yes.
+
+**Ana, Ben and Chris, three engineers sharing one brain**
+1. **One hub.** Ana makes the team's hub with `ade hub new`; Ben and Chris join it with `ade hub import <url> --share`.
+2. **Shared memory.** The journal, the decisions and each project's state are the same for all three; `bin/sync` keeps
+   them current, so every session knows what the others did.
+3. **Own agents, own keys.** Each runs their own focus agents on their own tickets and sets their own keys; no key is
+   shared.
+4. **One bar for Done.** The same rules and the same tests for everyone, so nobody's work counts until the tests pass.
+
+**Mia teaching Leo, a senior and a junior engineer**
+1. **Shares the hub.** Mia brings Leo into the team's hub with `ade hub import <url> --share`.
+2. **Learns from the record.** Leo's agents read the same journal, decisions and project notes Mia's do;
+   `bin/brain search` finds why something was done.
+3. **Builds with guard rails.** Leo takes his own tickets with his own agents; the tests decide Done, and each change is
+   reviewed by its risk before it counts.
+4. **Reviews what matters.** Mia reads Leo's stories and reviews, not every line, and spends her time on the decisions
+   he can't make yet.
 
 Closing line: "In every scenario, the human runs the connection: the people, the decisions and the yes. AI agents run
 the execution and the support."
@@ -311,6 +329,6 @@ the ADE Computer, How it works or What works today.
 
 - **Truth.** Every claim matches what is merged on `main` in the better-ade repos today. Anything not merged yet is
   labelled **Coming**. The site's tests hold the pages to the repos where they can (see `tests/`).
-- No hosted service, subscription or pricing. No customer names or full names; scenarios use first names only (Jan, Alvin, Robert, Sam). No AI attribution.
+- No hosted service, subscription or pricing. No customer names or full names; scenarios use first names only (Jan, Alvin, Robert, Sam, Ana, Ben, Chris, Mia, Leo). No AI attribution.
 - GitHub links go only to better-ade's public repos (the Repos page's list). Never a private repo.
 - **Keys.** The site never shows a key, and never tells anyone to paste one into a chat, a file or a command line.

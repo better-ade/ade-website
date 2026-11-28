@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { REPOS, parse, readBuilt, readRepo } from "./paths";
 
-/** Story W-scenarios: people using ADE, told as four short scenarios in the owner's words. */
+/** Stories W-scenarios and W-scenarios-more: people using ADE, told as six short scenarios in the owner's words. */
 const home = parse(readBuilt("index.html"));
 const plain = (s: string) => s.replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim();
 const flat = (el: Element | null) => plain(el?.textContent ?? "");
@@ -12,13 +12,16 @@ const cards = () => [...home.querySelectorAll("#scenarios [data-scenario]")];
 const steps = (card: Element) => [...card.querySelectorAll("ol > li")];
 const CLOSING =
   "In every scenario, the human runs the connection: the people, the decisions and the yes. AI agents run the execution and the support.";
-const NAMES = ["Jan", "Alvin", "Robert", "Sam"];
+const NAMES = ["Jan", "Alvin", "Robert", "Sam", "Ana", "Ben", "Chris", "Mia", "Leo"];
 const SCENARIOS = [
   { name: "Jan, a new software engineer", steps: ["Hired.", "Sets up a copilot.", "Uses it daily.", "Runs tasks from the phone.", "Delivers value."] },
   { name: "Alvin, a new hands-on CTO", steps: ["Takes the job.", "Sets up a hub.", "Leads and builds.", "Stays on top of it."] },
   { name: "Robert, a one-person software consultancy", steps: ["Works alone.", "One hub per client.", "Gets a team's process.", "Runs it from anywhere."] },
   { name: "Sam, on call for the platform", steps: ["Gets paged.", "Asks in plain words.", "Stays in control."] },
+  { name: "Ana, Ben and Chris, three engineers sharing one brain", steps: ["One hub.", "Shared memory.", "Own agents, own keys.", "One bar for Done."] },
+  { name: "Mia teaching Leo, a senior and a junior engineer", steps: ["Shares the hub.", "Learns from the record.", "Builds with guard rails.", "Reviews what matters."] },
 ];
+const SLUGS = ["jan", "alvin", "robert", "sam", "team", "mentor"];
 
 const messaging = readFileSync(resolve(__dirname, "../docs/messaging.md"), "utf8");
 /** The "## Scenarios" section of docs/messaging.md: each scenario's heading and steps (markdown stripped), and the closing line. */
@@ -29,7 +32,7 @@ function fromMessaging() {
   const strip = (s: string) => plain(s.replace(/\*\*/g, "").replace(/`/g, ""));
   const out: { name: string; steps: string[] }[] = [];
   // A step runs from its number to the next number, the next heading or a blank line.
-  for (const block of body.split(/\n(?=\*\*[A-Z][a-z]+, )/).slice(1)) {
+  for (const block of body.split(/\n(?=\*\*[A-Z][a-z]+[ ,])/).slice(1)) {
     const [head, ...rest] = block.split("\n");
     const items = rest.join("\n").split(/\n\n/)[0].split(/\n(?=\d+\. )/);
     out.push({ name: strip(head), steps: items.map((i) => strip(i.replace(/^\d+\. /, ""))) });
@@ -47,7 +50,8 @@ describe("scenarios_section", () => {
     expect(flat(section.querySelector("h2"))).toBe("How people use ADE.");
   });
 
-  it("four cards in order (Jan's five steps, Alvin's four, Robert's four, Sam's three), each step titled in bold", () => {
+  it("six cards in order (Jan 5 steps, Alvin 4, Robert 4, Sam 3, team 4, mentor 4), each step titled in bold", () => {
+    expect(cards().map((c) => c.getAttribute("data-scenario"))).toEqual(SLUGS);
     expect(cards().map((c) => flat(c.querySelector("h3")))).toEqual(SCENARIOS.map((s) => s.name));
     for (const [i, c] of cards().entries()) {
       const li = steps(c);
@@ -56,7 +60,7 @@ describe("scenarios_section", () => {
     }
   });
 
-  it("the closing line comes after the four cards", () => {
+  it("the closing line comes after the six cards", () => {
     const close = section.querySelector(".scenarios-close")!;
     expect(flat(close)).toBe(CLOSING);
     const last = cards().at(-1)!;
@@ -74,9 +78,11 @@ describe("scenarios_truth", () => {
     }
   });
 
-  it("every command named is real on main (ade hub new, ade project add, ade dispatch, bin/brain search)", () => {
+  it("every command named is real on main (ade hub new, ade hub import … --share, ade project add, ade dispatch, bin/sync, bin/brain search)", () => {
     const named = [...section.querySelectorAll("code")].map(flat);
-    expect(new Set(named)).toEqual(new Set(["ade hub new", "ade project add", "ade dispatch", "bin/brain search"]));
+    expect(new Set(named)).toEqual(
+      new Set(["ade hub new", "ade hub import <url> --share", "ade project add", "ade dispatch", "bin/sync", "bin/brain search"]),
+    );
     const ade = readRepo("cli", "ade");
     const table = ade.slice(ade.lastIndexOf('case "$cmd" in'));
     const dispatched = new Set([...table.matchAll(/^\s+([a-z|-]+)\)/gm)].flatMap((m) => m[1].split("|")));
@@ -86,6 +92,11 @@ describe("scenarios_truth", () => {
     expect(ade).toMatch(/^ {2}project\s+ade project add /m);
     expect(ade).toMatch(/^ {4}new\) hub_new /m);
     expect(ade).toMatch(/^ {4}add\) project_add /m);
+    // `ade hub import <url|path> [--share|...]`: the import subcommand and its --share mode.
+    expect(ade).toMatch(/^ {14}\| ade hub import <url\|path> \[--share\|/m);
+    expect(ade).toMatch(/^ {4}import\) hub_import /m);
+    expect(ade).toMatch(/--share\|--handover\|--clone\) /);
+    expect(existsSync(resolve(REPOS.brain, "bin/sync")), "bin/sync").toBe(true);
     expect(readRepo("brain", "bin/brain")).toContain("search");
   });
 
@@ -106,12 +117,17 @@ describe("scenarios_truth", () => {
 
 describe("scenarios_names", () => {
   it("messaging.md's rule allows first names in scenarios only", () => {
-    expect(messaging).toContain("No customer names or full names; scenarios use first names only (Jan, Alvin, Robert, Sam)");
+    expect(messaging).toContain(
+      "No customer names or full names; scenarios use first names only (Jan, Alvin, Robert, Sam, Ana, Ben, Chris, Mia, Leo)",
+    );
     expect(messaging).not.toContain("No person or customer names");
   });
 
-  it("the scenarios name only Jan, Alvin, Robert and Sam, by first name", () => {
-    expect(cards().map((c) => flat(c.querySelector("h3")).split(",")[0])).toEqual(NAMES);
+  it("the scenarios name only Jan, Alvin, Robert, Sam, Ana, Ben, Chris, Mia and Leo, by first name", () => {
+    // Each heading names its people before its last comma ("Ana, Ben and Chris, three engineers ...").
+    const head = (c: Element) => flat(c.querySelector("h3")).replace(/, [^,]*$/, "");
+    const named = cards().flatMap((c) => head(c).match(/\b[A-Z][a-z]+/g) ?? []);
+    expect(named).toEqual(NAMES);
     // Capitalised words that are not a sentence's first word: only the four names and ADE's own words.
     const known = new Set([...NAMES, "ADE", "CTO", "Telegram", "Done", "API", "DevOps/SRE", "AI"]);
     // Each step without its bold title, each card heading and the closing line: every one starts a sentence.
