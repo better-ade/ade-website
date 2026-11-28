@@ -1425,7 +1425,8 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
    Each card's drawing (site/_includes/scene-*.html) is one inline SVG whose frames, one per step, sit side by side
    in 320-wide slots. That strip is the base style, so with reduced motion the card shows every frame at once and
    every title. When motion is welcome the SVG is drawn N times as wide inside a clipped stage, every frame is moved
-   back into the first slot (CSS transform none overrides the slot's transform attribute) and the frames take turns,
+   back into the first slot (a CSS transform overrides the slot's transform attribute; it is translate(0), not none,
+   because WebKit keeps the attribute when the CSS value is none, story W-scenario-animations-webkit) and the frames take turns,
    3 s each, looping; the step title of the frame on screen lights up. Under each scene only the bold titles show;
    the full approved sentence stays in the page, visually hidden. CSS only: no script and no style attribute. */
 .scn-stage { margin: 6px 0 14px; overflow: hidden; border-radius: 12px; }
@@ -1505,7 +1506,7 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 }
 @media (prefers-reduced-motion: no-preference) {
   .scn-stage { max-width: 520px; }
-  .scn-f { transform: none; }
+  .scn-f { transform: translate(0); }
   .scn-n3 .scn-scene { width: 300%; }
   .scn-n3 .scn-f { animation: scn-f3 9s linear infinite; }
   .scn-n3 .scn-e { animation: scn-e3 9s linear infinite; animation-delay: inherit; }
