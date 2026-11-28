@@ -2,7 +2,8 @@ name: Pages
 
 # Builds the site and publishes it with GitHub Pages (source: GitHub Actions).
 # The installers are copied in from ade-terminal at build time, so the daily run
-# picks up a new release's install.sh / install.ps1 without a commit here.
+# picks up a new release's install.sh / install.ps1 without a commit here. The
+# download count (scripts/fetch-downloads.sh) is refreshed the same way.
 on:
   push:
     branches: [main]
@@ -35,6 +36,13 @@ jobs:
 
       - name: Fetch the installers
         run: scripts/fetch-installers.sh site
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      # The download count for the hero and Get started. Never fails the build:
+      # without a usable count the pages leave the line out.
+      - name: Fetch the download count
+        run: scripts/fetch-downloads.sh site
         env:
           GITHUB_TOKEN: ${{ github.token }}
 

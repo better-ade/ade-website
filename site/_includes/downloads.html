@@ -1,0 +1,12 @@
+{%- comment -%}
+  The download count (story W-download-count; copy: docs/messaging.md). From site/_data/downloads.json, which the
+  Pages build writes (scripts/fetch-downloads.sh). Rounded down to the hundred, so it never overstates, with thousands
+  separators. Left out when the file is missing or holds no usable total (under 100, not a number): never a 0.
+{%- endcomment -%}
+{%- assign dl_n = site.data.downloads.total | divided_by: 100 | floor | times: 100 -%}
+{%- if dl_n >= 100 -%}
+{%- assign dl_digits = dl_n | append: "" | split: "" | reverse -%}
+{%- capture dl_rev -%}{%- for c in dl_digits -%}{%- assign dl_m = forloop.index0 | modulo: 3 -%}{%- if forloop.index0 > 0 and dl_m == 0 -%},{%- endif -%}{{ c }}{%- endfor -%}{%- endcapture -%}
+{%- assign dl_shown = dl_rev | split: "" | reverse | join: "" -%}
+<p class="downloads"><strong>{{ dl_shown }}+ downloads</strong> of ADE and ade-terminal</p>
+{%- endif -%}

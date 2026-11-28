@@ -206,6 +206,19 @@ One line per public better-ade repo listed with a `job` in `site/_data/repos.yml
 `site/_data/releases.yml`, held to each repo's `VERSION` by the tests) and a link to the repo. ADE Computer is a line
 marked early preview, with no link. `/repos/` redirects to `/get-started/#what-ships-with-ade`.
 
+## The download count (the hero and Get started)
+
+Owner, 2026-11-28 (story `docs/stories/W-download-count.md`). One plain line, under the hero's buttons and on Get
+started: "**2,300+ downloads** of ADE and ade-terminal". The number is rounded down to the hundred, so it never
+overstates, and has thousands separators.
+
+- **What is counted.** The release asset downloads of ade-terminal and ade-cli, from GitHub's releases API, summed
+  over every release. The Pages build fetches it (`scripts/fetch-downloads.sh`), and the daily build keeps it fresh.
+- **What is not.** Installs from a package manager and a `git clone` are not counted, and the page never says they
+  are.
+- **No count, no line.** When the fetch fails the line is left out: never a 0 and never an old number shown as
+  current. Plain text: no badge image, and nothing is fetched in the browser.
+
 ## Built on BMAD v6
 
 The footer says: "Built on Claude Code and the open-source BMAD Method (v6)."

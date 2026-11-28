@@ -7,6 +7,8 @@ description: Set up ADE in four steps, in the order of a software engineer's day
 lead: Four steps, one command each.
 ---
 
+{% include downloads.html %}
+
 <figure class="demo-video">
   <video controls muted playsinline preload="none" poster="{{ '/assets/video/' | relative_url }}ade-demo.png" width="988" height="676" aria-label="ADE from feature to ship: design, tasks, development, review">
     <source src="{{ '/assets/video/' | relative_url }}ade-demo.mp4" type="video/mp4">

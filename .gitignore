@@ -8,3 +8,5 @@ repos/
 # Copied from ade-terminal at build time (scripts/fetch-installers.sh).
 site/install.sh
 site/install.ps1
+# Fetched at build time (scripts/fetch-downloads.sh).
+site/_data/downloads.json

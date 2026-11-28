@@ -1190,6 +1190,10 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 .hero-meta + .hero-meta { margin-top: 8px; }
 .hero-meta a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
 .hero-meta a:hover { color: var(--text); }
+/* The download count (site/_includes/downloads.html): one quiet line under the hero's buttons and on Get started. */
+.downloads { margin: 10px 0 0; font-size: 13.5px; color: var(--text-3); }
+.downloads strong { color: var(--text-2); font-weight: 600; }
+.prose .downloads { margin: -24px 0 32px; }
 
 /* ---------- Mix AI services per role (the section under the hero; copy: docs/messaging.md) ----------
    A card for each role with the face from the hero's drawing (its symbols are in that SVG), two smaller cards for
