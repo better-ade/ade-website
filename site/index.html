@@ -99,58 +99,64 @@ description: Your AI delivery team, in a computer you control. A separate Ubuntu
       <h2>How people use ADE.</h2>
     </div>
     <div class="orx-cards orx-cards--two">
-      <article class="orx-card" data-scenario="jan">
+      <article class="orx-card scn scn-n5" data-scenario="jan">
         <h3>Jan, a new software engineer</h3>
-        <ol class="scenario-steps">
-          <li><strong>Hired.</strong> Jan joins a company as a software engineer.</li>
-          <li><strong>Sets up a copilot.</strong> <code>ade hub new</code> with the staff software engineer persona: Jan&rsquo;s own hub, private, with the company&rsquo;s projects added by <code>ade project add</code>.</li>
-          <li><strong>Uses it daily.</strong> A morning briefing, a focus agent per ticket, the tests as the judge of Done. Over weeks it learns how Jan works, with Jan&rsquo;s yes.</li>
-          <li><strong>Runs tasks from the phone.</strong> Away from the desk, Jan sends a task to his own Telegram bot and gets &ldquo;Done&rdquo; back with proof: the tests passed, and a picture of the agent&rsquo;s screen.</li>
-          <li><strong>Delivers value.</strong> Tickets ship reviewed and tested, so Jan gives his company and its customers more working software, sooner.</li>
+        <div class="scn-stage">{% include scene-jan.html %}</div>
+        <ol class="scenario-steps scn-steps">
+          <li><strong>Hired.</strong> <span class="scn-say">Jan joins a company as a software engineer.</span></li>
+          <li><strong>Sets up a copilot.</strong> <span class="scn-say"><code>ade hub new</code> with the staff software engineer persona: Jan&rsquo;s own hub, private, with the company&rsquo;s projects added by <code>ade project add</code>.</span></li>
+          <li><strong>Uses it daily.</strong> <span class="scn-say">A morning briefing, a focus agent per ticket, the tests as the judge of Done. Over weeks it learns how Jan works, with Jan&rsquo;s yes.</span></li>
+          <li><strong>Runs tasks from the phone.</strong> <span class="scn-say">Away from the desk, Jan sends a task to his own Telegram bot and gets &ldquo;Done&rdquo; back with proof: the tests passed, and a picture of the agent&rsquo;s screen.</span></li>
+          <li><strong>Delivers value.</strong> <span class="scn-say">Tickets ship reviewed and tested, so Jan gives his company and its customers more working software, sooner.</span></li>
         </ol>
       </article>
-      <article class="orx-card" data-scenario="alvin">
+      <article class="orx-card scn scn-n4" data-scenario="alvin">
         <h3>Alvin, a new hands-on CTO</h3>
-        <ol class="scenario-steps">
-          <li><strong>Takes the job.</strong> Alvin joins a startup as its CTO and still writes code.</li>
-          <li><strong>Sets up a hub.</strong> <code>ade hub new</code> with the fractional CTO persona: the company&rsquo;s projects, its architecture decisions and the team&rsquo;s rules in one private hub.</li>
-          <li><strong>Leads and builds.</strong> Alvin writes the stories and approves them; <code>ade dispatch</code> sends them to the projects&rsquo; agents, and each change is reviewed by its risk before it counts.</li>
-          <li><strong>Stays on top of it.</strong> The morning briefing says what is open, waiting and stale across every project, and <code>bin/brain search</code> finds any past decision in seconds.</li>
+        <div class="scn-stage">{% include scene-alvin.html %}</div>
+        <ol class="scenario-steps scn-steps">
+          <li><strong>Takes the job.</strong> <span class="scn-say">Alvin joins a startup as its CTO and still writes code.</span></li>
+          <li><strong>Sets up a hub.</strong> <span class="scn-say"><code>ade hub new</code> with the fractional CTO persona: the company&rsquo;s projects, its architecture decisions and the team&rsquo;s rules in one private hub.</span></li>
+          <li><strong>Leads and builds.</strong> <span class="scn-say">Alvin writes the stories and approves them; <code>ade dispatch</code> sends them to the projects&rsquo; agents, and each change is reviewed by its risk before it counts.</span></li>
+          <li><strong>Stays on top of it.</strong> <span class="scn-say">The morning briefing says what is open, waiting and stale across every project, and <code>bin/brain search</code> finds any past decision in seconds.</span></li>
         </ol>
       </article>
-      <article class="orx-card" data-scenario="robert">
+      <article class="orx-card scn scn-n4" data-scenario="robert">
         <h3>Robert, a one-person software consultancy</h3>
-        <ol class="scenario-steps">
-          <li><strong>Works alone.</strong> Robert sells software engineering and consulting to several clients, with no team behind him.</li>
-          <li><strong>One hub per client.</strong> <code>ade hub new</code> once per client, so their code, rules and secrets never mix.</li>
-          <li><strong>Gets a team&rsquo;s process.</strong> Agents plan, build and review each client&rsquo;s work; nothing counts as done until the tests pass, so Robert ships what a small team would.</li>
-          <li><strong>Runs it from anywhere.</strong> <code>ade dispatch</code> sends tasks to every client&rsquo;s projects at once; Robert follows them on Telegram and approves at the terminal.</li>
+        <div class="scn-stage">{% include scene-robert.html %}</div>
+        <ol class="scenario-steps scn-steps">
+          <li><strong>Works alone.</strong> <span class="scn-say">Robert sells software engineering and consulting to several clients, with no team behind him.</span></li>
+          <li><strong>One hub per client.</strong> <span class="scn-say"><code>ade hub new</code> once per client, so their code, rules and secrets never mix.</span></li>
+          <li><strong>Gets a team&rsquo;s process.</strong> <span class="scn-say">Agents plan, build and review each client&rsquo;s work; nothing counts as done until the tests pass, so Robert ships what a small team would.</span></li>
+          <li><strong>Runs it from anywhere.</strong> <span class="scn-say"><code>ade dispatch</code> sends tasks to every client&rsquo;s projects at once; Robert follows them on Telegram and approves at the terminal.</span></li>
         </ol>
       </article>
-      <article class="orx-card" data-scenario="sam">
+      <article class="orx-card scn scn-n3" data-scenario="sam">
         <h3>Sam, on call for the platform</h3>
-        <ol class="scenario-steps">
-          <li><strong>Gets paged.</strong> Something is wrong in production at night.</li>
-          <li><strong>Asks in plain words.</strong> From the phone, on Sam&rsquo;s own Telegram bot: &ldquo;check why the API is slow&rdquo;.</li>
-          <li><strong>Stays in control.</strong> The DevOps/SRE persona investigates and drafts the fix; nothing touches production without Sam&rsquo;s yes.</li>
+        <div class="scn-stage">{% include scene-sam.html %}</div>
+        <ol class="scenario-steps scn-steps">
+          <li><strong>Gets paged.</strong> <span class="scn-say">Something is wrong in production at night.</span></li>
+          <li><strong>Asks in plain words.</strong> <span class="scn-say">From the phone, on Sam&rsquo;s own Telegram bot: &ldquo;check why the API is slow&rdquo;.</span></li>
+          <li><strong>Stays in control.</strong> <span class="scn-say">The DevOps/SRE persona investigates and drafts the fix; nothing touches production without Sam&rsquo;s yes.</span></li>
         </ol>
       </article>
-      <article class="orx-card" data-scenario="team">
+      <article class="orx-card scn scn-n4" data-scenario="team">
         <h3>Ana, Ben and Chris, three engineers sharing one brain</h3>
-        <ol class="scenario-steps">
-          <li><strong>One hub.</strong> Ana makes the team&rsquo;s hub with <code>ade hub new</code>; Ben and Chris join it with <code>ade hub import &lt;url&gt; --share</code>.</li>
-          <li><strong>Shared memory.</strong> The journal, the decisions and each project&rsquo;s state are the same for all three; <code>bin/sync</code> keeps them current, so every session knows what the others did.</li>
-          <li><strong>Own agents, own keys.</strong> Each runs their own focus agents on their own tickets and sets their own keys; no key is shared.</li>
-          <li><strong>One bar for Done.</strong> The same rules and the same tests for everyone, so nobody&rsquo;s work counts until the tests pass.</li>
+        <div class="scn-stage">{% include scene-team.html %}</div>
+        <ol class="scenario-steps scn-steps">
+          <li><strong>One hub.</strong> <span class="scn-say">Ana makes the team&rsquo;s hub with <code>ade hub new</code>; Ben and Chris join it with <code>ade hub import &lt;url&gt; --share</code>.</span></li>
+          <li><strong>Shared memory.</strong> <span class="scn-say">The journal, the decisions and each project&rsquo;s state are the same for all three; <code>bin/sync</code> keeps them current, so every session knows what the others did.</span></li>
+          <li><strong>Own agents, own keys.</strong> <span class="scn-say">Each runs their own focus agents on their own tickets and sets their own keys; no key is shared.</span></li>
+          <li><strong>One bar for Done.</strong> <span class="scn-say">The same rules and the same tests for everyone, so nobody&rsquo;s work counts until the tests pass.</span></li>
         </ol>
       </article>
-      <article class="orx-card" data-scenario="mentor">
+      <article class="orx-card scn scn-n4" data-scenario="mentor">
         <h3>Mia teaching Leo, a senior and a junior engineer</h3>
-        <ol class="scenario-steps">
-          <li><strong>Shares the hub.</strong> Mia brings Leo into the team&rsquo;s hub with <code>ade hub import &lt;url&gt; --share</code>.</li>
-          <li><strong>Learns from the record.</strong> Leo&rsquo;s agents read the same journal, decisions and project notes Mia&rsquo;s do; <code>bin/brain search</code> finds why something was done.</li>
-          <li><strong>Builds with guard rails.</strong> Leo takes his own tickets with his own agents; the tests decide Done, and each change is reviewed by its risk before it counts.</li>
-          <li><strong>Reviews what matters.</strong> Mia reads Leo&rsquo;s stories and reviews, not every line, and spends her time on the decisions he can&rsquo;t make yet.</li>
+        <div class="scn-stage">{% include scene-mentor.html %}</div>
+        <ol class="scenario-steps scn-steps">
+          <li><strong>Shares the hub.</strong> <span class="scn-say">Mia brings Leo into the team&rsquo;s hub with <code>ade hub import &lt;url&gt; --share</code>.</span></li>
+          <li><strong>Learns from the record.</strong> <span class="scn-say">Leo&rsquo;s agents read the same journal, decisions and project notes Mia&rsquo;s do; <code>bin/brain search</code> finds why something was done.</span></li>
+          <li><strong>Builds with guard rails.</strong> <span class="scn-say">Leo takes his own tickets with his own agents; the tests decide Done, and each change is reviewed by its risk before it counts.</span></li>
+          <li><strong>Reviews what matters.</strong> <span class="scn-say">Mia reads Leo&rsquo;s stories and reviews, not every line, and spends her time on the decisions he can&rsquo;t make yet.</span></li>
         </ol>
       </article>
     </div>

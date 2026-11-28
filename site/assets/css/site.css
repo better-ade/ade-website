@@ -1420,4 +1420,131 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 .persona-close, .scenarios-close { margin: 24px 0 8px; font-size: 18px; color: var(--text-2); }
 .scenario-steps { margin: 0; padding-left: 20px; color: var(--text-2); font-size: 14.5px; line-height: 1.6; }
 .scenario-steps li + li { margin-top: 8px; }
+
+/* ---------- Scenarios as scenes (story W-scenario-animations) ----------
+   Each card's drawing (site/_includes/scene-*.html) is one inline SVG whose frames, one per step, sit side by side
+   in 320-wide slots. That strip is the base style, so with reduced motion the card shows every frame at once and
+   every title. When motion is welcome the SVG is drawn N times as wide inside a clipped stage, every frame is moved
+   back into the first slot (CSS transform none overrides the slot's transform attribute) and the frames take turns,
+   3 s each, looping; the step title of the frame on screen lights up. Under each scene only the bold titles show;
+   the full approved sentence stays in the page, visually hidden. CSS only: no script and no style attribute. */
+.scn-stage { margin: 6px 0 14px; overflow: hidden; border-radius: 12px; }
+.scn-scene { display: block; width: 100%; height: auto; }
+.scn-scene text { font: 600 15px var(--sans); fill: var(--text-2); text-anchor: middle; }
+.scn-scene .k-s { font: 600 14px var(--sans); }
+.scn-scene .k-big { font: 700 22px var(--sans); fill: var(--accent-text); }
+.scn-scene .k-ot { fill: var(--accent-text); }
+.scn-scene .k-st { text-anchor: start; }
+.scn-scene .k-mt { font: 500 14px var(--mono); fill: #d6d7dc; text-anchor: start; }
+.scn-scene .k-dim { fill: #8a8a94; }
+.scn-scene .k-dim2 { fill: var(--text-3); }
+.scn-scene .k-gt { fill: #3fb950; }
+.scn-scene .k-gt2 { fill: var(--agent-green); }
+.scn-scene .k-rt { fill: #ff7b72; font: 600 16px var(--mono); }
+.scn-scene .k-wt { fill: #ffffff; }
+.k-bg { fill: var(--panel-2); stroke: var(--line); }
+.k-bg2 { fill: var(--panel-2); stroke: var(--line-2); }
+.k-bx { fill: var(--panel); stroke: var(--line-3); stroke-width: 1.5; }
+.k-bo { fill: var(--panel); stroke: var(--orange); stroke-width: 1.5; }
+.k-bf { fill: var(--panel-2); stroke: var(--orange); stroke-width: 1.5; stroke-linejoin: round; }
+.k-ok { fill: none; stroke: var(--agent-green); stroke-width: 2; }
+.k-tm { fill: var(--term-bg); stroke: var(--term-line); }
+.k-tab { fill: rgba(255, 255, 255, 0.06); stroke: rgba(255, 255, 255, 0.14); }
+.k-tl { stroke: rgba(255, 255, 255, 0.28); stroke-width: 3; stroke-linecap: round; }
+.k-dots { stroke: #34353b; stroke-width: 5; stroke-linecap: round; }
+.k-dots2 { stroke: var(--text-3); stroke-width: 4; stroke-linecap: round; }
+.k-ln, .k-o, .k-v, .k-r, .k-g, .k-arr, .k-dash, .k-code, .k-lane, .k-win, .k-wall, .k-ring, .k-notch, .k-key {
+  fill: none; stroke: var(--line-3); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.k-o { stroke: var(--orange); stroke-width: 2.4; }
+.k-v { stroke: var(--violet); }
+.k-r { stroke: var(--agent-red); }
+.k-g { stroke: var(--agent-green); }
+.k-arr { stroke: var(--text-3); stroke-width: 2.5; }
+.k-dash { stroke-dasharray: 4 5; }
+.k-code { stroke: var(--line-2); stroke-width: 4; }
+.k-lane { stroke: var(--line-2); stroke-width: 10; }
+.k-win { stroke: var(--line-3); stroke-width: 6; stroke-linecap: butt; }
+.k-wall { stroke: var(--text-3); stroke-width: 5; }
+.k-ring { stroke: #ff7b72; }
+.k-notch { stroke-width: 3; }
+.k-idle { fill: none; stroke: #8a8a94; stroke-width: 2; }
+.k-off { fill: var(--orange); }
+.k-vf { fill: var(--violet); }
+.k-nf { fill: var(--text-3); }
+.k-gf { fill: var(--agent-green); }
+.k-rf { fill: var(--agent-red); }
+.k-tk { fill: none; stroke: #ffffff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.k-bar { fill: var(--line-2); }
+.k-btn { fill: var(--panel); stroke: var(--agent-green); stroke-width: 1.5; }
+.k-star { fill: #c9cbd1; }
+.k-moon { fill: #f5d58a; }
+.k-pager { fill: #1d1e24; stroke: #ff7b72; stroke-width: 1.5; }
+.k-hub { fill: var(--panel); stroke: var(--orange); stroke-width: 2; }
+.k-l1 { fill: var(--orange); fill-opacity: .2; stroke: var(--orange); stroke-width: 1.5; }
+.k-l2 { fill: var(--violet); fill-opacity: .2; stroke: var(--violet); stroke-width: 1.5; stroke-linejoin: round; }
+.k-l3 { fill: var(--agent-cyan); fill-opacity: .2; stroke: var(--agent-cyan); stroke-width: 1.5; }
+.k-p { --c: var(--orange); fill: var(--c); fill-opacity: .16; stroke: var(--c); stroke-width: 1.5; }
+.k-eye { stroke: var(--c, var(--orange)); stroke-width: 4; stroke-linecap: round; }
+.k-key { stroke: var(--c); stroke-width: 2.4; }
+.scn-scene .c1 { --c: var(--orange); }
+.scn-scene .c3 { --c: color-mix(in srgb, var(--orange) 50%, var(--violet)); }
+.scn-scene .c5 { --c: var(--violet); }
+/* In the strip, a frame shows how it ends. */
+.scn-e { opacity: 0; }
+.scn-steps { display: flex; flex-wrap: wrap; gap: 6px 8px; padding: 0; list-style: none; counter-reset: scn; }
+.scn-steps li + li { margin-top: 0; }
+.scn-steps li {
+  counter-increment: scn; padding: 2px 10px; border: 1px solid var(--line-2); border-radius: 999px;
+  color: var(--text); font-size: 13.5px;
+}
+.scn-steps li::before { content: counter(scn) ". "; color: var(--text-3); }
+.scn-say {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scn-stage { max-width: 520px; }
+  .scn-f { transform: none; }
+  .scn-n3 .scn-scene { width: 300%; }
+  .scn-n3 .scn-f { animation: scn-f3 9s linear infinite; }
+  .scn-n3 .scn-e { animation: scn-e3 9s linear infinite; animation-delay: inherit; }
+  .scn-n3 .scn-l { animation: scn-x3 9s linear infinite; animation-delay: inherit; }
+  .scn-n3 li { animation: scn-l3 9s linear infinite; }
+  .scn-n3 .scn-f2, .scn-n3 li:nth-child(2) { animation-delay: -6s; }
+  .scn-n3 .scn-f3, .scn-n3 li:nth-child(3) { animation-delay: -3s; }
+  .scn-n4 .scn-scene { width: 400%; }
+  .scn-n4 .scn-f { animation: scn-f4 12s linear infinite; }
+  .scn-n4 .scn-e { animation: scn-e4 12s linear infinite; animation-delay: inherit; }
+  .scn-n4 .scn-l { animation: scn-x4 12s linear infinite; animation-delay: inherit; }
+  .scn-n4 li { animation: scn-l4 12s linear infinite; }
+  .scn-n4 .scn-f2, .scn-n4 li:nth-child(2) { animation-delay: -9s; }
+  .scn-n4 .scn-f3, .scn-n4 li:nth-child(3) { animation-delay: -6s; }
+  .scn-n4 .scn-f4, .scn-n4 li:nth-child(4) { animation-delay: -3s; }
+  .scn-n5 .scn-scene { width: 500%; }
+  .scn-n5 .scn-f { animation: scn-f5 15s linear infinite; }
+  .scn-n5 .scn-e { animation: scn-e5 15s linear infinite; animation-delay: inherit; }
+  .scn-n5 .scn-l { animation: scn-x5 15s linear infinite; animation-delay: inherit; }
+  .scn-n5 li { animation: scn-l5 15s linear infinite; }
+  .scn-n5 .scn-f2, .scn-n5 li:nth-child(2) { animation-delay: -12s; }
+  .scn-n5 .scn-f3, .scn-n5 li:nth-child(3) { animation-delay: -9s; }
+  .scn-n5 .scn-f4, .scn-n5 li:nth-child(4) { animation-delay: -6s; }
+  .scn-n5 .scn-f5, .scn-n5 li:nth-child(5) { animation-delay: -3s; }
+}
+@keyframes scn-f3 { 0% { opacity: 0; } 2.67%, 30.67% { opacity: 1; } 33.33%, 100% { opacity: 0; } }
+@keyframes scn-e3 { 0%, 15% { opacity: 1; } 16.67%, 100% { opacity: 0; } }
+@keyframes scn-x3 { 0%, 15% { opacity: 0; } 16.67%, 100% { opacity: 1; } }
+@keyframes scn-l3 { 0%, 32% { color: var(--accent-text); border-color: var(--orange); } 33.33%, 100% { color: var(--text-3); border-color: var(--line); } }
+@keyframes scn-f4 { 0% { opacity: 0; } 2%, 23% { opacity: 1; } 25%, 100% { opacity: 0; } }
+@keyframes scn-e4 { 0%, 11.25% { opacity: 1; } 12.5%, 100% { opacity: 0; } }
+@keyframes scn-x4 { 0%, 11.25% { opacity: 0; } 12.5%, 100% { opacity: 1; } }
+@keyframes scn-l4 { 0%, 24% { color: var(--accent-text); border-color: var(--orange); } 25%, 100% { color: var(--text-3); border-color: var(--line); } }
+@keyframes scn-f5 { 0% { opacity: 0; } 1.6%, 18.4% { opacity: 1; } 20%, 100% { opacity: 0; } }
+@keyframes scn-e5 { 0%, 9% { opacity: 1; } 10%, 100% { opacity: 0; } }
+@keyframes scn-x5 { 0%, 9% { opacity: 0; } 10%, 100% { opacity: 1; } }
+@keyframes scn-l5 { 0%, 19.2% { color: var(--accent-text); border-color: var(--orange); } 20%, 100% { color: var(--text-3); border-color: var(--line); } }
+@media (prefers-reduced-motion: reduce) {
+  .scn * { animation: none !important; }
+}
+/* ---------- end of the scenario scenes ---------- */
 @media (max-width: 900px) { .orx-cards--five { grid-template-columns: 1fr; } .orx-cards--five .orx-card, .orx-cards--five .orx-card:nth-child(n+4) { grid-column: auto; } }

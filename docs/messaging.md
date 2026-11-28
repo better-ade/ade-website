@@ -112,6 +112,12 @@ ADE.", one card per scenario with its numbered steps, then the closing line (sto
 Closing line: "In every scenario, the human runs the connection: the people, the decisions and the yes. AI agents run
 the execution and the support."
 
+Each card plays as a small drawing, one frame per step, looping (story `docs/stories/W-scenario-animations.md`). Under
+it only the bold step titles show, the current one lit; the full sentences above stay in the page for screen readers
+and search. The drawings' labels are short plain words taken from the steps (hired, hub, persona, tests passed, a task,
+Done, review, briefing, three clients, alert, your bot, production, yes, journal, own agents, own keys, senior, junior,
+the why, approved), and name no one.
+
 ## Positioning
 
 For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns tickets
