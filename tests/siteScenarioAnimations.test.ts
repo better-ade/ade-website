@@ -162,8 +162,43 @@ describe("anim_csp", () => {
     expect(changed.trim()).toBe("");
   });
 
-  it("each scene stays under 8 KB of SVG", () => {
-    for (const c of cards()) expect(scene(c).outerHTML.length, slug(c)).toBeLessThan(8 * 1024);
+  it("each scene stays under 8 KB of SVG (a premium scene: premium_budget)", () => {
+    for (const c of cards().filter((c) => !PREMIUM.includes(slug(c)))) {
+      expect(scene(c).outerHTML.length, slug(c)).toBeLessThan(8 * 1024);
+    }
+  });
+});
+
+/** Story W-scenario-scenes-premium: the scenes rebuilt to the premium system (Jan's is the sample). */
+const PREMIUM = ["jan"];
+
+describe("premium_budget", () => {
+  it("each premium scene stays under 16 KB of SVG, drawn only with shapes and text: no raster, script or style", () => {
+    for (const c of cards().filter((c) => PREMIUM.includes(slug(c)))) {
+      const svg = scene(c);
+      expect(svg.classList.contains("scn-p"), slug(c)).toBe(true);
+      expect(svg.outerHTML.length, slug(c)).toBeLessThan(16 * 1024);
+      expect(svg.querySelectorAll("image, img, script, style, foreignObject, use, a").length, slug(c)).toBe(0);
+      for (const el of [svg, ...svg.querySelectorAll("*")]) {
+        for (const { name, value } of [...el.attributes]) {
+          expect(name, `${slug(c)} ${el.tagName}`).not.toMatch(/^(style|on[a-z]+|href|xlink:href|src)$/);
+          // Paint servers and the shadow come from the scene's own <defs>, never from an address.
+          if (/url\(/.test(value)) expect(value, `${slug(c)} ${el.tagName}`).toMatch(new RegExp(`^url\\(#${slug(c)}-[a-z]+\\)$`));
+        }
+      }
+      // Ids are the scene's own, so two scenes on the page never clash.
+      for (const el of svg.querySelectorAll("[id]")) expect(el.id, slug(c)).toMatch(new RegExp(`^${slug(c)}-`));
+    }
+  });
+
+  it("premium motion is CSS only and stops with reduced motion: the strip stays", () => {
+    const motion = media("prefers-reduced-motion: no-preference", ".scn-f");
+    expect(motion).toMatch(/\.scn-p[^{]*\.p-in \{ animation: scn-pin5 15s linear infinite; animation-delay: inherit; \}/);
+    for (const k of ["scn-pin5", "scn-pck5", "scn-pblink", "scn-pspin", "scn-pdot", "scn-pflow"]) expect(keyframes(k), k).toBe(true);
+    // Outside the motion block, nothing in a premium scene animates or hides a frame.
+    const outside = css.replace(motion, "");
+    expect(outside).not.toMatch(/\.(scn-p|p-)[^{]*\{[^}]*animation: (?!none)/);
+    expect(outside).not.toMatch(/\.p-in \{[^}]*opacity: 0/);
   });
 });
 

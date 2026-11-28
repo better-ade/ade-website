@@ -146,3 +146,34 @@ describe("anim_webkit: each scenario scene paints in WebKit and Chromium", () =>
     }, 90_000);
   }
 });
+
+/** Story W-scenario-scenes-premium: no text in a premium scene renders under 13px at phone width. */
+const PREMIUM = ["jan"];
+describe("premium_text: every text in a premium scene renders at 13px or larger at 390px wide", () => {
+  for (const browser of ["chromium", "webkit"]) {
+    it(browser, async () => {
+      const ctx = await browsers[browser].newContext({ viewport: { width: 390, height: 844 } });
+      try {
+        const page = await ctx.newPage();
+        await page.goto(`${origin}/`);
+        await settle(page);
+        await seek(page, 1500); // every frame settled after its ease-in
+        const small = await page.evaluate((slugs) => {
+          const out: string[] = [];
+          let seen = 0;
+          for (const s of slugs) {
+            for (const t of document.querySelectorAll(`[data-scenario="${s}"] svg text`)) {
+              seen++;
+              const px = parseFloat(getComputedStyle(t).fontSize) * (t as SVGTextElement).getScreenCTM()!.a;
+              if (!(px >= 13)) out.push(`${s} "${t.textContent}": ${px.toFixed(2)}px`);
+            }
+          }
+          return seen ? out : ["no text found"];
+        }, PREMIUM);
+        expect(small).toEqual([]);
+      } finally {
+        await ctx.close();
+      }
+    }, 60_000);
+  }
+});
