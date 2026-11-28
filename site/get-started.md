@@ -114,7 +114,3 @@ ade ui
 
 {% for repo in site.data.repos %}{% if repo.job %}- **[{{ repo.name }}]({{ site.org_url }}/{{ repo.name }})**{% if repo.release %} (v{{ site.data.releases[repo.release] }}){% elsif repo.state %} ({{ repo.state }}){% endif %}: {{ repo.job }}
 {% endif %}{% endfor %}- **ADE Computer** (early preview): not public yet.
-
-These are each repo's latest release. What `ade` v{{ site.data.releases.ade_cli }} installs is pinned: `ade init` copies
-ade-method v{{ site.data.pins.ade_method }} into a project, a new hub runs ade-method v{{ site.data.pins.hub_method }}
-(the hub template's pin), and `ade skills add` and `ade connect` read ade-skills v{{ site.data.pins.ade_skills }}.
