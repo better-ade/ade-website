@@ -241,6 +241,8 @@ const LATER: [string, RegExp][] = [
   ["the codesec plugin", /\bcodesec\b|code-security plugin/i],
 ];
 const BLOCKS = "main p, main li, main td, main h2, main h3, main figcaption, main summary";
+/** The Secure storage list names key kinds (Slack, GitHub), which is not a connector claim (story W-paste-guard). */
+const inStorageList = (el: Element) => !!el.closest("ul.storage-list");
 
 describe("not merged yet is labelled Coming", () => {
   it.each(NOT_MERGED)("%s", (_name, re) => {
@@ -248,7 +250,7 @@ describe("not merged yet is labelled Coming", () => {
     for (const { path, doc } of PAGES) {
       for (const el of doc.querySelectorAll(BLOCKS)) {
         // Check the innermost block that says it: a paragraph inside a list item is judged on its own.
-        if (el.querySelector("p, li, td")) continue;
+        if (el.querySelector("p, li, td") || inStorageList(el)) continue;
         const text = el.textContent ?? "";
         if (!re.test(text)) continue;
         if (/^\s*Coming\b/.test(text) || labelledComing(el)) continue;
@@ -267,7 +269,7 @@ describe("not merged yet is labelled Coming", () => {
     // and wherever it is named, the block carries the label.
     for (const name of NEXT) {
       const re = NOT_MERGED.find(([n]) => n === name)![1];
-      const said = PAGES.flatMap(({ doc }) => [...doc.querySelectorAll(BLOCKS)].filter((el) => !el.querySelector("p, li, td") && re.test(el.textContent ?? "")));
+      const said = PAGES.flatMap(({ doc }) => [...doc.querySelectorAll(BLOCKS)].filter((el) => !el.querySelector("p, li, td") && !inStorageList(el) && re.test(el.textContent ?? "")));
       expect(said.length, name).toBeGreaterThan(0);
       for (const el of said) expect(labelledComing(el), name).toBe(true);
     }
