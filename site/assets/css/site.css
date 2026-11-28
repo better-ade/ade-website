@@ -1417,5 +1417,7 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 .orx-cards--five { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .orx-cards--five .orx-card { grid-column: span 2; }
 .orx-cards--five .orx-card:nth-child(n+4) { grid-column: span 3; }
-.persona-close { margin: 24px 0 8px; font-size: 18px; color: var(--text-2); }
+.persona-close, .scenarios-close { margin: 24px 0 8px; font-size: 18px; color: var(--text-2); }
+.scenario-steps { margin: 0; padding-left: 20px; color: var(--text-2); font-size: 14.5px; line-height: 1.6; }
+.scenario-steps li + li { margin-top: 8px; }
 @media (max-width: 900px) { .orx-cards--five { grid-template-columns: 1fr; } .orx-cards--five .orx-card, .orx-cards--five .orx-card:nth-child(n+4) { grid-column: auto; } }
