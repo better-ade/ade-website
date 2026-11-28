@@ -250,9 +250,9 @@ We built ADE with its own method, in the open, over four days (20 to 23 November
 
 | Repository | Pull requests merged | Latest release |
 |---|---|---|
-| ade-cli | 56 | v0.2.10 |
+| ade-cli | 56 | v0.2.15 |
 | ade-brain | 46 | v1.0.0 |
-| ade-skills | 19 | v0.9.0 |
+| ade-skills | 19 | v0.10.0 |
 | ade-website | 8 | (site) |
 | ade-secrets | 4 | v0.3.1 |
 | ade-method | 3 | v2.2.0 |
