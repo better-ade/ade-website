@@ -66,17 +66,21 @@ async function inked(decoder: Page, png: Buffer): Promise<number> {
   }, png.toString("base64"));
 }
 
-/** Every card scrolled into view (so the page's reveal-on-scroll shows it), then the scene animations paused at `ms`. */
-async function settle(page: Page) {
-  for (const slug of SLUGS) {
-    const card = page.locator(`[data-scenario="${slug}"]`);
-    await card.scrollIntoViewIfNeeded();
-    await page.waitForFunction(
-      (s) => getComputedStyle(document.querySelector(`[data-scenario="${s}"]`)!).opacity === "1",
-      slug,
-      { timeout: 5000 },
-    );
-  }
+/**
+ * Story W-scenarios-stage: one person's panel shows at a time, so each scene is checked with its person picked
+ * (their label clicked) and their panel scrolled into view (so the page's reveal-on-scroll shows it).
+ */
+async function pick(page: Page, slug: string) {
+  const label = page.locator(`#scenarios label[for="scn-who-${slug}"]`);
+  await label.scrollIntoViewIfNeeded();
+  await label.click();
+  const card = page.locator(`[data-scenario="${slug}"]`);
+  await card.scrollIntoViewIfNeeded();
+  await page.waitForFunction(
+    (s) => getComputedStyle(document.querySelector(`[data-scenario="${s}"]`)!).opacity === "1",
+    slug,
+    { timeout: 5000 },
+  );
 }
 const seek = (page: Page, ms: number) =>
   page.evaluate((t) => {
@@ -110,11 +114,11 @@ describe("anim_webkit: each scenario scene paints in WebKit and Chromium", () =>
         const page = await ctx.newPage();
         const decoder = await ctx.newPage();
         await page.goto(`${origin}/`);
-        await settle(page);
         const problems: string[] = [];
-        for (const t of run.motion === "reduce" ? [0] : TIMES) {
-          if (run.motion !== "reduce") await seek(page, t);
-          for (const slug of SLUGS) {
+        for (const slug of SLUGS) {
+          await pick(page, slug);
+          for (const t of run.motion === "reduce" ? [0] : TIMES) {
+            if (run.motion !== "reduce") await seek(page, t);
             const stage = page.locator(`[data-scenario="${slug}"] .scn-stage`);
             const box = await stage.boundingBox();
             if (!box || box.width < 1 || box.height < 1) {
@@ -156,20 +160,23 @@ describe("premium_text: every text in a premium scene renders at 13px or larger 
       try {
         const page = await ctx.newPage();
         await page.goto(`${origin}/`);
-        await settle(page);
-        await seek(page, 1500); // every frame settled after its ease-in
-        const small = await page.evaluate((slugs) => {
-          const out: string[] = [];
-          let seen = 0;
-          for (const s of slugs) {
-            for (const t of document.querySelectorAll(`[data-scenario="${s}"] svg text`)) {
-              seen++;
-              const px = parseFloat(getComputedStyle(t).fontSize) * (t as SVGTextElement).getScreenCTM()!.a;
-              if (!(px >= 13)) out.push(`${s} "${t.textContent}": ${px.toFixed(2)}px`);
-            }
-          }
-          return seen ? out : ["no text found"];
-        }, PREMIUM);
+        const small: string[] = [];
+        for (const slug of PREMIUM) {
+          await pick(page, slug);
+          await seek(page, 1500); // every frame settled after its ease-in
+          small.push(
+            ...(await page.evaluate((s) => {
+              const out: string[] = [];
+              let seen = 0;
+              for (const t of document.querySelectorAll(`[data-scenario="${s}"] svg text`)) {
+                seen++;
+                const px = parseFloat(getComputedStyle(t).fontSize) * (t as SVGTextElement).getScreenCTM()!.a;
+                if (!(px >= 13)) out.push(`${s} "${t.textContent}": ${px.toFixed(2)}px`);
+              }
+              return seen ? out : [`${s}: no text found`];
+            }, slug)),
+          );
+        }
         expect(small).toEqual([]);
       } finally {
         await ctx.close();

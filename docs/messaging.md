@@ -112,11 +112,14 @@ ADE.", one card per scenario with its numbered steps, then the closing line (sto
 Closing line: "In every scenario, the human runs the connection: the people, the decisions and the yes. AI agents run
 the execution and the support."
 
-Each card plays as a small drawing, one frame per step, looping (story `docs/stories/W-scenario-animations.md`). Under
-it only the bold step titles show, the current one lit; the full sentences above stay in the page for screen readers
-and search. The drawings' labels are short plain words taken from the steps (hired, hub, persona, tests passed, a task,
-Done, review, briefing, three clients, alert, your bot, production, yes, journal, own agents, own keys, senior, junior,
-the why, approved), and name no one.
+Each scenario plays as a drawing, one frame per step, looping (story `docs/stories/W-scenario-animations.md`). The six
+are one stage (story `docs/stories/W-scenarios-stage.md`): under the legend "Pick who you are", a row of people, each
+a round drawing with the role under it (Jan, engineer; Alvin, CTO; Robert, consultant; Sam, on call; Ana, Ben, Chris,
+three engineers; Mia & Leo, mentor), Jan picked first; the picked person's drawing plays large, and beside it their
+steps as a numbered timeline, each bold title shown with its full sentence (as written above), the current step lit.
+The drawings' labels are short plain words taken from the steps (hired, hub, persona, tests passed, a task, Done,
+review, briefing, three clients, alert, your bot, production, yes, journal, own agents, own keys, senior, junior, the
+why, approved), and name no one.
 
 ## Positioning
 
