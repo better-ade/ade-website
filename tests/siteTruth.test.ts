@@ -179,6 +179,21 @@ describe("numbers and versions", () => {
     for (const [k, repo] of Object.entries(repos)) expect(data[k], k).toBe(readRepo(repo, "VERSION").trim());
   });
 
+  it("the pinned versions Get started shows (site/_data/pins.yml) are the ones ade-cli and ade-brain pin on main", () => {
+    const pins = Object.fromEntries(
+      [...readSite("_data/pins.yml").matchAll(/^([a-z_]+):\s*(\S+)\s*$/gm)].map((m) => [m[1], m[2]]),
+    );
+    const cli = readRepo("cli", "ade");
+    const def = (name: string) => new RegExp(`^${name}="\\$\\{${name}:-v([0-9.]+)\\}"`, "m").exec(cli)![1];
+    expect(pins.ade_method).toBe(def("ADE_METHOD_REF"));
+    expect(pins.ade_skills).toBe(def("ADE_SKILLS_REF"));
+    expect(pins.hub_method).toBe(/^method_pin\(\) \{ echo v([0-9.]+); \}/m.exec(readRepo("brain", "bin/lib.sh"))![1]);
+    const text = (page("get-started/index.html").body.textContent ?? "").replace(/\s+/g, " ");
+    expect(text).toContain(`ade-method v${pins.ade_method} into a project`);
+    expect(text).toContain(`a new hub runs ade-method v${pins.hub_method}`);
+    expect(text).toContain(`read ade-skills v${pins.ade_skills}`);
+  });
+
   it("Get started names the release the one-line installer installs today (ade-cli's VERSION on main)", () => {
     const version = readRepo("cli", "VERSION").trim();
     expect(page("get-started/index.html").body.textContent).toContain(`v${version}`);

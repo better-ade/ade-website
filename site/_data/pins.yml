@@ -1,0 +1,6 @@
+# The versions ade-cli's main installs (its ADE_METHOD_REF and ADE_SKILLS_REF defaults) and the ade-method tag
+# ade-brain's main pins for a new hub (method_pin in bin/lib.sh). Get started's "What ships with ADE" shows them;
+# tests/siteTruth.test.ts fails when one differs from the repo.
+ade_method: 2.2.0
+hub_method: 2.1.0
+ade_skills: 0.9.0
