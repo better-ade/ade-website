@@ -1,6 +1,6 @@
 # The release each repo's main names in its VERSION file today. The pages show these numbers;
 # tests/siteTruth.test.ts fails when one differs from the repo, so a new release is a one-line change here.
-ade_cli: 0.2.15
+ade_cli: 0.2.16
 ade_brain: 1.0.0
 ade_skills: 0.10.0
 ade_secrets: 0.3.1
