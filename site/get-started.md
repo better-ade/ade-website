@@ -32,7 +32,8 @@ ade setup
 
 - Installs **v{{ site.data.releases.ade_cli }}** of `ade` in `~/.local/bin`
   ([changelog]({{ site.cli_repo }}/blob/main/CHANGELOG.md)). `ade update` upgrades; `ade help` lists every command.
-- `ade setup` walks six checked steps: Claude Code, Claude, GitHub, your hub, your first project, Telegram. Rerun to resume.
+- `ade setup` walks seven checked steps: Claude Code, Claude, GitHub, your hub, your tools (optional), your first project,
+  Telegram (optional). Rerun to resume.
 - Your hub is one git repo per owner or client: context, memory, journal and the agents' rules. Your code stays in its own repos.
 - `ade hub new` asks for your persona, one of 13 personas, like <span data-persona>Staff Software Engineer</span>,
   <span data-persona>Tech Lead</span> or <span data-persona>Fractional CTO</span>, your client and your name.
@@ -60,7 +61,9 @@ ade connect clickup
   refuses commands that print a stored token.
 - Keys: a key goes in only at your own terminal, at a hidden prompt, in `ade setup` or `bin/keys set <name>`.
   Agents never see a value. Never in a chat, a file or a command line. `ade-secrets vault` refuses to run inside an
-  agent session.
+  agent session. If you paste a key into a prompt by mistake, the paste guard stops it and names the command that
+  stores it.
+- `ade keys`: sets missing keys at hidden prompts.
 - Memory: each project's state, decisions and journal load into every session, so work starts where it stopped.
 
 <div id="services">
@@ -85,6 +88,7 @@ ade project add ~/code/agency-site
 - `ade project add <path or git address>`: a repo becomes a project folder. `--scan ~/code` picks from a folder.
 - `ade work <folder>`: its focus agent, seeing only that folder and its repos, so you run several tasks at once.
 - `ade dispatch`: ready tickets to focus builders, as many as you allow.
+- `ade docs`: reads the hub's plans and specs, newest first.
 - `ade hub new` per customer, each running only the models it approved; `ade hub use <path>` switches.
 
 ## 4. Run it from the terminal or Telegram
@@ -96,8 +100,11 @@ ade ui
 - One tmux window on `ade`'s own server: tab 0 is the orchestrator, each `ade work` adds a tab.
 - <kbd>prefix</kbd> <kbd>f</kbd> fleet sidebar, <kbd>prefix</kbd> <kbd>e</kbd> file viewer, <kbd>prefix</kbd>
   <kbd>?</kbd> keys, <kbd>prefix</kbd> <kbd>d</kbd> detach (the agents keep running).
+- Or click: the bar's buttons `[+ agent]`, `[tickets]`, `[files]`, `[approve]`, `[dash]` and `[? keys]`; a right click
+  shows every action.
 - Away: your Telegram bot, locked to you ([ade-brain's README]({{ site.brain_repo }}#readme)), or
   `ade web --tailnet`, read-only on your phone. `ade shot --tg` sends a screenshot as proof.
+- One hub, one Telegram bot. The token goes in that hub's own key store.
 
 ## Then
 
@@ -113,5 +120,5 @@ ade ui
 
 ## What ships with ADE
 
-{% for repo in site.data.repos %}{% if repo.job %}- **[{{ repo.name }}]({{ site.org_url }}/{{ repo.name }})** ({% if repo.release %}v{{ site.data.releases[repo.release] }}{% else %}{{ repo.state }}{% endif %}): {{ repo.job }}
+{% for repo in site.data.repos %}{% if repo.job %}- **[{{ repo.name }}]({{ site.org_url }}/{{ repo.name }})**{% if repo.release %} (v{{ site.data.releases[repo.release] }}){% elsif repo.state %} ({{ repo.state }}){% endif %}: {{ repo.job }}
 {% endif %}{% endfor %}- **ADE Computer** (early preview): not public yet.
