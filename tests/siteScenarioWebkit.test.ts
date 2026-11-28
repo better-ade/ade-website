@@ -67,15 +67,38 @@ async function inked(decoder: Page, png: Buffer): Promise<number> {
 }
 
 /**
+ * Scroll `selector` to the middle of the view at once, then wait until nothing moves: the page's smooth scrolling
+ * is bypassed (behavior "instant"), the scroll position holds for two frames, and every CSS transition (the
+ * reveal-on-scroll fade) has ended. Playwright's scrollIntoViewIfNeeded waited for a "stable" box, which a smooth
+ * scroll or a reveal still in flight could outlast on a slow WebKit runner.
+ */
+async function centre(page: Page, selector: string) {
+  await page.evaluate((sel) => {
+    document.querySelector(sel)!.scrollIntoView({ block: "center", inline: "center", behavior: "instant" });
+  }, selector);
+  await page.waitForFunction(
+    () =>
+      new Promise<boolean>((done) => {
+        const at = () => `${scrollX},${scrollY}`;
+        const before = at();
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() =>
+            done(at() === before && !document.getAnimations().some((a) => a instanceof CSSTransition)),
+          ),
+        );
+      }),
+  );
+}
+
+/**
  * Story W-scenarios-stage: one person's panel shows at a time, so each scene is checked with its person picked
  * (their label clicked) and their panel scrolled into view (so the page's reveal-on-scroll shows it).
  */
 async function pick(page: Page, slug: string) {
   const label = page.locator(`#scenarios label[for="scn-who-${slug}"]`);
-  await label.scrollIntoViewIfNeeded();
+  await centre(page, `#scenarios label[for="scn-who-${slug}"]`);
   await label.click();
-  const card = page.locator(`[data-scenario="${slug}"]`);
-  await card.scrollIntoViewIfNeeded();
+  await centre(page, `[data-scenario="${slug}"]`);
   await page.waitForFunction(
     (s) => getComputedStyle(document.querySelector(`[data-scenario="${s}"]`)!).opacity === "1",
     slug,

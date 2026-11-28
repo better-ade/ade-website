@@ -57,16 +57,40 @@ async function open(browser: string, o: Opts = {}): Promise<{ ctx: BrowserContex
   ctx.setDefaultTimeout(8000);
   const page = await ctx.newPage();
   await page.goto(`${origin}/`);
-  await page.locator("#scenarios fieldset").scrollIntoViewIfNeeded();
+  await centre(page, "#scenarios fieldset");
   return { ctx, page };
+}
+
+/**
+ * Scroll `selector` to the middle of the view at once, then wait until nothing moves: the page's smooth scrolling
+ * is bypassed (behavior "instant"), the scroll position holds for two frames, and every CSS transition (the
+ * reveal-on-scroll fade) has ended. Playwright's scrollIntoViewIfNeeded waited for a "stable" box, which a smooth
+ * scroll or a reveal still in flight could outlast on a slow WebKit runner.
+ */
+async function centre(page: Page, selector: string) {
+  await page.evaluate((sel) => {
+    document.querySelector(sel)!.scrollIntoView({ block: "center", inline: "center", behavior: "instant" });
+  }, selector);
+  await page.waitForFunction(
+    () =>
+      new Promise<boolean>((done) => {
+        const at = () => `${scrollX},${scrollY}`;
+        const before = at();
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() =>
+            done(at() === before && !document.getAnimations().some((a) => a instanceof CSSTransition)),
+          ),
+        );
+      }),
+  );
 }
 
 /** Pick a person by clicking their label (scrolled into view, as a visitor would). */
 async function pick(page: Page, slug: string) {
   const label = page.locator(`#scenarios label[for="scn-who-${slug}"]`);
-  await label.scrollIntoViewIfNeeded();
+  await centre(page, `#scenarios label[for="scn-who-${slug}"]`);
   await label.click();
-  await page.locator(`#scenarios [data-scenario="${slug}"]`).scrollIntoViewIfNeeded();
+  await centre(page, `#scenarios [data-scenario="${slug}"]`);
 }
 
 /** Pause every scene animation at `ms`. */
