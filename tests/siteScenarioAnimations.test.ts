@@ -76,23 +76,24 @@ describe("anim_scenes", () => {
 });
 
 describe("anim_titles", () => {
-  it("only the bold step titles show; each full approved sentence stays in the card, visually hidden", () => {
+  it("each step is its bold title then its full approved sentence, both shown (story W-scenarios-stage)", () => {
     for (const c of cards()) {
       for (const li of c.querySelectorAll("ol > li")) {
         const kids = [...li.children];
         expect(kids.map((k) => k.tagName.toLowerCase()), flat(li)).toEqual(["strong", "span"]);
         expect(kids[1].classList.contains("scn-say"), flat(li)).toBe(true);
         expect(flat(kids[1]).length, flat(li)).toBeGreaterThan(10);
-        // Nothing but the title and the hidden sentence: no loose text that would show.
+        // Nothing but the title and the sentence: no loose text outside them.
         const loose = [...li.childNodes].filter((n) => n.nodeType === Node.TEXT_NODE && n.textContent!.trim());
         expect(loose, flat(li)).toEqual([]);
       }
     }
+    // The sentence is no longer visually hidden: no clip, no 1px box, not taken out of the flow.
     const say = /\.scn-say \{([^}]*)\}/.exec(css)?.[1] ?? "";
-    expect(say).toMatch(/position: absolute/);
-    expect(say).toMatch(/width: 1px/);
-    expect(say).toMatch(/clip-path: inset\(50%\)/);
+    expect(say).not.toBe("");
+    expect(say).not.toMatch(/position: absolute|width: 1px|clip-path|clip:|overflow: hidden/);
     expect(say).not.toMatch(/display: none|visibility: hidden/);
+    expect(css).not.toMatch(/\.scn-say[^{]*\{[^}]*(clip-path|display: none|visibility: hidden)/);
   });
 
   it("the current title is marked as its frame plays: the same timing and delay as its frame", () => {
