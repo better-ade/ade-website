@@ -148,7 +148,7 @@ describe("anim_webkit: each scenario scene paints in WebKit and Chromium", () =>
 });
 
 /** Story W-scenario-scenes-premium: no text in a premium scene renders under 13px at phone width. */
-const PREMIUM = ["jan"];
+const PREMIUM = SLUGS;
 describe("premium_text: every text in a premium scene renders at 13px or larger at 390px wide", () => {
   for (const browser of ["chromium", "webkit"]) {
     it(browser, async () => {

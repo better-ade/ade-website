@@ -1491,7 +1491,7 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 .scn-scene .c1 { --c: var(--orange); }
 .scn-scene .c3 { --c: color-mix(in srgb, var(--orange) 50%, var(--violet)); }
 .scn-scene .c5 { --c: var(--violet); }
-/* The premium system (story W-scenario-scenes-premium; Jan's scene is the sample, class scn-p). Depth from a
+/* The premium system (story W-scenario-scenes-premium, class scn-p on all six scenes). Depth from a
    layered stage (gradient, dot grid, a soft accent glow), cards and devices with a soft shadow and a 1px highlight;
    one stroke style (1.5 outlines, 2 glyphs, round ends); the site's palette, fonts and both themes. Gradients, the
    grid and the shadow live in the scene's <defs> (fill and filter attributes, no style attribute). Text is 14 units
@@ -1551,6 +1551,38 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 .p-av { fill: color-mix(in srgb, var(--c) 14%, var(--p-c1)); stroke: var(--c); stroke-width: 1.5; }
 .p-avg { stroke: var(--c); }
 .p-in { transform-box: fill-box; transform-origin: 50% 60%; }
+.p-eye { fill: none; stroke: var(--c, var(--orange)); stroke-width: 4; stroke-linecap: round; }
+.p-key { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.p-pill { fill: color-mix(in srgb, var(--orange) 14%, var(--p-c1)); stroke: color-mix(in srgb, var(--orange) 45%, transparent); }
+.p-cl, .p-co, .p-tl { fill: none; stroke: rgba(255, 255, 255, 0.26); stroke-width: 4; stroke-linecap: round; }
+.p-co { stroke: rgba(255, 154, 87, 0.75); } .p-tl { stroke-width: 3; stroke: rgba(255, 255, 255, 0.22); }
+.p-row { fill: var(--panel-2); stroke: var(--line-2); }
+.p-ic { fill: color-mix(in srgb, var(--orange) 22%, var(--p-c1)); stroke: var(--orange); stroke-width: 1.5; }
+.p-led { fill: var(--agent-green); }
+.p-pl {
+  fill: none; stroke: var(--c, var(--agent-green)); stroke-width: 1.5; stroke-opacity: 0;
+  transform-box: fill-box; transform-origin: center;
+}
+.p-pl.p-plr { stroke: #ff7b72; }
+.p-od { fill: var(--orange); } .p-vd { fill: var(--violet); } .p-nd { fill: var(--text-3); }
+.p-wall { fill: none; stroke: var(--line-3); stroke-width: 3; stroke-linecap: round; }
+.p-lk { fill: var(--text-3); }
+.p-lks, .p-lkr, .p-lkg { fill: none; stroke: var(--text-3); stroke-width: 2; stroke-linecap: round; }
+.p-lkr { stroke: var(--agent-red); } .p-lkg { stroke: var(--agent-green); }
+.p-trk { fill: var(--panel-2); stroke: var(--line-2); }
+.p-pf { fill: var(--orange); transform-box: fill-box; transform-origin: 0 50%; }
+.p-gate { fill: var(--agent-green); }
+.p-tk { fill: none; stroke: #ffffff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.p-dl { fill: none; stroke: var(--line-3); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 4 5; }
+.p-star { fill: #c9cbd1; } .p-moon { fill: #f5d58a; }
+.p-sc2 { fill: #1d1e24; stroke: rgba(255, 123, 114, 0.5); }
+.p-rd { fill: #ff7b72; }
+.p-ring { fill: none; stroke: #ff7b72; stroke-width: 2; stroke-linecap: round; }
+.p-btn { fill: var(--panel); stroke: var(--agent-green); stroke-width: 1.5; }
+.p-okr { fill: none; stroke: var(--agent-green); stroke-width: 2; }
+.p-lb { fill: none; stroke: var(--line-3); stroke-width: 4; stroke-linecap: round; }
+.p-sv { stroke: var(--violet); }
+.p-hd { stroke-width: 3.5; }
 .scn-p text { font: 600 15px var(--sans); fill: var(--text-2); text-anchor: middle; }
 .scn-p .p-l { text-anchor: start; }
 .scn-p .p-h { font: 700 19px var(--sans); fill: var(--text); }
@@ -1562,6 +1594,8 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 .scn-p .p-mt { font: 500 14px var(--mono); fill: #d6d7dc; text-anchor: start; }
 .scn-p .p-dim { fill: #8a8a94; } .scn-p .p-gt { fill: #3fb950; } .scn-p .p-pr { fill: #ff9a57; }
 .scn-p .p-cur { fill: var(--orange); font-weight: 400; }
+.scn-p .p-pt { font: 700 14px var(--sans); fill: var(--accent-text); }
+.scn-p .p-rt { font: 600 16px var(--mono); fill: #ff7b72; }
 /* In the strip, a frame shows how it ends. */
 .scn-e { opacity: 0; }
 .scn-steps { display: flex; flex-wrap: wrap; gap: 6px 8px; padding: 0; list-style: none; counter-reset: scn; }
@@ -1603,9 +1637,17 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
   .scn-n5 .scn-f4, .scn-n5 li:nth-child(4) { animation-delay: -6s; }
   .scn-n5 .scn-f5, .scn-n5 li:nth-child(5) { animation-delay: -3s; }
   /* Premium (scn-p): each frame eases in (a slide and a scale under the fade) and has one live detail. */
-  .scn-p.scn-scene .p-in { animation: scn-pin5 15s linear infinite; animation-delay: inherit; }
-  .scn-p .p-in .p-ck { animation: scn-pck5 15s linear infinite; animation-delay: inherit; }
-  .scn-p .scn-f3 .p-ck, .scn-p .scn-f4 .p-ck { animation-name: scn-pck5l; }
+  .scn-n3 .p-in { animation: scn-pin3 9s linear infinite; animation-delay: inherit; }
+  .scn-n4 .p-in { animation: scn-pin4 12s linear infinite; animation-delay: inherit; }
+  .scn-n5 .p-in { animation: scn-pin5 15s linear infinite; animation-delay: inherit; }
+  .scn-n3 .p-in .p-ck { animation: scn-pck3 9s linear infinite; animation-delay: inherit; }
+  .scn-n4 .p-in .p-ck { animation: scn-pck4 12s linear infinite; animation-delay: inherit; }
+  .scn-n5 .p-in .p-ck { animation: scn-pck5 15s linear infinite; animation-delay: inherit; }
+  .scn-n3 .scn-l .p-ck { animation-name: scn-pck3l; }
+  .scn-n4 .scn-l .p-ck { animation-name: scn-pck4l; }
+  .scn-n5 .scn-l .p-ck { animation-name: scn-pck5l; }
+  .scn-n4 .p-pf { animation: scn-pbar4 12s linear infinite; animation-delay: inherit; }
+  .scn-p .p-pl { animation: scn-ppulse 1.6s ease-out infinite; }
   .scn-p .p-cur { animation: scn-pblink 1.1s steps(1) infinite; }
   .scn-p .p-spin { animation: scn-pspin 0.9s linear infinite; }
   .scn-p .p-dot { animation: scn-pdot 1.2s ease-in-out infinite; }
@@ -1625,16 +1667,30 @@ a.tag-note:hover { color: var(--text); border-color: var(--text-3); }
 @keyframes scn-e5 { 0%, 9% { opacity: 1; } 10%, 100% { opacity: 0; } }
 @keyframes scn-x5 { 0%, 9% { opacity: 0; } 10%, 100% { opacity: 1; } }
 @keyframes scn-l5 { 0%, 19.2% { color: var(--accent-text); border-color: var(--orange); } 20%, 100% { color: var(--text-3); border-color: var(--line); } }
+@keyframes scn-pin3 {
+  0% { transform: translate(0, 10px) scale(0.96); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  8.89%, 100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes scn-pin4 {
+  0% { transform: translate(0, 10px) scale(0.96); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  6.67%, 100% { transform: translate(0, 0) scale(1); }
+}
 @keyframes scn-pin5 {
   0% { transform: translate(0, 10px) scale(0.96); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
   5.33%, 100% { transform: translate(0, 0) scale(1); }
 }
+@keyframes scn-pck3 { 0%, 6.67% { stroke-dashoffset: 14; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 13.33%, 100% { stroke-dashoffset: 0; } }
+@keyframes scn-pck3l { 0%, 16.67% { stroke-dashoffset: 14; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 21.67%, 100% { stroke-dashoffset: 0; } }
+@keyframes scn-pck4 { 0%, 5% { stroke-dashoffset: 14; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 10%, 100% { stroke-dashoffset: 0; } }
+@keyframes scn-pck4l { 0%, 12.5% { stroke-dashoffset: 14; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 16.25%, 100% { stroke-dashoffset: 0; } }
 @keyframes scn-pck5 { 0%, 4% { stroke-dashoffset: 14; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 8%, 100% { stroke-dashoffset: 0; } }
 @keyframes scn-pck5l { 0%, 10% { stroke-dashoffset: 14; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 13%, 100% { stroke-dashoffset: 0; } }
 @keyframes scn-pblink { 0% { fill-opacity: 1; } 50% { fill-opacity: 0; } }
 @keyframes scn-pspin { to { transform: rotate(360deg); } }
 @keyframes scn-pdot { 0%, 60%, 100% { fill-opacity: 0.35; } 30% { fill-opacity: 1; } }
 @keyframes scn-pflow { to { stroke-dashoffset: -8; } }
+@keyframes scn-pbar4 { 0%, 2% { transform: scaleX(0.08); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); } 20%, 100% { transform: scaleX(1); } }
+@keyframes scn-ppulse { 0% { transform: scale(1); stroke-opacity: 0.7; } 100% { transform: scale(2.6); stroke-opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .scn * { animation: none !important; }
 }

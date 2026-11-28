@@ -162,15 +162,13 @@ describe("anim_csp", () => {
     expect(changed.trim()).toBe("");
   });
 
-  it("each scene stays under 8 KB of SVG (a premium scene: premium_budget)", () => {
-    for (const c of cards().filter((c) => !PREMIUM.includes(slug(c)))) {
-      expect(scene(c).outerHTML.length, slug(c)).toBeLessThan(8 * 1024);
-    }
+  it("every scene is a premium scene, held to the premium budget (premium_budget)", () => {
+    expect(cards().map(slug).filter((s) => !PREMIUM.includes(s))).toEqual([]);
   });
 });
 
-/** Story W-scenario-scenes-premium: the scenes rebuilt to the premium system (Jan's is the sample). */
-const PREMIUM = ["jan"];
+/** Story W-scenario-scenes-premium: the scenes rebuilt to the premium system (Jan's was the sample; all six now). */
+const PREMIUM = ["jan", "alvin", "robert", "sam", "team", "mentor"];
 
 describe("premium_budget", () => {
   it("each premium scene stays under 16 KB of SVG, drawn only with shapes and text: no raster, script or style", () => {
@@ -193,8 +191,18 @@ describe("premium_budget", () => {
 
   it("premium motion is CSS only and stops with reduced motion: the strip stays", () => {
     const motion = media("prefers-reduced-motion: no-preference", ".scn-f");
-    expect(motion).toMatch(/\.scn-p[^{]*\.p-in \{ animation: scn-pin5 15s linear infinite; animation-delay: inherit; \}/);
-    for (const k of ["scn-pin5", "scn-pck5", "scn-pblink", "scn-pspin", "scn-pdot", "scn-pflow"]) expect(keyframes(k), k).toBe(true);
+    // Each frame eases in on its card's loop, and a check draws itself as its frame (or its end state) arrives.
+    for (const n of [3, 4, 5]) {
+      const loop = `${n * FRAME}s linear infinite; animation-delay: inherit; }`;
+      expect(motion).toContain(`.scn-n${n} .p-in { animation: scn-pin${n} ${loop}`);
+      expect(motion).toContain(`.scn-n${n} .p-in .p-ck { animation: scn-pck${n} ${loop}`);
+      expect(motion).toContain(`.scn-n${n} .scn-l .p-ck { animation-name: scn-pck${n}l; }`);
+      for (const k of [`scn-pin${n}`, `scn-pck${n}`, `scn-pck${n}l`]) expect(keyframes(k), k).toBe(true);
+    }
+    for (const k of ["scn-pblink", "scn-pspin", "scn-pdot", "scn-pflow", "scn-pbar4", "scn-ppulse"]) expect(keyframes(k), k).toBe(true);
+    // Every premium scene has at least one live detail.
+    const live = ".p-ck, .p-cur, .p-spin, .p-dot, .p-fl, .p-pf, .p-pl";
+    for (const c of cards()) expect(scene(c).querySelectorAll(live).length, slug(c)).toBeGreaterThan(0);
     // Outside the motion block, nothing in a premium scene animates or hides a frame.
     const outside = css.replace(motion, "");
     expect(outside).not.toMatch(/\.(scn-p|p-)[^{]*\{[^}]*animation: (?!none)/);
