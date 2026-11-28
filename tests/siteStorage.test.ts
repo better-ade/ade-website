@@ -54,4 +54,32 @@ describe("the home page's secure storage section", () => {
     }
     expect(text).toMatch(/hidden prompt/);
   });
+
+  it("paste_line: the list has the paste-guard line, after How it is shared", () => {
+    const items = [...sec!.querySelectorAll("ul.storage-list li")].map((li) => (li.textContent ?? "").replace(/\s+/g, " "));
+    const shared = items.findIndex((t) => t.startsWith("How it is shared:"));
+    const paste = items.findIndex((t) => t.startsWith("If you paste one by mistake:"));
+    expect(shared).toBeGreaterThanOrEqual(0);
+    expect(paste).toBe(shared + 1);
+    expect(items[paste]).toBe(
+      "If you paste one by mistake: the paste guard stops a message to Claude that holds a key, before it is sent, and names the command that stores it instead. It knows the common key shapes (Anthropic, OpenAI, GitHub, GitLab, Slack, AWS, Google, Telegram, private keys).",
+    );
+  });
+
+  it("paste_true: every key kind the line names is in ade-brain's paste-guard KEYS, and no claim that the key never reaches local files", () => {
+    const li = [...sec!.querySelectorAll("ul.storage-list li")].find((l) => (l.textContent ?? "").startsWith("If you paste one by mistake:"));
+    expect(li).toBeDefined();
+    const line = (li!.textContent ?? "").replace(/\s+/g, " ");
+    const kinds = /key shapes \(([^)]*)\)/.exec(line)![1].split(", ");
+    const guard = readRepo("brain", "bin/paste-guard");
+    const keys = guard.slice(guard.indexOf("KEYS = ["), guard.indexOf("]\n", guard.indexOf("KEYS = [")));
+    const entries = [...keys.matchAll(/^\s*\("([^"]+)"/gm)].map((m) => m[1].toLowerCase());
+    expect(kinds.length).toBe(9);
+    for (const k of kinds) {
+      const name = k.toLowerCase().replace(/s$/, "");
+      expect(entries.some((e) => e.includes(name)), k).toBe(true);
+    }
+    expect(guard).toMatch(/UserPromptSubmit/);
+    expect(line).not.toMatch(/never (reach|reaches|written|stored)|not (saved|stored|written)|no local file/i);
+  });
 });
