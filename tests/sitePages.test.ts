@@ -250,3 +250,46 @@ describe("what the pages never say", () => {
     }
   });
 });
+
+describe("the home page has no What works today section (story W-no-today)", () => {
+  it("no_today_section: no #today section, no kicker, no Merged and working heading", () => {
+    const home = PAGES.find((p) => p.path === "index.html")!.doc;
+    expect(home.querySelector("#today")).toBeNull();
+    const text = (home.body.textContent ?? "").replace(/\s+/g, " ");
+    expect(text).not.toMatch(/What works today/);
+    expect(text).not.toMatch(/Merged and working\./);
+  });
+
+  it("no_today_link: no page links to /#today, and the footer's link is gone", () => {
+    for (const { path, doc } of PAGES) {
+      for (const a of doc.querySelectorAll("a[href]")) expect(a.getAttribute("href"), path).not.toMatch(/#today$/);
+      expect(doc.body.textContent ?? "", path).not.toMatch(/What works today/);
+    }
+  });
+});
+
+describe("the footer note is only the licence line (story W-no-today)", () => {
+  it("no_built_on: no footer says what ADE is built on", () => {
+    for (const { path, doc } of PAGES) {
+      const foot = doc.querySelector("footer")?.textContent ?? "";
+      expect(foot, path).not.toMatch(/Built on|BMAD/);
+    }
+  });
+
+  it("from_ardata: the footer has exactly the sentence From the Engineering Practices at AR Data Intelligence Solutions Inc.", () => {
+    for (const { path, doc } of PAGES) {
+      const el = doc.querySelector("footer .built-on");
+      expect(el?.textContent, path).toBe("From the Engineering Practices at AR Data Intelligence Solutions Inc.");
+    }
+  });
+
+  it("no_coming_note: the footer carries no note about what is not merged yet", () => {
+    for (const { path, doc } of PAGES) {
+      const foot = doc.querySelector("footer");
+      if (!foot) continue;
+      expect(foot.textContent ?? "", path).not.toMatch(/not merged yet/);
+      expect(foot.querySelector(".coming"), path).toBeNull();
+      expect(foot.querySelector(".footer-note")?.textContent ?? "", path).toContain("open source, MIT licensed");
+    }
+  });
+});

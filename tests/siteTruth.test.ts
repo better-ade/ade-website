@@ -263,10 +263,11 @@ describe("not merged yet is labelled Coming", () => {
     expect(home.querySelector("#coming")).toBeNull();
     expect((home.body.textContent ?? "")).not.toMatch(/Not merged yet, and marked as such/);
     for (const { path, doc } of PAGES) for (const a of doc.querySelectorAll("a[href]")) expect(a.getAttribute("href"), path).not.toMatch(/#coming$/);
-    // The four the site keeps under Coming are each named on the home page, in a block that carries the label.
+    // Each one the site keeps under Coming is named somewhere on the site (the home page no longer lists them),
+    // and wherever it is named, the block carries the label.
     for (const name of NEXT) {
       const re = NOT_MERGED.find(([n]) => n === name)![1];
-      const said = [...home.querySelectorAll(BLOCKS)].filter((el) => !el.querySelector("p, li, td") && re.test(el.textContent ?? ""));
+      const said = PAGES.flatMap(({ doc }) => [...doc.querySelectorAll(BLOCKS)].filter((el) => !el.querySelector("p, li, td") && re.test(el.textContent ?? "")));
       expect(said.length, name).toBeGreaterThan(0);
       for (const el of said) expect(labelledComing(el), name).toBe(true);
     }
@@ -290,8 +291,8 @@ describe("what comes later is one quiet line, not a list of labels", () => {
     expect(elsewhere).toEqual([]);
   });
 
-  it("the home page and the paper each have one Later line, which names every item and carries no label", () => {
-    for (const path of ["index.html", "paper/index.html"]) {
+  it("the paper has one Later line, which names every item and carries no label; the home page has none", () => {
+    for (const path of ["paper/index.html"]) {
       const lines = [...page(path).querySelectorAll(".later")];
       expect(lines.length, path).toBe(1);
       const text = lines[0].textContent ?? "";
@@ -301,8 +302,8 @@ describe("what comes later is one quiet line, not a list of labels", () => {
       // Nothing that is next is in it: those keep their own label where they are named.
       for (const [name, re] of NOT_MERGED) expect(re.test(text), `${path}: ${name}`).toBe(false);
     }
-    // On the home page it sits in What works today, not in a section of its own.
-    expect(page("index.html").querySelector("#today .later")).not.toBeNull();
+    // The home page no longer carries a Later line (story W-no-today).
+    expect(page("index.html").querySelector(".later")).toBeNull();
     expect(page("get-started/index.html").querySelector(".later")).toBeNull();
   });
 });

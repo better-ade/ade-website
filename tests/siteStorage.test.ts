@@ -11,13 +11,13 @@ const sec = home.querySelector("#storage");
 const text = ((sec?.textContent) ?? "").replace(/\s+/g, " ");
 
 describe("the home page's secure storage section", () => {
-  it("is a section of its own, with its kicker and heading, between How it works and What works today", () => {
+  it("is a section of its own, with its kicker and heading, right after How it works", () => {
     expect(sec).not.toBeNull();
     expect(sec!.querySelector(".kicker")!.textContent).toBe("Secure storage");
     expect(sec!.querySelector("h2")!.textContent).toBe("Keys stay in secure storage.");
     const ids = [...home.querySelectorAll("main section[id]")].map((s) => s.id);
     expect(ids.indexOf("storage")).toBe(ids.indexOf("how-it-works") + 1);
-    expect(ids.indexOf("today")).toBe(ids.indexOf("storage") + 1);
+    expect(ids.indexOf("built-with")).toBe(ids.indexOf("storage") + 1);
   });
 
   it("keeps the sections alternating plain and tinted", () => {
