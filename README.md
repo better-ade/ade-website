@@ -69,6 +69,9 @@ in. This repo is the site that describes them.
   - `siteCsp`, `siteThemeContrast`, `fetchInstallers`: the content security policy on
     every page (scripts connect to nothing but the site), the light/dark contrast rule,
     and the installer copy script.
+  - `siteDownloads`: the download count. The script against a fake API (two pages, an error, an empty list), and
+    the home page and Get started built from a copy of the site with each data file: the line rounded down to the
+    hundred, or left out; the policy unchanged; the wording as `docs/messaging.md` gives it.
 - `scripts/paper-page.py <folder>`: makes `site/paper.md` from the paper's source
   (`ade-technical-paper.md`), and copies its four figures and its PDF
   (`ade-whitepaper.pdf`) into `site/assets/`. The text is copied as it is; the few
@@ -78,6 +81,10 @@ in. This repo is the site that describes them.
   from ade-terminal (the latest release tag when it has both, else `main`) into `site/`,
   so `curl -fsSL https://ade.ardata.tech/install.sh | bash` keeps working. The
   installers are owned and tested in ade-terminal and are not committed here.
+- `scripts/fetch-downloads.sh`: writes `site/_data/downloads.json`, the release asset downloads of ade-terminal and
+  ade-cli (every page of each repo's releases), for the one line under the hero's buttons and on Get started. Run
+  by the Pages build only; on any failure it removes the file and exits 0, and the pages leave the line out. Not
+  committed here.
 - `.github/workflows/pages.yml`: builds and deploys with GitHub Pages (source:
   GitHub Actions) on push to `main`, daily, and on demand.
 - `.github/workflows/ci.yml`: the verification command below, on every PR, push to

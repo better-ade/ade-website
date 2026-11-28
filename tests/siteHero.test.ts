@@ -48,8 +48,9 @@ describe("the hero is two columns on a wide screen", () => {
     expect(copy.querySelectorAll("a.btn").length).toBe(2);
     expect(copy.querySelectorAll(".hero-meta").length).toBe(1);
     expect(copy.querySelector(".hero-kicker")).not.toBeNull();
-    // One line saying what ADE is, then the install command; nothing more in words.
-    expect(copy.querySelectorAll("p:not(.hero-kicker):not(.hero-meta)").length).toBe(0);
+    // One line saying what ADE is, then the install command; nothing more in words but the download count, when the
+    // build has one (tests/siteDownloads.test.ts).
+    expect(copy.querySelectorAll("p:not(.hero-kicker):not(.hero-meta):not(.downloads)").length).toBe(0);
     expect((copy.querySelector(".hero-install code")!.textContent ?? "").trim()).toMatch(/^curl -fsSL \S+\/install\.sh \| bash$/);
     expect(grid.children[1].querySelector("svg.hx")).not.toBeNull();
   });
