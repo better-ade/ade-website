@@ -52,6 +52,48 @@ at what you do." Five steps, from ade-brain (story `docs/stories/W-persona-over-
 Closing line: "One hub per client, so clients never mix. Over weeks, the persona knows the client the way a senior
 engineer does." Then a link to ade-brain.
 
+## Scenarios (the home page's "Scenarios" section)
+
+Owner, 2026-11-28. Right after "The brain" and before the ADE Computer, kicker "Scenarios", headline "How people use
+ADE.", one card per scenario with its numbered steps, then the closing line (story `docs/stories/W-scenarios.md`):
+
+**Jan, a new software engineer**
+1. **Hired.** Jan joins a company as a software engineer.
+2. **Sets up a copilot.** `ade hub new` with the staff software engineer persona: Jan's own hub, private, with the
+   company's projects added by `ade project add`.
+3. **Uses it daily.** A morning briefing, a focus agent per ticket, the tests as the judge of Done. Over weeks it learns
+   how Jan works, with Jan's yes.
+4. **Runs tasks from the phone.** Away from the desk, Jan sends a task to his own Telegram bot and gets "Done" back with
+   proof: the tests passed, and a picture of the agent's screen.
+5. **Delivers value.** Tickets ship reviewed and tested, so Jan gives his company and its customers more working
+   software, sooner.
+
+**Alvin, a new hands-on CTO**
+1. **Takes the job.** Alvin joins a startup as its CTO and still writes code.
+2. **Sets up a hub.** `ade hub new` with the fractional CTO persona: the company's projects, its architecture decisions
+   and the team's rules in one private hub.
+3. **Leads and builds.** Alvin writes the stories and approves them; `ade dispatch` sends them to the projects' agents,
+   and each change is reviewed by its risk before it counts.
+4. **Stays on top of it.** The morning briefing says what is open, waiting and stale across every project, and
+   `bin/brain search` finds any past decision in seconds.
+
+**Robert, a one-person software consultancy**
+1. **Works alone.** Robert sells software engineering and consulting to several clients, with no team behind him.
+2. **One hub per client.** `ade hub new` once per client, so their code, rules and secrets never mix.
+3. **Gets a team's process.** Agents plan, build and review each client's work; nothing counts as done until the tests
+   pass, so Robert ships what a small team would.
+4. **Runs it from anywhere.** `ade dispatch` sends tasks to every client's projects at once; Robert follows them on
+   Telegram and approves at the terminal.
+
+**Sam, on call for the platform**
+1. **Gets paged.** Something is wrong in production at night.
+2. **Asks in plain words.** From the phone, on Sam's own Telegram bot: "check why the API is slow".
+3. **Stays in control.** The DevOps/SRE persona investigates and drafts the fix; nothing touches production without
+   Sam's yes.
+
+Closing line: "In every scenario, the human runs the connection: the people, the decisions and the yes. AI agents run
+the execution and the support."
+
 ## Positioning
 
 For software teams and product managers who want AI to ship real work, ADE is the AI delivery team that turns tickets
@@ -269,6 +311,6 @@ the ADE Computer, How it works or What works today.
 
 - **Truth.** Every claim matches what is merged on `main` in the better-ade repos today. Anything not merged yet is
   labelled **Coming**. The site's tests hold the pages to the repos where they can (see `tests/`).
-- No hosted service, subscription or pricing. No person or customer names. No AI attribution.
+- No hosted service, subscription or pricing. No customer names or full names; scenarios use first names only (Jan, Alvin, Robert, Sam). No AI attribution.
 - GitHub links go only to better-ade's public repos (the Repos page's list). Never a private repo.
 - **Keys.** The site never shows a key, and never tells anyone to paste one into a chat, a file or a command line.
